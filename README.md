@@ -1,6 +1,6 @@
 # Saber.js
 
-[![NPM version](https://img.shields.io/npm/v/saber.svg?style=flat)](https://npmjs.com/package/saber) [![NPM downloads](https://img.shields.io/npm/dm/saber.svg?style=flat)](https://npmjs.com/package/saber) [![CircleCI](https://circleci.com/gh/egoist/saber/tree/master.svg?style=shield)](https://circleci.com/gh/egoist/saber/tree/master)  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
+[![NPM version](https://img.shields.io/npm/v/saber.svg?style=flat)](https://npmjs.com/package/saber) [![NPM downloads](https://img.shields.io/npm/dm/saber.svg?style=flat)](https://npmjs.com/package/saber) [![CircleCI](https://circleci.com/gh/egoist/saber/tree/master.svg?style=shield&circle-token=e074bbeaf4b60d0519ece6a175cb91e45b68b51b)](https://circleci.com/gh/egoist/saber/tree/master)  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
 
 __Saber.js is a minimalistic framework for building static website using Vue.js.__
 
