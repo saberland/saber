@@ -10,7 +10,7 @@
   "bin": "bin/cli.js",
   "files": [
     "bin",
-    "cli",
+    "lib",
     "webpack.config.js"
   ],
   "scripts": {
