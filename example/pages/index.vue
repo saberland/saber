@@ -15,7 +15,7 @@ export default {
 <saber>
 const axios = require('axios')
 
-module.exports = {
+export default {
   async data() {
     const { data: post } = await axios
       .get('https://jsonplaceholder.typicode.com/posts/1')
