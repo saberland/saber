@@ -19,7 +19,8 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
   - [Transforms](#transforms)
   - [Serve static files](#serve-static-files)
   - [Fetching data](#fetching-data)
-  - [Dynamic route](#dynamic-route)
+  - [Routing](#routing)
+      - [Dynamic route](#dynamic-route)
   - [Manipulating `<head>`](#manipulating-head)
   - [App-level enhancement](#app-level-enhancement)
   - [Plugins](#plugins)
@@ -127,7 +128,13 @@ The `data` method exported from `<saber>` block should return an object or a Pro
 
 For syntax higlighting of the custom block, [`vetur`](https://vuejs.github.io/vetur/highlighting.html) comes to the rescue if you're using VSCode. 
 
-### Dynamic route
+### Routing
+
+`.vue` components inside `./pages` directory will be automatically loaded as route components, e.g. `./pages/index.vue` is used for `/`, `./pages/user/[user].vue` is used for `/user/:user`.
+
+Note that all files and directories starting with an underscore `_` will be ignored.
+
+##### Dynamic route
 
 It's common to use route like `/user/:id` to map routes with the given pattern to the same component, URLs like `/user/foo` and `/user/bar` will both map to the same route.
 
