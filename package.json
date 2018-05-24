@@ -39,6 +39,7 @@
     "file-loader": "^1.1.11",
     "fs-extra": "^6.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "http-proxy-middleware": "^0.18.0",
     "joycon": "^1.0.3",
     "object-assign": "^4.1.1",
     "path-to-regexp": "^2.2.1",

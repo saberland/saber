@@ -17,6 +17,7 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
 - [How to use](#how-to-use)
   - [Setup](#setup)
   - [Transforms](#transforms)
+    - [Customize webpack config](#customize-webpack-config)
   - [Serve static files](#serve-static-files)
   - [Fetching data](#fetching-data)
   - [Routing](#routing)
@@ -24,6 +25,9 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
     - [Nested routes](#nested-routes)
   - [Manipulating `<head>`](#manipulating-head)
   - [App-level enhancement](#app-level-enhancement)
+  - [Development server](#development-server)
+    - [Use proxy](#use-proxy)
+    - [Customize dev server](#customize-dev-server)
   - [Plugins](#plugins)
     - [Use a plugin](#use-a-plugin)
     - [Write a plugin](#write-a-plugin)
@@ -93,6 +97,21 @@ Most common transforms and transpilers are supported out-of-the-box.
 - `babel`: Enabled by default with a sensible [default preset](./lib/babel/preset.js), you can override it by populating a babel config file at project root.
 - `sass` `scss` `less` `stylus`: Supported by default but you need to install relevant dependencies, e.g. for `sass` you need to install `node-sass` and `sass-loader` in your project.
 - Images and fonts.
+
+#### Customize webpack config
+
+You can always customize webpack config if you want. Inside the `saber.config.js`, use the `chainWebpack` option:
+
+```js
+module.exports = {
+  chainWebpack(config, { type }) {
+    // config: webpack-chain instance
+    // type: either `client` or `server`
+  }
+}
+```
+
+Check out the docs for [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain).
 
 ### Serve static files
 
@@ -239,6 +258,35 @@ import './styles/global.css'
 // To handle stuffs like rootOptions, router
 export default ({ rootOptions, router }) => {
   // Do something...
+}
+```
+
+### Development server
+
+#### Use proxy
+
+Inside the saber.config.js, use the `proxy` option:
+
+```js
+module.exports = {
+  proxy: {
+    "/api": {
+      target: "http://localhost:3000",
+      pathRewrite: {'^/api' : ''}
+    }
+  }
+}
+```
+
+#### Customize dev server
+
+Inside the `saber.config.js`, use the `configureServer` option:
+
+```js
+module.exports = {
+  configureServer(app) {
+    // app: Express instance
+  }
 }
 ```
 
