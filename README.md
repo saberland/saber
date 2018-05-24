@@ -20,7 +20,8 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
   - [Serve static files](#serve-static-files)
   - [Fetching data](#fetching-data)
   - [Routing](#routing)
-      - [Dynamic route](#dynamic-route)
+    - [Dynamic route](#dynamic-route)
+    - [Nested routes](#nested-routes)
   - [Manipulating `<head>`](#manipulating-head)
   - [App-level enhancement](#app-level-enhancement)
   - [Plugins](#plugins)
@@ -134,7 +135,7 @@ For syntax higlighting of the custom block, [`vetur`](https://vuejs.github.io/ve
 
 Note that all files and directories starting with an underscore `_` will be ignored.
 
-##### Dynamic route
+#### Dynamic route
 
 It's common to use route like `/user/:id` to map routes with the given pattern to the same component, URLs like `/user/foo` and `/user/bar` will both map to the same route.
 
@@ -163,6 +164,47 @@ export default {
 }
 </saber>
 ```
+
+#### Nested routes
+
+With following structure:
+
+```bash
+└── pages
+    ├── index.vue
+    ├── users
+    │   ├── [name].vue
+    │   └── index.vue # required
+    └── users.vue     # required
+```
+
+It generates routes as follows:
+
+```js
+[
+  {
+    path: '/',
+    component: () => import('#pages/index.vue')
+  },
+  {
+    path: '/users',
+    children: [
+      {
+        path: ':name',
+        component: () => import('#pages/users/[name].vue')
+      },
+      {
+        path: '',
+        component: () => import('#pages/users/index.vue')
+      }
+    ],
+
+    component: () => import('#pages/users.vue')
+  }
+]
+```
+
+Components inside `./users` directory will only be used as child routes when there're both `./users/index.vue` and `./users.vue`.
 
 ### Manipulating `<head>`
 
