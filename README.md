@@ -96,6 +96,7 @@ Most common transforms and transpilers are supported out-of-the-box.
 - `postcss`: Enabled when you have a postcss config file like `postcss.config.js`
 - `babel`: Enabled by default with a sensible [default preset](./lib/babel/preset.js), you can override it by populating a babel config file at project root.
 - `sass` `scss` `less` `stylus`: Supported by default but you need to install relevant dependencies, e.g. for `sass` you need to install `node-sass` and `sass-loader` in your project.
+- `pug`: Support `pug` lang in Vue SFC, you need to install `pug` and `pug-plain-loader` in your project.
 - Images and fonts.
 
 #### Customize webpack config
