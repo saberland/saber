@@ -23,6 +23,9 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
   - [App-level enhancement](#app-level-enhancement)
   - [Progressive web app](#progressive-web-app)
   - [Google analytics](#google-analytics)
+  - [Writing client-only code](#writing-client-only-code)
+    - [Client-only components](#client-only-components)
+    - [Client-only logic](#client-only-logic)
   - [Plugins](#plugins)
     - [Use a plugin](#use-a-plugin)
     - [Write a plugin](#write-a-plugin)
@@ -200,6 +203,32 @@ Set `googleAnalytics` to your track id in `saber.config.js` to enable it:
 ```js
 module.exports = {
   googleAnalytics: 'UA-XXX-XX'
+}
+```
+
+### Writing client-only code
+
+#### Client-only components
+
+Wrap non SSR friendly components inside `<client-only>` component:
+
+```vue
+<template>
+  <div>
+    <client-only>
+      <some-client-only-component />
+    </client-only>
+  </div>
+</template>
+```
+
+#### Client-only logic
+
+Using `process.browser` for client-only logic:
+
+```js
+if (process.browser) {
+  console.log('you see me on the client-side only')
 }
 ```
 
