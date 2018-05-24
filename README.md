@@ -79,7 +79,7 @@ So far you got:
 
 - Automatic assets transforms
 - Hot reloading for Vue components
-- Static files inside `./public` are mapped to `/`
+- Static files inside `./static` are mapped to `/`
 
 ### Transforms
 
