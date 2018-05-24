@@ -61,6 +61,8 @@ Configure npm scripts:
 }
 ```
 
+_By default it uses `.` as base directory, to use another directory you can change it to `saber dev path/to/directory` and `saber build path/to/directory`._
+
 After that, the file-system is the main API. Every `.vue` file becomes a route that gets automatically processed and rendered.
 
 Populate `./pages/index.vue` inside your project:
