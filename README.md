@@ -17,18 +17,21 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
 - [How to use](#how-to-use)
   - [Setup](#setup)
   - [Transforms](#transforms)
+  - [Serve static files](#serve-static-files)
   - [Fetching data](#fetching-data)
   - [Dynamic route](#dynamic-route)
   - [Manipulating `<head>`](#manipulating-head)
   - [App-level enhancement](#app-level-enhancement)
-  - [Progressive web app](#progressive-web-app)
-  - [Google analytics](#google-analytics)
-  - [Writing client-only code](#writing-client-only-code)
-    - [Client-only components](#client-only-components)
-    - [Client-only logic](#client-only-logic)
   - [Plugins](#plugins)
     - [Use a plugin](#use-a-plugin)
     - [Write a plugin](#write-a-plugin)
+- [Recipes](#recipes)
+  - [Writing client-only code](#writing-client-only-code)
+    - [Client-only components](#client-only-components)
+    - [Client-only logic](#client-only-logic)
+  - [Adding a progress bar](#adding-a-progress-bar)
+  - [Progressive web app](#progressive-web-app)
+  - [Google analytics](#google-analytics)
 - [FAQ](#faq)
   - [How does it compare to Nuxt.js/VuePress/Peco?](#how-does-it-compare-to-nuxtjsvuepresspeco)
 - [Contributing](#contributing)
@@ -86,6 +89,10 @@ Most common transforms and transpilers are supported out-of-the-box.
 - `babel`: Enabled by default with a sensible [default preset](./lib/babel/preset.js), you can override it by populating a babel config file at project root.
 - `sass` `scss` `less` `stylus`: Supported by default but you need to install relevant dependencies, e.g. for `sass` you need to install `node-sass` and `sass-loader` in your project.
 - Images and fonts.
+
+### Serve static files
+
+Files inside `./static` folder will be mapped to root path `/`, e.g. `./static/favicon.ico` is served at `/favicon.ico`.
 
 ### Fetching data
 
@@ -184,54 +191,6 @@ export default ({ rootOptions, router }) => {
 }
 ```
 
-### Progressive web app
-
-Currently all generated files are cached by service worker by default, you can use set `pwa` in `saber.config.js` to disable it:
-
-```js
-module.exports = {
-  pwa: false
-}
-```
-
-More improvements for better PWA support are coming soon, PR welcome too :)
-
-### Google analytics
-
-Set `googleAnalytics` to your track id in `saber.config.js` to enable it:
-
-```js
-module.exports = {
-  googleAnalytics: 'UA-XXX-XX'
-}
-```
-
-### Writing client-only code
-
-#### Client-only components
-
-Wrap non SSR friendly components inside `<client-only>` component:
-
-```vue
-<template>
-  <div>
-    <client-only>
-      <some-client-only-component />
-    </client-only>
-  </div>
-</template>
-```
-
-#### Client-only logic
-
-Using `process.browser` for client-only logic:
-
-```js
-if (process.browser) {
-  console.log('you see me on the client-side only')
-}
-```
-
 ### Plugins
 
 #### Use a plugin
@@ -265,6 +224,77 @@ module.exports = opts => {
 ```
 
 Check out [existing plugins](./lib/plugins) for references.
+
+## Recipes
+
+### Writing client-only code
+
+#### Client-only components
+
+Wrap non SSR friendly components inside `<client-only>` component:
+
+```vue
+<template>
+  <div>
+    <client-only>
+      <some-client-only-component />
+    </client-only>
+  </div>
+</template>
+```
+
+#### Client-only logic
+
+Using `process.browser` for client-only logic:
+
+```js
+if (process.browser) {
+  console.log('you see me on the client-side only')
+}
+```
+
+### Adding a progress bar
+
+Populate a `saber.app.js` in project root:
+
+```js
+// Don't forget to install `nprogress`
+import progress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+export default ({ router }) => {
+  router.beforeEach((to, from, next) => {
+    progress.start()
+    next()
+  })
+
+  router.afterEach(() => {
+    progress.done()
+  })
+}
+```
+
+### Progressive web app
+
+Currently all generated files are cached by service worker by default, you can use set `pwa` in `saber.config.js` to disable it:
+
+```js
+module.exports = {
+  pwa: false
+}
+```
+
+More improvements for better PWA support are coming soon, PR welcome too :)
+
+### Google analytics
+
+Set `googleAnalytics` to your track id in `saber.config.js` to enable it:
+
+```js
+module.exports = {
+  googleAnalytics: 'UA-XXX-XX'
+}
+```
 
 ## FAQ
 
