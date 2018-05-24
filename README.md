@@ -26,6 +26,8 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
   - [Plugins](#plugins)
     - [Use a plugin](#use-a-plugin)
     - [Write a plugin](#write-a-plugin)
+- [FAQ](#faq)
+  - [How does it compare to Nuxt.js/VuePress/Peco?](#how-does-it-compare-to-nuxtjsvuepresspeco)
 - [Contributing](#contributing)
 - [Author](#author)
 
@@ -234,6 +236,12 @@ module.exports = opts => {
 ```
 
 Check out [existing plugins](./lib/plugins) for references.
+
+## FAQ
+
+### How does it compare to Nuxt.js/VuePress/Peco?
+
+See [#1](https://github.com/egoist/saber.js/issues/1).
 
 ## Contributing
 
