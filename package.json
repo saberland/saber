@@ -1,6 +1,6 @@
 {
   "name": "saber",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A minimalistic framework for building static website using Vue.js",
   "repository": {
     "url": "egoist/saber",
