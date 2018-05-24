@@ -167,7 +167,7 @@ export default {
 
 #### Nested routes
 
-With following structure:
+To generate [nested routes](https://router.vuejs.org/en/essentials/nested-routes.html), try following structure:
 
 ```bash
 └── pages
