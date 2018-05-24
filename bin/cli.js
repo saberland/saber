@@ -24,4 +24,19 @@ cli.command('build', 'Build and generate static website', (input, flags) => {
   return require('..')(input[0], flags).build()
 })
 
+cli
+  .option('debug', {
+    desc: 'Show debug output',
+    type: 'boolean'
+  })
+  .option('debug-webpack', {
+    desc: 'Debug webpack config',
+    type: 'boolean'
+  })
+  .option('progress', {
+    desc: 'Toggle progress bar',
+    default: true,
+    type: 'boolean'
+  })
+
 cli.parse()
