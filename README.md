@@ -23,6 +23,7 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
   - [Routing](#routing)
     - [Dynamic route](#dynamic-route)
     - [Nested routes](#nested-routes)
+    - [Adding routes programmatically](#adding-routes-programmatically)
   - [Manipulating `<head>`](#manipulating-head)
   - [App-level enhancement](#app-level-enhancement)
   - [Development server](#development-server)
@@ -225,6 +226,27 @@ It generates routes as follows:
 ```
 
 Components inside `./users` directory will only be used as child routes when there're both `./users/index.vue` and `./users.vue`.
+
+#### Adding routes programmatically
+
+You can use `router.addRoutes` to add routes programmatically, the `router` is a vue-router instance:
+
+📝 __saber.app.js__:
+
+```js
+export default ({ router }) => {
+  router.addRoutes([
+    {
+      path: '/user',
+      // Don't put components inside ./pages folder
+      // Since they will be automatically loaded as routes
+      component: () => import('./views/user.vue')
+    }
+  ])
+}
+```
+
+Read more about [saber.app.js](#app-level-enhancement).
 
 ### Manipulating `<head>`
 
