@@ -11,7 +11,8 @@
   "files": [
     "bin",
     "lib",
-    "webpack.config.js"
+    "webpack.config.js",
+    "babel.js"
   ],
   "scripts": {
     "test": "npm run lint && echo 'no tests!'",
@@ -27,6 +28,7 @@
     "@babel/preset-env": "^7.0.0-beta.47",
     "@babel/runtime": "^7.0.0-beta.47",
     "babel-loader": "^8.0.0-beta.3",
+    "babel-plugin-macros": "^2.2.1",
     "cac": "^5.0.10",
     "chalk": "^2.4.1",
     "chokidar": "^2.0.3",

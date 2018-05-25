@@ -978,6 +978,12 @@ babel-loader@^8.0.0-beta.3:
     mkdirp "^0.5.1"
     util.promisify "^1.0.0"
 
+babel-plugin-macros@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-macros/-/babel-plugin-macros-2.2.1.tgz#7cc0f84735aa86f776b51860793a98928f43a7fa"
+  dependencies:
+    cosmiconfig "^4.0.0"
+
 babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"

@@ -17,6 +17,7 @@ __Saber.js is a minimalistic framework for building static website using Vue.js.
 - [How to use](#how-to-use)
   - [Setup](#setup)
   - [Transforms](#transforms)
+    - [Customize babel config](#customize-babel-config)
     - [Customize webpack config](#customize-webpack-config)
   - [Serve static files](#serve-static-files)
   - [Fetching data](#fetching-data)
@@ -99,6 +100,21 @@ Most common transforms and transpilers are supported out-of-the-box.
 - `sass` `scss` `less` `stylus`: Supported by default but you need to install relevant dependencies, e.g. for `sass` you need to install `node-sass` and `sass-loader` in your project.
 - `pug`: Support `pug` lang in Vue SFC, you need to install `pug` and `pug-plain-loader` in your project.
 - Images and fonts.
+
+#### Customize babel config
+
+You can populate a babel config file at your project root, like `.babelrc.js`:
+
+```js
+module.exports = {
+  presets: [
+    // It's highly recommended to add our default preset
+    require.resolve('saber/babel')
+  ]
+}
+```
+
+Check out our [default babel preset](./lib/babel/preset.js).
 
 #### Customize webpack config
 
