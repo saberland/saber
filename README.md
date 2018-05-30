@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/saber.svg?style=flat)](https://npmjs.com/package/saber) [![NPM downloads](https://img.shields.io/npm/dm/saber.svg?style=flat)](https://npmjs.com/package/saber) [![CircleCI](https://circleci.com/gh/egoist/saber.js/tree/master.svg?style=shield&circle-token=e074bbeaf4b60d0519ece6a175cb91e45b68b51b)](https://circleci.com/gh/egoist/saber/tree/master) [![spectrum chat](https://img.shields.io/badge/chat%20on-spectrum-7b16ff.svg?style=flat)](https://spectrum.chat/saber-js)
 
-__Saber.js is a minimalistic framework for building static website using Vue.js.__
+__Saber.js is a minimalistic framework for building static websites using Vue.js.__
 
 __🔥You may also like [Ream](https://ream.js.org/) which is a Nuxt.js alternative.__
 
