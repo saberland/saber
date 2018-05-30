@@ -4,6 +4,8 @@
 
 __Saber.js is a minimalistic framework for building static website using Vue.js.__
 
+__🔥You may also like [Ream](https://ream.js.org/) which is a Nuxt.js alternative.__
+
 <a href="https://patreon.com/egoist">
 <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="50">
 </a>
