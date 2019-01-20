@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "saber",
+    "build": "saber build"
+  },
+  "devDependencies": {
+    "saber": "alpha"
+  }
+}

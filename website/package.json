@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "saber-website",
+  "scripts": {
+    "dev": "saber",
+    "build": "saber build"
+  },
+  "dependencies": {
+    "nprogress": "^0.2.0"
+  },
+  "devDependencies": {
+    "postcss-preset-env": "^6.5.0"
+  }
+}

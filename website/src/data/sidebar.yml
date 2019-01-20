@@ -1,0 +1,8 @@
+- title: Guide
+  children:
+    - title: Introduction
+      link: /docs/
+    - title: Routing
+      link: /docs/routing.html
+    - title: Theming
+      link: /docs/theming.html

@@ -1,0 +1,9 @@
+{
+  "name": "saber-plugin-google-analytics",
+  "version": "0.0.1",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "saber-browser.js"
+  ]
+}

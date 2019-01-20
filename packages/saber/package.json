@@ -1,0 +1,52 @@
+{
+  "name": "saber",
+  "version": "0.2.0-alpha.5",
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "bin": "bin/cli.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/runtime": "^7.2.0",
+    "@intervolga/optimize-cssnano-plugin": "^1.0.6",
+    "babel-loader": "^8.0.5",
+    "cac": "^6.4.0",
+    "chokidar": "^2.0.4",
+    "css-loader": "^2.1.0",
+    "cssnano": "^4.1.8",
+    "file-loader": "^3.0.1",
+    "hash-sum": "^1.0.2",
+    "joycon": "^2.2.3",
+    "mini-css-extract-plugin": "^0.5.0",
+    "ora": "^3.0.0",
+    "polka": "^0.5.1",
+    "postcss-loader": "^3.0.0",
+    "resolve-from": "^4.0.0",
+    "saber-log": "^0.0.1",
+    "saber-markdown": "^0.0.1",
+    "saber-utils": "^0.0.1",
+    "superstruct": "^0.6.0",
+    "tapable": "^1.1.1",
+    "time-fix-plugin": "^2.0.5",
+    "url-loader": "^1.1.2",
+    "vue": "^2.5.21",
+    "vue-loader": "^15.5.1",
+    "vue-server-renderer": "^2.5.22",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.28.4",
+    "webpack-chain": "^5.0.1",
+    "webpack-dev-middleware": "^3.5.0",
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "markdown-it-footnote": "^3.0.1"
+  }
+}

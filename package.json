@@ -1,0 +1,54 @@
+{
+  "private": true,
+  "name": "saber-monorepo",
+  "scripts": {
+    "test": "npm run lint && jest",
+    "lint": "xo"
+  },
+  "repository": {
+    "url": "egoist/saber",
+    "type": "git"
+  },
+  "author": "egoist<0x142857@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-rem": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.0.0-rc.13",
+    "lerna": "^3.10.5",
+    "lint-staged": "^7.2.0",
+    "prettier": "^1.15.2",
+    "xo": "^0.23.0"
+  },
+  "xo": {
+    "extends": [
+      "rem",
+      "plugin:prettier/recommended"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "xo --fix",
+        "git add"
+      ],
+      "*.{json,md}": [
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "**/dist/**",
+      "**/vendor/**"
+    ]
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
