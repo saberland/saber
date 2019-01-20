@@ -19,11 +19,11 @@ Layouts are populated under `$theme/layouts` directory.
 
 Different page will use differents layout component from your theme.
 
-|Page Type|Example|Layout Component|
-|---|---|---|
-|page|`pages/about.md`|`page.{vue.js}`|
-|post|`pages/_posts/hello-world.md`|`post.{vue.js}`|
-|index|`pages/index.vue`|`index.{vue.js}`|
+| Page Type | Example                       | Layout Component |
+| --------- | ----------------------------- | ---------------- |
+| page      | `pages/about.md`              | `page.{vue.js}`  |
+| post      | `pages/_posts/hello-world.md` | `post.{vue.js}`  |
+| index     | `pages/index.vue`             | `index.{vue.js}` |
 
 Layout component can be overriden via `layout` attribute, it will fallback to `default` when the desired one is not found.
 
@@ -45,4 +45,21 @@ interface IndexPageProp {
     totalPages: number
   }
 }
+```
+
+The page contents will be available as default slot in your layout component, for example:
+
+```vue
+<template>
+  <div>
+    <h2 class="page-title">{{ page.attributes.title }}</h2>
+    <div class="page-content"><slot name="default /></div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['page']
+}
+</script>
 ```

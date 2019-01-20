@@ -87,7 +87,7 @@ class Saber {
         : path.dirname(
             require('resolve-from')(
               this.configDir,
-              this.config.theme,
+              this.config.theme.replace(/^(saber-theme-)?/, 'saber-theme-'),
               'package.json'
             )
           )
@@ -213,11 +213,16 @@ class Saber {
 
     const htmlTemplate = await fs.readFile(VueRenderer.htmlTemplate, 'utf8')
 
-    server.get('*', (req, res, next) => {
+    server.get('*', (req, res) => {
       if (req.headers.accept.includes('text/html')) {
         res.setHeader('content-type', 'text/html')
-        res.end(htmlTemplate.replace('<div id="_saber"></div>', `$&
-        <script src="/_saber/js/browser.js"></script>`))
+        res.end(
+          htmlTemplate.replace(
+            '<div id="_saber"></div>',
+            `$&
+        <script src="/_saber/js/browser.js"></script>`
+          )
+        )
       } else {
         res.statusCode = 404
         res.end()
