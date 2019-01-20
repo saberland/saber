@@ -5,6 +5,6 @@
     "build": "saber build"
   },
   "devDependencies": {
-    "saber": "alpha"
+    "saber": "latest"
   }
 }
