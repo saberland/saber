@@ -7,8 +7,11 @@
         </router-link>
       </h1>
       <ul class="menu">
-        <li>
+        <li class="menu-item">
           <router-link to="/docs/">Guide</router-link>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/egoist/saber" target="_blank">GitHub</a>
         </li>
       </ul>
     </div>
@@ -46,5 +49,10 @@
   list-style: none;
   margin-left: 0;
   font-size: 1rem;
+  display: flex;
+}
+
+.menu-item {
+  margin-left: 20px;
 }
 </style>

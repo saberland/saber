@@ -3,7 +3,8 @@
   "name": "saber-monorepo",
   "scripts": {
     "test": "npm run lint && jest",
-    "lint": "xo"
+    "lint": "xo",
+    "commit": "git-cz"
   },
   "repository": {
     "url": "egoist/saber",
@@ -12,6 +13,8 @@
   "author": "egoist<0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "commitizen": "^3.0.5",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-rem": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.0",
@@ -45,10 +48,16 @@
     },
     "ignore": [
       "**/dist/**",
-      "**/vendor/**"
+      "**/vendor/**",
+      "*.min.js"
     ]
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
 }
