@@ -28,7 +28,10 @@
     "extends": [
       "rem",
       "plugin:prettier/recommended"
-    ]
+    ],
+    "rules": {
+      "import/no-unassigned-import": "off"
+    }
   },
   "husky": {
     "hooks": {

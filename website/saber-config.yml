@@ -1,5 +1,5 @@
 siteConfig:
   title: Saber.js
-  description: A static website generator by @EGOIST
+  description: A framework for building modern static websites.
 
 theme: ./src

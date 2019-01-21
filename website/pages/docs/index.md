@@ -2,7 +2,7 @@
 title: Introduction
 ---
 
-Saber is still __in development__. Do __not__ use it for production. It is missing major features and the interface should be considered extremely unstable.
+Saber is still **in development**. Do **not** use it for production. It is missing major features and the interface should be considered extremely unstable.
 
 If you're feeling adventurous, though, read ahead...
 
@@ -27,6 +27,4 @@ Create a blog with a single command:
 npm init blog my-blog
 ```
 
-## Config File
-
-You can use `saber-config.yml` `saber-config.toml` `saber-config.json` `saber-config.js` as config file.
+Then following the instructions in terminal.
