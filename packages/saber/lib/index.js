@@ -239,8 +239,12 @@ class Saber {
     ]
   }
 
+  localResolve(name) {
+    return require('resolve-from').silent(this.opts.cwd, name)
+  }
+
   localRequire(name) {
-    const resolved = require('resolve-from').silent(this.opts.cwd, name)
+    const resolved = this.localResolve(name)
     return resolved && require(resolved)
   }
 }

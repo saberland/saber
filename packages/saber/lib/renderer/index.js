@@ -10,6 +10,20 @@ class VueRenderer {
 
       config.output.path(api.resolveCache(`dist-${type}`))
 
+      // Use locally installed Vue if possible
+      if (api.hasDependency('vue')) {
+        config.resolve.alias.set(
+          'vue$',
+          api.localResolve('vue/dist/vue.runtime.esm')
+        )
+      } else {
+        // Otherwise use the one shipped with Saber
+        config.resolve.alias.set(
+          'vue$',
+          require.resolve('vue/dist/vue.runtime.esm')
+        )
+      }
+
       config.plugin('vue').use(require('vue-loader/lib/plugin'))
 
       config.module

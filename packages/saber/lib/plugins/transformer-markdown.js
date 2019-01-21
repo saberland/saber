@@ -32,22 +32,29 @@ function transformMarkdown({ page, body, configDir }, markdown) {
     )
   )
   const plugins = [
-    require.resolve('../markdown/hoist-tags-plugin'),
+    {
+      resolve: require.resolve('../markdown/hoist-tags-plugin')
+    },
     {
       resolve: require.resolve('../markdown/anchor-plugin'),
       options: markdown.slugify && {
         slugify: require(resolvePackage(markdown.slugify, { cwd: configDir }))
       }
     },
-    require.resolve('../markdown/escape-interpolations-plugin'),
+    {
+      resolve: require.resolve('../markdown/escape-interpolations-plugin')
+    },
     ...(markdown.plugins
-      ? markdown.plugins.map(p => resolvePackage(p, { cwd: configDir }))
+      ? markdown.plugins.map(p => {
+          if (typeof p === 'string') {
+            p = { resolve: p }
+          }
+          p.resolve = resolvePackage(p.resolve, { cwd: configDir })
+          return p
+        })
       : [])
   ]
   plugins.forEach(plugin => {
-    if (typeof plugin === 'string') {
-      plugin = { resolve: plugin }
-    }
     md.use(require(plugin.resolve), plugin.options)
   })
   page.content = md.render(body, env)
