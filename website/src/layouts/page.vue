@@ -33,6 +33,8 @@ export default {
 }
 </script>
 
+<style src="prismjs/themes/prism.css"></style>
+
 <style scoped>
 .page-content {
   margin: 40px 0;
@@ -92,7 +94,6 @@ pre {
 
 pre code {
   background: transparent;
-  color: var(--theme-color);
 }
 
 ul {

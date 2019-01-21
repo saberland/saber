@@ -6,7 +6,7 @@ Themes are used to manage layouts, extend Saber's browser APIs and Node.js APIs.
 
 By default Saber uses a built-in theme, if you want to use a custom theme you can simply set it in config file like this `saber-config.yml`:
 
-```yml
+```yaml
 theme: ./src
 # or from a npm package
 # call `saber-theme-simple`:
@@ -53,7 +53,7 @@ The page contents will be available as default slot in your layout component, fo
 <template>
   <div>
     <h2 class="page-title">{{ page.attributes.title }}</h2>
-    <div class="page-content"><slot name="default /></div>
+    <div class="page-content"><slot name="default" /></div>
   </div>
 </template>
 

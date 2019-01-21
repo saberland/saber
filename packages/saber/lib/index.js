@@ -6,6 +6,7 @@ const { SyncHook, AsyncSeriesHook } = require('tapable')
 const Source = require('./Source')
 const VueRenderer = require('./renderer')
 const configLoader = require('./utils/configLoader')
+const resolvePackage = require('./utils/resolvePackage')
 
 class Saber {
   constructor(opts = {}) {
@@ -30,7 +31,7 @@ class Saber {
     this.transformers = new Map()
 
     if (opts.debug) {
-      log.setOptions({ debug: true })
+      process.env.SABER_DEBUG = true
     }
 
     this.prepare()
@@ -82,15 +83,10 @@ class Saber {
 
     // Load theme
     if (this.config.theme) {
-      this.theme = /^[./]|(^[a-zA-Z]:)/.test(this.config.theme)
-        ? path.resolve(this.configDir, this.config.theme)
-        : path.dirname(
-            require('resolve-from')(
-              this.configDir,
-              this.config.theme.replace(/^(saber-theme-)?/, 'saber-theme-'),
-              'package.json'
-            )
-          )
+      this.theme = resolvePackage(this.config.theme, {
+        cwd: this.configDir,
+        prefix: 'saber-theme-'
+      })
     } else {
       this.theme = VueRenderer.defaultTheme
     }

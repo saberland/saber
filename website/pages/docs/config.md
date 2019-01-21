@@ -62,11 +62,20 @@ Customizing the internal markdown parse.
 
 The path to a module or npm package name that slugifies the markdown headers. The module should have following signature:
 
-```typescriot
+```typescript
 type Slugify = (header: string) => string
 ```
 
 You can use the [limax](https://github.com/lovell/limax) which provides CJK support.
+
+### markdown.highlighter
+
+- Type: `string`
+- Example: `saber-highlighter-prism`
+
+The path to a module or npm package name that highlights code blocks in markdown. `saber-highlighter-` prefix is optional.
+
+Note that a highlighter will only tokenize the code, you need to add corresponding CSS yourself.
 
 ### markdown.options
 

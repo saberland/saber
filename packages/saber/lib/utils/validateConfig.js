@@ -1,11 +1,14 @@
 const { struct } = require('superstruct')
 
 module.exports = config => {
-  const siteConfig = struct.interface({
-    title: 'string?',
-    description: 'string?',
-    feed: 'boolean?'
-  }, {})
+  const siteConfig = struct.interface(
+    {
+      title: 'string?',
+      description: 'string?',
+      feed: 'boolean?'
+    },
+    {}
+  )
 
   // Type of Saber plugins
   const plugins = struct.union(
@@ -25,6 +28,7 @@ module.exports = config => {
     {
       slugify: 'string?',
       options: 'object?',
+      highlighter: 'string?',
       // Same as the type of Saber plugins
       plugins
     },

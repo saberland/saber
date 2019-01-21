@@ -12,6 +12,12 @@ class Log {
     this.options = {}
   }
 
+  get isDebug() {
+    return typeof this.options.debug === 'boolean'
+      ? this.options.debug
+      : process.env.SABER_DEBUG
+  }
+
   setOptions(options) {
     Object.assign(this.options, options)
   }
@@ -21,7 +27,7 @@ class Log {
   }
 
   debug(...args) {
-    if (!this.options.debug) return
+    if (!this.isDebug) return
     console.log(colors.magenta('debug'), ...args)
   }
 

@@ -3,3 +3,6 @@ siteConfig:
   description: A framework for building modern static websites.
 
 theme: ./src
+
+markdown:
+  highlighter: prism

@@ -1,4 +1,4 @@
-const resolveFrom = require('resolve-from')
+const resolvePackage = require('../utils/resolvePackage')
 
 exports.name = 'builtin:transformer-markdown'
 
@@ -20,7 +20,13 @@ function transformMarkdown({ page, body, configDir }, markdown) {
   const md = require('saber-markdown')(
     Object.assign(
       {
-        html: true
+        html: true,
+        highlight:
+          markdown.highlighter &&
+          require(resolvePackage(markdown.highlighter, {
+            cwd: configDir,
+            prefix: 'saber-highlighter-'
+          }))
       },
       markdown.options
     )
@@ -30,11 +36,13 @@ function transformMarkdown({ page, body, configDir }, markdown) {
     {
       resolve: require.resolve('../markdown/anchor-plugin'),
       options: markdown.slugify && {
-        slugify: require(resolveFrom(configDir, markdown.slugify))
+        slugify: require(resolvePackage(markdown.slugify, { cwd: configDir }))
       }
     },
     require.resolve('../markdown/escape-interpolations-plugin'),
-    ...(markdown.plugins ? markdown.plugins.map(p => resolveFrom(configDir, p)) : [])
+    ...(markdown.plugins
+      ? markdown.plugins.map(p => resolvePackage(p, { cwd: configDir }))
+      : [])
   ]
   plugins.forEach(plugin => {
     if (typeof plugin === 'string') {
