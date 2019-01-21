@@ -66,20 +66,23 @@ exports.apply = api => {
       page.pagination = {
         hasPrev: false,
         hasNext: rest.length > 0,
-        totalPages: totalPages,
+        totalPages,
         current: 1,
         prevLink: getPrevLink(1, page.attributes.permalink),
         nextLink: getNextLink(1, page.attributes.permalink)
       }
       api.source.pages.createPage(page)
       for (const [index, posts] of rest.entries()) {
-        const permalink = path.join(page.attributes.permalink, `page/${index + 2}`)
+        const permalink = path.join(
+          page.attributes.permalink,
+          `page/${index + 2}`
+        )
         const subPage = Object.assign({}, page, {
           posts,
           pagination: {
             hasPrev: true,
             hasNext: index !== rest.length - 1,
-            totalPages: totalPages,
+            totalPages,
             current: index + 2,
             prevLink: getPrevLink(index + 2, page.attributes.permalink),
             nextLink: getNextLink(index + 2, page.attributes.permalink)
@@ -87,10 +90,10 @@ exports.apply = api => {
           attributes: Object.assign({}, page.attributes, {
             permalink
           }),
-          internal: {
+          internal: Object.assign({}, page.internal, {
             id: `${page.internal.id}__${index}`,
-            parent: page.internal.id,
-          }
+            parent: page.internal.id
+          })
         })
         api.source.pages.createPage(subPage)
       }
@@ -103,7 +106,11 @@ function paginate(arr, opts) {
   const totalPages = Math.ceil(arr.length / opts.perPage)
   const result = []
   for (let i = 0; i < totalPages; i++) {
-    result[i] = arr.slice(i * opts.perPage, (i + 1) * opts.perPage)
+    result[i] = arr
+      .slice(i * opts.perPage, (i + 1) * opts.perPage)
+      .map(page =>
+        Object.assign({}, page, { content: undefined, internal: undefined })
+      )
   }
   return result
 }

@@ -1,9 +1,9 @@
-module.exports = function (source) {
+module.exports = function(source) {
   const data = JSON.parse(source)
 
-  const { content, hoistedTags = [] } = data
+  const { content, internal } = data
   delete data.content
-  delete data.hoistedTags
+  delete data.internal
 
   const result = `
 <template>
@@ -12,7 +12,7 @@ module.exports = function (source) {
   </layout-manager>
 </template>
 
-${hoistedTags.join('\n')}
+${internal.hoistedTags ? internal.hoistedTags.join('\n') : ''}
 
 <page-data>${JSON.stringify(data)}</page-data>
   `

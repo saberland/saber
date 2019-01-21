@@ -58,5 +58,5 @@ function transformMarkdown({ page, body, configDir }, markdown) {
     md.use(require(plugin.resolve), plugin.options)
   })
   page.content = md.render(body, env)
-  page.hoistedTags = env.hoistedTags
+  page.internal.hoistedTags = env.hoistedTags
 }
