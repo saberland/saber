@@ -36,7 +36,7 @@ exports.apply = api => {
       )
     )
 
-    api.hooks.page.tap('page', data => {
+    api.hooks.createPage.tap('page', data => {
       // Remove all child pages
       api.source.pages.removeWhere(page => page.internal.parent)
 
@@ -67,7 +67,7 @@ exports.apply = api => {
 
     for (const file of files) {
       const page = api.source.getPageFromFile(file)
-      api.hooks.page.call({ type: 'add', page })
+      api.hooks.createPage.call({ type: 'add', page })
     }
 
     api.hooks.afterPages.call()
@@ -82,7 +82,7 @@ exports.apply = api => {
         const filepath = path.join(pagesDir, filename)
 
         if (type === 'remove') {
-          api.hooks.page.call({
+          api.hooks.createPage.call({
             type: 'remove',
             id: hash(filepath)
           })
@@ -94,9 +94,9 @@ exports.apply = api => {
           const page = api.source.getPageFromFile(file)
           if (type === 'change') {
             const old = api.source.pages.get(filepath)
-            api.hooks.page.call({ type: 'change', page, old })
+            api.hooks.createPage.call({ type: 'change', page, old })
           } else {
-            api.hooks.page.call({ type: 'add', page })
+            api.hooks.createPage.call({ type: 'add', page })
           }
         }
 

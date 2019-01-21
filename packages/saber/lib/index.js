@@ -25,7 +25,7 @@ class Saber {
       // Emit pages as .pson files when necessary
       emitPages: new AsyncSeriesHook(),
       // Called when a page is added, changed or removed
-      page: new SyncHook(['data']),
+      createPage: new SyncHook(['data']),
       emitRoutes: new AsyncSeriesHook()
     }
     this.transformers = new Map()
