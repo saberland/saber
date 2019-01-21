@@ -27,18 +27,18 @@ class VueRenderer {
         .use('page-data-loader')
         .loader(require.resolve('./page-data-loader'))
 
-        config.module
+      config.module
         .rule('page-component')
         .resourceQuery(/blockType=page-component/)
         .use('page-component-loader')
         .loader(require.resolve('./page-component-loader'))
 
-      config.module.rule('js')
-        .resourceQuery(query => {
-          return !query.match(/saberPage/)
-        })
+      config.module.rule('js').resourceQuery(query => {
+        return !query.match(/saberPage/)
+      })
 
-      config.module.rule('saber-page-js')
+      config.module
+        .rule('saber-page-js')
         .test(/\.js$/)
         .resourceQuery(/saberPage/)
         .use('vue-loader')
@@ -75,7 +75,7 @@ class VueRenderer {
         config.externals(
           externals.concat([
             require('webpack-node-externals')({
-              whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i]
+              whitelist: [/\.(?!(?:jsx?|json)$).{1,5}(\?.+)?$/i]
             })
           ])
         )
@@ -104,10 +104,14 @@ class VueRenderer {
           ${
             page.internal.file
               ? `
-          return import(${JSON.stringify(`${page.internal.file}?saberPage=${page.internal.id}`)})
+          return import(${JSON.stringify(
+            `${page.internal.file}?saberPage=${page.internal.id}`
+          )})
           `
               : `
-          return import(${JSON.stringify(`#cache/pages/${page.internal.id}.pson`)})
+          return import(${JSON.stringify(
+            `#cache/pages/${page.internal.id}.pson`
+          )})
           `
           }
         }
