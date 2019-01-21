@@ -50,7 +50,7 @@ module.exports = class Source {
     transform(page, file)
 
     page.attributes.type = getPageType(file, page)
-    page.attributes.permalink = getPermalink(page, api.config.permalink)
+    page.attributes.permalink = getPermalink(page, api.config.permalinks)
 
     return page
   }
