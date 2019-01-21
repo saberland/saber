@@ -1,5 +1,6 @@
 const path = require('path')
 const { fs } = require('saber-utils')
+const { log, colors } = require('saber-log')
 
 class VueRenderer {
   constructor(api) {
@@ -171,7 +172,8 @@ class VueRenderer {
           'dist-browser/bundle-manifest.json'
         )),
         runInNewContext: false,
-        inject: false
+        inject: false,
+        basedir: this.api.resolveCache('dist-server')
       }
     )
     const htmlTemplate = await fs.readFile(
@@ -224,6 +226,7 @@ class VueRenderer {
             `${context.renderState()}${context.renderScripts()}</body>`
           )
           .replace(`<div id="_saber"></div>`, app)
+        log.log(`${colors.bold('>')} Generating ${context.url}`)
         await fs.outputFile(
           getFileName(page.attributes.permalink),
           html,
