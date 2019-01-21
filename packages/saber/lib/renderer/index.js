@@ -2,11 +2,13 @@ const path = require('path')
 const { fs } = require('saber-utils')
 const { log, colors } = require('saber-log')
 
+const ID = 'vue-renderer'
+
 class VueRenderer {
   constructor(api) {
     this.api = api
 
-    this.api.hooks.chainWebpack.tap('vue-renderer', (config, { type }) => {
+    this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `app/entry-${type}.js`))
 
       config.output.path(api.resolveCache(`dist-${type}`))
@@ -112,26 +114,29 @@ class VueRenderer {
     const pages = [...this.api.source.pages.values()]
     const routes = `export default [
       ${pages
-        .map(
-          page => `{
-        path: ${JSON.stringify(page.attributes.permalink)},
-        component: function() {
-          ${
-            page.internal.file
-              ? `
-          return import(${JSON.stringify(
-            `${page.internal.file}?saberPage=${page.internal.id}`
-          )})
-          `
-              : `
-          return import(${JSON.stringify(
-            `#cache/pages/${page.internal.id}.pson`
-          )})
-          `
-          }
-        }
-      }`
-        )
+        .map(page => {
+          const chunkName = `/* webpackChunkName: "path--${
+            page.internal.id
+          }" */ `
+          return `{
+              path: ${JSON.stringify(page.attributes.permalink)},
+              component: function() {
+                ${
+                  page.internal.file
+                    ? `
+                return import(${chunkName}${JSON.stringify(
+                        `${page.internal.file}?saberPage=${page.internal.id}`
+                      )})
+                `
+                    : `
+                return import(${chunkName}${JSON.stringify(
+                        `#cache/pages/${page.internal.id}.pson`
+                      )})
+                `
+                }
+              }
+            }`
+        })
         .join(',\n')}
     ]`
 

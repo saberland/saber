@@ -13,7 +13,5 @@ exports.apply = (api, { trackId = false } = {}) => {
     ])
   })
 
-  api.hooks.afterPlugins.tap(ID, () => {
-    api.browserApi.add(path.join(__dirname, 'saber-browser.js'))
-  })
+  api.browserApi.add(path.join(__dirname, 'saber-browser.js'))
 }

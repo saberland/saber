@@ -2,9 +2,10 @@ const path = require('path')
 const { fs } = require('saber-utils')
 const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
-const { SyncHook, AsyncSeriesHook } = require('tapable')
+const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
 const Source = require('./Source')
 const VueRenderer = require('./renderer')
+const BrowserApi = require('./BrowserApi')
 const configLoader = require('./utils/configLoader')
 const resolvePackage = require('./utils/resolvePackage')
 
@@ -13,11 +14,13 @@ class Saber {
     this.opts = opts
     this.opts.cwd = path.resolve(opts.cwd || '.')
     this.source = new Source(this)
+    this.browserApi = new BrowserApi(this)
     this.hooks = {
       // Extend webpack config
       chainWebpack: new SyncHook(['config', 'opts']),
       // Before running the build process
       beforeRun: new AsyncSeriesHook(['opts']),
+      filterPlugins: new SyncWaterfallHook(['plugins']),
       // After all plugins have been applied
       afterPlugins: new SyncHook(),
       // After all pages haven't added to our `source`
@@ -137,7 +140,13 @@ class Saber {
         )
       })
 
-    return [...builtinPlugins, ...pkgPlugins, ...configPlugins].map(p => {
+    const plugins = this.hooks.filterPlugins.call([
+      ...builtinPlugins,
+      ...pkgPlugins,
+      ...configPlugins
+    ])
+
+    return plugins.map(p => {
       p.plugin = require(p.resolve)
       return p
     })
