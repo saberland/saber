@@ -1,5 +1,5 @@
 ---
-title: Config
+title: Configuration
 ---
 
 You can use `saber-config.yml` `saber-config.toml` `saber-config.js` `saber-config.json` for general configurations. All the possible config keys will be listed below.
@@ -97,3 +97,18 @@ interface MarkdownPlugin {
   options?: object
 }
 ```
+
+## permalinks
+
+- Type: `Permalinks` `(page: Page) => Permalinks`
+- Default: `/:posts/:slug.html` for posts, `/:slug.html` for other pages
+
+The template that is used to generate permalink for each page.
+
+```typescript
+interface Permalinks {
+  [pageType: string]: string
+}
+```
+
+Note that the permalink for homepage is always `/`.

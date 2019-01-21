@@ -2,9 +2,17 @@
   children:
     - title: Introduction
       link: /docs/
+    - title: Installation
+      link: /docs/installation.html
+- title: Site Structure
+  children:
     - title: Routing
       link: /docs/routing.html
+    - title: Permalinks
+      link: /docs/permalinks.html
     - title: Theming
       link: /docs/theming.html
-    - title: Config
+- title: References
+  children:
+    - title: Configuration
       link: /docs/config.html

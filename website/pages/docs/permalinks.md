@@ -1,0 +1,45 @@
+---
+title: Permalinks
+---
+
+Permalinks are the output path for your pages, posts. They allow you to structure the directories of your source code different from the directories in your output.
+
+## Page Attribute
+
+The simplest way to set a permalink is using the page attribute `permalink`.
+
+For example, you might have a Makrkdown page on your site located at `./pages/sub_folder/hello.md` and you want the output url to be `/about/.` In front matter of the page you would set:
+
+```markdown
+---
+permalink: /about/
+---
+```
+
+## Global
+
+Setting a permalink using the `permalink` attribute for every page on your site is no fun. Luckily, Saber lets you set the permalink structure globally in your config file, like `saber-config.yml`.
+
+To set a global permalink, you use the permalink variable in `saber-config.yml`. You can use placeholders to your desired output. For example:
+
+```yaml
+permalinks:
+  post: /:year/:month/:day/:title:slug.html
+```
+
+Note that placeholders like `:year` and `:month` are parsed from the page attribute `date` which can be any valid date value like: `2015-02-31`, it defaults to the creation time of your page.
+
+Here we are setting the permalink template for `post` pages, you can set permalink for each type of page individually.
+
+### Placeholders
+
+Here’s the full list of placeholders available:
+
+| Variable | Description                                                |
+| -------- | ---------------------------------------------------------- |
+| year     | Year from the page attribute `date`                        |
+| month    | Month from the page attribute `date`                       |
+| i_month  | Month from the page attribute `date`, without leading zero |
+| day      | Day from the page attribute `date`                         |
+| i_day    | Day from the page attribute `date`, without leading zero   |
+| slug     | The filename of the page, without extension                |

@@ -39,12 +39,15 @@ module.exports = config => {
 
   const themeConfig = struct.interface({}, {})
 
+  const permalinks = struct.union(['object', 'function'], {})
+
   const schema = struct({
     siteConfig,
     themeConfig,
     theme: 'string?',
     plugins,
-    markdown
+    markdown,
+    permalinks
   })
 
   const [err, result] = schema.validate(config)

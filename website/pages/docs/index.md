@@ -18,13 +18,3 @@ Saber (or Saber.js) is a static website generator, it is like Hexo but you can u
 Hexo's layout system uses string-based template engines like ejs, pug et al. If you want client-side interactions, you need to create addtional JavaScript files and references them in your layouts, which is pretty much the old way of building websites, which is good if that's all you need.
 
 Saber's layout system uses Vue.js by default, layouts will be used to generate two bundles (server bundle and client bundle), the server bundle will be used to generate static HTML at build time, and the client bundle will be used for client-side interactions, once the page is loaded on client-side, the client bundle will take over it to "hydrate" the static markup and make it interactive. (hence universal)
-
-## Quick Start
-
-Create a blog with a single command:
-
-```bash
-npm init blog my-blog
-```
-
-Then following the instructions in terminal.

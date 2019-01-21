@@ -76,6 +76,12 @@ export default {
   }
 }
 
+.item {
+  &:not(:first-child) {
+    margin-top: 30px;
+  }
+}
+
 .mobile-items {
   display: none;
   width: 100%;
