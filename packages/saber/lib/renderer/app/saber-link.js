@@ -21,7 +21,7 @@ export default Vue => {
     },
     mounted() {
       const canPrefetch =
-        navigator.connection &&
+        !navigator.connection ||
         !navigator.connection.effectiveType.includes('2g')
       if (this.prefetch && observer && canPrefetch) {
         setTimeout(() => {
