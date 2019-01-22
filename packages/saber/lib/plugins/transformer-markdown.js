@@ -21,6 +21,7 @@ function transformMarkdown({ page, body, configDir }, markdown) {
     Object.assign(
       {
         html: true,
+        linkify: true,
         highlight:
           markdown.highlighter &&
           require(resolvePackage(markdown.highlighter, {
@@ -43,6 +44,12 @@ function transformMarkdown({ page, body, configDir }, markdown) {
     },
     {
       resolve: require.resolve('../markdown/escape-interpolations-plugin')
+    },
+    {
+      resolve: require.resolve('../markdown/link-plugin')
+    },
+    {
+      resolve: require.resolve('../markdown/task-list-plugin')
     },
     ...(markdown.plugins
       ? markdown.plugins.map(p => {

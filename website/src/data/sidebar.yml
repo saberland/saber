@@ -4,6 +4,10 @@
       link: /docs/
     - title: Installation
       link: /docs/installation.html
+- title: Content
+  children:
+    - title: Markdown
+      link: /docs/markdown.html
 - title: Site Structure
   children:
     - title: Routing

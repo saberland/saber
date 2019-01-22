@@ -62,8 +62,12 @@ main {
 
 h2 {
   font-size: 2rem;
-  margin-top: 60px;
+  margin-top: 80px;
   font-weight: 500;
+}
+
+h3 {
+  margin-top: 40px;
 }
 
 .page-title, h1, h2, h3, h4, h5 {
@@ -98,6 +102,11 @@ pre code {
 
 ul {
   padding-left: 20px;
+
+  &.task-list {
+    list-style: none;
+    padding-left: 0;
+  }
 }
 
 table {
