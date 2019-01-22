@@ -6,9 +6,9 @@ title: Installation
 
 Saber requires [Nodes.js 8](https://nodejs.org/en/) or above.
 
-## Using Starter
+## Using the Starter template
 
-If you want to kick start a blog, you can achieve it by running a single command:
+If you want to kick-start a blog, you can achieve it by running a single command:
 
 ```bash
 npm init blog my-blog
