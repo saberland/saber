@@ -3,7 +3,7 @@ title: Routing
 ---
 
 
-Saber uses file-system as the router API, files with `.js` `.md` or `.vue` extension inside `./pages` folder will automatically become _web pages_.
+Saber uses the file-system as the router API. Files with `.js` `.md` or `.vue` extension inside the `./pages` folder will automatically become _web pages_.
 
 
 - `./pages/index.md` becomes `/index.html`
@@ -19,16 +19,16 @@ A page is made of two parts, the attributes and the contents. For example your m
 title: About me
 ---
 
-This is somethine about __me__.
+This is something about __me__.
 ```
 
-We allow you to define attributes via _frontmatter_, and the rest will become _contents_.
+We allow you to define attributes via _frontmatter_, and any content outside of the frontmatter become _contents_.
 
-In a `.js` or `.vue`, you can define attributes via JavaScript instead.
+In `.js` or `.vue` files, you can define attributes via JavaScript instead.
 
 <small>_about.js:_</small>
 
-```js
+```javascript
 export const attributes = {
   title: 'About me'
 }
@@ -44,7 +44,7 @@ export default {
 
 ```vue
 <template>
-  <div>This is somethine about <strong>me</strong>.</div>
+  <div>This is something about <strong>me</strong>.</div>
 </template>
 
 <script>
@@ -60,4 +60,12 @@ export default {}
 
 Posts live inside `./pages/_posts`, they are just a special kind of pages.
 
-Basically we will generate a list of posts so you can display it in your homepage, the posts are sorted by the creation time which might be inaccurate so you can use `date: 2018-02-31` attribute to override it.
+Basically we generate a list of posts for display in your homepage. Posts are sorted by their creation time which might be inaccurate, so you can override a post's creation time by adding the `date` attribute to it.
+
+
+```javascript
+export const attributes = {
+  title: 'About me',
+  date: 2018-02-31
+}
+```

@@ -2,7 +2,7 @@
 title: Theming
 ---
 
-Themes are used to manage layouts, extend Saber's browser APIs and Node.js APIs.
+Themes are used to manage layouts and Saber's browser APIs and Node.js APIs.
 
 By default Saber uses a built-in theme, if you want to use a custom theme you can simply set it in config file like this `saber-config.yml`:
 
@@ -17,7 +17,7 @@ Layouts are populated under `$theme/layouts` directory.
 
 ## Layouts
 
-Different page will use differents layout component from your theme.
+Different pages will use differents layout components from your theme.
 
 | Page Type | Example                       | Layout Component |
 | --------- | ----------------------------- | ---------------- |
@@ -25,9 +25,9 @@ Different page will use differents layout component from your theme.
 | post      | `pages/_posts/hello-world.md` | `post.{vue.js}`  |
 | index     | `pages/index.vue`             | `index.{vue.js}` |
 
-Layout component can be overriden via `layout` attribute, it will fallback to `default` when the desired one is not found.
+Layout components can be overriden via the `layout` attribute, and will fallback to the `default` component when the specificed component is not found.
 
-Layout component has a prop called `page` which allows you to access page attributes and more.
+Layout components have a prop called `page` which allows you to access page attributes and more.
 
 ```typescript
 interface PageProp {
@@ -47,7 +47,7 @@ interface IndexPageProp {
 }
 ```
 
-The page contents will be available as default slot in your layout component, for example:
+The page contents will be available as a default slot in your layout component, for example:
 
 ```vue
 <template>

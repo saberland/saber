@@ -2,7 +2,7 @@
 title: Configuration
 ---
 
-You can use `saber-config.yml` `saber-config.toml` `saber-config.js` `saber-config.json` for general configurations. All the possible config keys will be listed below.
+You can use `saber-config.yml`, `saber-config.toml`, `saber-config.js` or `saber-config.json` for general configurations. All the possible config keys will be listed below.
 
 ## theme
 
@@ -14,13 +14,13 @@ The path to your theme or a npm package name (`saber-theme-` prefix is optional)
 
 - Type: `object`
 
-This option is used for configuring basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`, you can use them later in your pages and theme like this:
+This option is used for configuring the basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`, these can be used in your pages and theme like this:
 
 ```js
 import { siteConfig } from 'saber-config'
 ```
 
-`saber-config` is not a real npm package, it's just an alias to a temporary file that exposes `siteConfig` from your config file.
+Note: `saber-config` is not a real npm package, it's just an alias to a temporary file that exposes `siteConfig` from your config file.
 
 ## themeConfig
 
@@ -44,7 +44,7 @@ Use a set of Saber plugins:
 type Plugin =
   | string
   | {
-      /** The path to your plugin or a npm package name */
+      /** The path to your plugin or an npm package name */
       resolve: string
       /** Plugin options */
       options?: object
@@ -53,7 +53,7 @@ type Plugin =
 
 ## markdown
 
-Customizing the internal markdown parse.
+Customizing the internal markdown parser.
 
 ### markdown.slugify
 
@@ -111,4 +111,4 @@ interface Permalinks {
 }
 ```
 
-Note that the permalink for homepage is always `/`.
+Note that the permalink for the homepage is always `/`.
