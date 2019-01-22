@@ -115,25 +115,19 @@ class VueRenderer {
     const routes = `export default [
       ${pages
         .map(page => {
-          const chunkName = `/* webpackChunkName: "path--${
-            page.internal.id
-          }" */ `
+          const chunkName = `path--${page.internal.id}`
+          const chunkNameComment = `/* webpackChunkName: "${chunkName}" */ `
+          const componentPath = page.internal.file
+            ? `${page.internal.file}?saberPage=${page.internal.id}`
+            : `#cache/pages/${page.internal.id}.pson`
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
               component: function() {
-                ${
-                  page.internal.file
-                    ? `
-                return import(${chunkName}${JSON.stringify(
-                        `${page.internal.file}?saberPage=${page.internal.id}`
-                      )})
-                `
-                    : `
-                return import(${chunkName}${JSON.stringify(
-                        `#cache/pages/${page.internal.id}.pson`
-                      )})
-                `
-                }
+                ${`
+                return import(${chunkNameComment}${JSON.stringify(
+                  componentPath
+                )})
+                `}
               }
             }`
         })

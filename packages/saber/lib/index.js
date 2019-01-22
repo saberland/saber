@@ -224,8 +224,7 @@ class Saber {
         res.end(
           htmlTemplate.replace(
             '<div id="_saber"></div>',
-            `$&
-        <script src="/_saber/js/browser.js"></script>`
+            `$&<script src="/_saber/js/browser.js"></script>`
           )
         )
       } else {

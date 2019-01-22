@@ -4,4 +4,4 @@ title: haha
 
 aaa
 
-<router-link to="/hehe.html">Go to hehe</router-link>
+<saber-link to="/hehe.html">Go to hehe</saber-link>

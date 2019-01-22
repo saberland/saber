@@ -10,6 +10,9 @@ module.exports = (api, { type }) => {
 
   config.output.publicPath('/').filename(fileNames.js)
 
+  // Disable performance hints
+  config.performance.hints(false)
+
   if (type === 'server') {
     config.output.libraryTarget('commonjs2')
     config.target('node')

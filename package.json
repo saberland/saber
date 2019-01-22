@@ -53,7 +53,8 @@
     "ignore": [
       "**/dist/**",
       "**/vendor/**",
-      "*.min.js"
+      "*.min.js",
+      "**/renderer/app/**"
     ]
   },
   "workspaces": [

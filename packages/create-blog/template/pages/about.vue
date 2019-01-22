@@ -1,6 +1,6 @@
 <template>
   <div>
-    About this page! <router-link to="/">Back home?</router-link>
+    About this page! <saber-link to="/">Back home?</saber-link>
   </div>
 </template>
 

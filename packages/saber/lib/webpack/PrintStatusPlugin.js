@@ -20,7 +20,11 @@ module.exports = class PrintStatusPlugin {
       )
     })
 
-    if (this.api.opts.progress !== false && !process.env.CI && process.stdout.isTTY) {
+    if (
+      this.api.opts.progress !== false &&
+      !process.env.CI &&
+      process.stdout.isTTY
+    ) {
       const { ProgressPlugin } = require('webpack')
       const bar = new ProgressPlugin((per, message, ...args) => {
         const spinner = require('../utils/spinner')
@@ -48,20 +52,33 @@ module.exports = class PrintStatusPlugin {
     compiler.hooks.done.tap('print-status', stats => {
       require('../utils/spinner').stop() // Just in case
 
+      const logFiles = () => {
+        console.log(
+          stats.toString({
+            colors: true,
+            chunks: false,
+            modules: false,
+            children: false,
+            versions: false,
+            assets: false
+          })
+        )
+      }
+
       if (stats.hasErrors() || stats.hasWarnings()) {
-        console.log(stats.toString({
-          colors: true,
-          chunks: false,
-          modules: false,
-          children: false,
-          versions: false,
-          assets: false
-        }))
+        logFiles()
       } else {
+        if (log.isDebug) {
+          logFiles()
+        }
         log.success('Compiled successfully!')
         if (this.api.mode === 'development') {
           log.info(`Available at ${colors.underline('http://localhost:2020')}`)
-          log.info(colors.dim(`${prettyBytes(process.memoryUsage().heapUsed)} memory used`))
+          log.info(
+            colors.dim(
+              `${prettyBytes(process.memoryUsage().heapUsed)} memory used`
+            )
+          )
         }
       }
     })

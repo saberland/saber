@@ -5,8 +5,10 @@ import Router from './vendor/vue-router'
 import Meta from './vendor/vue-meta'
 import Layout from './LayoutManager.vue'
 import extendBrowserApi from '#cache/extend-browser-api'
+import SaberLink from './saber-link'
 
 Vue.use(Router)
+Vue.use(SaberLink)
 
 Vue.component(Layout.name, Layout)
 
@@ -21,12 +23,11 @@ export default () => {
   const router = new Router({
     mode: 'history',
     routes,
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
       if (savedPosition) {
         return savedPosition
-      } else {
-        return { x: 0, y: 0 }
       }
+      return { x: 0, y: 0 }
     }
   })
 

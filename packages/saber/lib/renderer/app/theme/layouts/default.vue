@@ -7,7 +7,7 @@
     <div class="posts" v-if="page.posts && page.posts.length > 0">
       <div class="post" v-for="post in page.posts" :key="post.attributes.permalink">
         <h2 class="post-title">
-          <router-link :to="post.attributes.permalink">{{ post.attributes.title }}</router-link>
+          <saber-link :to="post.attributes.permalink">{{ post.attributes.title }}</saber-link>
         </h2>
       </div>
     </div>

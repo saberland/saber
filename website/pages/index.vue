@@ -15,11 +15,11 @@
       </div>
     </div>
     <section>
-      <router-link
+      <saber-link
         class="getting-started"
         to="/docs/">
         Getting Started →
-      </router-link>
+      </saber-link>
     </section>
   </div>
 </template>

@@ -2,13 +2,13 @@
   <header class="header">
     <div class="container">
       <h1 class="logo">
-        <router-link to="/">
+        <saber-link to="/">
           Saber
-        </router-link>
+        </saber-link>
       </h1>
       <ul class="menu">
         <li class="menu-item">
-          <router-link to="/docs/">Guide</router-link>
+          <saber-link to="/docs/">Guide</saber-link>
         </li>
         <li class="menu-item">
           <a href="https://github.com/egoist/saber" target="_blank">GitHub</a>

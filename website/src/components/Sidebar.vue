@@ -5,9 +5,9 @@
         <div class="item-title">{{ item.title }}</div>
         <div class="item-children">
           <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
-            <router-link :to="childItem.link" :class="{active: $route.path === childItem.link}">
+            <saber-link :to="childItem.link" :class="{active: $route.path === childItem.link}">
               {{ childItem.title }}
-            </router-link>
+            </saber-link>
           </div>
         </div>
       </div>
