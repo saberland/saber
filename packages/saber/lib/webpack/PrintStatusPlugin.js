@@ -1,5 +1,6 @@
 const os = require('os')
 const { log, colors } = require('saber-log')
+const prettyTime = require('pretty-ms')
 const prettyBytes = require('../utils/prettyBytes')
 
 module.exports = class PrintStatusPlugin {
@@ -71,7 +72,11 @@ module.exports = class PrintStatusPlugin {
         if (log.isDebug) {
           logFiles()
         }
-        log.success('Compiled successfully!')
+        log.success(
+          `Compiled successfully in ${prettyTime(
+            Date.now() - stats.startTime
+          )}!`
+        )
         if (this.api.mode === 'development') {
           log.info(`Available at ${colors.underline('http://localhost:2020')}`)
           log.info(
