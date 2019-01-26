@@ -36,7 +36,7 @@ export default ({ router, rootOptions }) => {
   rootOptions.head.link = [
     {
       href:
-        'https://fonts.proxy.ustclug.org/css?family=Josefin+Sans|Source+Sans+Pro',
+        'https://fonts.googleapis.com/css?family=Josefin+Sans|Source+Sans+Pro',
       rel: 'stylesheet'
     }
   ]
