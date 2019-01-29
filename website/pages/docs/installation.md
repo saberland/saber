@@ -4,7 +4,7 @@ title: Installation
 
 ## Prerequisites
 
-Saber requires [Nodes.js 8](https://nodejs.org/en/) or above.
+Saber requires [Node.js 8](https://nodejs.org/en/) or above.
 
 ## Using the Starter template
 
