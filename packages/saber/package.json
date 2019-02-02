@@ -6,7 +6,7 @@
     "lib"
   ],
   "main": "lib/index.js",
-  "bin": "bin/cli.js",
+  "bin": "lib/cli.js",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.2.2",
@@ -48,6 +48,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
-    "markdown-it-footnote": "^3.0.1"
+    "@types/webpack": "^4.4.24",
+    "markdown-it-footnote": "^3.0.1",
+    "typescript": "^3.3.1"
   }
 }

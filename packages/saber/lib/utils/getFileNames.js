@@ -1,3 +1,7 @@
+// @ts-check
+/**
+ * @param {string} useHash
+ */
 module.exports = useHash => {
   return {
     js: useHash ? '_saber/js/[name].[chunkhash:8].js' : '_saber/js/[name].js',

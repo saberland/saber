@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "allowJs": true,
+    "noEmit": true,
+    "lib": ["es2017", "dom"],
+    "module": "commonjs",
+    "target": "es2015",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  },
+  "include": ["lib/**/*"]
+}
