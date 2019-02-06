@@ -1,4 +1,4 @@
-'use strict'
+/* eslint-disable */
 
 const UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 

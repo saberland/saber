@@ -25,15 +25,15 @@ module.exports = ({ types: t }) => {
           console.log('support top-level components')
           path.node.elements.push(
             // PascalCase Components
-            t.ArrayExpression([
-              t.RegExpLiteral('^<[A-Z]'),
-              t.RegExpLiteral('>'),
+            t.arrayExpression([
+              t.regExpLiteral('^<[A-Z]'),
+              t.regExpLiteral('>'),
               t.booleanLiteral(true)
             ]),
             // custom elements with hyphens
-            t.ArrayExpression([
-              t.RegExpLiteral('^<w+\\-'),
-              t.RegExpLiteral('>'),
+            t.arrayExpression([
+              t.regExpLiteral('^<w+\\-'),
+              t.regExpLiteral('>'),
               t.booleanLiteral(true)
             ])
           )

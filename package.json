@@ -2,9 +2,10 @@
   "private": true,
   "name": "saber-monorepo",
   "scripts": {
-    "test": "npm run lint && jest",
+    "test": "npm run lint",
     "lint": "xo",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "prepare": "lerna run prepublishOnly"
   },
   "repository": {
     "url": "egoist/saber",
@@ -31,8 +32,18 @@
     ],
     "rules": {
       "import/no-unassigned-import": "off",
-      "unicorn/filename-case": "off"
-    }
+      "unicorn/filename-case": "off",
+      "no-await-in-loop": "off",
+      "unicorn/no-abusive-eslint-disable": "off"
+    },
+    "ignore": [
+      "**/dist/**",
+      "**/vendor/**",
+      "*.min.js",
+      "**/renderer/app/**",
+      "**/example/**",
+      "website/**"
+    ]
   },
   "husky": {
     "hooks": {
@@ -54,7 +65,9 @@
       "**/dist/**",
       "**/vendor/**",
       "*.min.js",
-      "**/renderer/app/**"
+      "**/renderer/app/**",
+      "**/example/**",
+      "website/**"
     ]
   },
   "workspaces": [

@@ -1,5 +1,3 @@
-const resolveFrom = require('resolve-from')
-
 exports.name = 'builtin:transformer-js'
 
 exports.apply = api => {

@@ -1,4 +1,4 @@
-module.exports = ({ types: t }) => {
+module.exports = () => {
   return {
     visitor: {
       ObjectExpression(path, { opts }) {
@@ -19,7 +19,9 @@ module.exports = ({ types: t }) => {
           if (confident) {
             opts.env.attributes = value
           } else {
-            throw new Error(`"attributes" is supposed to have the same value when executed in runtime and build time.`)
+            throw new Error(
+              `"attributes" is supposed to have the same value when executed in runtime and build time.`
+            )
           }
         }
       }

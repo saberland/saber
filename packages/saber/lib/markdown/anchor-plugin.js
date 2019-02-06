@@ -55,7 +55,7 @@ const anchor = (md, opts) => {
 
   md.core.ruler.push('anchor', state => {
     const slugs = {}
-    const tokens = state.tokens
+    const { tokens } = state
 
     const isLevelSelected = Array.isArray(opts.level)
       ? isLevelSelectedArray(opts.level)
@@ -74,7 +74,7 @@ const anchor = (md, opts) => {
 
         let slug = token.attrGet('id')
 
-        if (slug == null) {
+        if (!slug) {
           slug = uniqueSlug(opts.slugify(title), slugs)
           token.attrPush(['id', slug])
         }

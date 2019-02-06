@@ -1,6 +1,10 @@
-const parser = require('@babel/parser')
-const traverse = require('@babel/traverse')
-const generator = require('@babel/generator')
+const path = require('path')
+const resolveFrom = require('resolve-from')
+
+const babelDir = path.dirname(require.resolve('@babel/core/package'))
+const parser = require(resolveFrom(babelDir, '@babel/parser'))
+const traverse = require(resolveFrom(babelDir, '@babel/traverse'))
+const generator = require(resolveFrom(babelDir, '@babel/generator'))
 
 module.exports = (content, filepath) => {
   const ast = parser.parse(content, {

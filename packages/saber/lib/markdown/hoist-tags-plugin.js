@@ -3,7 +3,7 @@ module.exports = md => {
 
   // eslint-disable-next-line camelcase
   md.renderer.rules.html_block = (tokens, idx, options, env) => {
-    const content = tokens[idx].content
+    const { content } = tokens[idx]
     const hoistedTags = env.hoistedTags || (env.hoistedTags = [])
     if (RE.test(content.trim())) {
       hoistedTags.push(content)

@@ -1,3 +1,4 @@
+/* eslint-disable */
 let enabled =
   process.env.FORCE_COLOR ||
   process.platform === 'win32' ||
