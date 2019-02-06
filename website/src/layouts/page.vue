@@ -89,6 +89,7 @@ code {
   background: rgba(255, 105, 180, 0.09);
   border-radius: 3px;
   font-size: 14px;
+  padding: 3px 5px;
 }
 
 pre {

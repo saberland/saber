@@ -26,10 +26,13 @@ module.exports = class BrowserApi extends Set {
       })
 
       export default function (context) {
-        ${files.map(file => `${file.name}(context)`).join('\n')}
-        if (themeBrowserApi) {
-          themeBrowserApi(context)
-        }
+        ${files
+          .map(
+            file =>
+              `typeof ${file.name} === 'function' && ${file.name}(context)`
+          )
+          .join('\n')}
+        typeof themeBrowserApi === 'function' && themeBrowserApi(context)
       }`
 
     await fs.outputFile(

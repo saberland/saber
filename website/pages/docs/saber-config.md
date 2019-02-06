@@ -1,18 +1,22 @@
 ---
-title: Configuration
+title: Saber Config
 ---
 
 You can use `saber-config.yml`, `saber-config.toml`, `saber-config.js` or `saber-config.json` for general configurations. All the possible config keys will be listed below.
 
+Note that during development, some of the changes made in the config file will NOT trigger rebuild, you need to manually restart the dev server.
+
 ## theme
 
 - Type: `string`
+- Need Restarting: YES
 
 The path to your theme or a npm package name (`saber-theme-` prefix is optional).
 
 ## siteConfig
 
 - Type: `object`
+- Need Restarting: NO
 
 This option is used for configuring the basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`, these can be used in your pages and theme like this:
 
@@ -25,6 +29,7 @@ Note: `saber-config` is not a real npm package, it's just an alias to a temporar
 ## themeConfig
 
 - Type: `object`
+- Need Restarting: NO
 
 This option will also be exposed in `saber-config`:
 
@@ -37,6 +42,7 @@ For reusuablity, a theme should use this option for customization instead of har
 ## plugins
 
 - Type: `Array<Plugin>`
+- Need Restarting: YES
 
 Use a set of Saber plugins:
 
@@ -52,6 +58,8 @@ type Plugin =
 ```
 
 ## markdown
+
+- Need Restarting: YES
 
 Customizing the internal markdown parser.
 
@@ -102,6 +110,7 @@ interface MarkdownPlugin {
 
 - Type: `Permalinks` `(page: Page) => Permalinks`
 - Default: `/:posts/:slug.html` for posts, `/:slug.html` for other pages
+- Need Restarting: YES
 
 The template that is used to generate permalink for each page.
 

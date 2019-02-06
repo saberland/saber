@@ -28,12 +28,12 @@
 </template>
 
 <script>
-import items from '../data/sidebar.yml'
+import { themeConfig } from 'saber-config'
 
 export default {
   data() {
     return {
-      items
+      items: themeConfig.sidebar
     }
   },
 

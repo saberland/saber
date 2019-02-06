@@ -14,7 +14,11 @@ If you want to kick-start a blog, you can achieve it by running a single command
 npm init blog my-blog
 ```
 
-Then follow the intructions in your terminal.
+Then follow the intructions in your terminal, some npm scripts will be avaiable in this project:
+
+- `npm run dev`: Start dev server.
+- `npm run build`: Create a static production build.
+- `npm run serve`: Serve the static production build.
 
 ## Start From Scratch
 
@@ -33,7 +37,8 @@ Configure npm scripts in `my-website/package.json` to run `saber` commands:
 {
   "scripts": {
     "dev": "saber",
-    "build": "saber build"
+    "build": "saber build",
+    "serve": "saber serve"
   },
   "dependencies": {
     "saber": "latest"

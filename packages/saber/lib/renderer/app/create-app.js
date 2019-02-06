@@ -2,13 +2,16 @@ import './polyfills'
 import Vue from 'vue'
 import routes from '#cache/routes'
 import Router from './vendor/vue-router'
+import RoutePrefetch from './vendor/vue-router-prefetch'
 import Meta from './vendor/vue-meta'
 import Layout from './LayoutManager.vue'
 import extendBrowserApi from '#cache/extend-browser-api'
-import SaberLink from './saber-link'
 
 Vue.use(Router)
-Vue.use(SaberLink)
+
+Vue.use(RoutePrefetch, {
+  componentName: 'SaberLink'
+})
 
 Vue.component(Layout.name, Layout)
 
@@ -37,9 +40,7 @@ export default () => {
   })
 
   const rootOptions = {
-    head: {
-      title: 'Saber App'
-    },
+    head: {},
     router,
     render: h => h('div', { attrs: { id: '_saber' } }, [h('router-view')])
   }
