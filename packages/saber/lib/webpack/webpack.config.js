@@ -60,6 +60,7 @@ module.exports = (api, { type }) => {
   config.plugin('constants').use(require('webpack').DefinePlugin, [
     {
       'process.browser': type === 'browser',
+      'process.client': type === 'browser',
       'process.server': type === 'server',
       __DEV__: api.mode !== 'production'
     }
@@ -67,7 +68,8 @@ module.exports = (api, { type }) => {
 
   config.plugin('print-status').use(require('./PrintStatusPlugin'), [
     {
-      api
+      api,
+      type
     }
   ])
 

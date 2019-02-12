@@ -1,6 +1,6 @@
 const path = require('path')
 const { fs } = require('saber-utils')
-const { log, colors } = require('saber-log')
+const { log } = require('saber-log')
 
 const ID = 'vue-renderer'
 
@@ -96,7 +96,7 @@ class VueRenderer {
             })
           ])
         )
-      } else if (type === 'browser') {
+      } else if (type === 'client') {
         config
           .plugin('vue-ssr')
           .use(require('vue-server-renderer/client-plugin'), [
@@ -141,20 +141,20 @@ class VueRenderer {
   }
 
   async $build() {
-    const browserConfig = this.api
-      .createWebpackChain({ type: 'browser' })
+    const clientConfig = this.api
+      .createWebpackChain({ type: 'client' })
       .toConfig()
     const serverConfig = this.api
       .createWebpackChain({ type: 'server' })
       .toConfig()
 
-    // Remove dist-browser
-    await fs.remove(this.api.resolveCache('dist-browser'))
+    // Remove dist-client
+    await fs.remove(this.api.resolveCache('dist-client'))
 
-    const browserCompiler = require('webpack')(browserConfig)
+    const clientCompiler = require('webpack')(clientConfig)
     const serverCompiler = require('webpack')(serverConfig)
     await Promise.all([
-      runCompiler(browserCompiler),
+      runCompiler(clientCompiler),
       runCompiler(serverCompiler)
     ])
   }
@@ -168,7 +168,7 @@ class VueRenderer {
       require(this.api.resolveCache('dist-server/bundle-manifest.json')),
       {
         clientManifest: require(this.api.resolveCache(
-          'dist-browser/bundle-manifest.json'
+          'dist-client/bundle-manifest.json'
         )),
         runInNewContext: false,
         inject: false,
@@ -184,7 +184,7 @@ class VueRenderer {
     await Promise.all(
       [...this.api.source.pages.values()].map(async page => {
         const context = { url: page.attributes.permalink }
-        log.log(`${colors.bold('>')} Generating ${context.url}`)
+        log.info('generating', context.url)
         const markup = await renderer.renderToString(context)
         const html = `<!DOCTYPE html>${require('./saber-document')(
           context,
@@ -201,9 +201,9 @@ class VueRenderer {
       })
     )
 
-    // Copy .saber/dist-browser/_saber to .saber/public/_saber
+    // Copy .saber/dist-client/_saber to .saber/public/_saber
     await fs.copy(
-      this.api.resolveCache('dist-browser/_saber'),
+      this.api.resolveCache('dist-client/_saber'),
       this.api.resolveCache('public/_saber')
     )
 

@@ -161,7 +161,7 @@ class Saber {
   }
 
   createWebpackChain(opts) {
-    opts = Object.assign({ type: 'browser' }, opts)
+    opts = Object.assign({ type: 'client' }, opts)
     const config = require('./webpack/webpack.config')(this, opts)
     this.hooks.chainWebpack.call(config, opts)
     return config
@@ -196,22 +196,22 @@ class Saber {
 
     const webpack = require('webpack')
     const server = require('polka')()
-    const config = this.createWebpackChain({ type: 'browser' }).toConfig()
+    const clientConfig = this.createWebpackChain({ type: 'client' }).toConfig()
 
-    config.entry.browser.unshift(
+    clientConfig.entry.client.unshift(
       require.resolve('webpack-hot-middleware/client')
     )
-    config.plugins.push(new webpack.HotModuleReplacementPlugin())
+    clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
-    const compiler = webpack(config)
+    const clientCompiler = webpack(clientConfig)
 
     server.use(
-      require('webpack-dev-middleware')(compiler, {
+      require('webpack-dev-middleware')(clientCompiler, {
         logLevel: 'silent'
       })
     )
     server.use(
-      require('webpack-hot-middleware')(compiler, {
+      require('webpack-hot-middleware')(clientCompiler, {
         log: false
       })
     )
@@ -224,7 +224,7 @@ class Saber {
         res.end(
           htmlTemplate.replace(
             '<div id="_saber"></div>',
-            `$&<script src="/_saber/js/browser.js"></script>`
+            `$&<script src="/_saber/js/client.js"></script>`
           )
         )
       } else {

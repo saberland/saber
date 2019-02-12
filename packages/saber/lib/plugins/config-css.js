@@ -10,7 +10,7 @@ exports.apply = api => {
     // TODO: make this configurable?
     const loaderOptions = {}
     // TODO: disabled for now
-    // When extracting it will include `browser.***.css` twice.
+    // When extracting it will include `client.***.css` twice.
     const shouldExtract = false
     const sourceMap = api.mode !== 'production'
     const isServer = type === 'server'

@@ -4,8 +4,9 @@ const prettyTime = require('pretty-ms')
 const prettyBytes = require('../utils/prettyBytes')
 
 module.exports = class PrintStatusPlugin {
-  constructor({ api }) {
+  constructor({ api, type }) {
     this.api = api
+    this.type = type
   }
 
   apply(compiler) {
@@ -73,7 +74,7 @@ module.exports = class PrintStatusPlugin {
           logFiles()
         }
         log.success(
-          `Compiled successfully in ${prettyTime(
+          `Compiled ${this.type} successfully in ${prettyTime(
             Date.now() - stats.startTime
           )}!`
         )

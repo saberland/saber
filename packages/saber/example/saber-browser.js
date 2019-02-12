@@ -1,3 +1,1 @@
-export default context => {
-  console.log('hehe')
-}
+export default context => {}
