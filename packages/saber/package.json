@@ -48,6 +48,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
+    "@types/resolve-from": "^4.0.0",
     "@types/webpack": "^4.4.24",
     "markdown-it-footnote": "^3.0.1",
     "typescript": "^3.3.1"
