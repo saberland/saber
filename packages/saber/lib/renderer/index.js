@@ -175,10 +175,6 @@ class VueRenderer {
         basedir: this.api.resolveCache('dist-server')
       }
     )
-    const htmlTemplate = await fs.readFile(
-      path.join(__dirname, 'default-index.html'),
-      'utf8'
-    )
     const getFileName = permalink => {
       const filename = permalink.endsWith('.html')
         ? permalink
@@ -188,44 +184,15 @@ class VueRenderer {
     await Promise.all(
       [...this.api.source.pages.values()].map(async page => {
         const context = { url: page.attributes.permalink }
-        const app = await renderer.renderToString(context)
-        const {
-          title,
-          meta,
-          link,
-          style,
-          script,
-          noscript,
-          bodyAttrs,
-          headAttrs,
-          htmlAttrs
-        } = context.head.inject()
-
-        const html = htmlTemplate
-          .replace(
-            /<title>.*<\/title>/,
-            () => `
-                ${meta.text()}
-                ${title.text()}
-                ${link.text()}
-                ${context.renderStyles()}
-                ${style.text()}
-                ${script.text()}
-                ${noscript.text()}
-                `
-          )
-          .replace(
-            /<html(\s+)?(.*)>/,
-            `<html data-saber-ssr ${htmlAttrs.text()}$1$2>`
-          )
-          .replace(/<head(\s+)?(.*)>/, `<head ${headAttrs.text()}$1$2>`)
-          .replace(/<body(\s+)?(.*)>/, `<body ${bodyAttrs.text()}$1$2>`)
-          .replace(
-            '</body>',
-            `${context.renderState()}${context.renderScripts()}</body>`
-          )
-          .replace(`<div id="_saber"></div>`, app)
         log.log(`${colors.bold('>')} Generating ${context.url}`)
+        const markup = await renderer.renderToString(context)
+        const html = `<!DOCTYPE html>${require('./saber-document')(
+          context,
+          markup
+        )}`
+          .replace(/^\s+/gm, '')
+          .replace(/\n+</g, '<')
+          .replace('<div id="_saber"></div>', markup)
         await fs.outputFile(
           getFileName(page.attributes.permalink),
           html,
