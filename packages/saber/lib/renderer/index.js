@@ -140,7 +140,7 @@ class VueRenderer {
     }
   }
 
-  async $build() {
+  async build() {
     const clientConfig = this.api
       .createWebpackChain({ type: 'client' })
       .toConfig()
@@ -159,7 +159,7 @@ class VueRenderer {
     ])
   }
 
-  async $generate() {
+  async generate() {
     // Remove .saber/public
     await fs.remove(this.api.resolveCache('public'))
 
@@ -201,9 +201,9 @@ class VueRenderer {
       })
     )
 
-    // Copy .saber/dist-client/_saber to .saber/public/_saber
+    // Copy .saber/dist-client to .saber/public/_saber
     await fs.copy(
-      this.api.resolveCache('dist-client/_saber'),
+      this.api.resolveCache('dist-client'),
       this.api.resolveCache('public/_saber')
     )
 
@@ -212,6 +212,103 @@ class VueRenderer {
     if (await fs.pathExists(publicFolder)) {
       await fs.copy(publicFolder, this.api.resolveCache('public'))
     }
+  }
+
+  getRequestHandler() {
+    const webpack = require('webpack')
+    const server = require('polka')()
+
+    let renderer
+    let clientManifest
+    let serverManifest
+
+    const clientConfig = this.api
+      .createWebpackChain({ type: 'client' })
+      .toConfig()
+    const serverConfig = this.api
+      .createWebpackChain({ type: 'server' })
+      .toConfig()
+
+    clientConfig.entry.client.unshift(
+      require.resolve('webpack-hot-middleware/client')
+    )
+    clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
+
+    const clientCompiler = webpack(clientConfig)
+    const serverCompiler = webpack(serverConfig)
+
+    const updateRenderer = () => {
+      if (clientManifest && serverManifest) {
+        const { createBundleRenderer } = require('vue-server-renderer')
+        renderer = createBundleRenderer(serverManifest, {
+          clientManifest,
+          runInNewContext: false,
+          inject: false,
+          basedir: this.api.resolveCache('dist-server')
+        })
+      }
+    }
+
+    const mfs = new webpack.MemoryOutputFileSystem()
+    clientCompiler.outputFileSystem = mfs
+    clientCompiler.hooks.done.tap('get-bundle-manifest', stats => {
+      if (!stats.hasErrors()) {
+        clientManifest = JSON.parse(
+          mfs.readFileSync(
+            this.api.resolveCache('dist-client/bundle-manifest.json'),
+            'utf8'
+          )
+        )
+        updateRenderer()
+      }
+    })
+
+    serverCompiler.hooks.done.tap('get-bundle-manifest', stats => {
+      if (!stats.hasErrors()) {
+        serverManifest = JSON.parse(
+          fs.readFileSync(
+            this.api.resolveCache('dist-server/bundle-manifest.json'),
+            'utf8'
+          )
+        )
+        updateRenderer()
+      }
+    })
+
+    server.use(
+      require('serve-static')(this.api.resolveCwd('public'), {
+        dotfiles: 'allow'
+      })
+    )
+
+    server.use(
+      require('webpack-dev-middleware')(clientCompiler, {
+        logLevel: 'silent',
+        publicPath: clientConfig.output.publicPath
+      })
+    )
+    server.use(
+      require('webpack-hot-middleware')(clientCompiler, {
+        log: false
+      })
+    )
+    serverCompiler.watch({}, () => {})
+
+    server.get('*', async (req, res) => {
+      if (!renderer) {
+        return res.end(`Please wait for compilation..`)
+      }
+      const context = { url: req.url }
+      const markup = await renderer.renderToString(context)
+      const html = `<!DOCTYPE html>${require('./saber-document')(
+        context,
+        markup
+      )}`.replace('<div id="_saber"></div>', markup)
+      res.setHeader('content-type', 'text/html')
+      res.end(html)
+    })
+
+    return server.handler
   }
 }
 

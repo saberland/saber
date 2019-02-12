@@ -78,7 +78,8 @@ module.exports = class PrintStatusPlugin {
             Date.now() - stats.startTime
           )}!`
         )
-        if (this.api.mode === 'development') {
+        // Only show URL for client build
+        if (this.api.mode === 'development' && this.type === 'client') {
           log.info(`Available at ${colors.underline('http://localhost:2020')}`)
           log.info(
             colors.dim(

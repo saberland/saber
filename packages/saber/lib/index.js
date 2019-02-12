@@ -1,5 +1,5 @@
 const path = require('path')
-const { fs } = require('saber-utils')
+const http = require('http')
 const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
@@ -187,51 +187,14 @@ class Saber {
 
   async build() {
     await this.run()
-    await this.renderer.$build()
-    await this.renderer.$generate()
+    await this.renderer.build()
+    await this.renderer.generate()
   }
 
   async dev() {
     await this.run({ watch: true })
 
-    const webpack = require('webpack')
-    const server = require('polka')()
-    const clientConfig = this.createWebpackChain({ type: 'client' }).toConfig()
-
-    clientConfig.entry.client.unshift(
-      require.resolve('webpack-hot-middleware/client')
-    )
-    clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
-
-    const clientCompiler = webpack(clientConfig)
-
-    server.use(
-      require('webpack-dev-middleware')(clientCompiler, {
-        logLevel: 'silent'
-      })
-    )
-    server.use(
-      require('webpack-hot-middleware')(clientCompiler, {
-        log: false
-      })
-    )
-
-    const htmlTemplate = await fs.readFile(VueRenderer.htmlTemplate, 'utf8')
-
-    server.get('*', (req, res) => {
-      if (req.headers.accept.includes('text/html')) {
-        res.setHeader('content-type', 'text/html')
-        res.end(
-          htmlTemplate.replace(
-            '<div id="_saber"></div>',
-            `$&<script src="/_saber/js/client.js"></script>`
-          )
-        )
-      } else {
-        res.statusCode = 404
-        res.end()
-      }
-    })
+    const server = http.createServer(this.renderer.getRequestHandler())
 
     server.listen(2020)
   }
