@@ -274,12 +274,15 @@ class VueRenderer {
       }
     }
 
-    const mfs = new webpack.MemoryOutputFileSystem()
-    clientCompiler.outputFileSystem = mfs
+    const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
+      logLevel: 'silent',
+      publicPath: clientConfig.output.publicPath
+    })
+
     clientCompiler.hooks.done.tap('get-bundle-manifest', stats => {
       if (!stats.hasErrors()) {
         clientManifest = JSON.parse(
-          mfs.readFileSync(
+          devMiddleware.fileSystem.readFileSync(
             this.api.resolveCache('dist-client/bundle-manifest.json'),
             'utf8'
           )
@@ -288,10 +291,12 @@ class VueRenderer {
       }
     })
 
+    const serverMFS = new webpack.MemoryOutputFileSystem()
+    serverCompiler.outputFileSystem = serverMFS
     serverCompiler.hooks.done.tap('get-bundle-manifest', stats => {
       if (!stats.hasErrors()) {
         serverManifest = JSON.parse(
-          fs.readFileSync(
+          serverMFS.readFileSync(
             this.api.resolveCache('dist-server/bundle-manifest.json'),
             'utf8'
           )
@@ -306,12 +311,7 @@ class VueRenderer {
       })
     )
 
-    server.use(
-      require('webpack-dev-middleware')(clientCompiler, {
-        logLevel: 'silent',
-        publicPath: clientConfig.output.publicPath
-      })
-    )
+    server.use(devMiddleware)
     server.use(
       require('webpack-hot-middleware')(clientCompiler, {
         log: false
