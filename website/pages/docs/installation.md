@@ -17,7 +17,7 @@ npm init blog my-blog
 Then follow the intructions in your terminal, some npm scripts will be avaiable in this project:
 
 - `npm run dev`: Start dev server.
-- `npm run build`: Create a static production build.
+- `npm run generate`: Compile the application and generate static HTML files.
 - `npm run serve`: Serve the static production build.
 
 ## Start From Scratch
