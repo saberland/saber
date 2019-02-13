@@ -60,8 +60,8 @@ module.exports = (api, { type }) => {
 
   config.plugin('constants').use(require('webpack').DefinePlugin, [
     {
-      'process.browser': type === 'browser',
-      'process.client': type === 'browser',
+      'process.browser': type === 'client',
+      'process.client': type === 'client',
       'process.server': type === 'server',
       __DEV__: api.mode !== 'production'
     }
