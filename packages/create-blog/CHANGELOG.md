@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/egoist/saber/compare/create-blog@0.1.4...create-blog@0.1.5) (2019-02-13)
+
+### Features
+
+- separate build and generate ([ad595ca](https://github.com/egoist/saber/commit/ad595ca))
+
 ## [0.1.4](https://github.com/egoist/saber/compare/create-blog@0.1.3...create-blog@0.1.4) (2019-01-22)
 
 ### Features
