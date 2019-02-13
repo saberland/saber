@@ -6,11 +6,11 @@ module.exports = function(md) {
     const link = token.attrs[hrefIndex]
 
     if (link[1].startsWith('#')) {
-      token.tag = 'router-link'
+      token.tag = 'saber-link'
       link[0] = ':to'
       link[1] = `{hash: ${JSON.stringify(link[1].slice(1))}}`
     } else if (link[1].startsWith('/')) {
-      token.tag = 'router-link'
+      token.tag = 'saber-link'
       link[0] = 'to'
     } else if (/^https?:\/\//.test(link[1])) {
       token.attrSet('target', '_blank')
@@ -26,8 +26,8 @@ module.exports = function(md) {
     const token = tokens[idx]
     const prefix = ''
     if (openToken) {
-      if (openToken.tag === 'router-link') {
-        token.tag = 'router-link'
+      if (openToken.tag === 'saber-link') {
+        token.tag = 'saber-link'
       }
     }
     return prefix + self.renderToken(tokens, idx, options)
