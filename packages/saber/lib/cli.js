@@ -4,7 +4,16 @@ const cac = require('cac')
 const cli = cac()
 
 cli
-  .command('build [dir]', 'Compile the application')
+  .command('[app]', 'Run the application in dev mode')
+  .alias('dev')
+  .action((cwd = '.', options) => {
+    return require('..')(Object.assign({ cwd, mode: 'development' }, options))
+      .dev()
+      .catch(handleError)
+  })
+
+cli
+  .command('build [app]', 'Compile the application')
   .action((cwd = '.', options) => {
     return require('..')(Object.assign({ cwd, mode: 'production' }, options))
       .build()
@@ -13,7 +22,7 @@ cli
 
 cli
   .command(
-    'generate [dir]',
+    'generate [app]',
     'Compile the application and generate static HTML files'
   )
   .option(
@@ -27,12 +36,11 @@ cli
   })
 
 cli
-  .command('[dir]', 'Run the application in dev mode')
-  .alias('dev')
+  .command('serve [app]', 'Serve the already generated application')
+  .option('--host <host>', 'Server host', { default: '0.0.0.0' })
+  .option('--port <host>', 'Server port', { default: 3000 })
   .action((cwd = '.', options) => {
-    return require('..')(Object.assign({ cwd, mode: 'development' }, options))
-      .dev()
-      .catch(handleError)
+    return require('./serve')(Object.assign({ cwd }, options))
   })
 
 cli.option('--debug', 'Show debug logs')
