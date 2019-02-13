@@ -22,6 +22,13 @@ Vue.use(Meta, {
   tagIDKeyName: 'vmid'
 })
 
+const layouts = {}
+const r = require.context('#theme/layouts', false, /\.(js|vue)$/)
+r.keys().forEach(key => {
+  const name = key.slice(2).replace(/\.[a-z]+$/, '')
+  layouts[name] = r(key).default
+})
+
 export default () => {
   const router = new Router({
     mode: 'history',
@@ -41,6 +48,9 @@ export default () => {
 
   const rootOptions = {
     head: {},
+    provide: {
+      layouts
+    },
     router,
     render: h => h('div', { attrs: { id: '_saber' } }, [h('router-view')])
   }

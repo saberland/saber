@@ -131,7 +131,15 @@ class VueRenderer {
               }
             }`
         })
-        .join(',\n')}
+        .join(',\n')},
+      // An addtional route to catch all other requests, i.e. 404 page
+      {
+        path: '*',
+        name: 404,
+        component: function () {
+          return import(${JSON.stringify(path.join(__dirname, 'app/404.vue'))})
+        }
+      }
     ]`
 
     if (routes !== this.prevRoutes) {
@@ -182,9 +190,23 @@ class VueRenderer {
       return path.join(this.api.resolveCache('public'), filename)
     }
     await Promise.all(
-      [...this.api.source.pages.values()].map(async page => {
+      [
+        ...this.api.source.pages.values(),
+        {
+          attributes: {
+            permalink: '/__never_existed__.html',
+            generatedFileName: '404.html'
+          }
+        }
+      ].map(async page => {
         const context = { url: page.attributes.permalink }
-        log.info('generating', context.url)
+        const generatedFileName = getFileName(
+          page.attributes.generatedFileName || page.attributes.permalink
+        )
+        log.info(
+          'Generating',
+          path.relative(this.api.resolveCache('public'), generatedFileName)
+        )
         const markup = await renderer.renderToString(context)
         const html = `<!DOCTYPE html>${require('./saber-document')(
           context,
@@ -193,11 +215,7 @@ class VueRenderer {
           .replace(/^\s+/gm, '')
           .replace(/\n+</g, '<')
           .replace('<div id="_saber"></div>', markup)
-        await fs.outputFile(
-          getFileName(page.attributes.permalink),
-          html,
-          'utf8'
-        )
+        await fs.outputFile(generatedFileName, html, 'utf8')
       })
     )
 
@@ -298,7 +316,7 @@ class VueRenderer {
       if (!renderer) {
         return res.end(`Please wait for compilation..`)
       }
-      const context = { url: req.url }
+      const context = { url: req.url, req, res }
       const markup = await renderer.renderToString(context)
       const html = `<!DOCTYPE html>${require('./saber-document')(
         context,

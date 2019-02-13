@@ -1,11 +1,4 @@
 <script>
-const layouts = {}
-const r = require.context('#theme/layouts', false, /\.(js|vue)$/)
-r.keys().forEach(key => {
-  const name = key.slice(2).replace(/\.[a-z]+$/, '')
-  layouts[name] = r(key).default
-})
-
 export default {
   name: 'layout-manager',
   functional: true,
@@ -15,11 +8,13 @@ export default {
       required: true
     }
   },
+  inject: ['layouts'],
   render(
     h,
     {
       props: { page },
-      children
+      children,
+      injections: { layouts }
     }
   ) {
     const layoutName = page.attributes.layout || page.attributes.type || 'default'
