@@ -6,9 +6,12 @@ const cli = cac()
 cli
   .command('[app]', 'Run the application in dev mode')
   .alias('dev')
+  .option('--ssr', 'Run in SSR mode')
   .action((cwd = '.', options) => {
+    const { ssr } = options
+    delete options.ssr
     return require('..')(Object.assign({ cwd, mode: 'development' }, options))
-      .dev()
+      .dev({ ssr })
       .catch(handleError)
   })
 
@@ -30,8 +33,10 @@ cli
     'Skip compiling the application if you already ran `saber build`'
   )
   .action((cwd = '.', options) => {
+    const { skipBuild } = options
+    delete options.skipBuild
     return require('..')(Object.assign({ cwd, mode: 'production' }, options))
-      .generate({ skipBuild: options.skipBuild })
+      .generate({ skipBuild })
       .catch(handleError)
   })
 

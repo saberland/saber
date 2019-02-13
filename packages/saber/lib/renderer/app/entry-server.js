@@ -8,7 +8,15 @@ export default context =>
       if (context.res && router.currentRoute.name === 404) {
         context.res.statusCode = 404
       }
-      context.head = app.$meta()
+      let head
+      context.head = new Proxy({}, {
+        get(obj, prop) {
+          if (!head) {
+            head = app.$meta().inject()
+          }
+          return prop in head ? head[prop].text() : undefined
+        }
+      })
       resolve(app)
     }, reject)
   })

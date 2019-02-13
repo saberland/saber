@@ -239,7 +239,7 @@ class VueRenderer {
     }
   }
 
-  getRequestHandler() {
+  getRequestHandler({ ssr } = {}) {
     const webpack = require('webpack')
     const server = require('polka')()
 
@@ -250,9 +250,6 @@ class VueRenderer {
     const clientConfig = this.api
       .createWebpackChain({ type: 'client' })
       .toConfig()
-    const serverConfig = this.api
-      .createWebpackChain({ type: 'server' })
-      .toConfig()
 
     clientConfig.entry.client.unshift(
       require.resolve('webpack-hot-middleware/client')
@@ -260,51 +257,57 @@ class VueRenderer {
     clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
     const clientCompiler = webpack(clientConfig)
-    const serverCompiler = webpack(serverConfig)
-
-    const updateRenderer = () => {
-      if (clientManifest && serverBundle) {
-        const { createBundleRenderer } = require('vue-server-renderer')
-        renderer = createBundleRenderer(serverBundle, {
-          clientManifest,
-          runInNewContext: false,
-          inject: false,
-          basedir: this.api.resolveCache('dist-server')
-        })
-        log.debug('Updated server renderer')
-      }
-    }
 
     const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
       logLevel: 'silent',
       publicPath: clientConfig.output.publicPath
     })
 
-    clientCompiler.hooks.done.tap('get-bundle-manifest', stats => {
-      if (!stats.hasErrors()) {
-        clientManifest = JSON.parse(
-          devMiddleware.fileSystem.readFileSync(
-            this.api.resolveCache('dist-client/bundle-manifest.json'),
-            'utf8'
-          )
-        )
-        updateRenderer()
+    if (ssr) {
+      const serverConfig = this.api
+        .createWebpackChain({ type: 'server' })
+        .toConfig()
+      const serverCompiler = webpack(serverConfig)
+      const updateRenderer = () => {
+        if (clientManifest && serverBundle) {
+          const { createBundleRenderer } = require('vue-server-renderer')
+          renderer = createBundleRenderer(serverBundle, {
+            clientManifest,
+            runInNewContext: false,
+            inject: false,
+            basedir: this.api.resolveCache('dist-server')
+          })
+          log.debug('Updated server renderer')
+        }
       }
-    })
+      clientCompiler.hooks.done.tap('get-bundle-manifest', stats => {
+        if (!stats.hasErrors()) {
+          clientManifest = JSON.parse(
+            devMiddleware.fileSystem.readFileSync(
+              this.api.resolveCache('dist-client/bundle-manifest.json'),
+              'utf8'
+            )
+          )
+          updateRenderer()
+        }
+      })
 
-    const serverMFS = new webpack.MemoryOutputFileSystem()
-    serverCompiler.outputFileSystem = serverMFS
-    serverCompiler.hooks.done.tap('get-bundle-manifest', stats => {
-      if (!stats.hasErrors()) {
-        serverBundle = JSON.parse(
-          serverMFS.readFileSync(
-            this.api.resolveCache('dist-server/bundle-manifest.json'),
-            'utf8'
+      const serverMFS = new webpack.MemoryOutputFileSystem()
+      serverCompiler.outputFileSystem = serverMFS
+      serverCompiler.hooks.done.tap('get-bundle-manifest', stats => {
+        if (!stats.hasErrors()) {
+          serverBundle = JSON.parse(
+            serverMFS.readFileSync(
+              this.api.resolveCache('dist-server/bundle-manifest.json'),
+              'utf8'
+            )
           )
-        )
-        updateRenderer()
-      }
-    })
+          updateRenderer()
+        }
+      })
+
+      serverCompiler.watch({}, () => {})
+    }
 
     server.use(
       require('serve-static')(this.api.resolveCwd('public'), {
@@ -318,31 +321,55 @@ class VueRenderer {
         log: false
       })
     )
-    serverCompiler.watch({}, () => {})
 
-    server.get('*', async (req, res) => {
-      if (!renderer) {
-        return res.end(`Please wait for compilation..`)
-      }
-      try {
-        const context = { url: req.url, req, res }
-        const markup = await renderer.renderToString(context)
-        const html = `<!DOCTYPE html>${require('./saber-document')(
-          context,
-          markup
-        )}`.replace('<div id="_saber"></div>', markup)
+    if (ssr) {
+      server.get('*', async (req, res) => {
+        if (!renderer) {
+          return res.end(`Please wait for compilation..`)
+        }
+        try {
+          const context = { url: req.url, req, res }
+          const markup = await renderer.renderToString(context)
+          const html = `<!DOCTYPE html>${require('./saber-document')(
+            context
+          )}`.replace('<div id="_saber"></div>', markup)
+          res.setHeader('content-type', 'text/html')
+          res.end(html)
+        } catch (error) {
+          log.error(error.stack)
+          res.statusCode = 500
+          if (this.api.mode === 'production') {
+            res.end('Interal server error')
+          } else {
+            res.end(error.stack)
+          }
+        }
+      })
+    } else {
+      const head = new Proxy(
+        {},
+        {
+          get() {
+            return ''
+          }
+        }
+      )
+      const noop = () => ''
+      const renderScripts = () =>
+        `<script src="/_saber/js/client.js" defer></script>`
+      server.get('*', (req, res) => {
+        const context = {
+          url: req.url,
+          head,
+          renderStyles: noop,
+          renderScripts,
+          renderState: noop
+        }
+        const html = `<!DOCTYPE html>${require('./saber-document')(context)}`
         res.setHeader('content-type', 'text/html')
         res.end(html)
-      } catch (error) {
-        log.error(error.stack)
-        res.statusCode = 500
-        if (this.api.mode === 'production') {
-          res.end('Interal server error')
-        } else {
-          res.end(error.stack)
-        }
-      }
-    })
+      })
+    }
 
     return server.handler
   }

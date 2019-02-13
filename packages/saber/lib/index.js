@@ -200,10 +200,10 @@ class Saber {
     await this.renderer.generate()
   }
 
-  async dev() {
+  async dev({ ssr } = {}) {
     await this.run({ watch: true })
 
-    const server = http.createServer(this.renderer.getRequestHandler())
+    const server = http.createServer(this.renderer.getRequestHandler({ ssr }))
 
     server.listen(2020)
   }
