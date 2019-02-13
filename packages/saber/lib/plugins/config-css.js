@@ -1,5 +1,5 @@
-const { log } = require('saber-log')
-const configLoader = require('../utils/configLoader')
+const { log, colors } = require('saber-log')
+const spinner = require('../utils/spinner')
 
 const ID = 'builtin:config-css'
 
@@ -21,22 +21,6 @@ exports.apply = api => {
     const fileNames = require('../utils/getFileNames')(
       api.mode === 'production'
     )
-
-    const hasPostCSSConfig = configLoader.resolve({
-      files: [
-        'postcss.config.js',
-        'package.json',
-        '.postcssrc',
-        '.postcssrc.js',
-        '.postcssrc.yaml',
-        '.postcssrc.json'
-      ],
-      packageKey: 'postcss'
-    })
-
-    if (hasPostCSSConfig) {
-      log.debug('Applying custom PostCSS config at ' + hasPostCSSConfig)
-    }
 
     const cssnanoOptions = {
       safe: true,
@@ -77,7 +61,7 @@ exports.apply = api => {
                 : '[path][name]__[local]--[hash:base64:5]',
             importLoaders:
               1 + // stylePostLoader injected by vue-loader
-              (hasPostCSSConfig ? 1 : 0) +
+              1 + // postcss-loader
               (needInlineMinification ? 1 : 0),
             exportOnlyLocals: isServer && shouldExtract
           },
@@ -92,18 +76,28 @@ exports.apply = api => {
         if (needInlineMinification) {
           rule
             .use('minify-inline-css')
-            .loader(require.resolve('postcss-loader'))
+            .loader(require.resolve('@egoist/postcss-loader'))
             .options({
               plugins: [require('cssnano')(cssnanoOptions)]
             })
         }
 
-        if (hasPostCSSConfig) {
-          rule
-            .use('postcss-loader')
-            .loader(require.resolve('postcss-loader'))
-            .options(Object.assign({ sourceMap }, loaderOptions.postcss))
-        }
+        rule
+          .use('postcss-loader')
+          .loader(require.resolve('@egoist/postcss-loader'))
+          .options(
+            Object.assign(
+              {
+                sourceMap,
+                onConfigFile(configFile, resourcePath) {
+                  spinner.stop()
+                  log.debug(`Applying PostCSS config file ${configFile} to:`)
+                  log.debug(colors.dim(resourcePath))
+                }
+              },
+              loaderOptions.postcss
+            )
+          )
 
         if (loader) {
           rule

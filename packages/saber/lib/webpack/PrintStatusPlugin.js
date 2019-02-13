@@ -40,12 +40,10 @@ module.exports = class PrintStatusPlugin {
           })
           .join(' ')}`
 
-        if (per === 0) {
-          spinner.start(msg)
-        } else if (per === 1) {
+        if (per === 1) {
           spinner.stop()
         } else {
-          spinner.text = msg
+          spinner.start(msg)
         }
       })
       bar.apply(compiler)
@@ -61,8 +59,10 @@ module.exports = class PrintStatusPlugin {
             chunks: false,
             modules: false,
             children: false,
-            versions: false,
-            assets: false
+            version: false,
+            assets: false,
+            timings: false,
+            hash: false
           })
         )
       }

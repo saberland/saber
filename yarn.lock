@@ -612,6 +612,16 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@egoist/postcss-loader@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/@egoist/postcss-loader/-/postcss-loader-3.0.2.tgz#a7bc23b85f1ae7fa4f24492be3491462ea778269"
+  integrity sha512-/OVYrobxA0ZdWjEGcNOcyN12ds1eOQMvnIAuHusicKI4KXmDd2IJosdMZJF+fgv7+XjZQFpu4Ax1jWokjBE7ow==
+  dependencies:
+    loader-utils "^1.1.0"
+    postcss "^7.0.0"
+    postcss-load-config "^2.0.0"
+    schema-utils "^1.0.0"
+
 "@intervolga/optimize-cssnano-plugin@^1.0.6":
   version "1.0.6"
   resolved "https://registry.npmjs.org/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -7462,16 +7472,6 @@ postcss-load-config@^2.0.0:
   dependencies:
     cosmiconfig "^4.0.0"
     import-cwd "^2.0.0"
-
-postcss-loader@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/postcss-loader/-/postcss-loader-3.0.0.tgz#6b97943e47c72d845fa9e03f273773d4e8dd6c2d"
-  integrity sha512-cLWoDEY5OwHcAjDnkyRQzAXfs2jrKjXpO/HQFcc5b5u/r7aa471wdmChmwfnv7x2u840iat/wi0lQ5nbRgSkUA==
-  dependencies:
-    loader-utils "^1.1.0"
-    postcss "^7.0.0"
-    postcss-load-config "^2.0.0"
-    schema-utils "^1.0.0"
 
 postcss-merge-longhand@^4.0.10:
   version "4.0.10"
