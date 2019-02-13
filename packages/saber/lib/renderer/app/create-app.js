@@ -23,10 +23,13 @@ Vue.use(Meta, {
 })
 
 const layouts = {}
-const r = require.context('#theme/layouts', false, /\.(js|vue)$/, 'lazy')
+const r = require.context('#theme/layouts', false, /\.(js|vue)$/)
 r.keys().forEach(key => {
   const name = key.slice(2).replace(/\.[a-z]+$/, '')
-  layouts[name] = () => import(/* webpackChunkName: "layout--[request]" */ `#theme/layouts/${key.slice(2)}`)
+  // Let's embed layouts into a main chunk for now
+  // TODO: in the future each layout should be separated in its own chunk
+  // And we prefetch the layout component
+  layouts[name] = r(key).default
 })
 
 export default () => {

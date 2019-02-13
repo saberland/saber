@@ -90,9 +90,11 @@ exports.apply = api => {
               {
                 sourceMap,
                 onConfigFile(configFile, resourcePath) {
-                  spinner.stop()
-                  log.debug(`Applying PostCSS config file ${configFile} to:`)
-                  log.debug(colors.dim(resourcePath))
+                  if (log.isDebug) {
+                    spinner.stop()
+                    log.debug(`Applying PostCSS config file ${configFile} to:`)
+                    log.debug(colors.dim(resourcePath))
+                  }
                 }
               },
               loaderOptions.postcss
