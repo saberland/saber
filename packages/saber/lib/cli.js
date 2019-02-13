@@ -3,14 +3,31 @@ const cac = require('cac')
 
 const cli = cac()
 
-cli.command('build [dir]', 'Build website').action((cwd = '.', options) => {
-  return require('..')(Object.assign({ cwd, mode: 'production' }, options))
-    .build()
-    .catch(handleError)
-})
+cli
+  .command('build [dir]', 'Compile the application')
+  .action((cwd = '.', options) => {
+    return require('..')(Object.assign({ cwd, mode: 'production' }, options))
+      .build()
+      .catch(handleError)
+  })
 
 cli
-  .command('[dir]', 'Run website in dev mode')
+  .command(
+    'generate [dir]',
+    'Compile the application and generate static HTML files'
+  )
+  .option(
+    '--skip-build',
+    'Skip compiling the application if you already ran `saber build`'
+  )
+  .action((cwd = '.', options) => {
+    return require('..')(Object.assign({ cwd, mode: 'production' }, options))
+      .generate({ skipBuild: options.skipBuild })
+      .catch(handleError)
+  })
+
+cli
+  .command('[dir]', 'Run the application in dev mode')
   .alias('dev')
   .action((cwd = '.', options) => {
     return require('..')(Object.assign({ cwd, mode: 'development' }, options))

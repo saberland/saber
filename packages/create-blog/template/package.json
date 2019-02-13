@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "saber",
-    "build": "saber build"
+    "generate": "saber generate"
   },
   "devDependencies": {
     "saber": "latest"

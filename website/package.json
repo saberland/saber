@@ -3,7 +3,7 @@
   "name": "saber-website",
   "scripts": {
     "dev": "saber",
-    "build": "saber build"
+    "generate": "saber generate"
   },
   "dependencies": {
     "nprogress": "^0.2.0",

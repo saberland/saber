@@ -185,9 +185,18 @@ class Saber {
     await this.hooks.emitRoutes.promise()
   }
 
+  // Build your app
   async build() {
     await this.run()
     await this.renderer.build()
+  }
+
+  // Build your app and generate static HTML files for each path
+  async generate({ skipBuild } = {}) {
+    await this.run()
+    if (!skipBuild) {
+      await this.renderer.build()
+    }
     await this.renderer.generate()
   }
 

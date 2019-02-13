@@ -37,7 +37,7 @@ Configure npm scripts in `my-website/package.json` to run `saber` commands:
 {
   "scripts": {
     "dev": "saber",
-    "build": "saber build",
+    "generate": "saber generate",
     "serve": "saber serve"
   },
   "dependencies": {
