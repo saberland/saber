@@ -14,10 +14,9 @@ module.exports = class PrintStatusPlugin {
       const d = new Date()
       log.info(
         colors.dim(
-          `(${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}) Rebuilding due to changes in ${file.replace(
-            os.homedir(),
-            '~'
-          )}`
+          `(${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}) Rebuilding ${
+            this.type
+          } due to changes in ${file.replace(os.homedir(), '~')}`
         )
       )
     })

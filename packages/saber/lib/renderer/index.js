@@ -16,14 +16,14 @@ class VueRenderer {
       // Use locally installed Vue if possible
       if (api.hasDependency('vue')) {
         config.resolve.alias.set(
-          'vue$',
-          api.localResolve('vue/dist/vue.runtime.esm')
+          'vue',
+          path.dirname(api.localResolve('vue/package.json'))
         )
       } else {
         // Otherwise use the one shipped with Saber
         config.resolve.alias.set(
-          'vue$',
-          require.resolve('vue/dist/vue.runtime.esm')
+          'vue',
+          path.dirname(require.resolve('vue/package.json'))
         )
       }
 
@@ -245,7 +245,7 @@ class VueRenderer {
 
     let renderer
     let clientManifest
-    let serverManifest
+    let serverBundle
 
     const clientConfig = this.api
       .createWebpackChain({ type: 'client' })
@@ -263,14 +263,15 @@ class VueRenderer {
     const serverCompiler = webpack(serverConfig)
 
     const updateRenderer = () => {
-      if (clientManifest && serverManifest) {
+      if (clientManifest && serverBundle) {
         const { createBundleRenderer } = require('vue-server-renderer')
-        renderer = createBundleRenderer(serverManifest, {
+        renderer = createBundleRenderer(serverBundle, {
           clientManifest,
           runInNewContext: false,
           inject: false,
           basedir: this.api.resolveCache('dist-server')
         })
+        log.debug('Updated server renderer')
       }
     }
 
@@ -295,7 +296,7 @@ class VueRenderer {
     serverCompiler.outputFileSystem = serverMFS
     serverCompiler.hooks.done.tap('get-bundle-manifest', stats => {
       if (!stats.hasErrors()) {
-        serverManifest = JSON.parse(
+        serverBundle = JSON.parse(
           serverMFS.readFileSync(
             this.api.resolveCache('dist-server/bundle-manifest.json'),
             'utf8'
@@ -323,14 +324,24 @@ class VueRenderer {
       if (!renderer) {
         return res.end(`Please wait for compilation..`)
       }
-      const context = { url: req.url, req, res }
-      const markup = await renderer.renderToString(context)
-      const html = `<!DOCTYPE html>${require('./saber-document')(
-        context,
-        markup
-      )}`.replace('<div id="_saber"></div>', markup)
-      res.setHeader('content-type', 'text/html')
-      res.end(html)
+      try {
+        const context = { url: req.url, req, res }
+        const markup = await renderer.renderToString(context)
+        const html = `<!DOCTYPE html>${require('./saber-document')(
+          context,
+          markup
+        )}`.replace('<div id="_saber"></div>', markup)
+        res.setHeader('content-type', 'text/html')
+        res.end(html)
+      } catch (error) {
+        log.error(error.stack)
+        res.statusCode = 500
+        if (this.api.mode === 'production') {
+          res.end('Interal server error')
+        } else {
+          res.end(error.stack)
+        }
+      }
     })
 
     return server.handler
