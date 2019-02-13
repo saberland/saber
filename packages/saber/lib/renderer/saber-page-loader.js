@@ -37,9 +37,9 @@ module.exports = function(source) {
       </layout-manager>
     </template>
 
-    <page-component>import PageComponent from ${JSON.stringify(
+    <page-component>import PageComponent from "${
       this.resourcePath
-    )}</page-component>
+    }"</page-component>
 
     <page-data>${JSON.stringify(page)}</page-data>
     `

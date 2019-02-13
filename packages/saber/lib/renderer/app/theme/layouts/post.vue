@@ -12,3 +12,9 @@ export default {
   props: ['page']
 }
 </script>
+
+<style scoped>
+h2 {
+  color: green;
+}
+</style>

@@ -23,10 +23,10 @@ Vue.use(Meta, {
 })
 
 const layouts = {}
-const r = require.context('#theme/layouts', false, /\.(js|vue)$/)
+const r = require.context('#theme/layouts', false, /\.(js|vue)$/, 'lazy')
 r.keys().forEach(key => {
   const name = key.slice(2).replace(/\.[a-z]+$/, '')
-  layouts[name] = r(key).default
+  layouts[name] = () => import(/* webpackChunkName: "layout--[request]" */ `#theme/layouts/${key.slice(2)}`)
 })
 
 export default () => {

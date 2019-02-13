@@ -115,8 +115,13 @@ class VueRenderer {
     const routes = `export default [
       ${pages
         .map(page => {
-          const chunkName = `path--${page.internal.id}`
-          const chunkNameComment = `/* webpackChunkName: "${chunkName}" */ `
+          const chunkNameComment = `/* webpackChunkName: "page--${
+            page.internal.file
+              ? path
+                  .relative(this.api.resolveCwd('pages'), page.internal.file)
+                  .replace(/[^a-z0-9_-]/gi, '-')
+              : page.internal.id
+          }" */ `
           const componentPath = page.internal.file
             ? `${page.internal.file}?saberPage=${page.internal.id}`
             : `#cache/pages/${page.internal.id}.pson`
@@ -137,7 +142,9 @@ class VueRenderer {
         path: '*',
         name: 404,
         component: function () {
-          return import(${JSON.stringify(path.join(__dirname, 'app/404.vue'))})
+          return import(/* webpackChunkName: "404-page" */ ${JSON.stringify(
+            path.join(__dirname, 'app/404.vue')
+          )})
         }
       }
     ]`

@@ -22,8 +22,14 @@ However if you add a new line, it works.
 
 This issue only occurs when you use `<script>` element in markdown pages.
 
+## Inline Critical CSS
+
+If you're using a `.js` file as page component, the CSS imported there won't be inlined in the initial HTML sent by the server.
+
+Inlining Critical CSS only works with `<style>` tag in `.vue` files for now.
+
 ## Performance
 
 Running my own blog which has ~70 posts takes 6s on a cold start and 2s on subsequential builds.
 
-__Performance improvement__ is in the roadmap, contributions are very welcome too.
+**Performance improvement** is in the roadmap, contributions are very welcome too.
