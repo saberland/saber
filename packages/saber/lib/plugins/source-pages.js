@@ -11,7 +11,7 @@ exports.name = ID
 exports.apply = api => {
   api.hooks.beforeRun.tapPromise(ID, async ({ watch }) => {
     const pagesDir = api.resolveCwd('pages')
-    const exts = [...api.transformers.keys()]
+    const exts = api.transformers.supportedExtensions
     const filePatterns = [
       `**/*.${exts.length === 1 ? exts[0] : `{${exts.join(',')}}`}`,
       '!**/{node_modules,dist,vendor}/**',
@@ -59,14 +59,17 @@ exports.apply = api => {
       const pages = [...api.source.pages.values()]
       await Promise.all(
         pages.map(async page => {
-          const outPath = api.resolveCache('pages', `${page.internal.id}.pson`)
+          const outPath = api.resolveCache(
+            'pages',
+            `${page.internal.id}.saberpage`
+          )
           await fs.outputFile(outPath, JSON.stringify(page), 'utf8')
         })
       )
     })
 
     for (const file of files) {
-      const page = api.source.getPageFromFile(file)
+      const page = api.source.getPage(file)
       api.hooks.createPage.call({ type: 'add', page })
     }
 
@@ -91,7 +94,7 @@ exports.apply = api => {
           file.relative = filename
           file.absolute = filepath
           file.content = await fs.readFile(file.absolute, 'utf8')
-          const page = api.source.getPageFromFile(file)
+          const page = api.source.getPage(file)
           if (type === 'change') {
             const old = api.source.pages.get(filepath)
             api.hooks.createPage.call({ type: 'change', page, old })

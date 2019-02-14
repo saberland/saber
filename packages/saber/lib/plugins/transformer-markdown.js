@@ -3,15 +3,31 @@ const resolvePackage = require('../utils/resolvePackage')
 exports.name = 'builtin:transformer-markdown'
 
 exports.apply = api => {
-  api.registerTransformer('md', (page, file) => {
-    const { frontmatter, body } = require('../utils/parseFrontmatter')(
-      file.content
-    )
-    Object.assign(page.attributes, frontmatter)
-    transformMarkdown(
-      { page, body, configDir: api.configDir },
-      api.config.markdown || {}
-    )
+  api.transformers.add('markdown', {
+    extensions: ['md'],
+    transform(page) {
+      const { frontmatter, body } = require('../utils/parseFrontmatter')(
+        page.content
+      )
+      Object.assign(page.attributes, frontmatter)
+      transformMarkdown(
+        { page, body, configDir: api.configDir },
+        api.config.markdown || {}
+      )
+    },
+    getPageComponent(page, content, internal) {
+      return `
+        <template>
+          <layout-manager :page="$page">
+            ${content || ''}
+          </layout-manager>
+        </template>
+
+        ${internal.hoistedTags ? internal.hoistedTags.join('\n') : ''}
+
+        <page-data>${JSON.stringify(page)}</page-data>
+      `
+    }
   })
 }
 

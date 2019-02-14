@@ -16,15 +16,15 @@ module.exports = context => {
   } = context.head
 
   return `
-    <html data-saber-ssr ${htmlAttrs}>
-      <head ${headAttrs}>
+    <html${htmlAttrs}>
+      <head${headAttrs}>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         ${meta} ${title} ${link} ${context.renderStyles()}
         ${style} ${script} ${noscript}
       </head>
-      <body ${bodyAttrs}>
+      <body${bodyAttrs}>
         <div id="_saber"></div>
         ${context.renderState()}
         ${context.renderScripts()}

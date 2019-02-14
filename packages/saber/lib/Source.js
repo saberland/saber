@@ -19,6 +19,11 @@ class Pages extends Map {
       }
     }
   }
+
+  getByAbsolutePath(absolute) {
+    const id = hash(absolute)
+    return this.get(id)
+  }
 }
 
 module.exports = class Source {
@@ -27,30 +32,48 @@ module.exports = class Source {
     this.pages = new Pages()
   }
 
-  getPageFromFile(file) {
+  getPage(file) {
     const { api } = this
+    const slug = file.relative
+      // Remove leading _posts/
+      .replace(/^_posts\//, '')
+      // Remove extension
+      .replace(/\.[a-z]+$/i, '')
+
     const page = {
       attributes: {
-        slug: file.relative
-          // Remove leading _posts/
-          .replace(/^_posts\//, '')
-          // Remove extension
-          .replace(/\.[a-z]+$/i, ''),
+        slug,
         createdAt: file.birthtime,
         updatedAt: file.mtime
       },
       internal: {
         id: hash(file.absolute),
-        type: path.extname(file.relative).slice(1),
-        file: file.absolute
-      }
+        absolute: file.absolute,
+        relative: file.relative,
+        isFile: true
+      },
+      contentType: api.transformers.getContentTypeByExtension(
+        path.extname(file.relative).slice(1)
+      ),
+      content: file.content
     }
 
-    const transform = api.getTransformer(file)
-    transform(page, file)
+    const transformer = api.transformers.get(page.contentType)
+    transformer.transform(page)
 
-    page.attributes.type = getPageType(file, page)
-    page.attributes.permalink = getPermalink(page, api.config.permalinks)
+    // These attributes depend on other attributes
+    // And transformers can update the attributes
+    // So we set them after the transformers
+    page.attributes.permalink =
+      page.attributes.permalink ||
+      getPermalink(
+        page.attributes,
+        typeof api.config.permalinks === 'function'
+          ? api.config.permalinks(page)
+          : api.config.permalinks
+      )
+    page.attributes.type =
+      page.attributes.type || getPageType(file.relative, page.attributes.slug)
 
     return page
   }

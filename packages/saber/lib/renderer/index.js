@@ -29,47 +29,43 @@ class VueRenderer {
 
       config.plugin('vue').use(require('vue-loader/lib/plugin'))
 
-      config.module
-        .rule('pson')
-        .test(/\.pson$/)
-        .use('vue-loader')
-        .loader(require.resolve('vue-loader'))
-        .end()
-        .use('pson-loader')
-        .loader(require.resolve('./pson-loader'))
-
+      // Handle `<page-data>` block in .vue file
       config.module
         .rule('page-data')
         .resourceQuery(/blockType=page-data/)
         .use('page-data-loader')
         .loader(require.resolve('./page-data-loader'))
 
+      // Handle `<page-component>` block in .vue file
       config.module
         .rule('page-component')
         .resourceQuery(/blockType=page-component/)
         .use('page-component-loader')
         .loader(require.resolve('./page-component-loader'))
 
-      config.module.rule('js').resourceQuery(query => {
-        return !query.match(/saberPage/)
-      })
-
+      // prettier-ignore
       config.module
-        .rule('saber-page-js')
-        .test(/\.js$/)
-        .resourceQuery(/saberPage/)
-        .use('vue-loader')
-        .loader('vue-loader')
-        .end()
-        .use('saber-page-loader')
-        .loader(require.resolve('./saber-page-loader'))
-        .options({
-          api
-        })
+        .rule('js')
+        .oneOf('saber-page')
+          .before('normal')
+          .resourceQuery(/saberPage/)
+          .use('vue-loader')
+            .loader('vue-loader')
+            .end()
+          .use('saber-page-loader')
+            .loader(require.resolve('./saber-page-loader'))
+            .options({
+              api
+            })
+
+      const { supportedExtensions } = api.transformers
+      const pageExtensions = supportedExtensions
+        .map(ext => new RegExp(`\\.${ext}$`))
+        .filter(re => !re.test('.js'))
 
       config.module
         .rule('saber-page')
-        .test([/\.md$/, /\.vue$/])
+        .test(pageExtensions.concat(/\.saberpage$/))
         .use('vue-loader')
         .loader('vue-loader')
         .end()
@@ -116,15 +112,18 @@ class VueRenderer {
       ${pages
         .map(page => {
           const chunkNameComment = `/* webpackChunkName: "page--${
-            page.internal.file
+            page.internal.isFile
               ? path
-                  .relative(this.api.resolveCwd('pages'), page.internal.file)
+                  .relative(
+                    this.api.resolveCwd('pages'),
+                    page.internal.absolute
+                  )
                   .replace(/[^a-z0-9_-]/gi, '-')
               : page.internal.id
           }" */ `
-          const componentPath = page.internal.file
-            ? `${page.internal.file}?saberPage=${page.internal.id}`
-            : `#cache/pages/${page.internal.id}.pson`
+          const componentPath = page.internal.isFile
+            ? `${page.internal.absolute}?saberPage=${page.internal.id}`
+            : `#cache/pages/${page.internal.id}.page`
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
               component: function() {

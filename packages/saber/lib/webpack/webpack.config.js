@@ -39,14 +39,17 @@ module.exports = (api, { type }) => {
       if (filepath.includes(rendererAppPath)) {
         return true
       }
-      return !/node_modules/.test(filepath)
+
+      if (/node_modules/.test(filepath)) {
+        return false
+      }
+
+      return true
     })
     .end()
+    .oneOf('normal')
     .use('babel-loader')
-    .loader(require.resolve('babel-loader'))
-    .options({
-      presets: [require.resolve('../babel/preset')]
-    })
+    .loader(require.resolve('./babel-loader'))
 
   config.plugin('timefix').use(require('time-fix-plugin'))
 

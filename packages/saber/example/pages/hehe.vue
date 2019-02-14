@@ -15,7 +15,7 @@ export const attributes = {
   title: 'Flat oppai',
   layout: 'foo'
 }
-
+console.log('egoist is baka baka baka')
 </script>
 
 <style src="./hehe.css"></style>

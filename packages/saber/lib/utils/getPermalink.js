@@ -3,14 +3,8 @@
 // about/index.md => /about
 // index.md => /
 
-module.exports = (page, permalinks) => {
-  if (page.attributes.permalink) return page.attributes.permalink
-
-  if (page.attributes.slug === 'index') return '/'
-
-  if (typeof permalinks === 'function') {
-    permalinks = permalinks(page)
-  }
+module.exports = (attributes, permalinks) => {
+  if (attributes.slug === 'index') return '/'
 
   permalinks = Object.assign(
     {
@@ -20,10 +14,10 @@ module.exports = (page, permalinks) => {
     permalinks
   )
 
-  const permalinkTemplate = permalinks[page.attributes.type] || permalinks.page
-  const date = new Date(page.attributes.date || page.attributes.createdAt)
+  const permalinkTemplate = permalinks[attributes.type] || permalinks.page
+  const date = new Date(attributes.date || attributes.createdAt)
   return permalinkTemplate
-    .replace(/:slug/, page.attributes.slug)
+    .replace(/:slug/, attributes.slug)
     .replace(/:year/, () => date.getFullYear())
     .replace(/:month/, () => padZero(date.getMonth() + 1))
     .replace(/:i_month/, () => date.getMonth() + 1)

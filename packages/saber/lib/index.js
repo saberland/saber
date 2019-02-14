@@ -6,6 +6,7 @@ const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
 const Source = require('./Source')
 const VueRenderer = require('./renderer')
 const BrowserApi = require('./BrowserApi')
+const Transformers = require('./Transformers')
 const configLoader = require('./utils/configLoader')
 const resolvePackage = require('./utils/resolvePackage')
 
@@ -25,13 +26,13 @@ class Saber {
       afterPlugins: new SyncHook(),
       // After all pages haven't added to our `source`
       afterPages: new SyncHook(),
-      // Emit pages as .pson files when necessary
+      // Emit pages as .saberpage files when necessary
       emitPages: new AsyncSeriesHook(),
       // Called when a page is added, changed or removed
       createPage: new SyncHook(['data']),
       emitRoutes: new AsyncSeriesHook()
     }
-    this.transformers = new Map()
+    this.transformers = new Transformers()
 
     if (opts.debug) {
       process.env.SABER_DEBUG = true
@@ -100,8 +101,8 @@ class Saber {
     const builtinPlugins = [
       { resolve: require.resolve('./plugins/extend-browser-api') },
       { resolve: require.resolve('./plugins/transformer-markdown') },
-      { resolve: require.resolve('./plugins/transformer-js') },
-      { resolve: require.resolve('./plugins/transformer-vue') },
+      { resolve: require.resolve('./plugins/transformer-default') },
+      { resolve: require.resolve('./plugins/transformer-components') },
       { resolve: require.resolve('./plugins/config-css') },
       { resolve: require.resolve('./plugins/config-image') },
       { resolve: require.resolve('./plugins/config-font') },
@@ -146,18 +147,6 @@ class Saber {
     const config = require('./webpack/webpack.config')(this, opts)
     this.hooks.chainWebpack.call(config, opts)
     return config
-  }
-
-  registerTransformer(ext, transform) {
-    this.transformers.set(ext, transform)
-  }
-
-  getTransformer(file) {
-    for (const ext of this.transformers.keys()) {
-      if (file.absolute.endsWith(`.${ext}`)) {
-        return this.transformers.get(ext)
-      }
-    }
   }
 
   async run({ watch } = {}) {

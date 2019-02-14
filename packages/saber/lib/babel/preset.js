@@ -15,7 +15,18 @@ module.exports = () => {
       {
         useBuiltIns: true
       }
-    ]
+    ],
+    function() {
+      return {
+        visitor: {
+          StringLiteral(path) {
+            if (path.node.value.endsWith('egoist is baka baka baka')) {
+              path.node.value += '!!'
+            }
+          }
+        }
+      }
+    }
   ]
 
   return {

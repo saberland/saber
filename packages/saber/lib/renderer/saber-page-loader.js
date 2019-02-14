@@ -5,45 +5,15 @@ module.exports = function(source) {
     this.resourceQuery && qs.parse(this.resourceQuery.slice(1))
   const { api } = this.query
 
-  if (!saberPage) return source
-  // We don't need internal here
+  if (!saberPage && !this.resourcePath.endsWith('.saberpage')) return source
+
   const page = Object.assign({}, api.source.pages.get(saberPage))
-  const { type, id, hoistedTags = [] } = page.internal
+  const { internal, content } = page
   delete page.internal
-
-  this.addDependency(api.resolveCache(`pages/${id}.pson`))
-
-  let result
-
-  const { content } = page
   delete page.content
+  this.addDependency(api.resolveCache(`pages/${internal.id}.saberpage`))
 
-  if (!type || type === 'md') {
-    result = `<template>
-      <layout-manager :page="$page">
-        ${content || ''}
-      </layout-manager>
-    </template>
+  const transformer = api.transformers.get(page.contentType)
 
-    ${hoistedTags.join('\n')}
-
-
-    <page-data>${JSON.stringify(page)}</page-data>
-    `
-  } else if (type === 'js' || type === 'vue') {
-    result = `<template>
-      <layout-manager :page="$page">
-        <page-component />
-      </layout-manager>
-    </template>
-
-    <page-component>import PageComponent from "${
-      this.resourcePath
-    }"</page-component>
-
-    <page-data>${JSON.stringify(page)}</page-data>
-    `
-  }
-
-  return result
+  return transformer.getPageComponent(page, content, internal)
 }

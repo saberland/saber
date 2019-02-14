@@ -9670,10 +9670,10 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-chain@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.npmjs.org/webpack-chain/-/webpack-chain-5.0.1.tgz#549ec483f1bd6699ad4305b7892869cd619c1b62"
-  integrity sha512-RiMJSZ5bxURnRl1hLOjslWD9aqqBRjwLUFvYR1Nq7dxka4fYw/mLPS0X641qJd3f4SLuiZ7k8WSiss8XgTTl1w==
+webpack-chain@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.npmjs.org/webpack-chain/-/webpack-chain-5.2.0.tgz#752c01e42752412610b27e3dbd6e0781146a465a"
+  integrity sha512-JXz9YgEkTqx8hvnES2VMRyWHNFlqJfLmA5QTyuJOXalkGg+MVdOgB0UaYtc4iDadEmzJLe8UyCl4wyDq3wWZDg==
   dependencies:
     deepmerge "^1.5.2"
     javascript-stringify "^1.6.0"

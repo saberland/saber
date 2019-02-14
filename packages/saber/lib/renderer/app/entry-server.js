@@ -14,7 +14,11 @@ export default context =>
           if (!head) {
             head = app.$meta().inject()
           }
-          return prop in head ? head[prop].text() : undefined
+          if (prop === 'htmlAttrs') {
+            return ` data-saber-ssr ${head.htmlAttrs.text()}`
+          }
+          const text = prop in head ? head[prop].text() : ''
+          return text && prop.endsWith('Attrs') ? ` ${text}` : text
         }
       })
       resolve(app)
