@@ -107,8 +107,7 @@ class Saber {
       { resolve: require.resolve('./plugins/config-font') },
       { resolve: require.resolve('./plugins/config-other-loaders') },
       { resolve: require.resolve('./plugins/emit-config') },
-      { resolve: require.resolve('./plugins/source-pages') },
-      { resolve: require.resolve('./plugins/inject-posts') }
+      { resolve: require.resolve('./plugins/source-pages') }
     ]
 
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
@@ -123,26 +122,8 @@ class Saber {
           })
         : []
 
-    // Auto-load the plugins from package.json
-    // Basically any dependency starting with `saber-plugin-`
-    const pkgPlugins = this.getDependencies()
-      .filter(name => name.startsWith('saber-plugin-'))
-      .map(name => {
-        return {
-          resolve: resolveFrom(path.dirname(this.pkg.path), name)
-        }
-      })
-      .filter(pkgPlugin => {
-        // If a plugin exists in both pkgPlugins and configPlugins
-        // Remove it from pkgPlugins
-        return configPlugins.every(
-          configPlugin => configPlugin.resolve !== pkgPlugin.resolve
-        )
-      })
-
     const plugins = this.hooks.filterPlugins.call([
       ...builtinPlugins,
-      ...pkgPlugins,
       ...configPlugins
     ])
 
