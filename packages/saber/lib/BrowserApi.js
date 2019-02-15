@@ -17,7 +17,9 @@ module.exports = class BrowserApi extends Set {
     })
 
     const output = `
-      ${files.map(file => `import ${file.name} from "${file.path}"`).join('\n')}
+      ${files
+        .map(file => `var ${file.name} = require("${file.path}").default`)
+        .join('\n')}
 
       var themeBrowserApi
       var rTheme = require.context('#theme', false, /\\.[jt]s$/)
