@@ -226,16 +226,22 @@ class VueRenderer {
     )
 
     // Copy .saber/dist-client to .saber/public/_saber
+    await fs.remove(this.api.resolveCache('dist-client/bundle-manifest.json'))
     await fs.copy(
       this.api.resolveCache('dist-client'),
       this.api.resolveCache('public/_saber')
     )
 
-    // Copy files in public/ to the root of .saber/public/
-    const publicFolder = this.api.resolveCwd('public')
-    if (await fs.pathExists(publicFolder)) {
-      await fs.copy(publicFolder, this.api.resolveCache('public'))
+    const copyPublicFiles = async dir => {
+      if (await fs.pathExists(dir)) {
+        await fs.copy(dir, this.api.resolveCache('public'))
+      }
     }
+
+    // Copy files in $theme/public/ to the root of .saber/public/
+    await copyPublicFiles(path.join(this.api.theme, 'public'))
+    // Copy files in public/ to the root of .saber/public/
+    await copyPublicFiles(this.api.resolveCwd('public'))
   }
 
   getRequestHandler({ ssr } = {}) {
@@ -310,6 +316,11 @@ class VueRenderer {
 
     server.use(
       require('serve-static')(this.api.resolveCwd('public'), {
+        dotfiles: 'allow'
+      })
+    )
+    server.use(
+      require('serve-static')(path.join(this.api.theme, 'public'), {
         dotfiles: 'allow'
       })
     )
