@@ -4,8 +4,7 @@ module.exports = function(source, map) {
     `
     ${source}
     export default function (Component) {
-      Component.options.components = Component.options.components || {}
-      Component.options.components['page-component'] = PageComponent
+      Component.options.PageComponent = PageComponent
     }`,
     map
   )

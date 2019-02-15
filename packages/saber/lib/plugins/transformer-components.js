@@ -2,9 +2,7 @@ exports.name = 'builtin:transformer-components'
 
 const getPageComponent = (page, _, internal) => {
   return `<template>
-    <layout-manager :page="$page">
-      <page-component />
-    </layout-manager>
+    <layout-manager :page="$page" :PageComponent="$options.PageComponent"></layout-manager>
   </template>
 
   <page-component>import PageComponent from "${

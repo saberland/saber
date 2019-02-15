@@ -54,7 +54,6 @@ exports.apply = api => {
 
     // Write all pages
     // This is triggered by all file actions: change, add, remove
-    // TODO: skip unchanged
     api.hooks.emitPages.tapPromise('pages', async () => {
       const pages = [...api.source.pages.values()]
       log.debug('Emitting pages')

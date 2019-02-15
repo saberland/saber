@@ -1,5 +1,6 @@
 ---
 title: Saber Config
+layout: docs
 ---
 
 You can use `saber-config.yml`, `saber-config.toml`, `saber-config.js` or `saber-config.json` for general configurations. All the possible config keys will be listed below.

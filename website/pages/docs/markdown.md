@@ -1,5 +1,6 @@
 ---
 title: Markdown
+layout: docs
 ---
 
 Saber has built-in Markdown support via [markdown-it](https://github.com/markdown-it/markdown-it), you can enjoy all [Markdown](https://daringfireball.net/linked/2014/01/08/markdown-extension) and [GFM](https://github.github.com/gfm/) features without any configurations.
@@ -107,4 +108,4 @@ try {
 
 ## Configure markdown-it
 
-Check out [markdown.options](/docs/config.html#markdown.options) for setting markdown-it options and [markdown.plugins](/docs/config.html#markdown.plugins) for adding markdown-it plugins.
+Check out [markdown.options](/docs/saber-config.html#markdown.options) for setting markdown-it options and [markdown.plugins](/docs/saber-config.html#markdown.plugins) for adding markdown-it plugins.

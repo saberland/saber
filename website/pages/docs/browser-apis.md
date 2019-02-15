@@ -1,5 +1,6 @@
 ---
 title: Browser APIs
+layout: docs
 ---
 
 ## Usage

@@ -6,25 +6,38 @@ export default {
     page: {
       type: Object,
       required: true
+    },
+    PageComponent: {
+      type: null
     }
   },
   inject: ['layouts'],
   render(
     h,
     {
-      props: { page },
+      props: { page, PageComponent },
       children,
       injections: { layouts }
     }
   ) {
-    const layoutName = page.attributes.layout || page.attributes.type || 'default'
-    const Layout = layouts[layoutName] || layouts.default
+    const attrs = { props: { page } }
 
-    if (!Layout) {
-      console.error(`Cannot find layout component "${layoutName}" in `, layouts)
+    const { layout } = page.attributes
+
+    if (typeof layout !== 'string') {
+      return PageComponent ? h(PageComponent, attrs) : h('div', {
+        ...attrs,
+        class: '_saber-page'
+      }, children)
     }
 
-    return h(Layout, { props: { page } }, children)
+    const LayoutComponent = layouts[layout] || layouts.default
+
+    if (!LayoutComponent) {
+      console.error(`Cannot find layout component "${layout}" in `, layouts)
+    }
+
+    return h(LayoutComponent, attrs, PageComponent ? [h(PageComponent, attrs)] : children)
   }
 }
 </script>

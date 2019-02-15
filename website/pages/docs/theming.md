@@ -1,5 +1,6 @@
 ---
 title: Theming
+layout: docs
 ---
 
 Themes are used to manage layouts and Saber's browser APIs and Node.js APIs.

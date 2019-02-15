@@ -1,5 +1,6 @@
 ---
 title: Introduction
+layout: docs
 ---
 
 Saber is still **in development**. Do **not** use it for production. It is missing major features and the interface should be considered extremely unstable.

@@ -7,7 +7,7 @@ module.exports = function(source, map) {
       Component.options.computed.$page = function () {
         return __pageData
       }
-      Component.options.name = 'page-' + __pageData.attributes.slug.replace(/[^0-9a-z\\-]/i, '-')
+      Component.options.name = 'page-wrapper-' + __pageData.attributes.slug.replace(/[^0-9a-z\\-]/i, '-')
     }`,
     map
   )

@@ -1,5 +1,6 @@
 ---
 title: Page Interface
+layout: docs
 ---
 
 The `page` is the center of Saber's data & routing system.

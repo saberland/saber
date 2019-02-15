@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 class="page-title">{{ page.attributes.title }}</h2>
-    <div class="page-content">
+    <h2 :class="$style.Title" v-if="page.attributes.title">{{ page.attributes.title }}</h2>
+    <div :class="$style.Content">
       <slot name="default"></slot>
     </div>
     <div class="posts" v-if="page.posts && page.posts.length > 0">
@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: 'LayoutDefault',
   props: ['page'],
   head() {
     return {
@@ -25,8 +26,12 @@ export default {
 }
 </script>
 
-<style scoped>
-.page-title {
+<style module>
+.Title {
   font-size: 3rem;
+}
+
+.Content {
+
 }
 </style>

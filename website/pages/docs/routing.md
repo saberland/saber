@@ -1,5 +1,6 @@
 ---
 title: Routing
+layout: docs
 ---
 
 
