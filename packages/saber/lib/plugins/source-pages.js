@@ -57,12 +57,17 @@ exports.apply = api => {
     // TODO: skip unchanged
     api.hooks.emitPages.tapPromise('pages', async () => {
       const pages = [...api.source.pages.values()]
+      log.debug('Emitting pages')
       await Promise.all(
         pages.map(async page => {
+          if (page.internal.saved) return
+
           const outPath = api.resolveCache(
             'pages',
             `${page.internal.id}.saberpage`
           )
+          log.debug(`Emitting page ${outPath}`)
+          page.internal.saved = true
           await fs.outputFile(outPath, JSON.stringify(page), 'utf8')
         })
       )
