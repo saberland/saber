@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/egoist/saber/compare/saber@0.2.4...saber@0.2.5) (2019-02-15)
+
+### Bug Fixes
+
+- use cjs in generated browser-api file ([e14b063](https://github.com/egoist/saber/commit/e14b063))
+- use memory fs for server build in dev mode ([0e9c06d](https://github.com/egoist/saber/commit/0e9c06d))
+
+### Features
+
+- add --ssr flag ([cf86954](https://github.com/egoist/saber/commit/cf86954))
+- emitting pages when necessary ([58f9892](https://github.com/egoist/saber/commit/58f9892))
+- layout needs to be explicitly specified ([bbdff19](https://github.com/egoist/saber/commit/bbdff19))
+
 ## [0.2.4](https://github.com/egoist/saber/compare/saber@0.2.3...saber@0.2.4) (2019-02-13)
 
 ### Bug Fixes
