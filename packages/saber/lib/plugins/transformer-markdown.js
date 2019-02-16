@@ -66,6 +66,9 @@ function transformMarkdown({ page, body, configDir }, markdown) {
       resolve: require.resolve('../markdown/escape-interpolations-plugin')
     },
     {
+      resolve: require.resolve('../markdown/fence-options-plugin')
+    },
+    {
       resolve: require.resolve('../markdown/link-plugin')
     },
     {

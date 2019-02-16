@@ -1,0 +1,44 @@
+.code-wrapper {
+  position: relative;
+  background-color: #282c34;
+  border-radius: 4px;
+}
+
+.code-line.highlighted {
+  background-color: #000;
+}
+
+.code-wrapper:before {
+  content: attr(data-lang);
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: .75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.code-mask, .code-block {
+  line-height: 1.5;
+  background-color: transparent !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+.code-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  color: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.code-block {
+  position: relative;
+  z-index: 2;
+}

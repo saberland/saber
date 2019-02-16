@@ -33,7 +33,7 @@ export default {
 }
 </script>
 
-<style src="prismjs/themes/prism.css"></style>
+<style src="prismjs/themes/prism-tomorrow.css"></style>
 
 <style scoped>
 .page-content {
@@ -94,11 +94,6 @@ code {
   border-radius: 3px;
   font-size: 14px;
   padding: 3px 5px;
-}
-
-pre {
-  border: 1px solid var(--border-color);
-  padding: 20px;
 }
 
 pre code {

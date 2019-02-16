@@ -76,6 +76,20 @@ Output:
 
 ### Code Highlighting
 
+To highlight code blocks, you need to use a highlighter, [Prism.js](https://prismjs.com/) is what we recommend:
+
+```bash
+# In your project
+yarn add saber-highlighter-prism
+```
+
+Then set the markdown highlighter in your `saber-config.yml`:
+
+```yaml
+markdown:
+  highlighter: prism
+```
+
 Input:
 
 ````markdown
@@ -102,9 +116,65 @@ try {
 }
 ```
 
+You also need to include a Prism theme in your app to make it display properly, we recommend `prism-tomorrow.css`:
+
+```js
+// saber-browser.js
+import 'prismjs/themes/prism-tomorrow.css'
+```
+
+Or in a specific layout component:
+
+```vue
+<style src="prismjs/themes/prism-tomorrow.css"></style>
+```
+
 ### Line Highlighting in Code Blocks
 
-[TODO]
+Input:
+
+````markdown
+```yaml {highlightLines:[2, '7-8']}
+siteConfig:
+  title: Saber.js
+  description: A framework for building modern static websites.
+
+theme: ./src
+
+markdown:
+  highlighter: prism
+```
+````
+
+Output:
+
+```yaml {highlightLines:[2, '7-8']}
+siteConfig:
+  title: Saber.js
+  description: A framework for building modern static websites.
+
+theme: ./src
+
+markdown:
+  highlighter: prism
+```
+
+In this case the rendered HTML will look like:
+
+```html
+<div class="code-wrapper" data-lang="yaml">
+  <div class="code-mask language-yaml">
+    <div class="code-line"><!-- ... --></div>
+    <div class="code-line highlighted"><!-- ... --></div>
+    <div class="code-line"><!-- ... --></div>
+  </div>
+  <pre class="code-block language-yaml">
+    <code class="language-yaml"><!-- ... --></code>
+  </pre>
+</div>
+```
+
+Saber's default CSS work well with `prism-tomorrow.css`, for other themes some tweaks might be needed to suit your needs.
 
 ## Configure markdown-it
 
