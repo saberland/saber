@@ -36,19 +36,25 @@ exports.apply = api => {
       )
     )
 
-    api.hooks.createPage.tap('page', data => {
+    api.hooks.createPage.tap('create-page', page => {
+      // Ensure this page is not saved
+      // So that it will be emitted to disk later in `emitPages` hook
+      page.internal.saved = false
+      api.source.pages.createPage(page)
+      api.hooks.onCreatePage.call(page)
+    })
+
+    api.hooks.manipulatePage.tap('manipulate-page', ({ action, id, page }) => {
       // Remove all child pages
       api.source.pages.removeWhere(page => page.internal.parent)
 
-      if (data.type === 'add') {
-        api.source.pages.createPage(data.page)
-      } else if (data.type === 'remove') {
+      if (action === 'remove') {
         // Remove itself
         api.source.pages.removeWhere(page => {
-          return page.internal.id === data.id
+          return page.internal.id === id
         })
-      } else if (data.type === 'change') {
-        api.source.pages.createPage(data.page)
+      } else if (action) {
+        api.hooks.createPage.call(page)
       }
     })
 
@@ -74,10 +80,10 @@ exports.apply = api => {
 
     for (const file of files) {
       const page = api.source.getPage(file)
-      api.hooks.createPage.call({ type: 'add', page })
+      api.hooks.createPage.call(page)
     }
 
-    api.hooks.afterPages.call()
+    await api.hooks.afterPages.promise()
     await api.hooks.emitPages.promise()
 
     if (watch) {
@@ -89,8 +95,8 @@ exports.apply = api => {
         const filepath = path.join(pagesDir, filename)
 
         if (type === 'remove') {
-          api.hooks.createPage.call({
-            type: 'remove',
+          api.hooks.manipulatePage.call({
+            action: 'remove',
             id: hash(filepath)
           })
         } else {
@@ -99,15 +105,10 @@ exports.apply = api => {
           file.absolute = filepath
           file.content = await fs.readFile(file.absolute, 'utf8')
           const page = api.source.getPage(file)
-          if (type === 'change') {
-            const old = api.source.pages.get(filepath)
-            api.hooks.createPage.call({ type: 'change', page, old })
-          } else {
-            api.hooks.createPage.call({ type: 'add', page })
-          }
+          api.hooks.manipulatePage.call({ action: 'create', page })
         }
 
-        api.hooks.afterPages.call()
+        await api.hooks.afterPages.promise()
         await api.hooks.emitPages.promise()
         await api.hooks.emitRoutes.promise()
       }

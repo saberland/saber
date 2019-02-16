@@ -25,11 +25,15 @@ class Saber {
       // After all plugins have been applied
       afterPlugins: new SyncHook(),
       // After all pages haven't added to our `source`
-      afterPages: new SyncHook(),
+      afterPages: new AsyncSeriesHook(),
       // Emit pages as .saberpage files when necessary
       emitPages: new AsyncSeriesHook(),
-      // Called when a page is added, changed or removed
-      createPage: new SyncHook(['data']),
+      // Call this hook to create a page which will also invoke `onCreatePage` hook
+      createPage: new SyncHook(['page']),
+      // Called when a new page is added
+      onCreatePage: new SyncHook(['page']),
+      // Call this hook to manipulate a page
+      manipulatePage: new SyncHook(['data']),
       emitRoutes: new AsyncSeriesHook()
     }
     this.transformers = new Transformers()
@@ -100,6 +104,7 @@ class Saber {
   getPlugins() {
     const builtinPlugins = [
       { resolve: require.resolve('./plugins/extend-browser-api') },
+      { resolve: require.resolve('./plugins/extend-node-api') },
       { resolve: require.resolve('./plugins/transformer-markdown') },
       { resolve: require.resolve('./plugins/transformer-default') },
       { resolve: require.resolve('./plugins/transformer-components') },
