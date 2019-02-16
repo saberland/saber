@@ -18,35 +18,9 @@ Layouts are populated under `$theme/layouts` directory.
 
 ## Layouts
 
-Different pages will use differents layout components from your theme.
+You can use the `layout` attribute to use a layout component for specific page, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
 
-| Page Type | Example                       | Layout Component |
-| --------- | ----------------------------- | ---------------- |
-| page      | `pages/about.md`              | `page.{vue.js}`  |
-| post      | `pages/_posts/hello-world.md` | `post.{vue.js}`  |
-| index     | `pages/index.vue`             | `index.{vue.js}` |
-
-Layout components can be overriden via the `layout` attribute, and will fallback to the `default` component when the specificed component is not found.
-
-Layout components have a prop called `page` which allows you to access page attributes and more.
-
-```typescript
-interface PageProp {
-  attributes: object
-}
-
-interface IndexPageProp {
-  attribtues: object
-  posts?: Array<PageProp>
-  pagination?: {
-    hasNext: boolean
-    hasPrev: boolean
-    nextLink: string
-    prevLink: string
-    totalPages: number
-  }
-}
-```
+Layout components have a prop named `page` which implements [Page Interface](/docs/page-interface.html) and allows you to access page attributes and more.
 
 The page contents will be available as a default slot in your layout component, for example:
 

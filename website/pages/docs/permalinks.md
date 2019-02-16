@@ -7,7 +7,7 @@ Permalinks are the output path for your pages and posts. They allow you to struc
 
 ## Page Attribute
 
-The simplest way to set a permalink is using the page attribute `permalink`.
+The simplest way to change a permalink is using the page attribute `permalink`.
 
 For example, you might have a Makrkdown page on your site located at `./pages/sub_folder/hello.md` and you want the output url to be `/about/.` In the front matter of the page you would set:
 
