@@ -79,7 +79,7 @@ module.exports = class PrintStatusPlugin {
         )
         // Only show URL for client build
         if (this.api.mode === 'development' && this.type === 'client') {
-          log.info(`Available at ${colors.underline('http://localhost:2020')}`)
+          log.info(`Available at ${colors.underline('http://localhost:3000')}`)
           log.info(
             colors.dim(
               `${prettyBytes(process.memoryUsage().heapUsed)} memory used`

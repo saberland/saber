@@ -4,7 +4,7 @@
 
 ### `npm run dev`
 
-Run dev server at `http://localhost:2020`
+Run dev server at `http://localhost:3000`
 
 ### `npm run build`
 

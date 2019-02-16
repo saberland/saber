@@ -180,7 +180,7 @@ class Saber {
 
     const server = http.createServer(this.renderer.getRequestHandler({ ssr }))
 
-    server.listen(2020)
+    server.listen(3000)
   }
 
   hasDependency(name) {
