@@ -11,7 +11,11 @@ exports.apply = api => {
           </layout-manager>
         </template>
 
-        <page-data>${JSON.stringify(page)}</page-data>
+        <extend-component>
+        export default {
+          pageData: ${JSON.stringify(page)}
+        }
+        </extend-component>
       `
     }
   })

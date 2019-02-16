@@ -25,7 +25,11 @@ exports.apply = api => {
 
         ${internal.hoistedTags ? internal.hoistedTags.join('\n') : ''}
 
-        <page-data>${JSON.stringify(page)}</page-data>
+        <extend-component>
+        export default {
+          pageData: ${JSON.stringify(page)}
+        }
+        </extend-component>
       `
     }
   })

@@ -5,11 +5,14 @@ const getPageComponent = (page, _, internal) => {
     <layout-manager :page="$page" :PageComponent="$options.PageComponent"></layout-manager>
   </template>
 
-  <page-component>import PageComponent from "${
-    internal.absolute
-  }"</page-component>
+  <extend-component>
+  import PageComponent from "${internal.absolute}"
 
-  <page-data>${JSON.stringify(page)}</page-data>
+  export default {
+    pageData: ${JSON.stringify(page)},
+    PageComponent: PageComponent
+  }
+  </extend-component>
   `
 }
 

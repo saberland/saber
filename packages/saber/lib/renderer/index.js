@@ -29,19 +29,12 @@ class VueRenderer {
 
       config.plugin('vue').use(require('vue-loader/lib/plugin'))
 
-      // Handle `<page-data>` block in .vue file
+      // Handle `<extend-component>` block in .vue file
       config.module
-        .rule('page-data')
-        .resourceQuery(/blockType=page-data/)
-        .use('page-data-loader')
-        .loader(require.resolve('./page-data-loader'))
-
-      // Handle `<page-component>` block in .vue file
-      config.module
-        .rule('page-component')
-        .resourceQuery(/blockType=page-component/)
-        .use('page-component-loader')
-        .loader(require.resolve('./page-component-loader'))
+        .rule('extend-component')
+        .resourceQuery(/blockType=extend-component/)
+        .use('extend-component-loader')
+        .loader(require.resolve('./extend-component-loader'))
 
       // prettier-ignore
       config.module
