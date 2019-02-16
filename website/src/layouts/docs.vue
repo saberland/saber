@@ -47,7 +47,7 @@ export default {
   font-weight: 500;
 }
 
-a {
+>>> a {
   color: var(--theme-color);
 }
 
