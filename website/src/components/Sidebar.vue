@@ -99,6 +99,7 @@ export default {
 
 .item-child {
   font-size: 1rem;
+  margin: 10px 0;
 }
 
 .item-child:not(:first-child) {
@@ -106,17 +107,15 @@ export default {
 }
 
 .item-child a {
-  display: flex;
-  color: #333;
-  border-radius: 4px;
-  padding: 5px;
+  color: #666;
+  border-bottom: 2px solid transparent;
 }
 
-.item-child a:hover {
-  background: #f9f9f9;
+.item-child a:hover:not(.active) {
+  border-color: var(--theme-color);
 }
 
 .item-child a.active {
-  background: #f0f0f0;
+  color: var(--theme-color);
 }
 </style>

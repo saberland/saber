@@ -7,50 +7,27 @@ layout: docs
 
 Saber requires [Node.js 8](https://nodejs.org/en/) or above.
 
-## Using the Starter template
+When you have Node.js installed on your machine, the `node` and `npm` commands will be available in your terminal.
 
-If you want to kick-start a blog, you can achieve it by running a single command:
+Run following command to check your Node.js version:
 
 ```bash
-npm init blog my-blog
+node -v
 ```
 
-Then follow the intructions in your terminal, some npm scripts will be avaiable in this project:
+## Install
 
-- `npm run dev`: Start dev server.
-- `npm run generate`: Compile the application and generate static HTML files.
-- `npm run serve`: Serve the static production build.
-
-## Start From Scratch
-
-Create a new directory and install `saber`:
+Using `npm` which is the default package manager for Node.js:
 
 ```bash
-mkdir my-website
 cd my-website
-npm init -y
 npm install saber
 ```
 
-Configure npm scripts in `my-website/package.json` to run `saber` commands:
+Or using [Yarn](https://yarnpkg.com) which is an alternative package manager developed by Facebook:
 
-```json
-{
-  "scripts": {
-    "dev": "saber",
-    "generate": "saber generate",
-    "serve": "saber serve"
-  },
-  "dependencies": {
-    "saber": "latest"
-  }
-}
+```bash
+cd my-website
+# You need to install Yarn first
+yarn add saber
 ```
-
-Populate your first page at `pages/index.md`:
-
-```markdown
-Hello, welcome to **my website**!
-```
-
-Now you can run `npm run dev` to develop your website locally.

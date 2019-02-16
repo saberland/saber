@@ -47,6 +47,10 @@ export default {
   font-weight: 500;
 }
 
+a {
+  color: var(--theme-color);
+}
+
 main {
   width: calc(100% - var(--sidebar-width));
   padding: 0 100px;
@@ -99,6 +103,7 @@ pre {
 
 pre code {
   background: transparent;
+  padding: 0;
 }
 
 ul {

@@ -33,5 +33,7 @@ themeConfig:
         link: /docs/saber-config.html
       - title: Saber Browser APIs
         link: /docs/browser-apis.html
+      - title: Saber Node APIs
+        link: /docs/node-apis.html
       - title: Page Interface
         link: /docs/page-interface.html
