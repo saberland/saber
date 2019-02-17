@@ -25,7 +25,10 @@ exports.apply = (api, options = {}) => {
       if (page.attributes.draft) {
         continue
       }
-      if (injectPostsTo && injectPostsTo.includes(page.attributes.permalink)) {
+      if (
+        page.attributes.type === 'index' ||
+        (injectPostsTo && injectPostsTo.includes(page.attributes.permalink))
+      ) {
         injectPostsToPages.add(page)
         continue
       }
@@ -45,7 +48,28 @@ exports.apply = (api, options = {}) => {
       }
     }
 
-    injectToPages(injectPostsToPages, allPosts)
+    // Add index pages
+    injectToPages(
+      injectPostsToPages.size > 0
+        ? injectPostsToPages
+        : new Set([
+            {
+              attributes: {
+                type: 'index',
+                layout: 'index',
+                permalink: '/',
+                slug: 'index'
+              },
+              internal: {
+                id: 'internal_blog__index',
+                parent: true
+              }
+            }
+          ]),
+      allPosts
+    )
+
+    // Add tags pages
     for (const [tag, tagPosts] of allTagPosts.entries()) {
       injectToPages(
         tagsPages.size > 0
