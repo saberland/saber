@@ -67,6 +67,9 @@ module.exports = class Source {
     // These attributes depend on other attributes
     // And transformers can update the attributes
     // So we set them after the transformers
+    page.attributes.type =
+      page.attributes.type || getPageType(file.relative, page.attributes.slug)
+
     page.attributes.permalink =
       page.attributes.permalink ||
       getPermalink(
@@ -75,8 +78,6 @@ module.exports = class Source {
           ? api.config.permalinks(page)
           : api.config.permalinks
       )
-    page.attributes.type =
-      page.attributes.type || getPageType(file.relative, page.attributes.slug)
 
     return page
   }

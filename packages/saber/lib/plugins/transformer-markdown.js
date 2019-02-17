@@ -64,6 +64,9 @@ function transformMarkdown({ page, body, configDir }, markdown) {
       }
     },
     {
+      resolve: require.resolve('../markdown/excerpt-plugin')
+    },
+    {
       resolve: require.resolve('../markdown/escape-interpolations-plugin')
     },
     {
@@ -90,4 +93,5 @@ function transformMarkdown({ page, body, configDir }, markdown) {
   })
   page.content = md.render(body, env)
   page.internal.hoistedTags = env.hoistedTags
+  page.attributes.excerpt = env.excerpt
 }
