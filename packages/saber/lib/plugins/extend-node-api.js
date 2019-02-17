@@ -24,12 +24,11 @@ exports.apply = api => {
 
   api.hooks.afterPlugins.tap(nodeApiId, () => {
     api.hooks.beforeRun.tap(nodeApiId, () => {
-      api.hooks.afterPages.tap(nodeApiId, (...args) => {
-        return getHook('afterPages').call(api, ...args)
-      })
-      api.hooks.onCreatePage.tap(nodeApiId, (...args) => {
-        return getHook('onCreatePage').call(api, ...args)
-      })
+      for (const hookName of Object.keys(api.hooks)) {
+        api.hooks[hookName].tap(nodeApiId, (...args) => {
+          return getHook(hookName).call(api, ...args)
+        })
+      }
     })
   })
 
