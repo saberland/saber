@@ -46,7 +46,6 @@ module.exports = class Source {
     const page = {
       attributes: {
         slug,
-        createdAt: file.birthtime,
         updatedAt: file.mtime
       },
       internal: {
@@ -67,6 +66,10 @@ module.exports = class Source {
     // These attributes depend on other attributes
     // And transformers can update the attributes
     // So we set them after the transformers
+    page.attributes.createdAt = new Date(
+      page.attributes.createdAt || page.attributes.date || file.birthtime
+    )
+
     page.attributes.type =
       page.attributes.type || getPageType(file.relative, page.attributes.slug)
 

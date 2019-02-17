@@ -73,7 +73,7 @@ class VueRenderer {
           .plugin('vue-ssr')
           .use(require('vue-server-renderer/server-plugin'), [
             {
-              filename: 'bundle-manifest.json'
+              filename: '../bundle-manifest/server.json'
             }
           ])
 
@@ -90,7 +90,7 @@ class VueRenderer {
           .plugin('vue-ssr')
           .use(require('vue-server-renderer/client-plugin'), [
             {
-              filename: 'bundle-manifest.json'
+              filename: '../bundle-manifest/client.json'
             }
           ])
       }
@@ -172,10 +172,10 @@ class VueRenderer {
 
     const { createBundleRenderer } = require('vue-server-renderer')
     const renderer = createBundleRenderer(
-      require(this.api.resolveCache('dist-server/bundle-manifest.json')),
+      require(this.api.resolveCache('bundle-manifest/server.json')),
       {
         clientManifest: require(this.api.resolveCache(
-          'dist-client/bundle-manifest.json'
+          'bundle-manifest/client.json'
         )),
         runInNewContext: false,
         inject: false,
@@ -219,7 +219,6 @@ class VueRenderer {
     )
 
     // Copy .saber/dist-client to .saber/public/_saber
-    await fs.remove(this.api.resolveCache('dist-client/bundle-manifest.json'))
     await fs.copy(
       this.api.resolveCache('dist-client'),
       this.api.resolveCache('public/_saber')
@@ -282,7 +281,7 @@ class VueRenderer {
         if (!stats.hasErrors()) {
           clientManifest = JSON.parse(
             devMiddleware.fileSystem.readFileSync(
-              this.api.resolveCache('dist-client/bundle-manifest.json'),
+              this.api.resolveCache('bundle-manifest/client.json'),
               'utf8'
             )
           )
@@ -296,7 +295,7 @@ class VueRenderer {
         if (!stats.hasErrors()) {
           serverBundle = JSON.parse(
             serverMFS.readFileSync(
-              this.api.resolveCache('dist-server/bundle-manifest.json'),
+              this.api.resolveCache('bundle-manifest/server.json'),
               'utf8'
             )
           )

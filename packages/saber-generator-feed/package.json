@@ -1,0 +1,10 @@
+{
+  "name": "saber-generator-feed",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "xo": false
+}

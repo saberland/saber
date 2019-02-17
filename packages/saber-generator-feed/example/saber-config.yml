@@ -1,0 +1,5 @@
+plugins:
+  - resolve: ../
+
+siteConfig:
+  url: https://exampe.com

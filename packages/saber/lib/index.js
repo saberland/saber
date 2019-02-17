@@ -16,6 +16,9 @@ class Saber {
     this.opts.cwd = path.resolve(opts.cwd || '.')
     this.source = new Source(this)
     this.browserApi = new BrowserApi(this)
+    this.log = log
+    this.colors = colors
+    this.utils = require('saber-utils')
     this.hooks = {
       // Extend webpack config
       chainWebpack: new SyncHook(['config', 'opts']),
@@ -36,7 +39,11 @@ class Saber {
       onCreatePage: new SyncHook(['page']),
       // Call this hook to manipulate a page
       manipulatePage: new SyncHook(['data']),
-      emitRoutes: new AsyncSeriesHook()
+      emitRoutes: new AsyncSeriesHook(),
+      // Called after running webpack
+      afterBuild: new AsyncSeriesHook(),
+      // Called after generate static HTML files
+      afterGenerate: new AsyncSeriesHook()
     }
     this.transformers = new Transformers()
 
@@ -167,6 +174,7 @@ class Saber {
   async build() {
     await this.run()
     await this.renderer.build()
+    await this.hooks.afterBuild.promise()
   }
 
   // Build your app and generate static HTML files for each path
@@ -174,8 +182,10 @@ class Saber {
     await this.run()
     if (!skipBuild) {
       await this.renderer.build()
+      await this.hooks.afterBuild.promise()
     }
     await this.renderer.generate()
+    await this.hooks.afterGenerate.promise()
   }
 
   async dev({ ssr } = {}) {
