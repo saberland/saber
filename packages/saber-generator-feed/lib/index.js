@@ -15,7 +15,7 @@ exports.apply = (api, { limit = 30 } = {}) => {
     }
 
     for (const page of api.source.pages.values()) {
-      if (page.attributes.type === 'post') {
+      if (page.attributes.type === 'post' && !page.attributes.draft) {
         posts.push({
           title: page.attributes.title,
           id: page.attributes.permalink,
