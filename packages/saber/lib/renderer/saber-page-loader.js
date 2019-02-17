@@ -1,17 +1,20 @@
+const path = require('path')
 const qs = require('querystring')
 
 module.exports = function(source) {
-  const { saberPage } =
-    this.resourceQuery && qs.parse(this.resourceQuery.slice(1))
+  const endsWithSaberPage = this.resourcePath.endsWith('.saberpage')
+  const pageId = endsWithSaberPage
+    ? path.basename(this.resourcePath, path.extname(this.resourcePath))
+    : this.resourceQuery && qs.parse(this.resourceQuery.slice(1)).saberPage
+
+  if (!pageId) return source
+
   const { api } = this.query
-
-  if (!saberPage && !this.resourcePath.endsWith('.saberpage')) return source
-
-  const page = Object.assign({}, api.source.pages.get(saberPage))
+  const page = Object.assign({}, api.source.pages.get(pageId))
   const { internal, content } = page
   delete page.internal
   delete page.content
-  this.addDependency(api.resolveCache(`pages/${internal.id}.saberpage`))
+  this.addDependency(api.resolveCache(`pages/${pageId}.saberpage`))
 
   const transformer = api.transformers.get(page.contentType)
 

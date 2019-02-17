@@ -116,7 +116,7 @@ class VueRenderer {
           }" */ `
           const componentPath = page.internal.isFile
             ? `${page.internal.absolute}?saberPage=${page.internal.id}`
-            : `#cache/pages/${page.internal.id}.page`
+            : `#cache/pages/${page.internal.id}.saberpage`
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
               component: function() {
