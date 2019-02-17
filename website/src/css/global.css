@@ -28,6 +28,7 @@ a {
 
 .content {
   padding-top: calc(var(--header-height) + 30px);
+  padding-bottom: 30px;
   display: flex;
 
   @media (max-width: 768px) {
