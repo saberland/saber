@@ -23,6 +23,7 @@ module.exports = (api, { type }) => {
   config.resolve.alias.set('#cache', api.resolveCwd('.saber'))
   config.resolve.alias.set('#theme', api.theme)
   config.resolve.alias.set('saber-config$', api.resolveCache('config.json'))
+  config.resolve.alias.set('saber/config$', api.resolveCache('config.json'))
 
   const ownModulesDir = path.join(
     path.dirname(require.resolve('vue/package')),

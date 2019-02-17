@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { themeConfig } from 'saber-config'
+import { themeConfig } from 'saber/config'
 
 export default {
   data() {

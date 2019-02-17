@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import { siteConfig } from 'saber-config'
+import { siteConfig } from 'saber/config'
 import 'nprogress/nprogress.css'
 import './css/global.css'
 

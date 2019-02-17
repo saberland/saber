@@ -22,10 +22,8 @@ The path to your theme or a npm package name (`saber-theme-` prefix is optional)
 This option is used for configuring the basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`, these can be used in your pages and theme like this:
 
 ```js
-import { siteConfig } from 'saber-config'
+import { siteConfig } from 'saber/config'
 ```
-
-Note: `saber-config` is not a real npm package, it's just an alias to a temporary file that exposes `siteConfig` from your config file.
 
 ## themeConfig
 
@@ -35,7 +33,7 @@ Note: `saber-config` is not a real npm package, it's just an alias to a temporar
 This option will also be exposed in `saber-config`:
 
 ```js
-import { themeConfig } from 'saber-config'
+import { themeConfig } from 'saber/config'
 ```
 
 For reusuablity, a theme should use this option for customization instead of hard-coding everything in the theme itself.
