@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/egoist/saber/compare/saber@0.2.5...saber@0.2.6) (2019-02-17)
+
+### Features
+
+- add alias saber/config ([c320360](https://github.com/egoist/saber/commit/c320360))
+- add basic support for saber-node.js ([f5ed846](https://github.com/egoist/saber/commit/f5ed846))
+- add blog plugin ([5621dbe](https://github.com/egoist/saber/commit/5621dbe))
+- generate excerpt for markdown pages ([3f1220f](https://github.com/egoist/saber/commit/3f1220f))
+- generate tags page ([67c4e0e](https://github.com/egoist/saber/commit/67c4e0e))
+- serve public folder in themes ([056b2fe](https://github.com/egoist/saber/commit/056b2fe))
+- simplify custom blocks in page component ([a9b11f6](https://github.com/egoist/saber/commit/a9b11f6))
+- support all hooks in saber-node.js ([50f6072](https://github.com/egoist/saber/commit/50f6072))
+- support line highlighting in code blocks ([d4575ef](https://github.com/egoist/saber/commit/d4575ef))
+- use 3000 as default port ([4ef1600](https://github.com/egoist/saber/commit/4ef1600))
+
 ## [0.2.5](https://github.com/egoist/saber/compare/saber@0.2.4...saber@0.2.5) (2019-02-15)
 
 ### Bug Fixes

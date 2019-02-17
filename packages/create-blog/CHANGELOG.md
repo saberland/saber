@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://github.com/egoist/saber/compare/create-blog@0.1.5...create-blog@0.1.6) (2019-02-17)
+
+### Features
+
+- use 3000 as default port ([4ef1600](https://github.com/egoist/saber/commit/4ef1600))
+
 ## [0.1.5](https://github.com/egoist/saber/compare/create-blog@0.1.4...create-blog@0.1.5) (2019-02-13)
 
 ### Features
