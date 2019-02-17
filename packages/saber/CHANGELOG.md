@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.8](https://github.com/egoist/saber/compare/saber@0.2.7...saber@0.2.8) (2019-02-17)
+
+### Bug Fixes
+
+- **markdown:** ensure link href ([b501a0c](https://github.com/egoist/saber/commit/b501a0c))
+
+### Features
+
+- add saber-generator-feed ([87b8e32](https://github.com/egoist/saber/commit/87b8e32))
+
 ## [0.2.7](https://github.com/egoist/saber/compare/saber@0.2.6...saber@0.2.7) (2019-02-17)
 
 ### Bug Fixes
