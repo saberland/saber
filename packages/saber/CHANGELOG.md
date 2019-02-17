@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.7](https://github.com/egoist/saber/compare/saber@0.2.6...saber@0.2.7) (2019-02-17)
+
+### Bug Fixes
+
+- don't externalize saber/config ([ae6625f](https://github.com/egoist/saber/commit/ae6625f))
+
 ## [0.2.6](https://github.com/egoist/saber/compare/saber@0.2.5...saber@0.2.6) (2019-02-17)
 
 ### Features
