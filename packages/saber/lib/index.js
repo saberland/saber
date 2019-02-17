@@ -24,6 +24,8 @@ class Saber {
       filterPlugins: new SyncWaterfallHook(['plugins']),
       // After all plugins have been applied
       afterPlugins: new SyncHook(),
+      // Called before creating pages for the first time
+      initPages: new AsyncSeriesHook(),
       // After all pages haven't added to our `source`
       afterPages: new AsyncSeriesHook(),
       // Emit pages as .saberpage files when necessary
@@ -113,7 +115,8 @@ class Saber {
       { resolve: require.resolve('./plugins/config-font') },
       { resolve: require.resolve('./plugins/config-other-loaders') },
       { resolve: require.resolve('./plugins/emit-config') },
-      { resolve: require.resolve('./plugins/source-pages') }
+      { resolve: require.resolve('./plugins/source-pages') },
+      { resolve: require.resolve('./plugins/blog'), options: this.config.blog }
     ]
 
     // Plugins that are specified in user config, a.k.a. saber-config.js etc

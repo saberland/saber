@@ -23,11 +23,13 @@ exports.apply = api => {
   const getHook = hookName => nodeApi[hookName] || (() => {})
 
   api.hooks.afterPlugins.tap(nodeApiId, () => {
-    api.hooks.afterPages.tap(nodeApiId, (...args) => {
-      return getHook('afterPages').call(api, ...args)
-    })
-    api.hooks.onCreatePage.tap(nodeApiId, (...args) => {
-      return getHook('onCreatePage').call(api, ...args)
+    api.hooks.beforeRun.tap(nodeApiId, () => {
+      api.hooks.afterPages.tap(nodeApiId, (...args) => {
+        return getHook('afterPages').call(api, ...args)
+      })
+      api.hooks.onCreatePage.tap(nodeApiId, (...args) => {
+        return getHook('onCreatePage').call(api, ...args)
+      })
     })
   })
 

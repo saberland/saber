@@ -1,3 +1,5 @@
+const { log } = require('saber-log')
+
 const RE_STARTING = /^\n*---([a-z]+)?\n+/
 
 const parsers = {
@@ -6,7 +8,7 @@ const parsers = {
   toml: str => require('./toml.min').parse(str)
 }
 
-module.exports = content => {
+module.exports = (content, filepath) => {
   const getEmpty = () => ({
     frontmatter: {},
     body: content && content.trim()
@@ -26,8 +28,17 @@ module.exports = content => {
   const index = rest.indexOf('\n---')
   const head = rest.slice(0, index)
   const body = rest.slice(index + 4)
+  let frontmatter
+  try {
+    frontmatter = parse(head)
+  } catch (error) {
+    if (filepath) {
+      log.error(`Error parsing front matter in ${filepath}`)
+    }
+    throw error
+  }
   return {
-    frontmatter: parse(head),
+    frontmatter,
     body: body && body.trim()
   }
 }

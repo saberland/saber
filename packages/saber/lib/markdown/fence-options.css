@@ -1,7 +1,6 @@
 .code-wrapper {
   position: relative;
-  background-color: #282c34;
-  border-radius: 4px;
+  margin: 2rem 0;
 }
 
 .code-line.highlighted {
@@ -24,6 +23,9 @@
   box-shadow: none !important;
   margin: 0 !important;
   padding: 1.25rem 1.5rem !important;
+  border-radius: 4px;
+  background-color: #282c34;
+  border-radius: 4px;
 }
 
 .code-mask {

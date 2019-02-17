@@ -37,9 +37,6 @@ exports.apply = api => {
     )
 
     api.hooks.createPage.tap('create-page', page => {
-      // Ensure this page is not saved
-      // So that it will be emitted to disk later in `emitPages` hook
-      page.internal.saved = false
       api.source.pages.createPage(page)
       api.hooks.onCreatePage.call(page)
     })
@@ -77,6 +74,8 @@ exports.apply = api => {
         })
       )
     })
+
+    await api.hooks.initPages.promise()
 
     for (const file of files) {
       const page = api.source.getPage(file)

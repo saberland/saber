@@ -7,7 +7,8 @@ exports.apply = api => {
     extensions: ['md'],
     transform(page) {
       const { frontmatter, body } = require('../utils/parseFrontmatter')(
-        page.content
+        page.content,
+        page.internal.absolute
       )
       Object.assign(page.attributes, frontmatter)
       transformMarkdown(

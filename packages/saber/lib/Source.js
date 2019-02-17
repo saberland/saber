@@ -8,6 +8,9 @@ class Pages extends Map {
     if (!page.internal || !page.internal.id) {
       throw new Error(`Page must have an internal id.`)
     }
+    // Ensure this page is not saved
+    // So that it will be emitted to disk later in `emitPages` hook
+    page.internal.saved = false
     this.set(page.internal.id, page)
   }
 
