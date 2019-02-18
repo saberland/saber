@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.10](https://github.com/egoist/saber/compare/saber@0.2.9...saber@0.2.10) (2019-02-18)
+
+### Bug Fixes
+
+- **babel:** add babel-runtime ([c1652f7](https://github.com/egoist/saber/commit/c1652f7))
+
+### Features
+
+- add getDocument hook ([c9f7f7b](https://github.com/egoist/saber/commit/c9f7f7b))
+
 ## [0.2.9](https://github.com/egoist/saber/compare/saber@0.2.8...saber@0.2.9) (2019-02-17)
 
 ### Bug Fixes
