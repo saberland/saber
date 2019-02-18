@@ -14,7 +14,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
-    "@babel/runtime": "^7.2.0",
+    "@babel/runtime": "^7.3.1",
     "@egoist/postcss-loader": "^3.0.2",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
     "babel-loader": "^8.0.5",
