@@ -3,8 +3,13 @@
   "version": "0.2.11",
   "files": [
     "bin",
-    "lib"
+    "lib",
+    "!**/*.test.js",
+    "!**/__*__/**"
   ],
+  "scripts": {
+    "test": "jest --env node"
+  },
   "main": "lib/index.js",
   "bin": "lib/cli.js",
   "license": "MIT",
@@ -51,7 +56,9 @@
   "devDependencies": {
     "@types/resolve-from": "^4.0.0",
     "@types/webpack": "^4.4.24",
+    "jest": "^24.1.0",
     "markdown-it-footnote": "^3.0.1",
     "typescript": "^3.3.1"
-  }
+  },
+  "xo": false
 }

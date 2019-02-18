@@ -34,7 +34,7 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
 
     const code = options.highlight
       ? options.highlight(token.content, langName)
-      : token.content
+      : md.utils.escapeHtml(token.content)
 
     const renderAttrs = attrs => self.renderAttrs({ attrs })
 

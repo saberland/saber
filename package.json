@@ -43,6 +43,9 @@
       "**/renderer/app/**",
       "**/example/**",
       "website/**"
+    ],
+    "envs": [
+      "jest"
     ]
   },
   "husky": {
