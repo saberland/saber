@@ -4,7 +4,6 @@ const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
 const Source = require('./Source')
-const VueRenderer = require('./renderer')
 const BrowserApi = require('./BrowserApi')
 const Transformers = require('./Transformers')
 const configLoader = require('./utils/configLoader')
@@ -43,7 +42,8 @@ class Saber {
       // Called after running webpack
       afterBuild: new AsyncSeriesHook(),
       // Called after generate static HTML files
-      afterGenerate: new AsyncSeriesHook()
+      afterGenerate: new AsyncSeriesHook(),
+      getDocument: new SyncWaterfallHook(['html', 'document'])
     }
     this.transformers = new Transformers()
 
@@ -59,8 +59,6 @@ class Saber {
   }
 
   prepare() {
-    this.renderer = new VueRenderer(this)
-
     // Load package.json data
     this.pkg = configLoader.load({
       files: ['package.json'],
@@ -86,6 +84,14 @@ class Saber {
       configDir: this.configDir
     })
 
+    this.RendererClass = this.config.renderer
+      ? resolvePackage(this.config.renderer, {
+          cwd: this.configDir,
+          prefix: 'saber-renderer-'
+        })
+      : require('./renderer')
+    this.renderer = new this.RendererClass(this)
+
     // Load plugins
     for (const plugin of this.getPlugins()) {
       plugin.plugin.apply(this, plugin.options)
@@ -105,7 +111,7 @@ class Saber {
         prefix: 'saber-theme-'
       })
     } else {
-      this.theme = VueRenderer.defaultTheme
+      this.theme = this.RendererClass.defaultTheme
     }
     log.debug(`Using theme: ${this.theme}`)
   }
@@ -162,6 +168,11 @@ class Saber {
     const config = require('./webpack/webpack.config')(this, opts)
     this.hooks.chainWebpack.call(config, opts)
     return config
+  }
+
+  getDocument(context) {
+    const initialHTML = this.RendererClass.getDocument(context)
+    return this.hooks.getDocument.call(initialHTML, context)
   }
 
   async run({ watch } = {}) {

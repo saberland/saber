@@ -207,10 +207,7 @@ class VueRenderer {
           path.relative(this.api.resolveCache('public'), generatedFileName)
         )
         const markup = await renderer.renderToString(context)
-        const html = `<!DOCTYPE html>${require('./saber-document')(
-          context,
-          markup
-        )}`
+        const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
           .replace(/^\s+/gm, '')
           .replace(/\n+</g, '<')
           .replace('<div id="_saber"></div>', markup)
@@ -332,7 +329,7 @@ class VueRenderer {
         try {
           const context = { url: req.url, req, res }
           const markup = await renderer.renderToString(context)
-          const html = `<!DOCTYPE html>${require('./saber-document')(
+          const html = `<!DOCTYPE html>${this.api.getDocument(
             context
           )}`.replace('<div id="_saber"></div>', markup)
           res.setHeader('content-type', 'text/html')
@@ -367,7 +364,7 @@ class VueRenderer {
           renderScripts,
           renderState: noop
         }
-        const html = `<!DOCTYPE html>${require('./saber-document')(context)}`
+        const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
         res.setHeader('content-type', 'text/html')
         res.end(html)
       })
@@ -378,7 +375,7 @@ class VueRenderer {
 }
 
 VueRenderer.defaultTheme = path.join(__dirname, 'app/theme')
-VueRenderer.htmlTemplate = path.join(__dirname, 'default-index.html')
+VueRenderer.getDocument = require('./get-document')
 
 module.exports = VueRenderer
 
