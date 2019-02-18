@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.11](https://github.com/egoist/saber/compare/saber@0.2.10...saber@0.2.11) (2019-02-18)
+
+### Bug Fixes
+
+- register node apis earlier ([0e3019d](https://github.com/egoist/saber/commit/0e3019d))
+
 ## [0.2.10](https://github.com/egoist/saber/compare/saber@0.2.9...saber@0.2.10) (2019-02-18)
 
 ### Bug Fixes
