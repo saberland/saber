@@ -23,7 +23,7 @@ exports.apply = api => {
   const getHook = hookName => nodeApi[hookName] || (() => {})
 
   api.hooks.afterPlugins.tap(nodeApiId, () => {
-    api.hooks.beforeRun.tap(nodeApiId, () => {
+    api.hooks.initPages.tap(nodeApiId, () => {
       for (const hookName of Object.keys(api.hooks)) {
         api.hooks[hookName].tap(nodeApiId, (...args) => {
           return getHook(hookName).call(api, ...args)
