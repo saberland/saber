@@ -15,7 +15,7 @@ During developing, changes made in this file will trigger rebuilding automatical
 
 - Type: `(this: SaberInstance, page: Page) => void`
 
-Invoked when a new page is added.
+Called when a new page is added.
 
 ```js
 exports.onCreatePage = function(page) {
@@ -24,8 +24,8 @@ exports.onCreatePage = function(page) {
 }
 ```
 
-### afterPages
+### onCreatePages
 
 - Type: `(this: SaberInstance) => void | Promise<void>`
 
-Invoked when Saber finished adding pages.
+Called when Saber finished adding pages. If you want to create a page from other pages, do it in this hook.

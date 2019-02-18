@@ -28,8 +28,8 @@ class Saber {
       afterPlugins: new SyncHook(),
       // Called before creating pages for the first time
       initPages: new AsyncSeriesHook(),
-      // After all pages haven't added to our `source`
-      afterPages: new AsyncSeriesHook(),
+      // Called when all pages are added to our `source`
+      onCreatePages: new AsyncSeriesHook(),
       // Emit pages as .saberpage files when necessary
       emitPages: new AsyncSeriesHook(),
       // Call this hook to create a page which will also invoke `onCreatePage` hook

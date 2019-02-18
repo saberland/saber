@@ -6,7 +6,7 @@ exports.name = ID
 
 exports.apply = (api, options = {}) => {
   api.hooks.afterPlugins.tap(ID, () => {
-    api.hooks.afterPages.tap(ID, () => {
+    api.hooks.onCreatePages.tap(ID, () => {
       injectPosts({
         injectPostsTo:
           options.injectPostsTo === undefined ? ['/'] : options.injectPostsTo,
@@ -84,7 +84,7 @@ exports.apply = (api, options = {}) => {
                 },
                 internal: {
                   id: `internal_blog__tags__${tag}`,
-                  // So that this page will be removed before next `afterPages` hook in watch mode
+                  // So that this page will be removed before next `onCreatePages` hook in watch mode
                   parent: true
                 },
                 tag: getTagName(tag, tagsMap)

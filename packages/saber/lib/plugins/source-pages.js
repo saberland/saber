@@ -82,7 +82,7 @@ exports.apply = api => {
       api.hooks.createPage.call(page)
     }
 
-    await api.hooks.afterPages.promise()
+    await api.hooks.onCreatePages.promise()
     await api.hooks.emitPages.promise()
 
     if (watch) {
@@ -107,7 +107,7 @@ exports.apply = api => {
           api.hooks.manipulatePage.call({ action: 'create', page })
         }
 
-        await api.hooks.afterPages.promise()
+        await api.hooks.onCreatePages.promise()
         await api.hooks.emitPages.promise()
         await api.hooks.emitRoutes.promise()
       }

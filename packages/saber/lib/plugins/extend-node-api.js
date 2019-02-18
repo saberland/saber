@@ -44,7 +44,7 @@ exports.apply = api => {
         for (const page of api.source.pages.values()) {
           api.hooks.createPage.call(page)
         }
-        await api.hooks.afterPages.promise()
+        await api.hooks.onCreatePages.promise()
         await api.hooks.emitPages.promise()
         await api.hooks.emitRoutes.promise()
       })
