@@ -25,7 +25,7 @@ To set a global permalink, you use the permalink variable in `saber-config.yml`.
 
 ```yaml
 permalinks:
-  post: /:year/:month/:day/:title:slug.html
+  post: /:year/:month/:day/:slug.html
 ```
 
 Note that placeholders like `:year` and `:month` are parsed from the page attribute `date` which can be any valid date value like: `2015-02-31`, it defaults to the creation time of your page.

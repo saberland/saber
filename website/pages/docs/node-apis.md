@@ -29,3 +29,27 @@ exports.onCreatePage = function(page) {
 - Type: `(this: SaberInstance) => void | Promise<void>`
 
 Called when Saber finished adding pages. If you want to create a page from other pages, do it in this hook.
+
+### chainWebpack
+
+- Type: `(config: WebpackChain, context: Context) => void`
+
+Called when creating [webpack-chain](https://github.com/neutrinojs/webpack-chain) instance which is used to create webpack config.
+
+```typescript
+interface Context {
+  type: 'client' | 'server'
+}
+```
+
+### afterBuild
+
+- Type: `() => void | Promise<void>`
+
+Called when webpack build is finished.
+
+### afterGenerate
+
+- Type: `() => void | Promise<void>`
+
+Called when static HTML files are generated.
