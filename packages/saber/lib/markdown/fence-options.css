@@ -3,6 +3,7 @@
   margin: 2rem 0;
   background-color: #282c34;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .code-line.highlighted {
@@ -25,8 +26,7 @@
   box-shadow: none !important;
   margin: 0 !important;
   padding: 1.25rem 1.5rem !important;
-  border-radius: 4px;
-  border-radius: 4px;
+  white-space: pre;
 }
 
 .code-mask {
