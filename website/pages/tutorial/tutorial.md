@@ -35,7 +35,7 @@ Now let's create your first page `./pages/index.vue`:
 ```vue
 <template>
   <div>
-    <h1>My Blog<h1>
+    <h1>My Blog</h1>
     <p>
       This is my lovely (not yet) homepage!
     </p>
