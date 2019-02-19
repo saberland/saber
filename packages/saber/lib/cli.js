@@ -4,14 +4,26 @@ const cac = require('cac')
 const cli = cac()
 
 cli
-  .command('[app]', 'Run the application in dev mode')
+  .command('[app]', 'Run the application in dev mode', {
+    ignoreOptionDefaultValue: true
+  })
   .alias('dev')
   .option('--ssr', 'Run in SSR mode')
+  .option('--port <port>', 'Server port', { default: 3000 })
+  .option('--host <host>', 'Server host', { default: '0.0.0' })
   .action((cwd = '.', options) => {
-    const { ssr } = options
+    const { ssr, host, port } = options
+    delete options.host
+    delete options.port
     delete options.ssr
-    return require('..')(Object.assign({ cwd, mode: 'development' }, options))
-      .dev({ ssr })
+    return require('..')(Object.assign({ cwd, mode: 'development' }, options), {
+      server: {
+        host,
+        port,
+        ssr
+      }
+    })
+      .dev()
       .catch(handleError)
   })
 

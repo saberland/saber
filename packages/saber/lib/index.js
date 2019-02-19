@@ -2,6 +2,7 @@ const path = require('path')
 const http = require('http')
 const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
+const merge = require('lodash.merge')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
 const Source = require('./Source')
 const BrowserApi = require('./BrowserApi')
@@ -10,9 +11,10 @@ const configLoader = require('./utils/configLoader')
 const resolvePackage = require('./utils/resolvePackage')
 
 class Saber {
-  constructor(opts = {}) {
+  constructor(opts = {}, config = {}) {
     this.opts = opts
     this.opts.cwd = path.resolve(opts.cwd || '.')
+    this.config = config
     this.source = new Source(this)
     this.browserApi = new BrowserApi(this)
     this.log = log
@@ -74,9 +76,7 @@ class Saber {
     if (configPath) {
       this.configPath = configPath
       this.configDir = path.dirname(configPath)
-      this.config = config
-    } else {
-      this.config = {}
+      this.config = merge(config, this.config)
     }
 
     // Validate config, apply default values, normalize some values
@@ -199,12 +199,14 @@ class Saber {
     await this.hooks.afterGenerate.promise()
   }
 
-  async dev({ ssr } = {}) {
+  async dev() {
     await this.run({ watch: true })
 
-    const server = http.createServer(this.renderer.getRequestHandler({ ssr }))
+    const server = http.createServer(
+      this.renderer.getRequestHandler({ ssr: this.config.server.ssr })
+    )
 
-    server.listen(3000)
+    server.listen(this.config.server.port, this.config.server.host)
   }
 
   hasDependency(name) {
@@ -228,4 +230,4 @@ class Saber {
   }
 }
 
-module.exports = opts => new Saber(opts)
+module.exports = (opts, config) => new Saber(opts, config)

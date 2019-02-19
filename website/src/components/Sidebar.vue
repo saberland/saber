@@ -5,7 +5,7 @@
         <div class="item-title">{{ item.title }}</div>
         <div class="item-children">
           <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
-            <saber-link :to="childItem.link" :class="{active: $route.path === childItem.link}">
+            <saber-link :to="childItem.link" :class="{active: isActive(childItem.link)}">
               {{ childItem.title }}
             </saber-link>
           </div>
@@ -18,7 +18,7 @@
         :value="item.link"
         :disabled="item.disabled"
         v-for="(item, i) in flatItems"
-        :selected="item.link === $route.path"
+        :selected="isActive(item.link)"
         :key="i">
         {{ item.title }}
       </option>
@@ -28,12 +28,12 @@
 </template>
 
 <script>
-import { themeConfig } from 'saber/config'
 
 export default {
-  data() {
-    return {
-      items: themeConfig.sidebar
+  props: {
+    items: {
+      type: Array,
+      required: true
     }
   },
 
@@ -47,6 +47,13 @@ export default {
         }
       }
       return res
+    }
+  },
+
+  methods: {
+    isActive(link) {
+      if (!link) return false
+      return link[0] === '#' ? link === this.$route.hash : link === this.$route.path
     }
   }
 }

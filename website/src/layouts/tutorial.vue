@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { themeConfig } from 'saber/config'
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
 
@@ -29,8 +28,23 @@ export default {
 
   data() {
     return {
-      sidebar: themeConfig.sidebar
+      sidebar: []
     }
+  },
+
+  mounted() {
+    const items = Array.prototype.map.call(this.$el.querySelectorAll('.page-content > h2'), el => {
+      return {
+        title: el.textContent,
+        link: `#${el.getAttribute('id')}`
+      }
+    })
+    this.sidebar = [
+      {
+        title: 'Tutorial',
+        children: items
+      }
+    ]
   },
 
   components: {

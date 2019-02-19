@@ -41,13 +41,26 @@ module.exports = config => {
 
   const permalinks = struct.union(['object', 'function'], {})
 
+  const server = struct(
+    {
+      host: 'string?',
+      port: 'number?',
+      ssr: 'boolean?'
+    },
+    {
+      host: '0.0.0.0',
+      port: 3000
+    }
+  )
+
   const schema = struct({
     siteConfig,
     themeConfig,
     theme: 'string?',
     plugins,
     markdown,
-    permalinks
+    permalinks,
+    server
   })
 
   const [err, result] = schema.validate(config)
