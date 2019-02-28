@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/no-unresolved
 import { siteConfig } from 'saber/config'
-import 'nprogress/nprogress.css'
 import './css/global.css'
 
 export default ({ router, rootOptions }) => {
   if (process.browser) {
     const nprogress = require('nprogress')
+    require('nprogress/nprogress.css')
 
     const loaded = Object.create(null)
 

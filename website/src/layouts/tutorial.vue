@@ -16,9 +16,12 @@
 <script>
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
+import DocMixin from '../mixins/doc'
 
 export default {
   props: ['page'],
+
+  mixins: [DocMixin],
 
   head() {
     return {

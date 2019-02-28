@@ -3,9 +3,9 @@ title: Theming
 layout: docs
 ---
 
-Themes are used to manage layouts and Saber's browser APIs and Node.js APIs.
+Themes are used to share [layouts](/docs/layouts.html) and [saber-browser.js](/docs/browser-apis.html) with others.
 
-By default Saber uses a built-in theme, if you want to use a custom theme you can simply set it in config file like this `saber-config.yml`:
+If you want to use a custom theme you can simply set it in config file like this `saber-config.yml`:
 
 ```yaml
 theme: ./src
@@ -14,4 +14,4 @@ theme: ./src
 theme: simple
 ```
 
-Theme layouts are populated under `$theme/layouts` directory, layouts in `$projectRoot/layouts` takes higher priority.
+Theme layouts are populated under `$theme/layouts` directory, layouts in `$projectRoot/layouts` will still work and take higher priority.

@@ -9,11 +9,11 @@ We will build a simple blog in this tutorial. The techniques you’ll learn in t
 
 ### What Are We Building?
 
-In this tutorial, we’ll show how to build a simple blog with Saber, you will also use [Vue](https://vuejs.org) to write a simple theme for it.
+In this tutorial, we’ll show how to build a simple blog with Saber, you will also use [Vue](https://vuejs.org) to write a layout component for it.
 
 ### Prerequisites
 
-You should have basic knowledge about JavaScript, Vue, Vue single-file components. Vue knowledge is not enforced but it's a requirement for writing your own themes.
+You should have basic knowledge about JavaScript, Vue, Vue single-file components. Vue knowledge is not enforced but it's a requirement for writing layouts.
 
 ### Setup for the Tutorial
 
@@ -84,7 +84,7 @@ nav {
   border-bottom: 3px solid #f0f0f0;
 }
 
-<!-- ... omitted some css -->
+/* ... omitted some css */
 </style>
 ```
 
@@ -333,6 +333,64 @@ siteConfig:
 
 Now the browser tab will display page title properly.
 
-## Build for Production
+## Adding Progress Bar for Page Loading
 
-Run `yarn saber generate` in your project, the output website can be found at `.saber/public` directory, you can directly deploy it to GitHub pages or Netlify.
+Each page in `./pages` will be lazy-loaded at runtime, i.e. your browser will only download specific code when it's needed. Therefore a progress bar for page loading will certainly improve user experience.
+
+[nprogress](https://github.com/rstacruz/nprogress) is a JavaScript library that provides YouTube-like progress bar, in this case, we need to access Saber's router API to use nprogress. You can export a function in `saber-browser.js` to extend Saber's browser APIs:
+
+```js {highlightLines:[13,21]}
+export default ({ router }) => {
+  // Progress bar is not needed on server-side
+  if (process.browser) {
+    // These dependencies are only bundled in client build
+    const nprogress = require('nprogress')
+    require('nprogress/nprogress.css')
+
+    const loaded = Object.create(null)
+
+    router.beforeEach((to, from, next) => {
+      if (!loaded[to.path]) {
+        // Start progress bar before entering page
+        nprogress.start()
+      }
+      next()
+    })
+
+    router.afterEach(to => {
+      loaded[to.path] = true
+      // Stop progress bar after entering page
+      nprogress.done()
+    })
+  }
+}
+```
+
+For details on Saber's browser APIs, check out [the reference](/docs/browser-apis.html).
+
+## Making Layouts Sharable
+
+You can use [Themes](/docs/theming.html) to share layouts, customizations etc. with your friends.
+
+To use a local theme, configure it in `saber-config.yml`:
+
+```yaml
+# A local directory
+theme: ./src
+```
+
+Previously you had your layouts populated in `$projectRoot/layouts` directory, now move it to `$theme/layouts`, in this case it would be `./src/layouts` directory. If you want others to use it as well, publish the theme directory on npm and follow the `saber-theme-[name]` naming convention, you can use an npm package as theme like this:
+
+```yaml
+# An npm package named `saber-theme-simple`
+theme: simple
+```
+
+Note that `$projectRoot/layouts` directory still works even if you're using a theme, the layouts in this directory take higher priorty over the layouts in the theme directory. For instance, `$theme/layouts/foo.vue` will be ignored if `$projectRoot/layouts/foo.vue` exists.
+
+Similarly, `saber-browser.js` can also be shared in a theme.
+
+
+## Building for Production
+
+Run `yarn saber generate` in your project, the output website can be found at `.saber/public` directory, then you can run `yarn saber serve` to preview the production build locally. You can also directly deploy this directory to GitHub pages or Netlify.
