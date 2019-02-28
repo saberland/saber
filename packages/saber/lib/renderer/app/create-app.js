@@ -1,6 +1,7 @@
 import './polyfills'
 import Vue from 'vue'
 import routes from '#cache/routes'
+import layouts from '#cache/layouts'
 import Router from './vendor/vue-router'
 import RoutePrefetch from './vendor/vue-router-prefetch'
 import Meta from './vendor/vue-meta'
@@ -20,16 +21,6 @@ Vue.use(Meta, {
   attribute: 'data-saber-head',
   ssrAttribute: 'data-saber-ssr',
   tagIDKeyName: 'vmid'
-})
-
-const layouts = {}
-const r = require.context('#theme/layouts', false, /\.(js|vue)$/)
-r.keys().forEach(key => {
-  const name = key.slice(2).replace(/\.[a-z]+$/, '')
-  // Let's embed layouts into a main chunk for now
-  // TODO: in the future each layout should be separated in its own chunk
-  // And we prefetch the layout component
-  layouts[name] = r(key).default
 })
 
 export default () => {

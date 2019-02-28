@@ -63,7 +63,7 @@ And it just works:
 
 Next I'd like to add a navbar to the top of our pages.
 
-Let's create a simple `./src/components/Navbar.vue` component first:
+Let's create a simple `./components/Navbar.vue` component first:
 
 ```vue
 <template>
@@ -104,7 +104,7 @@ In `./pages/index.vue`:
 </template>
 
 <script>
-import Navbar from '../src/components/Navbar.vue'
+import Navbar from '../components/Navbar.vue'
 
 export default {
   components: {
@@ -124,7 +124,7 @@ Guess what, you can use components in Markdown files as well, in your `./pages/a
 I'm a cool guy from the Mars, nice to meet you folks.
 
 <script>
-import Navbar from '../src/components/Navbar.vue'
+import Navbar from '../components/Navbar.vue'
 
 export default {
   components: {
@@ -142,13 +142,9 @@ Let's see it in action:
 
 Imagine you have tens of pages and you need to repeat the above steps 10x times, it will be a disaster!
 
-Luckily you can get over this by using layout components, a layout component will receive the page component as default slot, to use layouts you need to set the `theme` directory in Saber config file, for example we'll use `saber-config.yml` here:
+Luckily you can get over this by using layout components, a layout component will receive the page component as default slot, to use layouts you need to populate Vue components inside `./layouts` directory in your project root.
 
-```yaml
-theme: ./src
-```
-
-Then you can populate layout components in the `./src/layouts` directory, here we want to create a layout named `page` to show `Navbar` component, so we populate a `./src/layouts/page.vue`:
+Here we want to create a layout named `page` to show `Navbar` component, so we populate a `./layouts/page.vue`:
 
 ```vue
 <template>
@@ -234,7 +230,7 @@ By default you can access the post list via the `page` prop from homepage itself
 
 <img src="./images/vue-devtools-page-prop.png" class="browser-image" alt="vue-devtools-page-prop">
 
-Awesome, now let's update the `./src/layouts/page.vue` to show recent posts:
+Awesome, now let's update the `./layouts/page.vue` to show recent posts:
 
 ```vue {highlightLines:['5-16',27]}
 <template>
@@ -293,7 +289,7 @@ You can add pagination based on the `page.pagination` value if you have more pos
 
 ## Adding Document Title
 
-Everything seems to work fine now, but I just notice that our pages don't have browser tab titles, let's add a quick fix to the layout `./src/layouts/page.vue`:
+Everything seems to work fine now, but I just notice that our pages don't have browser tab titles, let's add a quick fix to the layout `./layouts/page.vue`:
 
 ```vue {highlightLines:[6,'11-16']}
 <template>

@@ -128,6 +128,7 @@ class Saber {
       { resolve: require.resolve('./plugins/config-font') },
       { resolve: require.resolve('./plugins/config-other-loaders') },
       { resolve: require.resolve('./plugins/emit-config') },
+      { resolve: require.resolve('./plugins/layouts') },
       { resolve: require.resolve('./plugins/source-pages') },
       { resolve: require.resolve('./plugins/blog'), options: this.config.blog }
     ]

@@ -19,6 +19,8 @@ themeConfig:
         link: /docs/pages.html
       - title: Permalinks
         link: /docs/permalinks.html
+      - title: Layouts
+        link: /docs/layouts.html
       - title: Theming
         link: /docs/theming.html
   - title: References
