@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.12](https://github.com/egoist/saber/compare/saber@0.2.11...saber@0.2.12) (2019-02-28)
+
+### Bug Fixes
+
+- ensure code blocks are always escaped ([8f4eea5](https://github.com/egoist/saber/commit/8f4eea5))
+- tweak css for code blocks ([6808274](https://github.com/egoist/saber/commit/6808274))
+
+### Features
+
+- use layouts from project root ([9d1662b](https://github.com/egoist/saber/commit/9d1662b))
+
 ## [0.2.11](https://github.com/egoist/saber/compare/saber@0.2.10...saber@0.2.11) (2019-02-18)
 
 ### Bug Fixes
