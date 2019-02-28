@@ -44,3 +44,45 @@ a {
 #nprogress .peg {
   box-shadow: 0 0 10px var(--spinner-color), 0 0 5px var(--spinner-color);
 }
+
+/** customize css for markdown-it-footnote */
+hr.footnotes-sep {
+  position: relative;
+  overflow: visible;
+  margin: 80px 0 30px 0;
+
+  &:before {
+    color: #bdbdbd;
+    font-size: 13px;
+    padding: 0 20px;
+    content: 'footnotes';
+    display: inline-block;
+    text-transform: uppercase;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.footnote-ref {
+  font-size: 13px;
+}
+
+.footnote-ref a:focus, .footnote-item:focus .footnote-backref {
+  color: red;
+  font-weight: bold;
+}
+
+.footnote-item:not(:last-child) {
+  margin-bottom: .5rem;
+}
+
+.footnote-item >*:first-child {
+  margin-top: 0;
+}
+
+.footnote-item >*:last-child {
+  margin-bottom: 0;
+}

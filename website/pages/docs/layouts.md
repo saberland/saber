@@ -3,7 +3,7 @@ title: Layouts
 layout: docs
 ---
 
-You can use the `layout` attribute to use a layout component for specific page.
+You can use the `layout` attribute[^1] to use a layout component for specific page.
 
 Saber uses `*.{vue,js}` files from `./layouts` in your project root and [theme](/docs/theming.html) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
 
@@ -25,3 +25,5 @@ export default {
 }
 </script>
 ```
+
+[^1]: If you don't know what `page attributes` is, check out the [Pages](/docs/pages.html) guide.

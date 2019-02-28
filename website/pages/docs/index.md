@@ -9,10 +9,7 @@ If you're feeling adventurous, though, read ahead...
 
 ---
 
-Saber (or Saber.js) is a static website generator, it is like Hexo but, you can use Vue, React or other view layers* to write layouts, Saber will also generate a universal website* out-of-the-box.
-
-<sup>*Vue, React or other view layers: Currently only Vue is officially supported</sup><br>
-<sup>*universal website: this means the same code is used for both generating static HTML at compile time and for client interactions in browser.</sup>
+Saber (or Saber.js) is a static website generator, it is like Hexo but, you can use Vue, React or other view layers[^1] to write layouts, Saber will also generate a universal website[^2] out-of-the-box.
 
 ## Compared to Hexo
 
@@ -39,3 +36,6 @@ Populate `./pages/index.vue` inside your project:
 And then just run `saber` and go to `http://localhost:3000`.
 
 You can also use Saber's [Node APIs](/docs/node-apis.html) to add pages from anywhere, e.g. REST/GraphQL API.
+
+[^1]: Currently only Vue is officially supported.
+[^2]: This means the same code is used for both generating static HTML at compile time and for client interactions in browser.

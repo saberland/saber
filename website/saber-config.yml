@@ -6,6 +6,8 @@ theme: ./src
 
 markdown:
   highlighter: prism
+  plugins:
+  - resolve: markdown-it-footnote
 
 themeConfig:
   sidebar:
