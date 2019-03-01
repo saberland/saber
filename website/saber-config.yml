@@ -11,7 +11,7 @@ markdown:
 
 themeConfig:
   sidebar:
-  - title: Guide
+  - title: Basics
     children:
       - title: Introduction
         link: /docs/
@@ -25,6 +25,8 @@ themeConfig:
         link: /docs/layouts.html
       - title: Theming
         link: /docs/theming.html
+      - title: Public Folder
+        link: /docs/public-folder.html
   - title: References
     children:
       - title: Markdown Features
