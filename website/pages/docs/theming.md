@@ -3,7 +3,7 @@ title: Theming
 layout: docs
 ---
 
-Themes are used to share [layouts](/docs/layouts.html) and [saber-browser.js](/docs/browser-apis.html) with others.
+Themes are used to share [layouts](./layouts.md) and [saber-browser.js](./browser-apis.md) with others.
 
 If you want to use a custom theme you can simply set it in config file like this `saber-config.yml`:
 

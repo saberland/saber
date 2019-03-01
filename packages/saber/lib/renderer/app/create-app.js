@@ -1,4 +1,5 @@
 import './polyfills'
+import { join, dirname } from 'path'
 import Vue from 'vue'
 import routes from '#cache/routes'
 import layouts from '#cache/layouts'
@@ -10,6 +11,7 @@ import extendBrowserApi from '#cache/extend-browser-api'
 
 Vue.use(Router)
 
+// Make `<RouterLink>` prefetch-able
 Vue.use(RoutePrefetch, {
   componentName: 'SaberLink'
 })
@@ -21,6 +23,12 @@ Vue.use(Meta, {
   attribute: 'data-saber-head',
   ssrAttribute: 'data-saber-ssr',
   tagIDKeyName: 'vmid'
+})
+
+Vue.mixin({
+  beforeCreate() {
+    this.$saber = this.$root
+  }
 })
 
 export default () => {
@@ -46,7 +54,20 @@ export default () => {
       layouts
     },
     router,
-    render: h => h('div', { attrs: { id: '_saber' } }, [h('router-view')])
+    render: h => h('div', { attrs: { id: '_saber' } }, [h('router-view')]),
+    methods: {
+      getPageLink(relativePath, extraParams) {
+        relativePath = join((dirname(this.$route.meta.__relative)), relativePath)
+        for (const route of this.$router.options.routes) {
+          if (route.meta && route.meta.__relative && relativePath === route.meta.__relative) {
+            return `${route.path}${extraParams || ''}`
+          }
+        }
+        if (process.env.NODE_ENV !== 'production') {
+          throw new Error(`Cannot resolve page ${relativePath} from ${this.$route.meta.__relative}`)
+        }
+      }
+    }
   }
 
   extendBrowserApi({ router, rootOptions })

@@ -24,7 +24,7 @@ module.exports = (attributes, permalinks) => {
     .replace(/:day/, () => padZero(date.getDate()))
     .replace(/:i_day/, () => date.getDate())
     .replace(/^\/index.html$/, '/')
-    .replace(/\/index\.html$/, '')
+    .replace(/\/index\.html$/, '/')
 }
 
 function padZero(input) {

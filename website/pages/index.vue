@@ -17,7 +17,7 @@
     <section>
       <saber-link
         class="getting-started"
-        to="/docs/">
+        :to="$saber.getPageLink('./docs/index.md')">
         Getting Started →
       </saber-link>
     </section>

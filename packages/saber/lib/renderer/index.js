@@ -119,6 +119,9 @@ class VueRenderer {
             : `#cache/pages/${page.internal.id}.saberpage`
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
+              meta: {
+                __relative: ${JSON.stringify(page.internal.relative)}
+              },
               component: function() {
                 ${`
                 return import(${chunkNameComment}${JSON.stringify(

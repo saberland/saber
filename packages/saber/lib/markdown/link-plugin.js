@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = function(md) {
   // eslint-disable-next-line camelcase
   md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
@@ -7,16 +9,34 @@ module.exports = function(md) {
     const link = token.attrs[hrefIndex]
 
     if (link) {
-      if (link[1].startsWith('#')) {
-        token.tag = 'saber-link'
-        link[0] = ':to'
-        link[1] = `{hash: ${JSON.stringify(link[1].slice(1))}}`
-      } else if (link[1].startsWith('/')) {
+      if (/^[^:]+:\/\//.test(link[1])) {
+        if (/^https?:/.test(link[1])) {
+          // External link
+          token.attrSet('target', '_blank')
+          token.attrSet('rel', 'noopener noreferrer')
+        }
+      } else if (link[1]) {
+        // Internal link
         token.tag = 'saber-link'
         link[0] = 'to'
-      } else if (/^https?:\/\//.test(link[1])) {
-        token.attrSet('target', '_blank')
-        token.attrSet('rel', 'noopener noreferrer')
+
+        const matched = /^([^#?]+)([#?].*)?$/.exec(link[1])
+        if (
+          matched &&
+          /\.md$/.test(matched[1]) &&
+          env.filePath &&
+          env.pagesDir
+        ) {
+          const absolutePath = path.resolve(
+            path.dirname(env.filePath),
+            matched[1]
+          )
+          if (absolutePath.includes(`${env.pagesDir}/`)) {
+            link[0] = ':to'
+            link[1] = `$saber.getPageLink("${matched[1]}", "${matched[2] ||
+              ''}")`
+          }
+        }
       }
     }
 

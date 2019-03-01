@@ -178,4 +178,4 @@ Saber's default CSS work well with `prism-tomorrow.css`, for other themes some t
 
 ## Configure markdown-it
 
-Check out [markdown.options](/docs/saber-config.html#markdown.options) for setting markdown-it options and [markdown.plugins](/docs/saber-config.html#markdown.plugins) for adding markdown-it plugins.
+Check out [markdown.options](./saber-config.md#markdown.options) for setting markdown-it options and [markdown.plugins](./saber-config.md#markdown.plugins) for adding markdown-it plugins.

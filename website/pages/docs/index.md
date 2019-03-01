@@ -19,7 +19,7 @@ Saber's layout system uses Vue.js by default. Layouts will be used to generate t
 
 ## Getting Started
 
-Check out the [installation](/docs/installation.html) guide.
+Check out the [installation](./installation.md) guide.
 
 ## Routing
 
@@ -35,7 +35,7 @@ Populate `./pages/index.vue` inside your project:
 
 And then just run `saber` and go to `http://localhost:3000`.
 
-You can also use Saber's [Node APIs](/docs/node-apis.html) to add pages from anywhere, e.g. REST/GraphQL API.
+You can also use Saber's [Node APIs](./node-apis.md) to add pages from anywhere, e.g. REST/GraphQL API.
 
 [^1]: Currently only Vue is officially supported.
 [^2]: This means the same code is used for both generating static HTML at compile time and for client interactions in browser.

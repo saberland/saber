@@ -14,10 +14,7 @@ exports.apply = api => {
       page.content = body
     },
     transform(page) {
-      transformMarkdown(
-        { page, configDir: api.configDir },
-        api.config.markdown || {}
-      )
+      transformMarkdown(api, page)
     },
     getPageComponent(page, content, internal) {
       return `
@@ -39,8 +36,15 @@ exports.apply = api => {
   })
 }
 
-function transformMarkdown({ page, configDir }, markdown) {
-  const env = { Token: require('saber-markdown').Token, hoistedTags: [] }
+function transformMarkdown(api, page) {
+  const { configDir } = api
+  const { markdown = {} } = api.config
+  const env = {
+    Token: require('saber-markdown').Token,
+    hoistedTags: [],
+    filePath: page.internal.absolute,
+    pagesDir: api.resolveCwd('pages')
+  }
   const md = require('saber-markdown')(
     Object.assign(
       {

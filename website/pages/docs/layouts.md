@@ -5,9 +5,9 @@ layout: docs
 
 You can use the `layout` attribute[^1] to use a layout component for specific page.
 
-Saber uses `*.{vue,js}` files from `./layouts` in your project root and [theme](/docs/theming.html) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
+Saber uses `*.{vue,js}` files from `./layouts` in your project root and [theme](./theming.md) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
 
-Layout components have a prop named `page` which implements [Page Interface](/docs/page-interface.html) and allows you to access page attributes and more.
+Layout components have a prop named `page` which implements [Page Interface](./page-interface.md) and allows you to access page attributes and more.
 
 The page contents will be available as a default slot in your layout component, for example:
 
@@ -26,4 +26,4 @@ export default {
 </script>
 ```
 
-[^1]: If you don't know what `page attributes` is, check out the [Pages](/docs/pages.html) guide.
+[^1]: If you don't know what `page attributes` is, check out the [Pages](./pages.md) guide.
