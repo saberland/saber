@@ -2,7 +2,6 @@ exports.name = 'builtin:transformer-markdefault'
 
 exports.apply = api => {
   api.transformers.add('default', {
-    transform() {},
     getPageComponent(page, content) {
       return `
         <template>

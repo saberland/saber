@@ -61,7 +61,16 @@ module.exports = class Source {
     }
 
     const transformer = api.transformers.get(page.contentType)
-    transformer.transform(page)
+
+    // Get page attributes from the page content
+    if (transformer.parse) {
+      transformer.parse(page)
+    }
+
+    // Transform page content
+    if (page.content && transformer.transform) {
+      transformer.transform(page)
+    }
 
     // These attributes depend on other attributes
     // And transformers can update the attributes

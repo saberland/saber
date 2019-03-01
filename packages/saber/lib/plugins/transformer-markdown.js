@@ -5,14 +5,17 @@ exports.name = 'builtin:transformer-markdown'
 exports.apply = api => {
   api.transformers.add('markdown', {
     extensions: ['md'],
-    transform(page) {
+    parse(page) {
       const { frontmatter, body } = require('../utils/parseFrontmatter')(
         page.content,
         page.internal.absolute
       )
       Object.assign(page.attributes, frontmatter)
+      page.content = body
+    },
+    transform(page) {
       transformMarkdown(
-        { page, body, configDir: api.configDir },
+        { page, configDir: api.configDir },
         api.config.markdown || {}
       )
     },
@@ -36,7 +39,7 @@ exports.apply = api => {
   })
 }
 
-function transformMarkdown({ page, body, configDir }, markdown) {
+function transformMarkdown({ page, configDir }, markdown) {
   const env = { Token: require('saber-markdown').Token, hoistedTags: [] }
   const md = require('saber-markdown')(
     Object.assign(
@@ -91,7 +94,7 @@ function transformMarkdown({ page, body, configDir }, markdown) {
   plugins.forEach(plugin => {
     md.use(require(plugin.resolve), plugin.options)
   })
-  page.content = md.render(body, env)
+  page.content = md.render(page.content, env)
   page.internal.hoistedTags = env.hoistedTags
   page.attributes.excerpt = env.excerpt
 }
