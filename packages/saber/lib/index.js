@@ -48,6 +48,7 @@ class Saber {
       getDocument: new SyncWaterfallHook(['html', 'document'])
     }
     this.transformers = new Transformers()
+    this.requestHandlers = {}
 
     if (opts.debug) {
       process.env.SABER_DEBUG = true

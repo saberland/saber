@@ -4,9 +4,18 @@ const spinner = require('../utils/spinner')
 
 module.exports = babelLoader.custom(babel => {
   const configs = new Set()
-  const presetItem = babel.createConfigItem(require('../babel/preset'), {
-    type: 'preset'
-  })
+  const requiredPreset = babel.createConfigItem(
+    require('../babel/required-preset'),
+    {
+      type: 'preset'
+    }
+  )
+  const optionalPreset = babel.createConfigItem(
+    require('../babel/optional-preset'),
+    {
+      type: 'preset'
+    }
+  )
 
   return {
     customOptions(opts) {
@@ -17,6 +26,8 @@ module.exports = babelLoader.custom(babel => {
     },
     config(cfg) {
       const options = Object.assign({}, cfg.options)
+
+      options.presets.push(requiredPreset)
 
       if (cfg.hasFilesystemConfig()) {
         for (const file of [cfg.babelrc, cfg.config]) {
@@ -29,8 +40,8 @@ module.exports = babelLoader.custom(babel => {
           }
         }
       } else {
-        // Add our default preset if the no "babelrc" found.
-        options.presets = [...options.presets, presetItem]
+        // Add our optional preset if the no "babelrc" found.
+        options.presets.push(optionalPreset)
       }
 
       return options
