@@ -1,5 +1,7 @@
 const path = require('path')
 const { fs } = require('saber-utils')
+const { log } = require('saber-log')
+const deepEqual = require('fast-deep-equal')
 const { load, CONFIG_FILES } = require('../utils/configLoader')
 
 const ID = 'builtin:emit-config'
@@ -20,6 +22,19 @@ exports.apply = api => {
         'utf8'
       )
 
+    const checkIfConfigChanged = (newConfig, prevConfig) => {
+      const dropUnnecessary = config =>
+        Object.assign({}, config, {
+          siteConfig: undefined,
+          themeConfig: undefined
+        })
+      if (!deepEqual(dropUnnecessary(newConfig), dropUnnecessary(prevConfig))) {
+        log.warn(
+          `Found a change in your Saber config file, restart server to see the effect.`
+        )
+      }
+    }
+
     // Emit config.json anyways
     await emit(api.config)
 
@@ -31,10 +46,15 @@ exports.apply = api => {
       })
       watcher.on('all', async (type, filename) => {
         const filepath = path.join(cwd, filename)
-        const { path: configPath, data } = await load({ files: [filepath] })
-        if (configPath && data) {
-          await emit(data)
-        }
+        const { data = {}, path: configPath } = await load({
+          files: [filepath]
+        })
+
+        const prevConfig = api.config
+        api.setConfig(data, configPath)
+        checkIfConfigChanged(api.config, prevConfig)
+
+        await emit(api.config)
       })
     }
   })

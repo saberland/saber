@@ -74,16 +74,8 @@ class Saber {
       files: configLoader.CONFIG_FILES,
       cwd: this.opts.cwd
     })
-    if (configPath) {
-      this.configPath = configPath
-      this.configDir = path.dirname(configPath)
-      this.config = merge(config, this.config)
-    }
 
-    // Validate config, apply default values, normalize some values
-    this.config = require('./utils/validateConfig')(this.config, {
-      configDir: this.configDir
-    })
+    this.setConfig(config, configPath)
 
     this.RendererClass = this.config.renderer
       ? resolvePackage(this.config.renderer, {
@@ -117,6 +109,17 @@ class Saber {
     log.debug(`Using theme: ${this.theme}`)
   }
 
+  setConfig(config, configPath = this.configPath) {
+    this.configPath = configPath
+    this.configDir = path.dirname(configPath)
+
+    this.config = merge({}, config, this.config)
+    // Validate config, apply default values, normalize some values
+    this.config = require('./utils/validateConfig')(this.config, {
+      configDir: this.configDir
+    })
+  }
+
   getPlugins() {
     const builtinPlugins = [
       { resolve: require.resolve('./plugins/extend-browser-api') },
@@ -128,7 +131,7 @@ class Saber {
       { resolve: require.resolve('./plugins/config-image') },
       { resolve: require.resolve('./plugins/config-font') },
       { resolve: require.resolve('./plugins/config-other-loaders') },
-      { resolve: require.resolve('./plugins/emit-config') },
+      { resolve: require.resolve('./plugins/watch-config') },
       { resolve: require.resolve('./plugins/layouts') },
       { resolve: require.resolve('./plugins/source-pages') },
       { resolve: require.resolve('./plugins/blog'), options: this.config.blog }
