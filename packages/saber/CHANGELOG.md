@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.14](https://github.com/egoist/saber/compare/saber@0.2.13...saber@0.2.14) (2019-03-13)
+
+### Bug Fixes
+
+- ensure configPath ([e5dae8c](https://github.com/egoist/saber/commit/e5dae8c))
+
 ## [0.2.13](https://github.com/egoist/saber/compare/saber@0.2.12...saber@0.2.13) (2019-03-13)
 
 ### Bug Fixes
