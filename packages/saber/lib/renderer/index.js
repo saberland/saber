@@ -1,6 +1,7 @@
 const path = require('path')
 const { fs } = require('saber-utils')
 const { log } = require('saber-log')
+const slash = require('../utils/slash')
 
 const ID = 'vue-renderer'
 
@@ -104,23 +105,22 @@ class VueRenderer {
     const routes = `export default [
       ${pages
         .map(page => {
+          const relativePath = slash(page.internal.relative)
+          const absolutePath = slash(page.internal.absolute)
           const chunkNameComment = `/* webpackChunkName: "page--${
             page.internal.isFile
               ? path
-                  .relative(
-                    this.api.resolveCwd('pages'),
-                    page.internal.absolute
-                  )
+                  .relative(this.api.resolveCwd('pages'), absolutePath)
                   .replace(/[^a-z0-9_-]/gi, '-')
               : page.internal.id
           }" */ `
           const componentPath = page.internal.isFile
-            ? `${page.internal.absolute}?saberPage=${page.internal.id}`
+            ? `${absolutePath}?saberPage=${page.internal.id}`
             : `#cache/pages/${page.internal.id}.saberpage`
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
               meta: {
-                __relative: ${JSON.stringify(page.internal.relative)}
+                __relative: ${JSON.stringify(relativePath)}
               },
               component: function() {
                 ${`
@@ -138,7 +138,7 @@ class VueRenderer {
         name: 404,
         component: function () {
           return import(/* webpackChunkName: "404-page" */ ${JSON.stringify(
-            path.join(__dirname, 'app/404.vue')
+            slash(path.join(__dirname, 'app/404.vue'))
           )})
         }
       }
