@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.13](https://github.com/egoist/saber/compare/saber@0.2.12...saber@0.2.13) (2019-03-13)
+
+### Bug Fixes
+
+- **windows:** convert back slashes, closes [#27](https://github.com/egoist/saber/issues/27) ([aefcd09](https://github.com/egoist/saber/commit/aefcd09))
+
+### Features
+
+- implement saber/request ([b1d30f7](https://github.com/egoist/saber/commit/b1d30f7))
+- show warning when config file is updated ([344534f](https://github.com/egoist/saber/commit/344534f))
+- support relative links to markdown pages, closes [#25](https://github.com/egoist/saber/issues/25) ([0a2440e](https://github.com/egoist/saber/commit/0a2440e))
+
 ## [0.2.12](https://github.com/egoist/saber/compare/saber@0.2.11...saber@0.2.12) (2019-02-28)
 
 ### Bug Fixes
