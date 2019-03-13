@@ -111,7 +111,11 @@ class Saber {
 
   setConfig(config, configPath = this.configPath) {
     this.configPath = configPath
-    this.configDir = path.dirname(configPath)
+    if (configPath) {
+      this.configDir = path.dirname(configPath)
+    } else {
+      this.configDir = null
+    }
 
     this.config = merge({}, config, this.config)
     // Validate config, apply default values, normalize some values
