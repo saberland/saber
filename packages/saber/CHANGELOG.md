@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.15](https://github.com/egoist/saber/compare/saber@0.2.14...saber@0.2.15) (2019-03-20)
+
+### Features
+
+- support saber-node.js in theme directory ([44c30b6](https://github.com/egoist/saber/commit/44c30b6))
+
 ## [0.2.14](https://github.com/egoist/saber/compare/saber@0.2.13...saber@0.2.14) (2019-03-13)
 
 ### Bug Fixes
