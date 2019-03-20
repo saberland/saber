@@ -28,7 +28,7 @@ exports.apply = api => {
         for (const hookName of Object.keys(api.hooks)) {
           const hook = getHook(hookName)
           if (hook) {
-            api.hooks[hookName].tap(nodeApiId, hook)
+            api.hooks[hookName].tap(nodeApiId, hook.bind(api))
           }
         }
       })

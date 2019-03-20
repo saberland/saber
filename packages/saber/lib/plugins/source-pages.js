@@ -69,7 +69,14 @@ exports.apply = api => {
             `${page.internal.id}.saberpage`
           )
           log.debug(`Emitting page ${outPath}`)
-          await fs.outputFile(outPath, JSON.stringify(page), 'utf8')
+          await fs.outputFile(
+            outPath,
+            JSON.stringify({
+              page,
+              prop: api.source.pages.pageProps.get(page.internal.id)
+            }),
+            'utf8'
+          )
           page.internal.saved = true
         })
       )

@@ -16,8 +16,8 @@ class Pages extends Map {
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
-    this.set(page.internal.id, page)
     this.pageProps.set(page.internal.id, {})
+    this.set(page.internal.id, page)
   }
 
   removeWhere(getCondition) {
@@ -25,17 +25,26 @@ class Pages extends Map {
       const condition = getCondition(page)
       if (condition) {
         this.delete(page.internal.id)
+        this.pageProps.delete(page.internal.id)
       }
     }
   }
 
-  getPageProps(id) {
-    return Object.assign({}, this.pageProps.get(id), {
-      page: Object.assign({}, this.get(id), {
-        internal: undefined,
-        content: undefined
-      })
-    })
+  getPageProp(id) {
+    return Object.assign(
+      {},
+      this.pageProps.get(id),
+      this.getPagePublicFields(id)
+    )
+  }
+
+  extendPageProp(id, page) {
+    this.pageProps.set(id, Object.assign({}, this.pageProps.get(id), page))
+  }
+
+  getPagePublicFields(page) {
+    page = typeof page === 'string' ? this.get(page) : page
+    return Object.assign({}, page, { content: undefined, internal: undefined })
   }
 }
 

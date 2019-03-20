@@ -33,13 +33,14 @@ exports.apply = (api, options = {}) => {
       if (page.attributes.type === 'tags') {
         tagsPages.add(page)
       } else if (page.attributes.type === 'post') {
-        allPosts.add(page)
+        const pagePublicFields = api.source.pages.getPagePublicFields(page)
+        allPosts.add(pagePublicFields)
         const tags = [].concat(page.attributes.tags || [])
         if (tags.length > 0) {
           for (const tag of tags) {
             const tagId = tagsMap[tag] || tag
             const posts = allTagPosts.get(tagId) || new Set()
-            posts.add(page)
+            posts.add(pagePublicFields)
             allTagPosts.set(tagId, posts)
           }
         }
@@ -84,15 +85,17 @@ exports.apply = (api, options = {}) => {
                   id: `internal_blog__tags__${tag}`,
                   // So that this page will be removed before next `onCreatePages` hook in watch mode
                   parent: true
-                },
-                tag: getTagName(tag, tagsMap)
+                }
               }
             ]),
-        tagPosts
+        tagPosts,
+        {
+          tag: getTagName(tag, tagsMap)
+        }
       )
     }
 
-    function injectToPages(pages, posts) {
+    function injectToPages(pages, posts, pageProp) {
       if (pages.size > 0) {
         const paginatedPosts = paginate(
           [...posts].sort((a, b) => {
@@ -110,15 +113,6 @@ exports.apply = (api, options = {}) => {
                 ? page.attributes.permalink
                 : path.join(page.attributes.permalink, `page/${index + 1}`)
             const newPage = Object.assign({}, page, {
-              posts,
-              pagination: {
-                hasPrev: index !== 0,
-                hasNext: index !== totalPages - 1,
-                total: totalPages,
-                current: index + 1,
-                prevLink: getPrevLink(index + 1, page.attributes.permalink),
-                nextLink: getNextLink(index + 1, page.attributes.permalink)
-              },
               internal: Object.assign({}, page.internal, {
                 id:
                   index === 0
@@ -133,6 +127,23 @@ exports.apply = (api, options = {}) => {
               })
             })
             api.source.pages.createPage(newPage)
+            api.source.pages.extendPageProp(
+              newPage.internal.id,
+              Object.assign(
+                {
+                  posts,
+                  pagination: {
+                    hasPrev: index !== 0,
+                    hasNext: index !== totalPages - 1,
+                    total: totalPages,
+                    current: index + 1,
+                    prevLink: getPrevLink(index + 1, page.attributes.permalink),
+                    nextLink: getNextLink(index + 1, page.attributes.permalink)
+                  }
+                },
+                pageProp
+              )
+            )
           }
         }
       }
@@ -144,11 +155,7 @@ exports.apply = (api, options = {}) => {
     const totalPages = Math.ceil(arr.length / opts.perPage)
     const result = []
     for (let i = 0; i < totalPages; i++) {
-      result[i] = arr
-        .slice(i * opts.perPage, (i + 1) * opts.perPage)
-        .map(page =>
-          Object.assign({}, page, { content: undefined, internal: undefined })
-        )
+      result[i] = arr.slice(i * opts.perPage, (i + 1) * opts.perPage)
     }
     return result
   }
