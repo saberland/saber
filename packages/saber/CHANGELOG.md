@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.16](https://github.com/egoist/saber/compare/saber@0.2.15...saber@0.2.16) (2019-03-20)
+
+### Bug Fixes
+
+- use a new Map to store addtional page prop ([3afb7b8](https://github.com/egoist/saber/commit/3afb7b8))
+
 ## [0.2.15](https://github.com/egoist/saber/compare/saber@0.2.14...saber@0.2.15) (2019-03-20)
 
 ### Features
