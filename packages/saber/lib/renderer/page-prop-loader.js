@@ -4,11 +4,10 @@ module.exports = function(source, map) {
     `
   export default function(Component) {
     var page = ${source}
-    var beforeCreate = Component.options.beforeCreate
-    Component.options.beforeCreate = function() {
+    var beforeCreate = Component.options.beforeCreate || []
+    Component.options.beforeCreate = [function() {
       this.$page = page
-      beforeCreate && beforeCreate.call(this)
-    }
+    }].concat(beforeCreate)
     Component.options.name = 'page-wrapper-' + page.attributes.slug.replace(/[^0-9a-z\\-]/i, '-')
   }
   `,
