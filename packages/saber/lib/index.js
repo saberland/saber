@@ -53,12 +53,18 @@ class Saber {
     for (const hook of Object.keys(this.hooks)) {
       const debugHooks = ['createPage', 'onCreatePage']
       this.hooks[hook].intercept({
-        call() {
-          if (debugHooks.includes(hook)) {
-            log.debug(hook)
-          } else {
-            log.info(hook)
+        register(tapInfo) {
+          const { fn, name } = tapInfo
+          tapInfo.fn = (...args) => {
+            const msg = `${hook} ${colors.dim(`(${name})`)}`
+            if (debugHooks.includes(hook)) {
+              log.debug(msg)
+            } else {
+              log.info(msg)
+            }
+            return fn(...args)
           }
+          return tapInfo
         }
       })
     }
@@ -98,6 +104,17 @@ class Saber {
       : require('./renderer')
     this.renderer = new this.RendererClass(this)
 
+    // Load theme
+    if (this.config.theme) {
+      this.theme = resolvePackage(this.config.theme, {
+        cwd: this.configDir,
+        prefix: 'saber-theme-'
+      })
+    } else {
+      this.theme = this.RendererClass.defaultTheme
+    }
+    log.info(`Using theme: ${this.theme}`)
+
     // Load plugins
     for (const plugin of this.getPlugins()) {
       plugin.plugin.apply(this, plugin.options)
@@ -109,17 +126,6 @@ class Saber {
     }
 
     this.hooks.afterPlugins.call()
-
-    // Load theme
-    if (this.config.theme) {
-      this.theme = resolvePackage(this.config.theme, {
-        cwd: this.configDir,
-        prefix: 'saber-theme-'
-      })
-    } else {
-      this.theme = this.RendererClass.defaultTheme
-    }
-    log.debug(`Using theme: ${this.theme}`)
   }
 
   setConfig(config, configPath = this.configPath) {
@@ -139,6 +145,7 @@ class Saber {
 
   getPlugins() {
     const builtinPlugins = [
+      { resolve: require.resolve('./plugins/source-pages') },
       { resolve: require.resolve('./plugins/extend-browser-api') },
       { resolve: require.resolve('./plugins/extend-node-api') },
       { resolve: require.resolve('./plugins/transformer-markdown') },
@@ -149,8 +156,7 @@ class Saber {
       { resolve: require.resolve('./plugins/config-font') },
       { resolve: require.resolve('./plugins/config-other-loaders') },
       { resolve: require.resolve('./plugins/watch-config') },
-      { resolve: require.resolve('./plugins/layouts') },
-      { resolve: require.resolve('./plugins/source-pages') }
+      { resolve: require.resolve('./plugins/layouts') }
     ]
 
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
