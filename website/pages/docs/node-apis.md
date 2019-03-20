@@ -7,7 +7,7 @@ layout: docs
 
 Implement any of these APIs by exporting them from a file named `saber-node.js` in the root of your project.
 
-During developing, changes made in this file will trigger rebuilding automatically, so you don't need to restart Saber for this.
+During developing, you need to restart the server if you made any changes in this file.
 
 ## APIs
 
