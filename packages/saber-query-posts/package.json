@@ -1,0 +1,12 @@
+{
+  "name": "saber-query-posts",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "saber",
+    "saber-plugin"
+  ],
+  "license": "MIT"
+}

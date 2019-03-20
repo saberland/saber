@@ -11,12 +11,18 @@ module.exports = function(source) {
 
   const { api } = this.query
   const page = Object.assign({}, api.source.pages.get(pageId))
-  const { internal, content } = page
-  delete page.internal
-  delete page.content
+
   this.addDependency(api.resolveCache(`pages/${pageId}.saberpage`))
 
   const transformer = api.transformers.get(page.contentType)
 
-  return transformer.getPageComponent(page, content, internal)
+  return `
+  ${transformer.getPageComponent(page)}
+
+  <page-prop>${JSON.stringify(
+    Object.assign({}, page, { internal: undefined, content: undefined })
+  )}</page-prop>
+
+  ${page.internal.hoistedTags ? page.internal.hoistedTags.join('\n') : ''}
+  `
 }

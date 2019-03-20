@@ -30,12 +30,19 @@ class VueRenderer {
 
       config.plugin('vue').use(require('vue-loader/lib/plugin'))
 
-      // Handle `<extend-component>` block in .vue file
+      // Handle `<page-component>` block in .vue file
       config.module
-        .rule('extend-component')
-        .resourceQuery(/blockType=extend-component/)
-        .use('extend-component-loader')
-        .loader(require.resolve('./extend-component-loader'))
+        .rule('page-component')
+        .resourceQuery(/blockType=page-component/)
+        .use('page-component-loader')
+        .loader(require.resolve('./page-component-loader'))
+
+      // Handle `<page-prop>` block in .vue file
+      config.module
+        .rule('page-prop')
+        .resourceQuery(/blockType=page-prop/)
+        .use('page-prop-loader')
+        .loader(require.resolve('./page-prop-loader'))
 
       // prettier-ignore
       config.module
@@ -120,7 +127,8 @@ class VueRenderer {
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
               meta: {
-                __relative: ${JSON.stringify(relativePath)}
+                __relative: '${relativePath}',
+                __pageId: '${page.internal.id}'
               },
               component: function() {
                 ${`

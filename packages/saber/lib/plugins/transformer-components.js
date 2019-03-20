@@ -1,18 +1,11 @@
 exports.name = 'builtin:transformer-components'
 
-const getPageComponent = (page, _, internal) => {
+const getPageComponent = page => {
   return `<template>
     <layout-manager :page="$page" :PageComponent="$options.PageComponent"></layout-manager>
   </template>
 
-  <extend-component>
-  import PageComponent from "${internal.absolute}"
-
-  export default {
-    pageData: ${JSON.stringify(page)},
-    PageComponent: PageComponent
-  }
-  </extend-component>
+  <page-component>${page.internal.absolute}</page-component>
   `
 }
 

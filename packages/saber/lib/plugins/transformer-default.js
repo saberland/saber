@@ -2,19 +2,13 @@ exports.name = 'builtin:transformer-markdefault'
 
 exports.apply = api => {
   api.transformers.add('default', {
-    getPageComponent(page, content) {
+    getPageComponent(page) {
       return `
         <template>
           <layout-manager :page="$page">
-            ${content || ''}
+            ${page.content || ''}
           </layout-manager>
         </template>
-
-        <extend-component>
-        export default {
-          pageData: ${JSON.stringify(page)}
-        }
-        </extend-component>
       `
     }
   })

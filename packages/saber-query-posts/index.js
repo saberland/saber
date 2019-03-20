@@ -1,17 +1,15 @@
 const path = require('path')
 
-const ID = 'builtin:blog'
+const ID = 'query-posts'
 
 exports.name = ID
 
 exports.apply = (api, options = {}) => {
-  api.hooks.afterPlugins.tap(ID, () => {
-    api.hooks.onCreatePages.tap(ID, () => {
-      injectPosts({
-        injectPostsTo:
-          options.injectPostsTo === undefined ? ['/'] : options.injectPostsTo,
-        tagsMap: options.tagsMap || {}
-      })
+  api.hooks.onCreatePages.tap(ID, () => {
+    injectPosts({
+      injectPostsTo:
+        options.injectPostsTo === undefined ? ['/'] : options.injectPostsTo,
+      tagsMap: options.tagsMap || {}
     })
   })
 

@@ -69,8 +69,8 @@ exports.apply = api => {
             `${page.internal.id}.saberpage`
           )
           log.debug(`Emitting page ${outPath}`)
-          page.internal.saved = true
           await fs.outputFile(outPath, JSON.stringify(page), 'utf8')
+          page.internal.saved = true
         })
       )
     })

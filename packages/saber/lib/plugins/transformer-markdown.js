@@ -16,21 +16,13 @@ exports.apply = api => {
     transform(page) {
       transformMarkdown(api, page)
     },
-    getPageComponent(page, content, internal) {
+    getPageComponent(page) {
       return `
         <template>
           <layout-manager :page="$page">
-            ${content || ''}
+            ${page.content || ''}
           </layout-manager>
         </template>
-
-        ${internal.hoistedTags ? internal.hoistedTags.join('\n') : ''}
-
-        <extend-component>
-        export default {
-          pageData: ${JSON.stringify(page)}
-        }
-        </extend-component>
       `
     }
   })

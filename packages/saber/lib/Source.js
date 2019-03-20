@@ -4,6 +4,11 @@ const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')
 
 class Pages extends Map {
+  constructor() {
+    super()
+    this.pageProps = new Map()
+  }
+
   createPage(page) {
     if (!page.internal || !page.internal.id) {
       throw new Error(`Page must have an internal id.`)
@@ -12,6 +17,7 @@ class Pages extends Map {
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
     this.set(page.internal.id, page)
+    this.pageProps.set(page.internal.id, {})
   }
 
   removeWhere(getCondition) {
@@ -23,9 +29,13 @@ class Pages extends Map {
     }
   }
 
-  getByAbsolutePath(absolute) {
-    const id = hash(absolute)
-    return this.get(id)
+  getPageProps(id) {
+    return Object.assign({}, this.pageProps.get(id), {
+      page: Object.assign({}, this.get(id), {
+        internal: undefined,
+        content: undefined
+      })
+    })
   }
 }
 
