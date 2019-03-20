@@ -44,6 +44,9 @@ class Pages extends Map {
 
   getPagePublicFields(page) {
     page = typeof page === 'string' ? this.get(page) : page
+    if (!page) {
+      return page
+    }
     return Object.assign({}, page, { content: undefined, internal: undefined })
   }
 }
