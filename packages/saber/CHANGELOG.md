@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.18](https://github.com/egoist/saber/compare/saber@0.2.17...saber@0.2.18) (2019-03-20)
+
+### Bug Fixes
+
+- beforeCreate can be an array ([aeae66b](https://github.com/egoist/saber/commit/aeae66b))
+
 ## [0.2.17](https://github.com/egoist/saber/compare/saber@0.2.16...saber@0.2.17) (2019-03-20)
 
 ### Bug Fixes
