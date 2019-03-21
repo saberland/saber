@@ -1,3 +1,5 @@
+const slash = require('../utils/slash')
+
 exports.name = 'builtin:transformer-components'
 
 const getPageComponent = page => {
@@ -5,7 +7,7 @@ const getPageComponent = page => {
     <layout-manager :page="$page" :PageComponent="$options.PageComponent"></layout-manager>
   </template>
 
-  <page-component>${page.internal.absolute}</page-component>
+  <page-component>${slash(page.internal.absolute)}</page-component>
   `
 }
 
