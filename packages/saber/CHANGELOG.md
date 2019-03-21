@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.20](https://github.com/egoist/saber/compare/saber@0.2.19...saber@0.2.20) (2019-03-21)
+
+### Bug Fixes
+
+- correctly load saber-browser.js in theme directory ([7aff5b6](https://github.com/egoist/saber/commit/7aff5b6))
+
 ## [0.2.19](https://github.com/egoist/saber/compare/saber@0.2.18...saber@0.2.19) (2019-03-21)
 
 **Note:** Version bump only for package saber
