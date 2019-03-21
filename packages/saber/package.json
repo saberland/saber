@@ -64,6 +64,6 @@
   },
   "xo": false,
   "engines": {
-    "node": ">=10"
+    "node": ">=8"
   }
 }
