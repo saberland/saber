@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.21](https://github.com/egoist/saber/compare/saber@0.2.20...saber@0.2.21) (2019-03-21)
+
+### Bug Fixes
+
+- replace path with upath for windows compatibility ([6e4db77](https://github.com/egoist/saber/commit/6e4db77))
+- require node 10 ([c2e3723](https://github.com/egoist/saber/commit/c2e3723))
+
+### Features
+
+- support sub directory ([a46d17d](https://github.com/egoist/saber/commit/a46d17d))
+
 ## [0.2.20](https://github.com/egoist/saber/compare/saber@0.2.19...saber@0.2.20) (2019-03-21)
 
 ### Bug Fixes
