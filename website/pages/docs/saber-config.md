@@ -38,6 +38,15 @@ For reusuablity, a theme should use this option for customization instead of har
 
 Like `siteConfig` you can import it from `saber/config` or reference in component via `this.$themeConfig`.
 
+## build
+
+### build.publicUrl
+
+- Type: `string`
+- Default: `/`
+
+The base URL your application will be deployed at. If your website is located at a sub directory, e.g. `https://example.com/blog`, you should set this option to `/blog/` (trailing slash is optional).
+
 ## plugins
 
 - Type: `Array<Plugin>`

@@ -9,7 +9,9 @@ module.exports = (api, { type }) => {
 
   const fileNames = require('../utils/getFileNames')(api.mode === 'production')
 
-  config.output.publicPath('/_saber/').filename(fileNames.js)
+  config.output
+    .publicPath(`${api.config.build.publicUrl}_saber/`)
+    .filename(fileNames.js)
 
   // Disable performance hints
   config.performance.hints(false)

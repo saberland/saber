@@ -12,6 +12,8 @@ cli
   .option('--port <port>', 'Server port', { default: 3000 })
   .option('--host <host>', 'Server host', { default: '0.0.0' })
   .action((cwd = '.', options) => {
+    setNodeEnv('development')
+
     const { ssr, host, port } = options
     delete options.host
     delete options.port
@@ -30,6 +32,8 @@ cli
 cli
   .command('build [app]', 'Compile the application')
   .action((cwd = '.', options) => {
+    setNodeEnv('production')
+
     return require('..')(Object.assign({ cwd, mode: 'production' }, options))
       .build()
       .catch(handleError)
@@ -45,6 +49,8 @@ cli
     'Skip compiling the application if you already ran `saber build`'
   )
   .action((cwd = '.', options) => {
+    setNodeEnv('production')
+
     const { skipBuild } = options
     delete options.skipBuild
     return require('..')(Object.assign({ cwd, mode: 'production' }, options))
@@ -72,4 +78,10 @@ cli.parse()
 function handleError(err) {
   require('saber-log').log.error(err.stack)
   process.exit(1)
+}
+
+function setNodeEnv(env) {
+  if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = env
+  }
 }

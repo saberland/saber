@@ -4,8 +4,7 @@ module.exports = config => {
   const siteConfig = struct.interface(
     {
       title: 'string?',
-      description: 'string?',
-      feed: 'boolean?'
+      description: 'string?'
     },
     {}
   )
@@ -53,7 +52,17 @@ module.exports = config => {
     }
   )
 
+  const build = struct(
+    {
+      publicUrl: 'string?'
+    },
+    {
+      publicUrl: '/'
+    }
+  )
+
   const schema = struct({
+    build,
     siteConfig,
     themeConfig,
     theme: 'string?',
@@ -68,6 +77,9 @@ module.exports = config => {
   if (err) {
     throw err
   }
+
+  // Ensure that build.publicUrl ends with slash
+  result.build.publicUrl = result.build.publicUrl.replace(/\/?$/, '/')
 
   return result
 }
