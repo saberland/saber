@@ -133,12 +133,18 @@ exports.apply = (api, options = {}) => {
                 {
                   posts,
                   pagination: {
-                    hasPrev: index !== 0,
-                    hasNext: index !== totalPages - 1,
+                    hasPrev: index !== totalPages - 1,
+                    hasNext: index !== 0,
                     total: totalPages,
                     current: index + 1,
-                    prevLink: getPrevLink(index + 1, page.attributes.permalink),
-                    nextLink: getNextLink(index + 1, page.attributes.permalink)
+                    prevLink: getPaginationLink(
+                      index + 2,
+                      page.attributes.permalink
+                    ),
+                    nextLink: getPaginationLink(
+                      index,
+                      page.attributes.permalink
+                    )
                   }
                 },
                 pageProp
@@ -160,17 +166,14 @@ exports.apply = (api, options = {}) => {
     return result
   }
 
-  function getPrevLink(current, permalink) {
-    const prev = current - 1
-    if (prev < 1) return
-    if (prev === 1) return permalink
-    return path.join(permalink, `page/${prev}`)
-  }
-
-  function getNextLink(current, permalink) {
-    const prev = current + 1
-    if (prev < 1) return
-    return path.join(permalink, `page/${prev}`)
+  function getPaginationLink(pageIndex, permalink) {
+    if (pageIndex === 1) {
+      return permalink
+    }
+    if (pageIndex === 0) {
+      return
+    }
+    return path.join(permalink, `page/${pageIndex}`)
   }
 
   function getTagName(tag, tagsMap) {
