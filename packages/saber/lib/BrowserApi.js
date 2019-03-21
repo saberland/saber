@@ -23,7 +23,7 @@ module.exports = class BrowserApi extends Set {
         .join('\n')}
 
       var themeBrowserApi
-      var rTheme = require.context('#theme', false, /\\.[jt]s$/)
+      var rTheme = require.context('#theme', false, /\\.\\/saber-browser\\.[jt]s$/)
       rTheme.keys().forEach(function (k) {
         themeBrowserApi = rTheme(k).default
       })
