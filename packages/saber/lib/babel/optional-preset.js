@@ -1,4 +1,4 @@
-const path = require('upath')
+const path = require('path')
 
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 const isEnvTest = env === 'test'

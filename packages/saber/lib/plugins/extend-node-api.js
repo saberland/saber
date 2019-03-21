@@ -1,5 +1,5 @@
 const fs = require('fs')
-const path = require('upath')
+const path = require('path')
 const { log } = require('saber-log')
 
 const ID = 'builtin:extend-node-api'

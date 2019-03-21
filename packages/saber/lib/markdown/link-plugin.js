@@ -1,4 +1,4 @@
-const path = require('upath')
+const path = require('path')
 
 module.exports = function(md) {
   // eslint-disable-next-line camelcase

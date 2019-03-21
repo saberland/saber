@@ -1,4 +1,4 @@
-const path = require('upath')
+const path = require('path')
 const Config = require('webpack-chain')
 
 module.exports = (api, { type }) => {

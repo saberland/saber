@@ -1,5 +1,5 @@
 // @ts-check
-const path = require('upath')
+const path = require('path')
 const resolveFrom = require('resolve-from')
 
 const LOCAL_PATH_RE = /^[./]|(^[a-zA-Z]:)/

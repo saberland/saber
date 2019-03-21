@@ -1,5 +1,5 @@
+const path = require('path')
 const qs = require('querystring')
-const path = require('upath')
 
 module.exports = function(source) {
   const endsWithSaberPage = this.resourcePath.endsWith('.saberpage')

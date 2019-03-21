@@ -1,4 +1,4 @@
-const path = require('upath')
+const path = require('path')
 const resolveFrom = require('resolve-from')
 
 const babelDir = path.dirname(require.resolve('@babel/core/package'))

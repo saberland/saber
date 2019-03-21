@@ -1,4 +1,4 @@
-const path = require('upath')
+const path = require('path')
 const { fs } = require('saber-utils')
 const { log } = require('saber-log')
 const deepEqual = require('fast-deep-equal')

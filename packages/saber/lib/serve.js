@@ -1,5 +1,5 @@
+const path = require('path')
 const { createReadStream } = require('fs')
-const path = require('upath')
 const { log } = require('saber-log')
 const polka = require('polka')
 const serveStatic = require('serve-static')

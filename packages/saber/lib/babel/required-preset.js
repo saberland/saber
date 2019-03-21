@@ -1,4 +1,4 @@
-const { join } = require('upath')
+const { join } = require('path')
 
 module.exports = () => {
   return {

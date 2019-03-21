@@ -1,4 +1,4 @@
-const path = require('upath')
+const path = require('path')
 const { fs, glob } = require('saber-utils')
 const chokidar = require('chokidar')
 const { log } = require('saber-log')
