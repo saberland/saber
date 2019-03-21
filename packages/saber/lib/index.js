@@ -1,5 +1,5 @@
-const path = require('path')
 const http = require('http')
+const path = require('upath')
 const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const merge = require('lodash.merge')

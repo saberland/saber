@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('upath')
 
 const RE = /\s*{([^}]+)}/
 

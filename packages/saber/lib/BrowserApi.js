@@ -1,6 +1,5 @@
-const path = require('path')
+const path = require('upath')
 const { fs } = require('saber-utils')
-const slash = require('./utils/slash')
 
 module.exports = class BrowserApi extends Set {
   constructor(api) {
@@ -13,7 +12,7 @@ module.exports = class BrowserApi extends Set {
       const name = `_${path.basename(file).replace(/\W/gi, '_')}_${i}`
       return {
         name,
-        path: slash(file)
+        path: file
       }
     })
 

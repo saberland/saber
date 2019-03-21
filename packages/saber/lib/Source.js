@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('upath')
 const hash = require('hash-sum')
 const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')

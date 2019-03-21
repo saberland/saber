@@ -1,6 +1,5 @@
-const path = require('path')
+const path = require('upath')
 const { glob, fs } = require('saber-utils')
-const slash = require('../utils/slash')
 
 const ID = 'builtin:layouts'
 
@@ -12,7 +11,7 @@ exports.apply = api => {
     if (shouldDelete) {
       delete layouts[layoutName]
     } else {
-      layouts[layoutName] = slash(filepath)
+      layouts[layoutName] = filepath
     }
   }
 
