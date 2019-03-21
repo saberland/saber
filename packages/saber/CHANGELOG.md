@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.22](https://github.com/egoist/saber/compare/saber@0.2.21...saber@0.2.22) (2019-03-21)
+
+### Bug Fixes
+
+- convert backslash in <page-component> ([ec49371](https://github.com/egoist/saber/commit/ec49371))
+- support node 8 ([679510f](https://github.com/egoist/saber/commit/679510f))
+
 ## [0.2.21](https://github.com/egoist/saber/compare/saber@0.2.20...saber@0.2.21) (2019-03-21)
 
 ### Bug Fixes
