@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
-import { siteConfig } from 'saber/config'
 import 'nprogress/nprogress.css'
 import './css/global.css'
 
@@ -24,20 +22,24 @@ export default ({ router, rootOptions }) => {
     })
   }
 
-  rootOptions.head.htmlAttrs = {
-    lang: 'en'
+  rootOptions.head = function() {
+    return {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      meta: [
+        {
+          name: 'description',
+          content: this.$siteConfig.description
+        }
+      ],
+      link: [
+        {
+          href:
+            'https://fonts.googleapis.com/css?family=Josefin+Sans|Source+Sans+Pro',
+          rel: 'stylesheet'
+        }
+      ]
+    }
   }
-  rootOptions.head.meta = [
-    {
-      name: 'description',
-      content: siteConfig.description
-    }
-  ]
-  rootOptions.head.link = [
-    {
-      href:
-        'https://fonts.googleapis.com/css?family=Josefin+Sans|Source+Sans+Pro',
-      rel: 'stylesheet'
-    }
-  ]
 }

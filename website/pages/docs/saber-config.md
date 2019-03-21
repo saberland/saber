@@ -5,12 +5,11 @@ layout: docs
 
 You can use `saber-config.yml`, `saber-config.toml`, `saber-config.js` or `saber-config.json` for general configurations. All the possible config keys will be listed below.
 
-Note that during development, some of the changes made in the config file will NOT trigger rebuild, you need to manually restart the dev server.
+Note that during development, changes made in the config file will NOT trigger rebuild, there're exceptions though, for `siteConfig` and `themeConfig` properties.
 
 ## theme
 
 - Type: `string`
-- Need Restarting: YES
 
 The path to your theme or a npm package name (`saber-theme-` prefix is optional).
 
@@ -19,29 +18,29 @@ The path to your theme or a npm package name (`saber-theme-` prefix is optional)
 - Type: `object`
 - Need Restarting: NO
 
-This option is used for configuring the basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`, these can be used in your pages and theme like this:
+This option is used for configuring the basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`, these can be imported in your app:
 
 ```js
 import { siteConfig } from 'saber/config'
+
+// You need to write custom logic to handle hot reloading
+// ...
 ```
+
+Alternatively you can access `this.$siteConfig` in your component, in this way it will automatically trigger hot reloading when the actual `siteConfig` changes.
 
 ## themeConfig
 
 - Type: `object`
 - Need Restarting: NO
 
-This option will also be exposed in `saber-config`:
-
-```js
-import { themeConfig } from 'saber/config'
-```
-
 For reusuablity, a theme should use this option for customization instead of hard-coding everything in the theme itself.
+
+Like `siteConfig` you can import it from `saber/config` or reference in component via `this.$themeConfig`.
 
 ## plugins
 
 - Type: `Array<Plugin>`
-- Need Restarting: YES
 
 Use a set of Saber plugins:
 
@@ -57,8 +56,6 @@ type Plugin =
 ```
 
 ## markdown
-
-- Need Restarting: YES
 
 Customizing the internal markdown parser.
 
@@ -109,7 +106,6 @@ interface MarkdownPlugin {
 
 - Type: `Permalinks` `(page: Page) => Permalinks`
 - Default: `/:posts/:slug.html` for posts, `/:slug.html` for other pages
-- Need Restarting: YES
 
 The template that is used to generate permalink for each page.
 

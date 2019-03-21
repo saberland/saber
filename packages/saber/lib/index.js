@@ -14,7 +14,7 @@ class Saber {
   constructor(opts = {}, config = {}) {
     this.opts = opts
     this.opts.cwd = path.resolve(opts.cwd || '.')
-    this.config = config
+    this.initialConfig = config
     this.source = new Source(this)
     this.browserApi = new BrowserApi(this)
     this.log = log
@@ -136,7 +136,7 @@ class Saber {
       this.configDir = null
     }
 
-    this.config = merge({}, config, this.config)
+    this.config = merge({}, config, this.initialConfig)
     // Validate config, apply default values, normalize some values
     this.config = require('./utils/validateConfig')(this.config, {
       configDir: this.configDir

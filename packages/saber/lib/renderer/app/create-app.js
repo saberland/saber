@@ -8,6 +8,7 @@ import RoutePrefetch from './vendor/vue-router-prefetch'
 import Meta from './vendor/vue-meta'
 import Layout from './LayoutManager.vue'
 import extendBrowserApi from '#cache/extend-browser-api'
+import injectConfig from './helpers/inject-config'
 
 Vue.use(Router)
 
@@ -70,7 +71,9 @@ export default () => {
     }
   }
 
-  extendBrowserApi({ router, rootOptions })
+  const browserApiContext = { Vue, router, rootOptions }
+  injectConfig(browserApiContext)
+  extendBrowserApi(browserApiContext)
 
   const app = new Vue(rootOptions)
 

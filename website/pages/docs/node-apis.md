@@ -32,7 +32,7 @@ Called when Saber finished adding pages. If you want to create a page from other
 
 ### chainWebpack
 
-- Type: `(config: WebpackChain, context: Context) => void`
+- Type: `(this: SaberInstance, config: WebpackChain, context: Context) => void`
 
 Called when creating [webpack-chain](https://github.com/neutrinojs/webpack-chain) instance which is used to create webpack config.
 
@@ -42,14 +42,20 @@ interface Context {
 }
 ```
 
+### beforeRun
+
+- Type: `(this: SaberInstance) => void | Promise<void>`
+
+Before running the webpack build process.
+
 ### afterBuild
 
-- Type: `() => void | Promise<void>`
+- Type: `(this: SaberInstance) => void | Promise<void>`
 
 Called when webpack build is finished.
 
 ### afterGenerate
 
-- Type: `() => void | Promise<void>`
+- Type: `(this: SaberInstance) => void | Promise<void>`
 
 Called when static HTML files are generated.

@@ -2,7 +2,7 @@
   <div class="layout">
     <Header/>
     <div class="container content">
-      <Sidebar :items="sidebar"/>
+      <Sidebar :items="$themeConfig.sidebar"/>
       <main>
         <div class="page-title">{{ page.attributes.title }}</div>
         <div class="page-content">
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { themeConfig } from 'saber/config'
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
 import DocMixin from '../mixins/doc'
@@ -27,12 +26,6 @@ export default {
   head() {
     return {
       title: `${this.page.attributes.title} - Saber.js`
-    }
-  },
-
-  data() {
-    return {
-      sidebar: themeConfig.sidebar
     }
   },
 

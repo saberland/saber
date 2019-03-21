@@ -20,7 +20,7 @@ interface Page {
      * Defaults to `page`
      * Possible values: `post` `index` etc.
      */
-    type?: string
+    type: string
     /**
      * The page layout
      * Defaults to the value of `attribtues.type`
@@ -32,13 +32,13 @@ interface Page {
      * If the page is loaded from file system
      * It defaults to `attributes.date` || `birthtime` of the file
      */
-    createdAt: Date | string
+    createdAt?: Date | string
     /**
      * The updated time of this page
      * If the page is loaded from file system
      * It defaults to the `mtime` of the file
      */
-    updatedAt: Date | string
+    updatedAt?: Date | string
     /**
      * The permalink to the page
      * We infer it from `internal.relative` if it's loaded from file system
