@@ -82,3 +82,10 @@ export default () => {
     router
   }
 }
+
+// Reloading browser when routes or layouts change
+if (module.hot) {
+  module.hot.accept(['#cache/routes', '#cache/layouts'], () => {
+    location.reload()
+  })
+}
