@@ -40,6 +40,8 @@ class Pages extends Map {
 
   extendPageProp(id, page) {
     this.pageProps.set(id, Object.assign({}, this.pageProps.get(id), page))
+    // Mark this page as unsaved when the page prop changes
+    this.get(id).internal.saved = false
   }
 
   getPagePublicFields(page) {
