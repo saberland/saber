@@ -60,23 +60,30 @@ exports.apply = api => {
     api.hooks.emitPages.tapPromise('pages', async () => {
       const pages = [...api.source.pages.values()]
       log.debug('Emitting pages')
+      // TODO: maybe write pages with limited concurrency?
       await Promise.all(
         pages.map(async page => {
           if (page.internal.saved) return
 
+          const newContent = JSON.stringify({
+            page,
+            prop: api.source.pages.pageProps.get(page.internal.id)
+          })
           const outPath = api.resolveCache(
             'pages',
             `${page.internal.id}.saberpage`
           )
+          // TODO: is there any better solution to checking if we need to write the page?
+          const exists = await fs.pathExists(outPath)
+          if (exists) {
+            const content = await fs.readFile(outPath, 'utf8')
+            if (content === newContent) {
+              // Skip if content doesn't change
+              return
+            }
+          }
           log.debug(`Emitting page ${outPath}`)
-          await fs.outputFile(
-            outPath,
-            JSON.stringify({
-              page,
-              prop: api.source.pages.pageProps.get(page.internal.id)
-            }),
-            'utf8'
-          )
+          await fs.outputFile(outPath, newContent, 'utf8')
           page.internal.saved = true
         })
       )
