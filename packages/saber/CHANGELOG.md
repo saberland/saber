@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.23](https://github.com/egoist/saber/compare/saber@0.2.22...saber@0.2.23) (2019-03-23)
+
+### Bug Fixes
+
+- make page as unsaved when page prop changes ([eb7358e](https://github.com/egoist/saber/commit/eb7358e))
+- only write pages when the page data changes ([a83843f](https://github.com/egoist/saber/commit/a83843f))
+- reload browser when routes.js or layouts.js changes ([ab7097d](https://github.com/egoist/saber/commit/ab7097d))
+
 ## [0.2.22](https://github.com/egoist/saber/compare/saber@0.2.21...saber@0.2.22) (2019-03-21)
 
 ### Bug Fixes
