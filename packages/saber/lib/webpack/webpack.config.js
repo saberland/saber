@@ -84,7 +84,8 @@ module.exports = (api, { type }) => {
       'process.browser': type === 'client',
       'process.client': type === 'client',
       'process.server': type === 'server',
-      __DEV__: api.mode !== 'production'
+      __DEV__: api.mode !== 'production',
+      __PUBLIC_URL__: JSON.stringify(api.config.build.publicUrl)
     }
   ])
 
