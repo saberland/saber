@@ -36,9 +36,7 @@ Now let's create your first page `./pages/index.vue`:
 <template>
   <div>
     <h1>My Blog</h1>
-    <p>
-      This is my lovely (not yet) homepage!
-    </p>
+    <p>This is my lovely (not yet) homepage!</p>
   </div>
 </template>
 ```
@@ -226,7 +224,20 @@ And then go to http://localhost:3000/posts/hello-world.html:
 
 ## Showing Posts on the Homepage
 
-By default you can access the post list via the `page` prop from homepage itself (if no layout is specified) or its layout component, you can open Vue Devtools in your browser to inspect the `page` prop:
+We need a plugin called `saber-plugin-query-posts` to inject all posts to your homepage:
+
+```bash
+yarn add saber-plugin-query-posts
+```
+
+Create a `saber-config.yml` to use this plugin:
+
+```yml
+plugins:
+  - resolve: saber-plugin-query-posts
+```
+
+Then there will be a `posts` property under the `page` prop, you can access the `page` prop from the page itself (if no layout is specified) or its layout component, you can open Vue Devtools in your browser to inspect the `page` prop:
 
 <img src="./images/vue-devtools-page-prop.png" class="browser-image" alt="vue-devtools-page-prop">
 
@@ -283,7 +294,7 @@ export default {
 </style>
 ```
 
-You can add pagination based on the `page.pagination` value if you have more posts, we only have one so it doesn't matter for now:
+If you have more than 30 posts you can add pagination based on the `page.pagination` value which is also injected by `saber-plugin-query-posts` , we only have one so it doesn't matter for now:
 
 <img src="./images/post-list.png" class="browser-image" alt="post list">
 
@@ -291,21 +302,21 @@ You can add pagination based on the `page.pagination` value if you have more pos
 
 Everything seems to work fine now, but I just notice that our pages don't have browser tab titles, let's add a quick fix to the layout `./layouts/page.vue`:
 
-```vue {highlightLines:[6,'11-16']}
+```vue {highlightLines:['9-16']}
 <template>
   <div><!-- ..omitted --></div>
 </template>
 
 <script>
-import { siteConfig } from 'saber/config'
-
 export default {
   // ..omitted
   props: ['page']
   head() {
     const pageTitle = this.page.attributes.title
     return {
-      title: pageTitle ? `${pageTitle} - ${siteConfig.title}` : siteConfig.title
+      title: pageTitle ?
+        `${pageTitle} - ${this.$siteConfig.title}` :
+        this.$siteConfig.title
     }
   }
 }
@@ -318,20 +329,73 @@ export default {
 
 You can use `head` option to manage tags in `<head>`, this feature is powered by [vue-meta](https://github.com/nuxt/vue-meta) which is maintained and used Nuxt.js.
 
-Note that `siteConfig` we imported in the first highlighted line:
-
-```js
-import { siteConfig } from 'saber/config'
-```
-
-`saber/config` is pointed to a JSON file which exposes `siteConfig` and `themeConfig` properties in you Saber config file. In this case you need to add a `title` property for site title:
+Note that `this.$siteConfig` is the value of `siteConfig` property from your Saber config file, for example in your `saber-config.yml` add:
 
 ```yaml
 siteConfig:
   title: My Blog
 ```
 
-Now the browser tab will display page title properly.
+## Showing Previous and Next Post
+
+It's common for a blog to show related posts on the post page, here we're going to show previous and next post.
+
+First let's create two more posts so that we have enough posts to implement this feature.
+
+Like the `saber-plugin-query-posts` plugin we used previously, now we need to inject two properties `prevPost` and `nextPost` to the `page` prop, all by ourselves.
+
+To do so we need to create a `saber-node.js` in the project root to access Saber's Node.js APIs:
+
+```js
+// saber-node.js
+exports.onCreatePages = function() {
+  // Do something...
+}
+```
+
+The `onCreatePages` export lets you execute a function when all pages are added to Saber's data source.
+
+```js
+// saber-node.js
+exports.onCreatePages = function() {
+  // Pages are read into the `this.source.pages` Map
+  // Sort posts by createdAt (date) from new to old
+  const posts = [...this.source.pages.values()]
+    .filter(page => page.attributes.type === 'post' && !page.attributes.draft)
+    .sort((a, b) => {
+      return a.attributes.createdAt > b.attributes.createdAt ? 1 : -1
+    })
+  for (const [index, post] of posts.entries()) {
+    // It's NOT recommended to mutate `page` directly to add addtional props
+    // Use `extendPageProp` instead to add more properties to the `page` prop
+    this.source.pages.extendPageProp(post.internal.id, {
+      prevPost: this.source.pages.getPagePublicFields(posts[index - 1]),
+      nextPost: this.source.pages.getPagePublicFields(posts[index + 1])
+    })
+  }
+}
+```
+
+Now adding following markup to the `page` layout to show previous / next post:
+
+```vue
+<ul>
+  <li v-if="page.prevPost">
+    <router-link :to="page.prevPost.attributes.permalink">
+      Previous: {{ page.prevPost.attributes.title }}
+    </router-link>
+  </li>
+  <li v-if="page.nextPost">
+    <router-link :to="page.nextPost.attributes.permalink">
+      Next: {{ page.nextPost.attributes.title }}
+    </router-link>
+  </li>
+</ul>
+```
+
+Tada! 🎉
+
+<img src="./images/prev-next-post.gif" class="browser-image" alt="prev next post" width="100%">
 
 ## Adding Progress Bar for Page Loading
 
@@ -368,18 +432,18 @@ export default ({ router }) => {
 
 For details on Saber's browser APIs, check out [the reference](/docs/browser-apis.html).
 
-## Making Layouts Sharable
+## Creating A Theme
 
-You can use [Themes](/docs/theming.html) to share layouts, customizations etc. with your friends.
+You can move your layouts, `saber-browser.js` and `saber-node.js` into their own directory, the directory is the so-called *theme* directory.
 
-To use a local theme, configure it in `saber-config.yml`:
+To use a local theme, configure it in `saber-config.yml` like this:
 
 ```yaml
 # A local directory
 theme: ./src
 ```
 
-Previously you had your layouts populated in `$projectRoot/layouts` directory, now move it to `$theme/layouts`, in this case it would be `./src/layouts` directory. If you want others to use it as well, publish the theme directory on npm and follow the `saber-theme-[name]` naming convention, you can use an npm package as theme like this:
+Previously you had your layouts populated in `$projectRoot/layouts` directory, now move it to `$theme/layouts`. If you want others to use it as well, publish the theme directory on npm and follow the `saber-theme-[name]` naming convention, you can use an npm package as theme like this:
 
 ```yaml
 # An npm package named `saber-theme-simple`
@@ -387,9 +451,6 @@ theme: simple
 ```
 
 Note that `$projectRoot/layouts` directory still works even if you're using a theme, the layouts in this directory take higher priorty over the layouts in the theme directory. For instance, `$theme/layouts/foo.vue` will be ignored if `$projectRoot/layouts/foo.vue` exists.
-
-Similarly, `saber-browser.js` can also be shared in a theme.
-
 
 ## Building for Production
 

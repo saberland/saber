@@ -1,11 +1,11 @@
-# saber-query-posts
+# saber-plugin-query-posts
 
 Query posts and inject them to page props. Useful when you're writing a blog.
 
 ## Install
 
 ```bash
-yarn add saber-query-posts
+yarn add saber-plugin-query-posts
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-query-posts
+  - resolve: saber-plugin-query-posts
     options:
       # Inject all posts to specific pages as `posts` prop
       injectPostsTo: / # Default value

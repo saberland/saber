@@ -1,5 +1,5 @@
 {
-  "name": "saber-query-posts",
+  "name": "saber-plugin-query-posts",
   "version": "0.0.3",
   "files": [
     "index.js"
