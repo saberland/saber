@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.24](https://github.com/egoist/saber/compare/saber@0.2.23...saber@0.2.24) (2019-03-24)
+
+### Features
+
+- inject **PUBLIC_URL** ([3c63ebf](https://github.com/egoist/saber/commit/3c63ebf))
+- inject feed info as constants ([07457d3](https://github.com/egoist/saber/commit/07457d3))
+
 ## [0.2.23](https://github.com/egoist/saber/compare/saber@0.2.22...saber@0.2.23) (2019-03-23)
 
 ### Bug Fixes

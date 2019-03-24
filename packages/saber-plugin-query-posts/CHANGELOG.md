@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.4 (2019-03-24)
+
+### Features
+
+- add perPage option ([a58febc](https://github.com/egoist/saber/commit/a58febc))
+
 ## [0.0.3](https://github.com/egoist/saber/compare/saber-query-posts@0.0.2...saber-query-posts@0.0.3) (2019-03-21)
 
 ### Bug Fixes
