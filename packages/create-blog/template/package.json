@@ -5,6 +5,11 @@
     "generate": "saber generate"
   },
   "devDependencies": {
-    "saber": "latest"
+    "saber": "latest",
+    "saber-theme-minima": "latest",
+    "saber-plugin-generate-feed": "latest",
+    "saber-plugin-query-posts": "latest",
+    "sass": "^1.17.3",
+    "sass-loader": "^7.1.0"
   }
 }
