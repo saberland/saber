@@ -45,7 +45,8 @@ class Saber {
       afterBuild: new AsyncSeriesHook(),
       // Called after generate static HTML files
       afterGenerate: new AsyncSeriesHook(),
-      getDocument: new SyncWaterfallHook(['html', 'document'])
+      getDocument: new SyncWaterfallHook(['html', 'document']),
+      defineVariables: new SyncWaterfallHook(['variables'])
     }
     this.transformers = new Transformers()
     this.requestHandlers = {}
@@ -156,7 +157,8 @@ class Saber {
       { resolve: require.resolve('./plugins/config-font') },
       { resolve: require.resolve('./plugins/config-other-loaders') },
       { resolve: require.resolve('./plugins/watch-config') },
-      { resolve: require.resolve('./plugins/layouts') }
+      { resolve: require.resolve('./plugins/layouts') },
+      { resolve: require.resolve('./plugins/emit-saber-variables') }
     ]
 
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
@@ -188,6 +190,10 @@ class Saber {
 
   resolveCwd(...args) {
     return path.resolve(this.opts.cwd, ...args)
+  }
+
+  resolveOwnDir(...args) {
+    return path.join(__dirname, '../', ...args)
   }
 
   createWebpackChain(opts) {

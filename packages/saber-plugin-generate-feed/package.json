@@ -1,5 +1,5 @@
 {
-  "name": "saber-generator-feed",
+  "name": "saber-plugin-generate-feed",
   "version": "0.0.2",
   "license": "MIT",
   "main": "lib/index.js",

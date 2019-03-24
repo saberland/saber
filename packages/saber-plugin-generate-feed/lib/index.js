@@ -1,18 +1,19 @@
 /* eslint-disable camelcase */
 const url = require('url')
 
-const ID = 'generator-feed'
+const ID = 'generate-feed'
 
 exports.name = ID
 
 exports.apply = (api, { limit = 30 } = {}) => {
-  api.hooks.afterGenerate.tapPromise(ID, async () => {
-    const { siteConfig } = api.config
-    const posts = []
+  const { siteConfig } = api.config
+  if (!siteConfig.url) {
+    throw new Error(`siteConfig.url is required for saber-plugin-generate-feed`)
+  }
+  const feedUrl = url.resolve(siteConfig.url, 'feed.json')
 
-    if (!siteConfig.url) {
-      throw new Error(`siteConfig.url is required for saber-generator-feed`)
-    }
+  api.hooks.afterGenerate.tapPromise(ID, async () => {
+    const posts = []
 
     for (const page of api.source.pages.values()) {
       if (page.attributes.type === 'post' && !page.attributes.draft) {
@@ -43,7 +44,7 @@ exports.apply = (api, { limit = 30 } = {}) => {
               }
             : siteConfig.author,
         home_page_url: siteConfig.url,
-        feed_url: url.resolve(siteConfig.url, 'feed.json'),
+        feed_url: feedUrl,
         items
       }
       const { log } = api
@@ -55,5 +56,12 @@ exports.apply = (api, { limit = 30 } = {}) => {
         'utf8'
       )
     }
+  })
+
+  api.hooks.defineVariables.tap(ID, variables => {
+    return Object.assign(variables, {
+      feed: true,
+      feedURL: feedUrl
+    })
   })
 }
