@@ -89,7 +89,11 @@ class VueRenderer {
         config.externals(
           externals.concat([
             require('webpack-node-externals')({
-              whitelist: ['saber/config', /\.(?!(?:jsx?|json)$).{1,5}(\?.+)?$/i]
+              whitelist: [
+                'saber/config',
+                'saber/variables',
+                /\.(?!(?:jsx?|json)$).{1,5}(\?.+)?$/i
+              ]
             })
           ])
         )
