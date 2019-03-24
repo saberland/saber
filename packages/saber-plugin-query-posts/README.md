@@ -40,6 +40,13 @@ Then it will generate `/tag/life` and `/tag/random` pages.
 
 ## Options
 
+### perPage
+
+- Type: `number`
+- Default: `30`
+
+The limit of posts to show per page.
+
 ### injectPostsTo
 
 - Type: `string` `string[]` (permalinks)

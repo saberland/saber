@@ -156,8 +156,8 @@ exports.apply = (api, options = {}) => {
     }
   }
 
-  function paginate(arr, opts) {
-    opts = Object.assign({ perPage: 30 }, opts)
+  function paginate(arr) {
+    const opts = { perPage: options.perPage || 30 }
     const totalPages = Math.ceil(arr.length / opts.perPage)
     const result = []
     for (let i = 0; i < totalPages; i++) {
