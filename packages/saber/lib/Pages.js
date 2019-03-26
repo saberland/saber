@@ -3,63 +3,18 @@ const hash = require('hash-sum')
 const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')
 
-class Pages extends Map {
-  constructor() {
+module.exports = class Pages extends Map {
+  constructor(api) {
     super()
+    this.api = api
     this.pageProps = new Map()
   }
 
-  createPage(page) {
-    if (!page.internal || !page.internal.id) {
-      throw new Error(`Page must have an internal id.`)
-    }
-    // Ensure this page is not saved
-    // So that it will be emitted to disk later in `emitPages` hook
-    page.internal.saved = false
-    this.pageProps.set(page.internal.id, {})
-    this.set(page.internal.id, page)
-  }
-
-  removeWhere(getCondition) {
-    for (const page of this.values()) {
-      const condition = getCondition(page)
-      if (condition) {
-        this.delete(page.internal.id)
-        this.pageProps.delete(page.internal.id)
-      }
-    }
-  }
-
-  getPageProp(id) {
-    return Object.assign(
-      {},
-      this.pageProps.get(id),
-      this.getPagePublicFields(id)
-    )
-  }
-
-  extendPageProp(id, page) {
-    this.pageProps.set(id, Object.assign({}, this.pageProps.get(id), page))
-    // Mark this page as unsaved when the page prop changes
-    this.get(id).internal.saved = false
-  }
-
-  getPagePublicFields(page) {
-    page = typeof page === 'string' ? this.get(page) : page
-    if (!page) {
-      return page
-    }
-    return Object.assign({}, page, { content: undefined, internal: undefined })
-  }
-}
-
-module.exports = class Source {
-  constructor(api) {
-    this.api = api
-    this.pages = new Pages()
-  }
-
-  getPage(file) {
+  /**
+   * Parse a file object and return a page object
+   * @param {*} file
+   */
+  parseFile(file) {
     const { api } = this
 
     // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
@@ -128,5 +83,48 @@ module.exports = class Source {
       )
 
     return page
+  }
+
+  createPage(page) {
+    if (!page.internal || !page.internal.id) {
+      throw new Error(`Page must have an internal id.`)
+    }
+    // Ensure this page is not saved
+    // So that it will be emitted to disk later in `emitPages` hook
+    page.internal.saved = false
+    this.pageProps.set(page.internal.id, {})
+    this.set(page.internal.id, page)
+  }
+
+  removeWhere(getCondition) {
+    for (const page of this.values()) {
+      const condition = getCondition(page)
+      if (condition) {
+        this.delete(page.internal.id)
+        this.pageProps.delete(page.internal.id)
+      }
+    }
+  }
+
+  getPageProp(id) {
+    return Object.assign(
+      {},
+      this.pageProps.get(id),
+      this.getPagePublicFields(id)
+    )
+  }
+
+  extendPageProp(id, page) {
+    this.pageProps.set(id, Object.assign({}, this.pageProps.get(id), page))
+    // Mark this page as unsaved when the page prop changes
+    this.get(id).internal.saved = false
+  }
+
+  getPagePublicFields(page) {
+    page = typeof page === 'string' ? this.get(page) : page
+    if (!page) {
+      return page
+    }
+    return Object.assign({}, page, { content: undefined, internal: undefined })
   }
 }

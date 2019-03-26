@@ -19,7 +19,7 @@ exports.apply = (api, options = {}) => {
     const tagsPages = new Set()
     const allTagPosts = new Map()
 
-    for (const page of api.source.pages.values()) {
+    for (const page of api.pages.values()) {
       if (page.attributes.draft) {
         continue
       }
@@ -33,7 +33,7 @@ exports.apply = (api, options = {}) => {
       if (page.attributes.type === 'tags') {
         tagsPages.add(page)
       } else if (page.attributes.type === 'post') {
-        const pagePublicFields = api.source.pages.getPagePublicFields(page)
+        const pagePublicFields = api.pages.getPagePublicFields(page)
         allPosts.add(pagePublicFields)
         const tags = [].concat(page.attributes.tags || [])
         if (tags.length > 0) {
@@ -126,8 +126,8 @@ exports.apply = (api, options = {}) => {
                 permalink
               })
             })
-            api.source.pages.createPage(newPage)
-            api.source.pages.extendPageProp(
+            api.pages.createPage(newPage)
+            api.pages.extendPageProp(
               newPage.internal.id,
               Object.assign(
                 {

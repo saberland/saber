@@ -5,7 +5,7 @@ const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const merge = require('lodash.merge')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
-const Source = require('./Source')
+const Pages = require('./Pages')
 const BrowserApi = require('./BrowserApi')
 const Transformers = require('./Transformers')
 const configLoader = require('./utils/configLoader')
@@ -16,7 +16,7 @@ class Saber {
     this.opts = opts
     this.opts.cwd = path.resolve(opts.cwd || '.')
     this.initialConfig = config
-    this.source = new Source(this)
+    this.pages = new Pages(this)
     this.browserApi = new BrowserApi(this)
     this.log = log
     this.colors = colors

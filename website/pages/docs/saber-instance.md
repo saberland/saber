@@ -50,7 +50,7 @@ Here're some examples:
 
 ```js
 // Get all pages as an array
-const allPages = [...api.source.pages.values()]
+const allPages = [...api.pages.values()]
 
 // Get all posts (excluding drafts)
 const allPosts = allPages.filter(
@@ -59,12 +59,12 @@ const allPosts = allPages.filter(
 
 // Exclude internal fields
 const allPostsWithPublicFields = allPosts.map(post =>
-  api.source.pages.getPagePublicFields(post)
+  api.pages.getPagePublicFields(post)
 )
 
 // Add addtional fields to the `page` prop
-for (const page of api.source.pages.values() {
-  api.source.pages.extendPageProp(page.internal.id, {
+for (const page of api.pages.values() {
+  api.pages.extendPageProp(page.internal.id, {
     foo: true
   })
   // Then you can access `this.page.foo` on your layout components

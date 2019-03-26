@@ -112,7 +112,7 @@ class VueRenderer {
   }
 
   async writeRoutes() {
-    const pages = [...this.api.source.pages.values()]
+    const pages = [...this.api.pages.values()]
     const routes = `export default [
       ${pages
         .map(page => {
@@ -205,7 +205,7 @@ class VueRenderer {
     }
     await Promise.all(
       [
-        ...this.api.source.pages.values(),
+        ...this.api.pages.values(),
         {
           attributes: {
             permalink: '/__never_existed__.html',

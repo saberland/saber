@@ -15,7 +15,7 @@ exports.apply = (api, { limit = 30 } = {}) => {
   api.hooks.afterGenerate.tapPromise(ID, async () => {
     const posts = []
 
-    for (const page of api.source.pages.values()) {
+    for (const page of api.pages.values()) {
       if (page.attributes.type === 'post' && !page.attributes.draft) {
         posts.push({
           title: page.attributes.title,

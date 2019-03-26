@@ -43,8 +43,8 @@ exports.apply = api => {
           // Disabled half-baked auto-rerun solution
           // await updateNodeApi()
           // Remove all child pages
-          // api.source.pages.removeWhere(page => page.internal.parent)
-          // for (const page of api.source.pages.values()) {
+          // api.pages.removeWhere(page => page.internal.parent)
+          // for (const page of api.pages.values()) {
           //   api.hooks.createPage.call(page)
           // }
           // await api.hooks.onCreatePages.promise()

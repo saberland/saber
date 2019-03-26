@@ -37,17 +37,17 @@ exports.apply = api => {
     )
 
     api.hooks.createPage.tap('create-page', page => {
-      api.source.pages.createPage(page)
+      api.pages.createPage(page)
       api.hooks.onCreatePage.call(page)
     })
 
     api.hooks.manipulatePage.tap('manipulate-page', ({ action, id, page }) => {
       // Remove all child pages
-      api.source.pages.removeWhere(page => page.internal.parent)
+      api.pages.removeWhere(page => page.internal.parent)
 
       if (action === 'remove') {
         // Remove itself
-        api.source.pages.removeWhere(page => {
+        api.pages.removeWhere(page => {
           return page.internal.id === id
         })
       } else if (action) {
@@ -58,7 +58,7 @@ exports.apply = api => {
     // Write all pages
     // This is triggered by all file actions: change, add, remove
     api.hooks.emitPages.tapPromise('pages', async () => {
-      const pages = [...api.source.pages.values()]
+      const pages = [...api.pages.values()]
       log.debug('Emitting pages')
       // TODO: maybe write pages with limited concurrency?
       await Promise.all(
@@ -67,7 +67,7 @@ exports.apply = api => {
 
           const newContent = JSON.stringify({
             page,
-            prop: api.source.pages.pageProps.get(page.internal.id)
+            prop: api.pages.pageProps.get(page.internal.id)
           })
           const outPath = api.resolveCache(
             'pages',
@@ -92,7 +92,7 @@ exports.apply = api => {
     await api.hooks.initPages.promise()
 
     for (const file of files) {
-      const page = api.source.getPage(file)
+      const page = api.pages.parseFile(file)
       api.hooks.createPage.call(page)
     }
 
@@ -117,7 +117,7 @@ exports.apply = api => {
           file.relative = filename
           file.absolute = filepath
           file.content = await fs.readFile(file.absolute, 'utf8')
-          const page = api.source.getPage(file)
+          const page = api.pages.parseFile(file)
           api.hooks.manipulatePage.call({ action: 'create', page })
         }
 

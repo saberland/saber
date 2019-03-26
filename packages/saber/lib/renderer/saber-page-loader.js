@@ -10,7 +10,7 @@ module.exports = function(source) {
   if (!pageId) return source
 
   const { api } = this.query
-  const page = Object.assign({}, api.source.pages.get(pageId))
+  const page = Object.assign({}, api.pages.get(pageId))
 
   this.addDependency(api.resolveCache(`pages/${pageId}.saberpage`))
 
@@ -19,7 +19,7 @@ module.exports = function(source) {
   return `
   ${transformer.getPageComponent(page)}
 
-  <page-prop>${JSON.stringify(api.source.pages.getPageProp(pageId))}</page-prop>
+  <page-prop>${JSON.stringify(api.pages.getPageProp(pageId))}</page-prop>
 
   ${page.internal.hoistedTags ? page.internal.hoistedTags.join('\n') : ''}
   `
