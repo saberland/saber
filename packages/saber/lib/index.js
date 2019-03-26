@@ -1,5 +1,6 @@
 const path = require('path')
 const http = require('http')
+const { fs } = require('saber-utils')
 const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const merge = require('lodash.merge')
@@ -111,6 +112,14 @@ class Saber {
         cwd: this.configDir,
         prefix: 'saber-theme-'
       })
+      // When a theme is loaded from `node_modules` and `$theme/dist` directory exists
+      // We use the `dist` directory instead
+      if (/node_modules/.test(this.theme)) {
+        const distDir = path.join(this.theme, 'dist')
+        if (fs.existsSync(distDir)) {
+          this.theme = distDir
+        }
+      }
     } else {
       this.theme = this.RendererClass.defaultTheme
     }
