@@ -60,16 +60,18 @@ module.exports = class Source {
   }
 
   getPage(file) {
-    // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
-    const pageFilenameRegex = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9])))?)(_|-))?(.+$)/
-
     const { api } = this
-    const slug = pageFilenameRegex.exec(
+
+    // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
+    const fileNameRegex = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
+    const parsedFileName = fileNameRegex.exec(
       file.relative
-      // Remove leading _posts/
-      .replace(/^_posts\//, '')
-      // Remove extension
-      .replace(/\.[a-z]+$/i, ''))[16]
+        // Remove leading _posts/
+        .replace(/^_posts\//, '')
+        // Remove extension
+        .replace(/\.[a-z]+$/i, '')
+    )
+    const slug = parsedFileName[16]
 
     const page = {
       attributes: {
@@ -104,19 +106,13 @@ module.exports = class Source {
     // And transformers can update the attributes
     // So we set them after the transformers
 
-    // Set createdAt attribute if there is datetime in filename
-    const createdAt = pageFilenameRegex.exec(
-      file.relative
-      // Remove leading _posts/
-      .replace(/^_posts\//, '')
-      // Remove extension
-      .replace(/\.[a-z]+$/i, ''))[2]
-    if (createdAt) {
-      page.attributes.createdAt = createdAt
-    }
-
+    // Read createdAt from page attribute
+    // Or fallback to the date in fileName or the birthtime of the file
     page.attributes.createdAt = new Date(
-      page.attributes.createdAt || page.attributes.date || file.birthtime
+      page.attributes.createdAt ||
+        page.attributes.date ||
+        parsedFileName[2] ||
+        file.birthtime
     )
 
     page.attributes.type =
