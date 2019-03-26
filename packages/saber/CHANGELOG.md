@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.26](https://github.com/egoist/saber/compare/saber@0.2.25...saber@0.2.26) (2019-03-26)
+
+### Features
+
+- allow to use prebuilt theme ([54a0365](https://github.com/egoist/saber/commit/54a0365))
+
 ## [0.2.25](https://github.com/egoist/saber/compare/saber@0.2.24...saber@0.2.25) (2019-03-24)
 
 ### Bug Fixes
