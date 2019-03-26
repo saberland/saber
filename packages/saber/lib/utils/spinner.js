@@ -1,3 +1,4 @@
-const ora = require('ora')
+// @ts-check
+const ora = require('ora').default
 
 module.exports = ora()

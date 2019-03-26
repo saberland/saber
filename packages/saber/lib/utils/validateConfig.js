@@ -1,5 +1,10 @@
+// @ts-check
 const { struct } = require('superstruct')
 
+/**
+ * Validate saber config
+ * @param {any} config
+ */
 module.exports = config => {
   const siteConfig = struct.interface(
     {

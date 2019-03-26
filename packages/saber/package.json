@@ -5,13 +5,15 @@
     "bin",
     "lib",
     "!**/*.test.js",
-    "!**/__*__/**"
+    "!**/__*__/**",
+    "/types"
   ],
   "scripts": {
     "test": "jest --env node"
   },
   "main": "lib/index.js",
   "bin": "lib/cli.js",
+  "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.2.2",
@@ -33,7 +35,7 @@
     "joycon": "^2.2.3",
     "lodash.merge": "^4.6.1",
     "mini-css-extract-plugin": "^0.5.0",
-    "ora": "^3.0.0",
+    "ora": "^3.2.0",
     "polka": "^0.5.1",
     "pretty-ms": "^4.0.0",
     "resolve-from": "^4.0.0",
