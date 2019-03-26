@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://github.com/egoist/saber/compare/create-blog@0.1.7...create-blog@0.1.8) (2019-03-26)
+
+### Bug Fixes
+
+- sass-loader is no longer needed in default starter ([8edd64b](https://github.com/egoist/saber/commit/8edd64b))
+
 ## [0.1.7](https://github.com/egoist/saber/compare/create-blog@0.1.6...create-blog@0.1.7) (2019-03-24)
 
 ### Features
