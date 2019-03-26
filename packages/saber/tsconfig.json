@@ -10,5 +10,5 @@
     "esModuleInterop": true,
     "moduleResolution": "node"
   },
-  "include": ["lib/**/*"]
+  "include": ["types.d.ts", "lib/**/*"]
 }

@@ -1,5 +1,6 @@
+// @ts-check
 const path = require('path')
-const { fs } = require('saber-utils')
+const fs = require('fs')
 const JoyCon = require('joycon').default
 
 const joycon = new JoyCon({
@@ -19,10 +20,18 @@ joycon.addLoader({
 })
 
 module.exports = {
+  /**
+   * Load config files synchronously
+   * @param {import('joycon').Options} opts
+   */
   load(opts) {
     joycon.clearCache()
     return joycon.loadSync(opts)
   },
+  /**
+   * Resolve config files synchronously
+   * @param {import('joycon').Options} opts
+   */
   resolve(opts) {
     joycon.clearCache()
     return joycon.resolveSync(opts)

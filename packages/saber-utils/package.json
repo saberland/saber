@@ -3,9 +3,11 @@
   "version": "0.0.3",
   "files": [
     "dist",
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "node build",
     "prepublishOnly": "npm run build"
