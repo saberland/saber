@@ -60,12 +60,16 @@ module.exports = class Source {
   }
 
   getPage(file) {
+    // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
+    const pageFilenameRegex = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9])))?)(_|-))?(.+$)/
+
     const { api } = this
-    const slug = file.relative
+    const slug = pageFilenameRegex.exec(
+      file.relative
       // Remove leading _posts/
       .replace(/^_posts\//, '')
       // Remove extension
-      .replace(/\.[a-z]+$/i, '')
+      .replace(/\.[a-z]+$/i, ''))[16]
 
     const page = {
       attributes: {
@@ -99,6 +103,18 @@ module.exports = class Source {
     // These attributes depend on other attributes
     // And transformers can update the attributes
     // So we set them after the transformers
+
+    // Set createdAt attribute if there is datetime in filename
+    const createdAt = pageFilenameRegex.exec(
+      file.relative
+      // Remove leading _posts/
+      .replace(/^_posts\//, '')
+      // Remove extension
+      .replace(/\.[a-z]+$/i, ''))[2]
+    if (createdAt) {
+      page.attributes.createdAt = createdAt
+    }
+
     page.attributes.createdAt = new Date(
       page.attributes.createdAt || page.attributes.date || file.birthtime
     )
