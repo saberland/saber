@@ -3,11 +3,7 @@ title: Saber Instance
 layout: docs
 ---
 
-## source
-
-An instance of the `Source` class.
-
-### source.pages
+## pages
 
 An instance of the `Pages` class, it's used to store `page` ([PageInterface](./page-interface.md)).
 
