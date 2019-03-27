@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/egoist/saber/compare/saber@0.3.0...saber@0.3.1) (2019-03-27)
+
+### Bug Fixes
+
+- fix path to highlight-plugin ([37c3889](https://github.com/egoist/saber/commit/37c3889))
+
 # [0.3.0](https://github.com/egoist/saber/compare/saber@0.2.26...saber@0.3.0) (2019-03-27)
 
 ### Bug Fixes
