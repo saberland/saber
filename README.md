@@ -2,16 +2,9 @@
 
 ---
 
-
 [![NPM version](https://badgen.net/npm/v/saber)](https://npmjs.com/package/saber) [![NPM downloads](https://badgen.net/npm/dm/saber)](https://npmjs.com/package/saber) [![CircleCI](https://badgen.net/circleci/github/egoist/saber/master)](https://circleci.com/gh/egoist/saber/tree/master)
 
 **Please consider [donating](https://www.patreon.com/egoist) to this project's author, [EGOIST](#author), to show your ❤️ and support.**
-
-## IN DEVELOPMENT
-
-Saber is still __in development__. Do __not__ use it for production. It is missing major features and the interface should be considered extremely unstable.
-
-If you're feeling adventurous, though, read ahead...
 
 ## Quick Overview
 
@@ -27,6 +20,10 @@ Then run `npm run dev` or `yarn dev` in the created project and you're done!
 
 Check out the [website](https://saberjs.org) for more details.
 
+## Resources
+
+- [Awesome Saber](https://github.com/egoist/awesome-saber) - A curated list of awesome Saber resources.
+
 ## Contributing
 
 1. Fork it!
@@ -40,4 +37,4 @@ Check out the [website](https://saberjs.org) for more details.
 **Saber** © EGOIST, Released under the [MIT](./LICENSE) License.<br>
 Authored and maintained by EGOIST with help from contributors ([list](https://github.com/egoist/saber/contributors)).
 
-> [Website](https://github.com/egoist) · GitHub [@EGOIST](https://github.com/egoist) · Twitter [@_egoistlily](https://twitter.com/_egoistlily)
+> [Website](https://github.com/egoist) · GitHub [@EGOIST](https://github.com/egoist) · Twitter [@\_egoistlily](https://twitter.com/_egoistlily)

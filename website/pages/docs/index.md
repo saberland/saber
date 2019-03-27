@@ -3,12 +3,6 @@ title: Introduction
 layout: docs
 ---
 
-Saber is still **in development**. Do **not** use it for production. It is missing major features and the interface should be considered extremely unstable.
-
-If you're feeling adventurous, though, read ahead...
-
----
-
 Saber (or Saber.js) is a static website generator, it is like Hexo but, you can use Vue, React or other view layers[^1] to write layouts, Saber will also generate a universal website[^2] out-of-the-box.
 
 ## Compared to Hexo
