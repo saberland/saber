@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/egoist/saber/compare/saber@0.2.26...saber@0.3.0) (2019-03-27)
+
+### Bug Fixes
+
+- update default style for code block ([cdc2ed4](https://github.com/egoist/saber/commit/cdc2ed4))
+
+### Features
+
+- support extracting datetime from post filename ([#32](https://github.com/egoist/saber/issues/32)) ([3334bce](https://github.com/egoist/saber/commit/3334bce)), closes [#31](https://github.com/egoist/saber/issues/31)
+
 ## [0.2.26](https://github.com/egoist/saber/compare/saber@0.2.25...saber@0.2.26) (2019-03-26)
 
 ### Features
