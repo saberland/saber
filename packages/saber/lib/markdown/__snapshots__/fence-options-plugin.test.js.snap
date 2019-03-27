@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`main 1`] = `"<div class=\\"code-wrapper\\" v-pre=\\"\\" data-lang=\\"vue\\"><pre class=\\"code-block language-vue\\"><code class=\\"language-vue\\">&lt;div&gt;hehe&lt;/div&gt;</code></pre></div>"`;

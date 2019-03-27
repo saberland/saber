@@ -1,5 +1,5 @@
 const Markdown = require('saber-markdown')
-const fenceOptionsPlugin = require('./fence-options-plugin')
+const fenceOptionsPlugin = require('./highlight-plugin')
 
 test('main', () => {
   const md = new Markdown()

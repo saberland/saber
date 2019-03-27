@@ -116,17 +116,11 @@ try {
 }
 ```
 
-You also need to include a Prism theme in your app to make it display properly, we recommend `prism-tomorrow.css`:
+You also need to include a Prism theme in your app to make it display properly, we recommend `prism.css`:
 
 ```js
 // saber-browser.js
-import 'prismjs/themes/prism-tomorrow.css'
-```
-
-Or in a specific layout component:
-
-```vue
-<style src="prismjs/themes/prism-tomorrow.css"></style>
+import 'prismjs/themes/prism.css'
 ```
 
 ### Line Highlighting in Code Blocks

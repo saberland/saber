@@ -36,5 +36,4 @@ export default {
 }
 </script>
 
-<style src="prismjs/themes/prism-tomorrow.css"></style>
 <style scoped src="../css/page.css"></style>

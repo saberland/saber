@@ -1,5 +1,3 @@
-const path = require('path')
-
 const RE = /\s*{([^}]+)}/
 
 const parseOptions = str => {
@@ -19,16 +17,8 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
     `<div${preWrapperAttrs}>${codeMask}<pre${preAttrs}><code${codeAttrs}>${code.trim()}</code></pre></div>`
 
   md.renderer.rules.fence = (...args) => {
-    const [tokens, idx, options, env, self] = args
+    const [tokens, idx, options, , self] = args
     const token = tokens[idx]
-
-    const fenceOptionsCSS = `<style src="${path.join(
-      __dirname,
-      'fence-options.css'
-    )}"></style>`
-    if (!env.hoistedTags.includes(fenceOptionsCSS)) {
-      env.hoistedTags.push(fenceOptionsCSS)
-    }
 
     const langName = token.info.replace(RE, '').trim()
 
@@ -41,14 +31,14 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
     const langClass = langName ? `language-${langName}` : ''
     const preAttrs = renderAttrs([
       ...(token.attrs || []),
-      ['class', ['code-block', langClass].filter(Boolean).join(' ')]
+      ['class', ['saber-highlight-code', langClass].filter(Boolean).join(' ')]
     ])
     const codeAttrs = renderAttrs([
       ...(token.attrs || []),
       ['class', langClass]
     ])
     const preWrapperAttrs = renderAttrs([
-      ['class', 'code-wrapper'],
+      ['class', 'saber-highlight'],
       ['v-pre', ''],
       ['data-lang', langName]
     ])
@@ -66,7 +56,7 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
     token.info = langName
 
     const codeMask =
-      `<div class="code-mask${langClass ? ` ${langClass}` : ''}">` +
+      `<div class="saber-highlight-mask${langClass ? ` ${langClass}` : ''}">` +
       md.utils
         .escapeHtml(token.content)
         .split('\n')

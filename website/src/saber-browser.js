@@ -1,4 +1,5 @@
 import 'nprogress/nprogress.css'
+import 'prismjs/themes/prism.css'
 import './css/global.css'
 
 export default ({ router, rootOptions }) => {
