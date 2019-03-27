@@ -69,7 +69,7 @@ function transformMarkdown(api, page) {
       resolve: require.resolve('../markdown/escape-interpolations-plugin')
     },
     {
-      resolve: require.resolve('../markdown/fence-options-plugin')
+      resolve: require.resolve('../markdown/highlight-plugin')
     },
     {
       resolve: require.resolve('../markdown/link-plugin')
