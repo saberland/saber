@@ -156,19 +156,19 @@ markdown:
 In this case the rendered HTML will look like:
 
 ```html
-<div class="code-wrapper" data-lang="yaml">
-  <div class="code-mask language-yaml">
+<div class="saber-highlight" data-lang="yaml">
+  <div class="saber-highlight-mask language-yaml">
     <div class="code-line"><!-- ... --></div>
     <div class="code-line highlighted"><!-- ... --></div>
     <div class="code-line"><!-- ... --></div>
   </div>
-  <pre class="code-block language-yaml">
+  <pre class="saber-highlight-code language-yaml">
     <code class="language-yaml"><!-- ... --></code>
   </pre>
 </div>
 ```
 
-Saber's default CSS work well with `prism-tomorrow.css`, for other themes some tweaks might be needed to suit your needs.
+Saber's default CSS works well with `prismjs/themes/prism.css`, for other themes some tweaks might be needed to suit your needs.
 
 ## Configure markdown-it
 
