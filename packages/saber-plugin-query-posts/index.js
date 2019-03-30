@@ -111,7 +111,7 @@ exports.apply = (api, options = {}) => {
             const permalink =
               index === 0
                 ? page.attributes.permalink
-                : path.join(page.attributes.permalink, `page/${index + 1}`)
+                : slash(path.join(page.attributes.permalink, `page/${index + 1}`))
             const newPage = Object.assign({}, page, {
               internal: Object.assign({}, page.internal, {
                 id:
@@ -173,7 +173,7 @@ exports.apply = (api, options = {}) => {
     if (pageIndex === 0) {
       return
     }
-    return path.join(permalink, `page/${pageIndex}`)
+    return slash(path.join(permalink, `page/${pageIndex}`))
   }
 
   function getTagName(tag, tagsMap) {
@@ -183,5 +183,9 @@ exports.apply = (api, options = {}) => {
       }
     }
     return tag
+  }
+
+  function slash(input) {
+    return input && input.replace(/\\/g, '/')
   }
 }
