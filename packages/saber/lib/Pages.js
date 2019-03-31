@@ -83,7 +83,6 @@ module.exports = class Pages extends Map {
 
     page.attributes.type = page.attributes.type || getPageType(relativePath)
 
-
     page.attributes.permalink =
       page.attributes.permalink ||
       getPermalink(
