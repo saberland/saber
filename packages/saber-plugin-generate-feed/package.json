@@ -6,5 +6,9 @@
   "files": [
     "lib"
   ],
-  "xo": false
+  "xo": false,
+  "dependencies": {
+    "feed": "^2.0.4",
+    "url-join": "^4.0.0"
+  }
 }
