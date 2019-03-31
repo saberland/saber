@@ -32,13 +32,13 @@ interface Page {
      * If the page is loaded from file system
      * It defaults to `attributes.date` || `birthtime` of the file
      */
-    createdAt?: Date | string
+    createdAt?: Date
     /**
      * The updated time of this page
      * If the page is loaded from file system
-     * It defaults to the `mtime` of the file
+     * It defaults to `attributes.updated` || `mtime` of the file
      */
-    updatedAt?: Date | string
+    updatedAt?: Date
     /**
      * The permalink to the page
      * We infer it from `internal.relative` if it's loaded from file system

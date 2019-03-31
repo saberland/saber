@@ -68,12 +68,10 @@ module.exports = class Pages extends Map {
         parsedFileName[2] ||
         file.birthtime
     )
-    
-    // Read updatedAt from page.attribute.updated
+
+    // Read updatedAt from page.attribute.updated (Hexo compatibility)
     // Or fallback to file.mtime
-    page.attributes.updatedAt = new Date(
-      page.attributes.updated || file.mtime
-    )
+    page.attributes.updatedAt = new Date(page.attributes.updated || file.mtime)
 
     page.attributes.type =
       page.attributes.type || getPageType(file.relative, page.attributes.slug)
