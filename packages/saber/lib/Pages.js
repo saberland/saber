@@ -33,8 +33,7 @@ module.exports = class Pages extends Map {
 
     const page = {
       attributes: {
-        slug,
-        updatedAt: file.mtime
+        slug
       },
       internal: {
         id: hash(absolutePath),
@@ -65,7 +64,9 @@ module.exports = class Pages extends Map {
     // So we set them after the transformers
 
     // Read createdAt from page attribute
-    // Or fallback to the date in fileName or the birthtime of the file
+    // Or fallback to `page.attributes.date` (Hexo compatibility)
+    // Or fallback to the date in fileName
+    // Or fallback to the `file.birthtime`
     page.attributes.createdAt = new Date(
       page.attributes.createdAt ||
         page.attributes.date ||
@@ -73,7 +74,15 @@ module.exports = class Pages extends Map {
         file.birthtime
     )
 
+    // Read updatedAt from page attribute
+    // Or fallback to `page.attributes.updated` (Hexo compatibility)
+    // Or fallback to `file.mtime`
+    page.attributes.updatedAt = new Date(
+      page.attributes.updatedAt || page.attributes.updated || file.mtime
+    )
+
     page.attributes.type = page.attributes.type || getPageType(relativePath)
+
 
     page.attributes.permalink =
       page.attributes.permalink ||
