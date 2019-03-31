@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.9](https://github.com/egoist/saber/compare/create-blog@0.1.8...create-blog@0.1.9) (2019-03-31)
+
+### Bug Fixes
+
+- add pages/index.md in create-blog ([002e5ff](https://github.com/egoist/saber/commit/002e5ff))
+
 ## [0.1.8](https://github.com/egoist/saber/compare/create-blog@0.1.7...create-blog@0.1.8) (2019-03-26)
 
 ### Bug Fixes

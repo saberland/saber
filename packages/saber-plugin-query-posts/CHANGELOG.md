@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.7](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.0.6...saber-plugin-query-posts@0.0.7) (2019-03-31)
+
+### Bug Fixes
+
+- combine the permalink parts using url-join, fix [#37](https://github.com/egoist/saber/issues/37) again ([403fba1](https://github.com/egoist/saber/commit/403fba1))
+
 ## [0.0.6](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.0.5...saber-plugin-query-posts@0.0.6) (2019-03-31)
 
 **Note:** Version bump only for package saber-plugin-query-posts

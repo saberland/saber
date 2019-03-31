@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-query-posts",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "files": [
     "index.js"
   ],
