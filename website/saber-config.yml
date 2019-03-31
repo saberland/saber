@@ -43,3 +43,8 @@ themeConfig:
         link: /docs/node-apis.html
       - title: Page Interface
         link: /docs/page-interface.html
+
+plugins:
+  - resolve: ../packages/saber-plugin-google-analytics
+    options:
+      trackId: UA-54857209-16
