@@ -2,6 +2,7 @@ const path = require('path')
 const hash = require('hash-sum')
 const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')
+const slash = require('./utils/slash')
 
 module.exports = class Pages extends Map {
   constructor(api) {
@@ -17,10 +18,12 @@ module.exports = class Pages extends Map {
   parseFile(file) {
     const { api } = this
 
+    const relativePath = slash(file.relative)
+    const absolutePath = slash(file.absolute)
     // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
     const fileNameRegex = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
     const parsedFileName = fileNameRegex.exec(
-      file.relative
+      relativePath
         // Remove leading _posts/
         .replace(/^_posts\//, '')
         // Remove extension
@@ -34,13 +37,13 @@ module.exports = class Pages extends Map {
         updatedAt: file.mtime
       },
       internal: {
-        id: hash(file.absolute),
-        absolute: file.absolute,
-        relative: file.relative,
+        id: hash(absolutePath),
+        absolute: absolutePath,
+        relative: relativePath,
         isFile: true
       },
       contentType: api.transformers.getContentTypeByExtension(
-        path.extname(file.relative).slice(1)
+        path.extname(relativePath).slice(1)
       ),
       content: file.content
     }
@@ -71,7 +74,7 @@ module.exports = class Pages extends Map {
     )
 
     page.attributes.type =
-      page.attributes.type || getPageType(file.relative, page.attributes.slug)
+      page.attributes.type || getPageType(relativePath, page.attributes.slug)
 
     page.attributes.permalink =
       page.attributes.permalink ||
