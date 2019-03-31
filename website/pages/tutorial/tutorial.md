@@ -237,7 +237,27 @@ plugins:
   - resolve: saber-plugin-query-posts
 ```
 
-Then there will be a `posts` property under the `page` prop, you can access the `page` prop from the page itself (if no layout is specified) or its layout component, you can open Vue Devtools in your browser to inspect the `page` prop:
+Then tell your homepage `pages/index.vue` that it wants the post list to be injected:
+
+```vue {highlightLines:[11]}
+<template>
+  <div>
+    <h1>My Blog</h1>
+    <p>This is my lovely (not yet) homepage!</p>
+  </div>
+</template>
+
+<script>
+export const attributes = {
+  layout: 'page',
+  injectAllPosts: true
+}
+
+export default {}
+</script>
+```
+
+Now there will be a `posts` property under the `page` prop, you can access the `page` prop from the page itself (if no layout is specified) or its layout component, you can open Vue Devtools in your browser to inspect the `page` prop:
 
 <img src="./images/vue-devtools-page-prop.png" class="browser-image" alt="vue-devtools-page-prop">
 
