@@ -1,5 +1,7 @@
-const urljoin = require('url-join')
+const path = require('path')
+const url = require('url')
 const { Feed } = require('feed')
+const { getFeedPath } = require('./utils')
 
 const ID = 'generate-feed'
 
@@ -10,7 +12,7 @@ exports.apply = (api, options = {}) => {
   options = Object.assign(
     {
       limit: 30,
-      generator: 'Feed for Saberjs',
+      generator: 'Saber.js',
       copyright: 'All rights reserved'
     },
     options
@@ -21,13 +23,15 @@ exports.apply = (api, options = {}) => {
     throw new Error(`siteConfig.url is required for saber-plugin-generate-feed`)
   }
 
-  // All type of feed links
-  const feedLinks = options.feeds
-    ? options.feeds
-    : {
-        json: urljoin(siteConfig.url, 'feed.json'),
-        atom: urljoin(siteConfig.url, 'atom.xml')
-      }
+  const jsonFeedPath = getFeedPath(options.jsonFeed, 'feed.json')
+  const atomFeedPath = getFeedPath(options.atomFeed, 'atom.xml')
+  const rss2FeedPath = getFeedPath(options.rss2Feed, 'rss2.xml')
+
+  const feedLinks = {
+    json: jsonFeedPath && url.resolve(siteConfig.url, jsonFeedPath),
+    atom: atomFeedPath && url.resolve(siteConfig.url, atomFeedPath),
+    rss2: rss2FeedPath && url.resolve(siteConfig.url, rss2FeedPath)
+  }
 
   api.hooks.afterGenerate.tapPromise(ID, async () => {
     // Prepare posts
@@ -37,7 +41,7 @@ exports.apply = (api, options = {}) => {
         posts.push({
           title: page.attributes.title,
           id: page.attributes.permalink,
-          link: urljoin(siteConfig.url, page.attributes.permalink),
+          link: url.resolve(siteConfig.url, page.attributes.permalink),
           description: page.attributes.description,
           content: page.content,
           date: page.attributes.updatedAt,
@@ -60,12 +64,7 @@ exports.apply = (api, options = {}) => {
       link: siteConfig.url,
       copyright: options.copyright,
       generator: options.generator,
-      author:
-        typeof siteConfig.author === 'string'
-          ? {
-              name: siteConfig.author
-            }
-          : siteConfig.author,
+      author: siteConfig.author,
       feedLinks
     })
 
@@ -77,34 +76,25 @@ exports.apply = (api, options = {}) => {
     const { log } = api
     const { fs } = api.utils
 
-    // JSON
-    if (feedLinks.json) {
-      log.info('Generating json feed')
+    const writeFeed = async (fileName, content) => {
+      log.info(`Generating ${fileName}`)
       await fs.outputFile(
-        api.resolveCwd(
-          `.saber/public/${feedLinks.json.replace(siteConfig.url, '')}`
-        ),
-        feed.json1(),
+        path.join(api.resolveCache('public'), fileName),
+        content,
         'utf8'
       )
     }
 
-    // Atom and RSS2 (Note: rss2 also uses atom to generate)
-    if (feedLinks.atom || feedLinks.rss2) {
-      log.info('Generating xml feed')
-      await fs.outputFile(
-        api.resolveCwd(
-          `.saber/public/${feedLinks.atom.replace(siteConfig.url, '')}`
-        ),
-        feed.atom1(),
-        'utf8'
-      )
-    }
+    await Promise.all([
+      jsonFeedPath && writeFeed(jsonFeedPath, feed.json1()),
+      atomFeedPath && writeFeed(atomFeedPath, feed.atom1()),
+      rss2FeedPath && writeFeed(rss2FeedPath, feed.rss2())
+    ])
   })
 
   api.hooks.defineVariables.tap(ID, variables => {
     return Object.assign(variables, {
-      feed: true,
+      feedLink: feedLinks.atom || feedLinks.rss2 || feedLinks.json,
       feedLinks
     })
   })
