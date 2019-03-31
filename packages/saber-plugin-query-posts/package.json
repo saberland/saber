@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-query-posts",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "files": [
     "index.js"
   ],
@@ -8,5 +8,8 @@
     "saber",
     "saber-plugin"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "url-join": "^4.0.0"
+  }
 }

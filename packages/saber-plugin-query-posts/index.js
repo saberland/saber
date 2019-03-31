@@ -1,4 +1,4 @@
-const path = require('path')
+const urlJoin = require('url-join')
 
 const ID = 'query-posts'
 
@@ -7,32 +7,24 @@ exports.name = ID
 exports.apply = (api, options = {}) => {
   api.hooks.onCreatePages.tap(ID, () => {
     injectPosts({
-      injectPostsTo:
-        options.injectPostsTo === undefined ? ['/'] : options.injectPostsTo,
       tagsMap: options.tagsMap || {}
     })
   })
 
-  function injectPosts({ injectPostsTo, tagsMap }) {
+  function injectPosts({ tagsMap }) {
     const allPosts = new Set()
     const injectPostsToPages = new Set()
-    const tagsPages = new Set()
     const allTagPosts = new Map()
 
     for (const page of api.pages.values()) {
       if (page.attributes.draft) {
         continue
       }
-      if (
-        page.attributes.type === 'index' ||
-        (injectPostsTo && injectPostsTo.includes(page.attributes.permalink))
-      ) {
+      if (page.attributes.injectAllPosts) {
         injectPostsToPages.add(page)
         continue
       }
-      if (page.attributes.type === 'tags') {
-        tagsPages.add(page)
-      } else if (page.attributes.type === 'post') {
+      if (page.attributes.type === 'post') {
         const pagePublicFields = api.pages.getPagePublicFields(page)
         allPosts.add(pagePublicFields)
         const tags = [].concat(page.attributes.tags || [])
@@ -47,47 +39,29 @@ exports.apply = (api, options = {}) => {
       }
     }
 
-    // Add index pages
-    injectToPages(
-      injectPostsToPages.size > 0
-        ? injectPostsToPages
-        : new Set([
-            {
-              attributes: {
-                type: 'index',
-                layout: 'index',
-                permalink: '/',
-                slug: 'index'
-              },
-              internal: {
-                id: 'internal_blog__index',
-                parent: true
-              }
-            }
-          ]),
-      allPosts
-    )
+    // Add all posts to those pages
+    if (injectPostsToPages.size > 0) {
+      injectToPages(injectPostsToPages, allPosts)
+    }
 
     // Add tags pages
     for (const [tag, tagPosts] of allTagPosts.entries()) {
       injectToPages(
-        tagsPages.size > 0
-          ? tagsPages
-          : new Set([
-              {
-                attributes: {
-                  type: 'tags',
-                  layout: 'tags',
-                  permalink: `/tags/${tag}`,
-                  slug: tag
-                },
-                internal: {
-                  id: `internal_blog__tags__${tag}`,
-                  // So that this page will be removed before next `onCreatePages` hook in watch mode
-                  parent: true
-                }
-              }
-            ]),
+        new Set([
+          {
+            attributes: {
+              isTagsPage: true,
+              layout: 'tags',
+              permalink: `/tags/${tag}`,
+              slug: tag
+            },
+            internal: {
+              id: `internal_blog__tags__${tag}`,
+              // So that this page will be removed before next `onCreatePages` hook in watch mode
+              parent: true
+            }
+          }
+        ]),
         tagPosts,
         {
           tag: getTagName(tag, tagsMap)
@@ -111,7 +85,7 @@ exports.apply = (api, options = {}) => {
             const permalink =
               index === 0
                 ? page.attributes.permalink
-                : path.join(page.attributes.permalink, `page/${index + 1}`)
+                : urlJoin(page.attributes.permalink, `page/${index + 1}`)
             const newPage = Object.assign({}, page, {
               internal: Object.assign({}, page.internal, {
                 id:
@@ -173,7 +147,7 @@ exports.apply = (api, options = {}) => {
     if (pageIndex === 0) {
       return
     }
-    return path.join(permalink, `page/${pageIndex}`)
+    return urlJoin(permalink, `page/${pageIndex}`)
   }
 
   function getTagName(tag, tagsMap) {

@@ -17,8 +17,7 @@ interface Page {
   attributes: {
     /**
      * The page type
-     * Defaults to `page`
-     * Possible values: `post` `index` etc.
+     * It's either `page` or `post`
      */
     type: string
     /**
