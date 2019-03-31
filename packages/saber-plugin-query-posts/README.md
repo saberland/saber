@@ -1,6 +1,6 @@
 # saber-plugin-query-posts
 
-Query posts and inject them to page props. Useful when you're writing a blog.
+Query posts and inject them to specific pages. Useful when you're writing a blog.
 
 ## Install
 
@@ -15,9 +15,49 @@ In your `saber-config.yml`:
 ```yml
 plugins:
   - resolve: saber-plugin-query-posts
-    options:
-      # Inject all posts to specific pages as `posts` prop
-      injectPostsTo: / # Default value
+```
+
+Then this plugin will inject all posts to pages whose attribute `injectAllPosts` is set to `true`, for instance you can create a `pages/index.md`:
+
+```markdown
+---
+layout: index
+injectAllPosts: true
+---
+
+Welcome to my homepage.
+```
+
+Then in the layout component `layouts/index.vue`, `page.posts` and `page.pagination` will be available:
+
+```vue
+<template>
+  <div>
+    <slot name="default" />
+
+    <ul>
+      <li v-for="post in page.posts" :key="post.attributes.permalink">
+        <saber-link :to="post.attributes.permalink">
+          {{ post.attributes.title }}
+        </saber-link>
+      </li>
+    </li>
+
+    <saber-link :to="page.pagination.prevLink" v-if="page.pagination.hasPrev">
+      ← Prev Page
+    </saber-link>
+    <saber-link :to="page.pagination.nextLink" v-if="page.pagination.hasNext">
+      Next Page →
+    </saber-link>
+
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['page']
+}
+</script>
 ```
 
 ### Tags Page
@@ -46,13 +86,6 @@ Then it will generate `/tag/life` and `/tag/random` pages.
 - Default: `30`
 
 The limit of posts to show per page.
-
-### injectPostsTo
-
-- Type: `string` `string[]` (permalinks)
-- Default: `/`
-
-Inject all posts to specific pages.
 
 ### tagsMap
 

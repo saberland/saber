@@ -73,8 +73,7 @@ module.exports = class Pages extends Map {
         file.birthtime
     )
 
-    page.attributes.type =
-      page.attributes.type || getPageType(relativePath, page.attributes.slug)
+    page.attributes.type = page.attributes.type || getPageType(relativePath)
 
     page.attributes.permalink =
       page.attributes.permalink ||
