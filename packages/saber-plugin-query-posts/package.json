@@ -8,5 +8,8 @@
     "saber",
     "saber-plugin"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "url-join": "^4.0.0"
+  }
 }
