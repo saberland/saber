@@ -30,8 +30,7 @@ module.exports = class Pages extends Map {
 
     const page = {
       attributes: {
-        slug,
-        updatedAt: file.mtime
+        slug
       },
       internal: {
         id: hash(file.absolute),
@@ -68,6 +67,12 @@ module.exports = class Pages extends Map {
         page.attributes.date ||
         parsedFileName[2] ||
         file.birthtime
+    )
+    
+    // Read updatedAt from page.attribute.updated
+    // Or fallback to file.mtime
+    page.attributes.updatedAt = new Date(
+      page.attributes.updated || file.mtime
     )
 
     page.attributes.type =
