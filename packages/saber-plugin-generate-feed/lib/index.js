@@ -97,7 +97,14 @@ exports.apply = (api, options = {}) => {
   api.hooks.defineVariables.tap(ID, variables => {
     return Object.assign(variables, {
       feedLink: feedLinks.atom || feedLinks.rss2 || feedLinks.json,
-      feedLinks
+      feedLinks,
+      feedLinkType: feedLinks.atom
+        ? 'atom'
+        : feedLinks.rss2
+        ? 'rss2'
+        : feedLinks.json
+        ? 'json'
+        : undefined
     })
   })
 }

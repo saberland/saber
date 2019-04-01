@@ -37,6 +37,10 @@ variables.feedLinks
 variables.feedLink
 // The link to preferred feed
 // Atom > RSS2 > JSON
+
+variables.feedLinkType
+// The type of `variables.feedLink`
+// `atom | rss2 | json`
 ```
 
 ## Options
