@@ -7,3 +7,4 @@ plugins:
 
 siteConfig:
   url: https://exampe.com
+  author: Your Name

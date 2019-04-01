@@ -66,7 +66,11 @@ exports.apply = (api, options = {}) => {
       link: siteConfig.url,
       copyright: options.copyright,
       generator: options.generator,
-      author: siteConfig.author,
+      author: {
+        name: siteConfig.author,
+        email: siteConfig.email,
+        link: siteConfig.url
+      },
       feedLinks
     })
 

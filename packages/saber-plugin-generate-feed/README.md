@@ -43,6 +43,17 @@ variables.feedLinkType
 // `atom | rss2 | json`
 ```
 
+### Configure Feed Author
+
+In your `saber-config.yml`:
+
+```yml
+siteConfig:
+  author: Your Name # Optional
+  url: https://example.com # Required
+  email: you@email.com # Optional
+```
+
 ## Options
 
 ### atomFeed
