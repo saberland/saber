@@ -23,6 +23,50 @@ Markdown content goes here...
 
 You can use [YAML](https://yaml.org/) syntax in the front matter.
 
+### Excerpt
+
+Excerpt is an optional summary or description of a page, you can set it via page attributes:
+
+```markdown {highlightLines:[3]}
+---
+title: My Post
+excerpt: This post is dedicated to the world
+---
+
+This is a wonderful world..
+```
+
+Alternatively, if this attribute is not set Saber will automatically use the first paragrah or everthing before `<!-- more -->` comment as the excerpt.
+
+```markdown
+---
+title: My Post
+---
+
+This is a wonderful world..
+
+Blah blah..
+```
+
+Then `page.attributes.excerpt` will be `<p>This is a wonderful world..</p>`. If you only need plain text, you can strip HTML tags with a simple regular expression: `html.replace(/<(?:.|\n)*?>/gm, '')`.
+
+If you're using `<!-- more -->` comment, please note that only block comment is supported for now, i.e. you can't use `<!-- more -->` inside a paragraqh:
+
+```markdown {highlightLines:[9]}
+---
+title: My Post
+---
+
+This is a wonderful world..
+
+Isn't it?
+
+<!-- more -->
+
+Blah blah..
+```
+
+
 ### Task List
 
 - [Specification](https://github.github.com/gfm/#task-list-items-extension-)
