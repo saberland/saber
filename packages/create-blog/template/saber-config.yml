@@ -20,3 +20,5 @@ themeConfig:
 plugins:
   - resolve: saber-plugin-query-posts
   - resolve: saber-plugin-generate-feed
+    options:
+      atomFeed: true
