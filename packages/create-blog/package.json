@@ -1,6 +1,6 @@
 {
   "name": "create-blog",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "bin": "cli.js",
   "files": [
     "cli.js",
