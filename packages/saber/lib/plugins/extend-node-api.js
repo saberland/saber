@@ -21,14 +21,23 @@ exports.apply = api => {
 
     updateNodeApi()
 
-    const getHook = hookName => nodeApi[hookName]
+    const getHookHandler = hookName => nodeApi[hookName]
 
     api.hooks.afterPlugins.tap(nodeApiId, () => {
       api.hooks.initPages.tap(nodeApiId, () => {
         for (const hookName of Object.keys(api.hooks)) {
-          const hook = getHook(hookName)
-          if (hook) {
-            api.hooks[hookName].tap(nodeApiId, hook.bind(api))
+          const hookHandler = getHookHandler(hookName)
+          if (hookHandler) {
+            const hook = api.hooks[hookName]
+            if (hook.call) {
+              // SyncHook
+              hook.tap(nodeApiId, hookHandler.bind(api))
+            } else {
+              // AsyncHook
+              hook.tapPromise(nodeApiId, async (...args) =>
+                hookHandler.call(api, ...args)
+              )
+            }
           }
         }
       })
