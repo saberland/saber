@@ -3,8 +3,14 @@
   "version": "0.0.4",
   "license": "MIT",
   "main": "lib/index.js",
+  "scripts": {
+    "generate:example": "saber generate example"
+  },
   "files": [
     "lib"
   ],
-  "xo": false
+  "xo": false,
+  "dependencies": {
+    "feed": "^2.0.4"
+  }
 }

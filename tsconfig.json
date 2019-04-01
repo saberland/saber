@@ -3,12 +3,12 @@
     "strict": true,
     "allowJs": true,
     "noEmit": true,
-    "lib": ["es2017", "dom"],
+    "lib": ["es2017"],
     "module": "commonjs",
     "target": "es2015",
-    "outDir": "dist",
     "esModuleInterop": true,
-    "moduleResolution": "node"
-  },
-  "include": ["lib/**/*"]
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noUnusedParameters": true
+  }
 }
