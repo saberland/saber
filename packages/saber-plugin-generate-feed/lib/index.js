@@ -38,11 +38,12 @@ exports.apply = (api, options = {}) => {
     const posts = []
     for (const page of api.pages.values()) {
       if (page.attributes.type === 'post' && !page.attributes.draft) {
+        const { excerpt } = page.attributes
         posts.push({
           title: page.attributes.title,
           id: page.attributes.permalink,
           link: url.resolve(siteConfig.url, page.attributes.permalink),
-          description: page.attributes.description,
+          description: excerpt && excerpt.replace(/<(?:.|\n)*?>/gm, ''),
           content: page.content,
           date: page.attributes.updatedAt,
           published: page.attributes.createdAt
