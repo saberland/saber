@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.6](https://github.com/egoist/saber/compare/saber@0.3.5...saber@0.3.6) (2019-04-02)
+
+### Bug Fixes
+
+- allow to configure css ([e5dab27](https://github.com/egoist/saber/commit/e5dab27))
+
 ## [0.3.5](https://github.com/egoist/saber/compare/saber@0.3.4...saber@0.3.5) (2019-04-02)
 
 ### Bug Fixes
