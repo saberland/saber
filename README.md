@@ -26,7 +26,8 @@ Check out the [website](https://saberjs.org) for more details.
 
 ## Community
 
-- [Saber 中文讨论组](https://t.me/joinchat/Bc7EQEaeb4Ty0k5wvRNU7Q)
+- [中文 Telegram 讨论组](https://t.me/joinchat/Bc7EQEaeb4Ty0k5wvRNU7Q)
+- [Spectrum Chat](https://spectrum.chat/saber)
 
 ## Contributing
 
