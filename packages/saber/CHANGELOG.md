@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.5](https://github.com/egoist/saber/compare/saber@0.3.4...saber@0.3.5) (2019-04-02)
+
+### Bug Fixes
+
+- add hook handler from saber-node.js using proper method ([7c3a654](https://github.com/egoist/saber/commit/7c3a654))
+
 ## [0.3.3](https://github.com/egoist/saber/compare/saber@0.3.2...saber@0.3.3) (2019-03-31)
 
 ### Features
