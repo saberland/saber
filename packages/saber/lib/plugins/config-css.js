@@ -9,9 +9,9 @@ exports.apply = api => {
   api.hooks.chainWebpack.tap(ID, (config, { type }) => {
     // TODO: make this configurable?
     const loaderOptions = {}
-    // TODO: disabled for now
+    // TODO: `shouldExtract` is always false for now
     // When extracting it will include `client.***.css` twice.
-    const shouldExtract = false
+    const { extract: shouldExtract } = api.config.css
     const sourceMap = api.mode !== 'production'
     const isServer = type === 'server'
     // if building for production but not extracting CSS, we need to minimize

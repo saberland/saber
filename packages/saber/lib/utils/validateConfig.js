@@ -66,6 +66,15 @@ module.exports = config => {
     }
   )
 
+  const css = struct(
+    {
+      extract: 'boolean?'
+    },
+    {
+      extract: false
+    }
+  )
+
   const schema = struct({
     build,
     siteConfig,
@@ -74,7 +83,8 @@ module.exports = config => {
     plugins,
     markdown,
     permalinks,
-    server
+    server,
+    css
   })
 
   const [err, result] = schema.validate(config)

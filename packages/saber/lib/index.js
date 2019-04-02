@@ -148,9 +148,7 @@ class Saber {
 
     this.config = merge({}, config, this.initialConfig)
     // Validate config, apply default values, normalize some values
-    this.config = require('./utils/validateConfig')(this.config, {
-      configDir: this.configDir
-    })
+    this.config = require('./utils/validateConfig')(this.config)
   }
 
   getPlugins() {
