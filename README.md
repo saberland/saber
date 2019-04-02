@@ -24,6 +24,10 @@ Check out the [website](https://saberjs.org) for more details.
 
 - [Awesome Saber](https://github.com/egoist/awesome-saber) - A curated list of awesome Saber resources.
 
+## Community
+
+- [Saber 中文讨论组](https://t.me/joinchat/Bc7EQEaeb4Ty0k5wvRNU7Q)
+
 ## Contributing
 
 1. Fork it!
