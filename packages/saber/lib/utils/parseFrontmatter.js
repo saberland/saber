@@ -1,6 +1,6 @@
 const { log } = require('saber-log')
 
-const RE_STARTING = /^\n*---([a-z]+)?\n+/
+const RE_STARTING = /^(?:\r?\n)*---([a-z]+)?(?:\r?\n)+/
 
 const parsers = {
   yaml: str => require('./yaml.min').safeLoad(str),
