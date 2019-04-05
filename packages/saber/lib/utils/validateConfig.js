@@ -4,8 +4,10 @@ const { struct } = require('superstruct')
 /**
  * Validate saber config
  * @param {any} config
+ * @param {object} options
+ * @param {'production' | 'development'} options.mode
  */
-module.exports = config => {
+module.exports = (config, { mode }) => {
   const siteConfig = struct.interface(
     {
       title: 'string?',
@@ -59,19 +61,16 @@ module.exports = config => {
 
   const build = struct(
     {
-      publicUrl: 'string?'
+      publicUrl: 'string?',
+      extractCSS: 'boolean?',
+      loaderOptions: 'object?',
+      cssSourceMap: 'boolean?'
     },
     {
-      publicUrl: '/'
-    }
-  )
-
-  const css = struct(
-    {
-      extract: 'boolean?'
-    },
-    {
-      extract: false
+      publicUrl: '/',
+      extract: false,
+      loaderOptions: {},
+      soureMap: mode !== 'production'
     }
   )
 
@@ -83,8 +82,7 @@ module.exports = config => {
     plugins,
     markdown,
     permalinks,
-    server,
-    css
+    server
   })
 
   const [err, result] = schema.validate(config)

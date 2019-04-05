@@ -40,12 +40,48 @@ Like `siteConfig` you can import it from `saber/config` or reference in componen
 
 ## build
 
-### build.publicUrl
+### publicUrl
 
 - Type: `string`
 - Default: `/`
 
 The base URL your application will be deployed at. If your website is located at a sub directory, e.g. `https://example.com/blog`, you should set this option to `/blog/` (trailing slash is optional).
+
+### extractCSS
+
+- Type: `boolean`
+- Default: `false`
+
+Extract CSS.
+
+### cssSourceMap
+
+- Type: `boolean`
+- Default: `false` in production mode, `true` otherwise.
+
+Source maps supports for CSS files.
+
+### loaderOptions
+
+- Type: `LoaderOptions`
+- Default: `{}`
+
+Options for css loaders:
+
+```ts
+interface LoaderOptions {
+  /** sass-loader */
+  sass?: any
+  /** less-loader */
+  less?: any
+  /** stylus-loader */
+  stylus?: any
+  /** css-loader */
+  css?: any
+  /** postcss-loader */
+  postcss?: any
+}
+```
 
 ## plugins
 
@@ -68,7 +104,7 @@ type Plugin =
 
 Customizing the internal markdown parser.
 
-### markdown.slugify
+### slugify
 
 - Type: `string`
 - Examples: `limax` `./my-slugify-utility`
@@ -81,7 +117,7 @@ type Slugify = (header: string) => string
 
 You can use the [limax](https://github.com/lovell/limax) which provides CJK support.
 
-### markdown.highlighter
+### highlighter
 
 - Type: `string`
 - Example: `saber-highlighter-prism`
@@ -90,13 +126,13 @@ The path to a module or npm package name that highlights code blocks in markdown
 
 Note that a highlighter will only tokenize the code, you need to add corresponding CSS yourself.
 
-### markdown.options
+### options
 
 - Type: `object`
 
 Options for [markdown-it](https://github.com/markdown-it/markdown-it).
 
-### markdown.plugins
+### plugins
 
 - Type: `Array<MarkdownPlugin>`
 
