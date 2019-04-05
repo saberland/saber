@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <Header/>
-    <div class="container content">
-      <Sidebar :items="$themeConfig.sidebar"/>
-      <main>
+    <Header :showToggle="true" />
+    <Sidebar :items="$themeConfig.sidebar"/>
+    <div class="content">
+      <main class="main">
         <div class="page-title">{{ page.attributes.title }}</div>
         <div class="page-content">
           <slot name="default"/>
@@ -35,5 +35,3 @@ export default {
   }
 }
 </script>
-
-<style scoped src="../css/page.css"></style>

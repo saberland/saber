@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-index">
     <div class="slogan">
       A framework <br>for building <br>modern static websites.
     </div>
@@ -37,11 +37,15 @@ export default {
 </script>
 
 <style scoped>
+.page-index {
+  margin: 100px 0;
+  color: var(--dark);
+}
+
 .slogan {
   font-size: 3rem;
   font-weight: 500;
   line-height: 1;
-  margin-top: 80px;
 
   @media (max-width: 768px) {
     font-size: 2rem;

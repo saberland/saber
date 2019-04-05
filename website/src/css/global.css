@@ -1,9 +1,15 @@
 :root {
-  --border-color: #eaeaea;
-  --theme-color: #ff69b4;
+  --border-color: #edf2f6;
+  --theme-color: #3880ff;
   --header-height: 60px;
   --spinner-color: white;
   --sidebar-width: 270px;
+  --header-bg: white;
+  --sidebar-bg: white;
+  --gray: #666;
+  --dark: #000;
+  --text-color: #4e5b6a;
+  --text-light-color: #73849a;
 }
 
 * {
@@ -12,28 +18,21 @@
 
 body {
   margin: 0;
-  font: 14px/1.4 'Source Sans Pro', sans-serif;
+  color: var(--text-color);
+  font: 16px/1.6 "Roboto", "Helvetica Neue", sans-serif;
+  text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 a {
   text-decoration: none;
-  color: blue;
-}
-
-.content {
-  padding-top: calc(var(--header-height) + 30px);
-  padding-bottom: 30px;
-  display: flex;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  color: var(--theme-color);
 }
 
 /* override nprogress */
@@ -45,11 +44,16 @@ a {
   box-shadow: 0 0 10px var(--spinner-color), 0 0 5px var(--spinner-color);
 }
 
+/* override prism css */
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+  background-color: transparent;
+}
+
 /** customize css for markdown-it-footnote */
 hr.footnotes-sep {
   position: relative;
   overflow: visible;
-  margin: 80px 0 30px 0;
+  margin: 100px 0 30px 0 !important;
 
   &:before {
     color: #bdbdbd;

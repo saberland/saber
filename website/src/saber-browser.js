@@ -1,6 +1,7 @@
 import 'nprogress/nprogress.css'
 import 'prismjs/themes/prism.css'
 import './css/global.css'
+import './css/page.css'
 
 export default ({ router, rootOptions }) => {
   if (process.browser) {
@@ -37,7 +38,7 @@ export default ({ router, rootOptions }) => {
       link: [
         {
           href:
-            'https://fonts.googleapis.com/css?family=Josefin+Sans|Source+Sans+Pro',
+            'https://fonts.googleapis.com/css?family=Roboto',
           rel: 'stylesheet'
         }
       ]

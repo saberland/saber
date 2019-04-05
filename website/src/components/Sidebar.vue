@@ -12,18 +12,6 @@
         </div>
       </div>
     </div>
-
-    <select class="mobile-items" @change="e => $router.push(e.target.value)">
-      <option
-        :value="item.link"
-        :disabled="item.disabled"
-        v-for="(item, i) in flatItems"
-        :selected="isActive(item.link)"
-        :key="i">
-        {{ item.title }}
-      </option>
-    </select>
-
   </nav>
 </template>
 
@@ -63,23 +51,23 @@ export default {
 <style scoped>
 .sidebar {
   width: var(--sidebar-width);
-  padding-right: 20px;
-  position: sticky;
-  top: calc(var(--header-height) + 30px);
-  height: calc(100vh - var(--header-height) - 30px);
+  top: var(--header-height);
+  border-right: 1px solid var(--border-color);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  overflow: auto;
+  padding: 20px 0;
+  background: var(--sidebar-bg);
+  z-index: 1000;
+  transition: transform 200ms cubic-bezier(0.2, 1, 0.2, 1);
 
   @media (max-width: 768px) {
-    position: initial;
-    top: 0;
-    height: auto;
-    padding-right: 0;
-    width: 100%;
-  }
-}
+    transform: translateX(calc(-1 * var(--sidebar-width)));
 
-.items {
-  @media (max-width: 768px) {
-    display: none;
+    @nest .show-sidebar & {
+      transform: translateX(0);
+    }
   }
 }
 
@@ -89,23 +77,16 @@ export default {
   }
 }
 
-.mobile-items {
-  display: none;
-  width: 100%;
-  @media (max-width: 768px) {
-    display: block;
-  }
-}
-
 .item-title {
   font-size: 1rem;
   text-transform: uppercase;
-  color: #888;
   margin-bottom: 10px;
+  padding: 0 20px;
+  color: var(--dark);
 }
 
 .item-child {
-  font-size: 1rem;
+  font-size: .9rem;
   margin: 10px 0;
 }
 
@@ -114,15 +95,17 @@ export default {
 }
 
 .item-child a {
-  color: #666;
-  border-bottom: 2px solid transparent;
+  display: block;
+  color: var(--text-light-color);
+  padding: 0 20px;
 }
 
 .item-child a:hover:not(.active) {
-  border-color: var(--theme-color);
+  color: #333;
 }
 
 .item-child a.active {
   color: var(--theme-color);
+  box-shadow: inset 2px 0 0 0 var(--theme-color);
 }
 </style>

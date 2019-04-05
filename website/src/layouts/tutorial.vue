@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <Header />
+    <Header :showToggle="true" />
     <div class="container content">
       <Sidebar :items="sidebar" />
-      <main>
+      <main class="main">
         <div class="page-title">{{ page.attributes.title }}</div>
         <div class="page-content">
           <slot name="default" />
@@ -56,5 +56,3 @@ export default {
   }
 }
 </script>
-
-<style scoped src="../css/page.css"></style>
