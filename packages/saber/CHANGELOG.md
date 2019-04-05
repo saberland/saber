@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.7](https://github.com/egoist/saber/compare/saber@0.3.6...saber@0.3.7) (2019-04-05)
+
+### Bug Fixes
+
+- match \r\n in front matter ([0906ae6](https://github.com/egoist/saber/commit/0906ae6))
+- typo ([e808f2c](https://github.com/egoist/saber/commit/e808f2c))
+
+### Features
+
+- add build.cssSourceMap build.loaderOptions build.extractCSS ([2fb6a5d](https://github.com/egoist/saber/commit/2fb6a5d))
+
 ## [0.3.6](https://github.com/egoist/saber/compare/saber@0.3.5...saber@0.3.6) (2019-04-02)
 
 ### Bug Fixes
