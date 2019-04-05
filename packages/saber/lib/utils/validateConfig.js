@@ -68,9 +68,9 @@ module.exports = (config, { mode }) => {
     },
     {
       publicUrl: '/',
-      extract: false,
+      extractCSS: false,
       loaderOptions: {},
-      soureMap: mode !== 'production'
+      cssSourceMap: mode !== 'production'
     }
   )
 
