@@ -1,25 +1,33 @@
 <template>
   <div class="page-index">
     <div class="slogan">
-      A framework <br>for building <br>modern static websites.
+      <span class="logo"></span>
+      <div class="slogan-content">
+        A framework
+        <br>for building
+        <br>modern static websites.
+      </div>
     </div>
     <div class="features">
       <div class="feature">
-        <span>Stay up-to-date.</span> Saber is built on top of webpack, Vue, React and the tools you use on a daily basis.
+        <span>Static Rendering.</span> With Saber, static rendering with Vue.js is easier now than ever.
       </div>
       <div class="feature">
-        <span>Simple and familiar.</span> Saber is inspired by Hexo and Gatsby, designed with the simplicity-first philosophy in mind.
+        <span>Zero Setup.</span> Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.
       </div>
       <div class="feature">
-        <span>Best practices, for free.</span> Build a modern static website or blog with best practices baked in.
+        <span>Bring Your Own Data.</span>
+        Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.
+      </div>
+      <div class="feature">
+        <span>Fully Extensible.</span> With Saber's powerful APIs and plugin system, you can customize almost everything.
       </div>
     </div>
     <section>
       <saber-link
         class="getting-started"
-        :to="$saber.getPageLink('./docs/index.md')">
-        Getting Started →
-      </saber-link>
+        :to="$saber.getPageLink('./docs/index.md')"
+      >Getting Started →</saber-link>
     </section>
   </div>
 </template>
@@ -31,24 +39,63 @@ export const attributes = {
   layout: 'index'
 }
 
-export default {
-
-}
+export default {}
 </script>
 
 <style scoped>
 .page-index {
-  margin: 100px 0;
   color: var(--dark);
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.logo {
+  background-color: #f5f5f5;
+  background-image: url(../images/logo.jpeg);
+  border-radius: 940922px;
+  background-size: cover;
+  height: 140px;
+  width: 140px;
+  display: block;
+  margin-right: 30px;
+
+  &:hover {
+    animation: rotation .3s infinite linear;
+  }
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 
 .slogan {
-  font-size: 3rem;
+  font-size: 2.4rem;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
 
   @media (max-width: 768px) {
     font-size: 2rem;
+    flex-direction: column;
+    align-items: baseline;
+    text-align: center;
+
+    & .slogan-content {
+      width: 100%;
+    }
   }
 }
 
@@ -63,7 +110,7 @@ section {
   padding: 15px 20px;
   font-weight: 500;
   font-size: 1.2rem;
-  transition: background .2s ease-in-out;
+  transition: background 0.2s ease-in-out;
   border-radius: 4px;
 
   @media (max-width: 768px) {
@@ -85,10 +132,14 @@ section {
 
 .feature {
   color: #666;
-  margin-top: 15px;
+  margin-top: 20px;
   & span {
     font-weight: bold;
     color: #000;
+  }
+  & p {
+    margin: 5px 0 0 0;
+    font-size: 1.1rem;
   }
 }
 </style>

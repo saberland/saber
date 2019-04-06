@@ -1,5 +1,5 @@
 ---
-title: Saber Node APIs
+title: Node APIs
 layout: docs
 ---
 

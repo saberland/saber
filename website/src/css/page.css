@@ -14,11 +14,17 @@
   font-size: 4rem;
   font-weight: 700;
   color: var(--dark);
+  line-height: 1.2;
 }
 
 .page-content {
-  margin: 40px 0;
   line-height: 1.6;
+  margin: 20px 0;
+
+  & >p:first-child {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
 
   & h2,
   & h3,

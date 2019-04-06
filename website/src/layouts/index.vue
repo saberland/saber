@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
-    <Header />
+    <Header :showToggle="true"/>
+    <Sidebar class="home-sidebar" :items="$themeConfig.sidebar"/>
     <div class="content">
       <main class="main">
       <slot name="default" />
@@ -11,6 +12,7 @@
 
 <script>
 import Header from '../components/Header.vue'
+import Sidebar from '../components/Sidebar.vue'
 
 export default {
   props: ['page'],
@@ -22,7 +24,17 @@ export default {
   },
 
   components: {
-    Header
+    Header,
+    Sidebar
   }
 }
 </script>
+
+<style scoped>
+.home-sidebar {
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+</style>
