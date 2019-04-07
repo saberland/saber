@@ -7,6 +7,7 @@ const ID = 'vue-renderer'
 class VueRenderer {
   constructor(api) {
     this.api = api
+    this.visitedRoutes = new Set()
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
@@ -115,7 +116,13 @@ class VueRenderer {
 
   async writeRoutes() {
     const pages = [...this.api.pages.values()]
-    const routes = `export default [
+    const routes = `
+    var beforeEnter = process.env.NODE_ENV === 'development' ? function (to, from, next) {
+      fetch('/__visit_path__?path=' + to.path)
+      return next(false)
+    } : undefined
+
+    export default [
       ${pages
         .map(page => {
           const relativePath = slash(page.internal.relative)
@@ -136,12 +143,19 @@ class VueRenderer {
                 __relative: '${relativePath}',
                 __pageId: '${page.internal.id}'
               },
+              beforeEnter: ${this.visitedRoutes.has(
+                page.attributes.permalink
+              )} ? undefined : beforeEnter,
               component: function() {
-                ${`
+                ${
+                  this.visitedRoutes.has(page.attributes.permalink)
+                    ? `
                 return import(${chunkNameComment}${JSON.stringify(
-                  componentPath
-                )})
-                `}
+                        componentPath
+                      )})
+                `
+                    : 'return {render: function(){}}'
+                }
               }
             }`
         })
@@ -262,9 +276,6 @@ class VueRenderer {
       .createWebpackChain({ type: 'client' })
       .toConfig()
 
-    clientConfig.entry.client.unshift(
-      require.resolve('webpack-hot-middleware/client')
-    )
     clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
     const clientCompiler = webpack(clientConfig)
@@ -272,6 +283,10 @@ class VueRenderer {
     const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
       logLevel: 'silent',
       publicPath: clientConfig.output.publicPath
+    })
+
+    const hotMiddleware = require('webpack-hot-middleware')(clientCompiler, {
+      log: false
     })
 
     if (ssr) {
@@ -320,6 +335,20 @@ class VueRenderer {
       serverCompiler.watch({}, () => {})
     }
 
+    server.get('/__visit_path__', async (req, res) => {
+      this.visitedRoutes.add(req.query.path)
+      if (this.visitedRoutes.size > 5) {
+        const visitedRoutes = [...this.visitedRoutes]
+        visitedRoutes.shift()
+        this.visitedRoutes = new Set(visitedRoutes)
+      }
+      await this.writeRoutes()
+      devMiddleware.waitUntilValid(() => {
+        res.end('{}')
+        hotMiddleware.publish({ action: 'router:push', path: req.query.path })
+      })
+    })
+
     server.use(
       require('serve-static')(this.api.resolveCwd('public'), {
         dotfiles: 'allow'
@@ -332,11 +361,7 @@ class VueRenderer {
     )
 
     server.use(devMiddleware)
-    server.use(
-      require('webpack-hot-middleware')(clientCompiler, {
-        log: false
-      })
-    )
+    server.use(hotMiddleware)
 
     if (ssr) {
       server.get('*', async (req, res) => {
@@ -373,17 +398,22 @@ class VueRenderer {
       const noop = () => ''
       const renderScripts = () =>
         `<script src="/_saber/js/client.js" defer></script>`
-      server.get('*', (req, res) => {
-        const context = {
-          url: req.url,
-          head,
-          renderStyles: noop,
-          renderScripts,
-          renderState: noop
-        }
-        const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
-        res.setHeader('content-type', 'text/html')
-        res.end(html)
+      server.get('*', async (req, res) => {
+        this.visitedRoutes.add(req.url)
+        await this.writeRoutes()
+
+        devMiddleware.waitUntilValid(() => {
+          const context = {
+            url: req.url,
+            head,
+            renderStyles: noop,
+            renderScripts,
+            renderState: noop
+          }
+          const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+          res.setHeader('content-type', 'text/html')
+          res.end(html)
+        })
       })
     }
 
