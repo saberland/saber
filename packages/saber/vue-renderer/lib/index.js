@@ -118,7 +118,7 @@ class VueRenderer {
     const pages = [...this.api.pages.values()]
     const routes = `
     var beforeEnter = process.env.NODE_ENV === 'development' ? function (to, from, next) {
-      fetch('/__visit_path__?path=' + to.path)
+      fetch('/__visit_page__?path=' + to.path)
       return next(false)
     } : undefined
 
@@ -148,13 +148,14 @@ class VueRenderer {
               )} ? undefined : beforeEnter,
               component: function() {
                 ${
-                  this.visitedRoutes.has(page.attributes.permalink)
-                    ? `
+                  this.api.mode === 'development' &&
+                  !this.visitedRoutes.has(page.attributes.permalink)
+                    ? 'return {render: function(){}}'
+                    : `
                 return import(${chunkNameComment}${JSON.stringify(
                         componentPath
                       )})
                 `
-                    : 'return {render: function(){}}'
                 }
               }
             }`
@@ -335,7 +336,7 @@ class VueRenderer {
       serverCompiler.watch({}, () => {})
     }
 
-    server.get('/__visit_path__', async (req, res) => {
+    server.get('/__visit_page__', async (req, res) => {
       this.visitedRoutes.add(req.query.path)
       if (this.visitedRoutes.size > 5) {
         const visitedRoutes = [...this.visitedRoutes]
