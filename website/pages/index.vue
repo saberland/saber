@@ -50,7 +50,8 @@ export default {}
 }
 
 .logo {
-  background-image: url(../images/logo.png);
+  background-color: #f5f5f5;
+  background-image: url(../images/logo-square.jpeg);
   border-radius: 940922px;
   background-size: cover;
   height: 140px;
