@@ -5,6 +5,10 @@ layout: docs
 
 Saber (or Saber.js) is a static website generator, it is like Hexo but, you can use Vue, React or other view layers[^1] to write layouts, Saber will also generate a universal website[^2] out-of-the-box.
 
+## Disclaimer
+
+A word of caution: Saber is currently in beta stage. We encourage brave early adopters, it works but expect bugs large and small. We do maintain a [changelog](https://github.com/egoist/saber/releases) for breaking changes, new features and bug fixes though.
+
 ## Compared to Hexo
 
 Hexo's layout system uses string-based template engines like ejs, pug et al. If you want client-side interactions, you need to create addtional JavaScript files and reference them in your layouts. This is pretty much the old way of building websites, which is good if that's all you need, but Saber lets you make use of more modern web frameworks.
