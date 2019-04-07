@@ -1,8 +1,15 @@
-<img src="https://user-images.githubusercontent.com/8784712/51083287-7f2e2b00-1752-11e9-8bf0-dfb6de52a4d2.png" alt="saber logo">
+<br><br>
+
+<p align="center">
+<a href="https://saberjs.org"><img width="140" src="./website/images/logo.png" alt="saber logo"></a>
+</p>
+<br>
+
+<p align="center"><a href="https://npmjs.com/package/saber"><img src="https://flat.badgen.net/npm/v/saber" alt="NPM version"></a> <a href="https://npmjs.com/package/saber"><img src="https://flat.badgen.net/npm/dm/saber" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/saber/tree/master"><img src="https://flat.badgen.net/circleci/github/egoist/saber/master" alt="CircleCI"></a></p>
+
+<br><br><br><br>
 
 ---
-
-[![NPM version](https://badgen.net/npm/v/saber)](https://npmjs.com/package/saber) [![NPM downloads](https://badgen.net/npm/dm/saber)](https://npmjs.com/package/saber) [![CircleCI](https://badgen.net/circleci/github/egoist/saber/master)](https://circleci.com/gh/egoist/saber/tree/master)
 
 **Please consider [donating](https://www.patreon.com/egoist) to this project's author, [EGOIST](#author), to show your ❤️ and support.**
 
