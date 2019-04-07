@@ -59,14 +59,22 @@ export default () => {
     render: h => h('div', { attrs: { id: '_saber' } }, [h('router-view')]),
     methods: {
       getPageLink(relativePath, extraParams) {
-        relativePath = join((dirname(this.$route.meta.__relative)), relativePath)
+        relativePath = join(dirname(this.$route.meta.__relative), relativePath)
         for (const route of this.$router.options.routes) {
-          if (route.meta && route.meta.__relative && relativePath === route.meta.__relative) {
+          if (
+            route.meta &&
+            route.meta.__relative &&
+            relativePath === route.meta.__relative
+          ) {
             return `${route.path}${extraParams || ''}`
           }
         }
         if (process.env.NODE_ENV !== 'production') {
-          throw new Error(`Cannot resolve page ${relativePath} from ${this.$route.meta.__relative}`)
+          throw new Error(
+            `Cannot resolve page ${relativePath} from ${
+              this.$route.meta.__relative
+            }`
+          )
         }
       }
     }

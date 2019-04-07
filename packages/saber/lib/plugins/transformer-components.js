@@ -1,4 +1,4 @@
-const slash = require('../utils/slash')
+const { slash } = require('saber-utils')
 
 exports.name = 'builtin:transformer-components'
 

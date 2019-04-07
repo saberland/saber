@@ -40,7 +40,7 @@
       "**/dist/**",
       "**/vendor/**",
       "*.min.js",
-      "**/renderer/app/**",
+      "**/vue-renderer/app/**",
       "**/example/**",
       "website/**"
     ],
@@ -68,7 +68,7 @@
       "**/dist/**",
       "**/vendor/**",
       "*.min.js",
-      "**/renderer/app/**",
+      "**/vue-renderer/app/**",
       "**/example/**",
       "website/**"
     ]

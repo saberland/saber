@@ -1,6 +1,5 @@
 const path = require('path')
-const { glob, fs } = require('saber-utils')
-const slash = require('../utils/slash')
+const { glob, fs, slash } = require('saber-utils')
 
 const ID = 'builtin:layouts'
 

@@ -1,6 +1,5 @@
 const path = require('path')
-const { fs } = require('saber-utils')
-const slash = require('./utils/slash')
+const { fs, slash } = require('saber-utils')
 
 module.exports = class BrowserApi extends Set {
   constructor(api) {

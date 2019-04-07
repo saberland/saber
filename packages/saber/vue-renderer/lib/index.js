@@ -1,7 +1,6 @@
 const path = require('path')
-const { fs } = require('saber-utils')
+const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
-const slash = require('../utils/slash')
 
 const ID = 'vue-renderer'
 
@@ -10,7 +9,7 @@ class VueRenderer {
     this.api = api
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
-      config.entry(type).add(path.join(__dirname, `app/entry-${type}.js`))
+      config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
 
       config.output.path(api.resolveCache(`dist-${type}`))
 
@@ -150,7 +149,7 @@ class VueRenderer {
         name: 404,
         component: function () {
           return import(/* webpackChunkName: "404-page" */ ${JSON.stringify(
-            slash(path.join(__dirname, 'app/404.vue'))
+            slash(path.join(__dirname, '../app/404.vue'))
           )})
         }
       }
@@ -389,7 +388,7 @@ class VueRenderer {
   }
 }
 
-VueRenderer.defaultTheme = path.join(__dirname, 'app/theme')
+VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
 VueRenderer.getDocument = require('./get-document')
 
 module.exports = VueRenderer

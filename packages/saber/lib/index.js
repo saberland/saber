@@ -105,7 +105,7 @@ class Saber {
           cwd: this.configDir,
           prefix: 'saber-renderer-'
         })
-      : require('./renderer')
+      : require('../vue-renderer/lib')
     this.renderer = new this.RendererClass(this)
 
     // Load theme

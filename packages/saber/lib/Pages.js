@@ -1,8 +1,8 @@
 const path = require('path')
 const hash = require('hash-sum')
+const { slash } = require('saber-utils')
 const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')
-const slash = require('./utils/slash')
 
 module.exports = class Pages extends Map {
   constructor(api) {

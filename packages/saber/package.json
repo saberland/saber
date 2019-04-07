@@ -6,7 +6,8 @@
     "lib",
     "!**/*.test.js",
     "!**/__*__/**",
-    "/types"
+    "/types",
+    "/vue-renderer"
   ],
   "scripts": {
     "test": "jest --env node"
