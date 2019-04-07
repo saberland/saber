@@ -16,10 +16,10 @@ exports.apply = api => {
     api.browserApi.add(browserApiFile)
   }
 
-  api.hooks.beforeRun.tapPromise(ID, async () => {
+  api.hooks.beforeRun.tapPromise(ID, async ({ watch }) => {
     await api.browserApi.reload()
 
-    if (api.mode === 'development') {
+    if (watch) {
       const watcher = chokidar.watch(USER_BROWSER_API_FILES, {
         cwd: api.resolveCwd(),
         ignoreInitial: true
