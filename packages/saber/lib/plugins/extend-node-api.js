@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { log } = require('saber-log')
+const { log, colors } = require('saber-log')
 
 const ID = 'builtin:extend-node-api'
 
@@ -21,23 +21,27 @@ exports.apply = api => {
 
     updateNodeApi()
 
-    const getHookHandler = hookName => nodeApi[hookName]
+    const getHookHandler = hookName => nodeApi[hookName] || __noopHandler__
 
     api.hooks.afterPlugins.tap(nodeApiId, () => {
       api.hooks.initPages.tap(nodeApiId, () => {
         for (const hookName of Object.keys(api.hooks)) {
-          const hookHandler = getHookHandler(hookName)
-          if (hookHandler) {
-            const hook = api.hooks[hookName]
-            if (hook.call) {
-              // SyncHook
-              hook.tap(nodeApiId, hookHandler.bind(api))
-            } else {
-              // AsyncHook
-              hook.tapPromise(nodeApiId, async (...args) =>
-                hookHandler.call(api, ...args)
-              )
-            }
+          const hook = api.hooks[hookName]
+          if (hook) {
+            const tapType = hook.call ? 'tap' : 'tapPromise'
+            hook[tapType](nodeApiId, (...args) => {
+              const hookHandler = getHookHandler(hookName)
+              const result = hookHandler.call(api, ...args)
+
+              if (hookHandler.name !== '__noopHandler__') {
+                log.info(`${hookName} ${colors.dim(`(${nodeApiId})`)}`)
+              }
+
+              if (tapType === 'tapPromise') {
+                return Promise.resolve(result)
+              }
+              return result
+            })
           }
         }
       })
@@ -49,24 +53,37 @@ exports.apply = api => {
           ignoreInitial: true
         })
         .on('all', async action => {
-          // Disabled half-baked auto-rerun solution
-          // await updateNodeApi()
+          await updateNodeApi()
           // Remove all child pages
-          // api.pages.removeWhere(page => page.internal.parent)
-          // for (const page of api.pages.values()) {
-          //   api.hooks.createPage.call(page)
-          // }
-          // await api.hooks.onCreatePages.promise()
-          // await api.hooks.emitPages.promise()
-          // await api.hooks.emitRoutes.promise()
+          api.pages.removeWhere(page => page.internal.parent)
+          await Promise.all(
+            [...api.pages.values()].map(async page => {
+              // Recreate the page
+              api.pages.createPage(page)
+              // A page has been created
+              await api.hooks.onCreatePage.promise(page)
+            })
+          )
+          // All pages are created
+          await api.hooks.onCreatePages.promise()
+          // Emit pages
+          await api.hooks.emitPages.promise()
+          // Emit route file
+          await api.hooks.emitRoutes.promise()
           log.warn(
             `${action[0].toUpperCase()}${action.substring(1)} ${nodeApiFile}`
           )
-          log.warn(`Please restart the server to take effect.`)
+          // Because you might also update webpack config in saber-node.js
+          // Which we can't (?) automatically reload
+          log.warn(`You probably need to restart the server.`)
         })
     }
   }
 
   handleNodeApiFile(path.join(api.theme, 'saber-node.js'), 'theme-node-api')
   handleNodeApiFile(api.resolveCwd('saber-node.js'), 'user-node-api')
+}
+
+function __noopHandler__(arg) {
+  return arg
 }

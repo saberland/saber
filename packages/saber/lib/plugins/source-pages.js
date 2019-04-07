@@ -36,24 +36,23 @@ exports.apply = api => {
       )
     )
 
-    api.hooks.createPage.tap('create-page', page => {
-      api.pages.createPage(page)
-      api.hooks.onCreatePage.call(page)
-    })
+    api.hooks.manipulatePage.tapPromise(
+      'manipulate-page',
+      async ({ action, id, page }) => {
+        // Remove all child pages
+        api.pages.removeWhere(page => page.internal.parent)
 
-    api.hooks.manipulatePage.tap('manipulate-page', ({ action, id, page }) => {
-      // Remove all child pages
-      api.pages.removeWhere(page => page.internal.parent)
-
-      if (action === 'remove') {
-        // Remove itself
-        api.pages.removeWhere(page => {
-          return page.internal.id === id
-        })
-      } else if (action) {
-        api.hooks.createPage.call(page)
+        if (action === 'remove') {
+          // Remove itself
+          api.pages.removeWhere(page => {
+            return page.internal.id === id
+          })
+        } else if (action) {
+          api.pages.createPage(page)
+          await api.hooks.onCreatePage.promise(page)
+        }
       }
-    })
+    )
 
     // Write all pages
     // This is triggered by all file actions: change, add, remove
@@ -91,10 +90,13 @@ exports.apply = api => {
 
     await api.hooks.initPages.promise()
 
-    for (const file of files) {
-      const page = api.pages.parseFile(file)
-      api.hooks.createPage.call(page)
-    }
+    await Promise.all(
+      files.map(async file => {
+        const page = api.pages.parseFile(file)
+        api.pages.createPage(page)
+        await api.hooks.onCreatePage.promise(page)
+      })
+    )
 
     await api.hooks.onCreatePages.promise()
     await api.hooks.emitPages.promise()
@@ -108,7 +110,7 @@ exports.apply = api => {
         const filepath = path.join(pagesDir, filename)
 
         if (type === 'remove') {
-          api.hooks.manipulatePage.call({
+          await api.hooks.manipulatePage.promise({
             action: 'remove',
             id: hash(filepath)
           })
@@ -118,7 +120,7 @@ exports.apply = api => {
           file.absolute = filepath
           file.content = await fs.readFile(file.absolute, 'utf8')
           const page = api.pages.parseFile(file)
-          api.hooks.manipulatePage.call({ action: 'create', page })
+          await api.hooks.manipulatePage.promise({ action: 'create', page })
         }
 
         await api.hooks.onCreatePages.promise()

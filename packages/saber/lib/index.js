@@ -29,40 +29,42 @@ class Saber {
       filterPlugins: new SyncWaterfallHook(['plugins']),
       // After all plugins have been applied
       afterPlugins: new SyncHook(),
-      // Called before creating pages for the first time
-      initPages: new AsyncSeriesHook(),
-      // Called when all pages are added to our `source`
-      onCreatePages: new AsyncSeriesHook(),
-      // Emit pages as .saberpage files when necessary
-      emitPages: new AsyncSeriesHook(),
-      // Call this hook to create a page which will also invoke `onCreatePage` hook
-      createPage: new SyncHook(['page']),
-      // Called when a new page is added
-      onCreatePage: new SyncHook(['page']),
-      // Call this hook to manipulate a page
-      manipulatePage: new SyncHook(['data']),
       emitRoutes: new AsyncSeriesHook(),
       // Called after running webpack
       afterBuild: new AsyncSeriesHook(),
       // Called after generate static HTML files
       afterGenerate: new AsyncSeriesHook(),
       getDocument: new SyncWaterfallHook(['html', 'document']),
-      defineVariables: new SyncWaterfallHook(['variables'])
+      defineVariables: new SyncWaterfallHook(['variables']),
+      // Called before creating pages for the first time
+      initPages: new AsyncSeriesHook(),
+      // Called when a new page is added
+      onCreatePage: new AsyncSeriesHook(['page']),
+      // Called when all pages are added to our `source`
+      onCreatePages: new AsyncSeriesHook(),
+      // Emit pages as .saberpage files when necessary
+      emitPages: new AsyncSeriesHook(),
+      // Call this hook to manipulate a page, it's usually used by file watcher
+      manipulatePage: new AsyncSeriesHook(['data'])
     }
+
     this.transformers = new Transformers()
     this.requestHandlers = {}
 
     for (const hook of Object.keys(this.hooks)) {
-      const debugHooks = ['createPage', 'onCreatePage']
+      const ignoreNames = ['theme-node-api', 'user-node-api']
+      const debugHooks = ['onCreatePage']
       this.hooks[hook].intercept({
         register(tapInfo) {
           const { fn, name } = tapInfo
           tapInfo.fn = (...args) => {
-            const msg = `${hook} ${colors.dim(`(${name})`)}`
-            if (debugHooks.includes(hook)) {
-              log.debug(msg)
-            } else {
-              log.info(msg)
+            if (!ignoreNames.includes(name)) {
+              const msg = `${hook} ${colors.dim(`(${name})`)}`
+              if (debugHooks.includes(hook)) {
+                log.debug(msg)
+              } else {
+                log.info(msg)
+              }
             }
             return fn(...args)
           }
