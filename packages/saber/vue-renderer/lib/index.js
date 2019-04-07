@@ -29,6 +29,9 @@ class VueRenderer {
 
       config.plugin('vue').use(require('vue-loader/lib/plugin'))
 
+      // Transform js files in ../app folder
+      config.module.rule('js').include.add(path.join(__dirname, '../app'))
+
       // Handle `<page-component>` block in .vue file
       config.module
         .rule('page-component')

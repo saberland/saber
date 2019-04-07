@@ -38,15 +38,10 @@ module.exports = (api, { type }) => {
   config.resolve.modules.add('node_modules').add(ownModulesDir)
   config.resolveLoader.modules.add('node_modules').add(ownModulesDir)
 
-  const rendererAppPath = path.join(__dirname, '../renderer/app')
   config.module
     .rule('js')
     .test(/\.js$/)
     .include.add(filepath => {
-      if (filepath.includes(rendererAppPath)) {
-        return true
-      }
-
       if (/node_modules/.test(filepath)) {
         return false
       }
