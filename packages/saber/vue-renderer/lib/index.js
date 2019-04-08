@@ -267,13 +267,9 @@ class VueRenderer {
     await copyPublicFiles(this.api.resolveCwd('public'))
   }
 
-  getRequestHandler({ ssr } = {}) {
+  getRequestHandler() {
     const webpack = require('webpack')
     const server = require('polka')()
-
-    let renderer
-    let clientManifest
-    let serverBundle
 
     const clientConfig = this.api
       .createWebpackChain({ type: 'client' })
@@ -291,52 +287,6 @@ class VueRenderer {
     const hotMiddleware = require('webpack-hot-middleware')(clientCompiler, {
       log: false
     })
-
-    if (ssr) {
-      const serverConfig = this.api
-        .createWebpackChain({ type: 'server' })
-        .toConfig()
-      const serverCompiler = webpack(serverConfig)
-      const updateRenderer = () => {
-        if (clientManifest && serverBundle) {
-          const { createBundleRenderer } = require('vue-server-renderer')
-          renderer = createBundleRenderer(serverBundle, {
-            clientManifest,
-            runInNewContext: false,
-            inject: false,
-            basedir: this.api.resolveCache('dist-server')
-          })
-          log.debug('Updated server renderer')
-        }
-      }
-      clientCompiler.hooks.done.tap('get-bundle-manifest', stats => {
-        if (!stats.hasErrors()) {
-          clientManifest = JSON.parse(
-            devMiddleware.fileSystem.readFileSync(
-              this.api.resolveCache('bundle-manifest/client.json'),
-              'utf8'
-            )
-          )
-          updateRenderer()
-        }
-      })
-
-      const serverMFS = new webpack.MemoryOutputFileSystem()
-      serverCompiler.outputFileSystem = serverMFS
-      serverCompiler.hooks.done.tap('get-bundle-manifest', stats => {
-        if (!stats.hasErrors()) {
-          serverBundle = JSON.parse(
-            serverMFS.readFileSync(
-              this.api.resolveCache('bundle-manifest/server.json'),
-              'utf8'
-            )
-          )
-          updateRenderer()
-        }
-      })
-
-      serverCompiler.watch({}, () => {})
-    }
 
     server.get('/_saber/visit-page', async (req, res) => {
       this.buildRoutesInDevMode.add(req.query.path)
@@ -365,59 +315,35 @@ class VueRenderer {
     server.use(devMiddleware)
     server.use(hotMiddleware)
 
-    if (ssr) {
-      server.get('*', async (req, res) => {
-        if (!renderer) {
-          return res.end(`Please wait for compilation..`)
+    const head = new Proxy(
+      {},
+      {
+        get() {
+          return ''
         }
-        try {
-          const context = { url: req.url, req, res }
-          const markup = await renderer.renderToString(context)
-          const html = `<!DOCTYPE html>${this.api.getDocument(
-            context
-          )}`.replace('<div id="_saber"></div>', markup)
-          res.setHeader('content-type', 'text/html')
-          res.end(html)
-        } catch (error) {
-          log.error(error.stack)
-          res.statusCode = 500
-          if (this.api.mode === 'production') {
-            res.end('Interal server error')
-          } else {
-            res.end(error.stack)
-          }
-        }
-      })
-    } else {
-      const head = new Proxy(
-        {},
-        {
-          get() {
-            return ''
-          }
-        }
-      )
-      const noop = () => ''
-      const renderScripts = () =>
-        `<script src="/_saber/js/client.js" defer></script>`
-      server.get('*', async (req, res) => {
-        this.buildRoutesInDevMode.add(req.url)
-        await this.writeRoutes()
+      }
+    )
+    const noop = () => ''
+    const renderScripts = () =>
+      `<script src="/_saber/js/client.js" defer></script>`
 
-        devMiddleware.waitUntilValid(() => {
-          const context = {
-            url: req.url,
-            head,
-            renderStyles: noop,
-            renderScripts,
-            renderState: noop
-          }
-          const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
-          res.setHeader('content-type', 'text/html')
-          res.end(html)
-        })
+    server.get('*', async (req, res) => {
+      this.buildRoutesInDevMode.add(req.url)
+      await this.writeRoutes()
+
+      devMiddleware.waitUntilValid(() => {
+        const context = {
+          url: req.url,
+          head,
+          renderStyles: noop,
+          renderScripts,
+          renderState: noop
+        }
+        const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+        res.setHeader('content-type', 'text/html')
+        res.end(html)
       })
-    }
+    })
 
     return server.handler
   }

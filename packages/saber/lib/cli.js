@@ -8,21 +8,18 @@ cli
     ignoreOptionDefaultValue: true
   })
   .alias('dev')
-  .option('--ssr', 'Run in SSR mode')
   .option('--port <port>', 'Server port', { default: 3000 })
   .option('--host <host>', 'Server host', { default: '0.0.0' })
   .action((cwd = '.', options) => {
     setNodeEnv('development')
 
-    const { ssr, host, port } = options
+    const { host, port } = options
     delete options.host
     delete options.port
-    delete options.ssr
     return require('..')(Object.assign({ cwd, mode: 'development' }, options), {
       server: {
         host,
-        port,
-        ssr
+        port
       }
     })
       .dev()
