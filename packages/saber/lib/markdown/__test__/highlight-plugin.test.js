@@ -1,9 +1,10 @@
 const Markdown = require('saber-markdown')
-const fenceOptionsPlugin = require('./highlight-plugin')
+const fenceOptionsPlugin = require('../highlight-plugin')
+const createEnv = require('./create-env')
 
 test('main', () => {
   const md = new Markdown()
-  const env = { hoistedTags: [] }
+  const { env } = createEnv()
   md.use(fenceOptionsPlugin)
   const html = md.render(
     `

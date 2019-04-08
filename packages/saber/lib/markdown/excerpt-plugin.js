@@ -10,8 +10,8 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
         return token.type === 'html_block' && hasExcerptMark(token.content)
       })
 
-      if (autoExcerpt && !env.excerpted) {
-        env.excerpted = true
+      if (autoExcerpt && !env.__excerpted && !env.getAttribute('excerpt')) {
+        env.__excerpted = true
         let startIndex = 0
         if (paragraphOnly) {
           for (const [index, token] of tokens.entries()) {
@@ -22,10 +22,9 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
             }
           }
         }
-        env.excerpt = self.render(
-          tokens.slice(startIndex, idx + 1),
-          options,
-          env
+        env.setAttribute(
+          'excerpt',
+          self.render(tokens.slice(startIndex, idx + 1), options, env)
         )
       }
     }
@@ -40,9 +39,16 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
     const [tokens, idx, options, env, self] = args
     const token = tokens[idx]
 
-    if (hasExcerptMark(token.content) && env && !env.excerpted) {
-      env.excerpt = self.render(tokens.slice(0, idx), options, env)
-      env.excerpted = true
+    if (
+      hasExcerptMark(token.content) &&
+      !env.__excerpted &&
+      !env.getAttribute('excerpt')
+    ) {
+      env.setAttribute(
+        'excerpt',
+        self.render(tokens.slice(0, idx), options, env)
+      )
+      env.__excerpted = true
     }
 
     return htmlRule(...args)

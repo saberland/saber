@@ -24,6 +24,8 @@ class Saber {
     this.hooks = {
       // Extend webpack config
       chainWebpack: new SyncHook(['config', 'opts']),
+      // Extend markdown-it config
+      chainMarkdown: new SyncHook(['config']),
       // Before running the build process
       beforeRun: new AsyncSeriesHook(['opts']),
       filterPlugins: new SyncWaterfallHook(['plugins']),
