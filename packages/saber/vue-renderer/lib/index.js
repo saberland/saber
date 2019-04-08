@@ -290,7 +290,7 @@ class VueRenderer {
 
     server.get('/_saber/visit-page', async (req, res) => {
       this.buildRoutesInDevMode.add(req.query.path)
-      if (this.buildRoutesInDevMode.size > 5) {
+      if (this.buildRoutesInDevMode.size > 20) {
         const buildRoutesInDevMode = [...this.buildRoutesInDevMode]
         buildRoutesInDevMode.shift()
         this.buildRoutesInDevMode = new Set(buildRoutesInDevMode)
