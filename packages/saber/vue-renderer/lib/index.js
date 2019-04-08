@@ -121,7 +121,7 @@ class VueRenderer {
     const routes = `
     var beforeEnter = process.env.NODE_ENV === 'development' ? function (to, from, next) {
       fetch('/_saber/visit-page?path=' + to.path)
-      .then(() => next(to.path))
+      // Never call "next"
     } : undefined
 
     export default [
@@ -288,17 +288,23 @@ class VueRenderer {
       log: false
     })
 
-    server.get('/_saber/visit-page', async (req, res) => {
-      this.buildRoutesInDevMode.add(req.query.path)
+    const setLastVisitedPath = async path => {
+      this.buildRoutesInDevMode.add(path)
       if (this.buildRoutesInDevMode.size > 20) {
         const buildRoutesInDevMode = [...this.buildRoutesInDevMode]
         buildRoutesInDevMode.shift()
         this.buildRoutesInDevMode = new Set(buildRoutesInDevMode)
       }
+
       await this.writeRoutes()
       devMiddleware.waitUntilValid(() => {
-        res.end('{}')
+        hotMiddleware.publish({ action: 'router:push', path })
       })
+    }
+
+    server.get('/_saber/visit-page', async (req, res) => {
+      await setLastVisitedPath(req.query.path)
+      res.end('')
     })
 
     server.use(
@@ -328,8 +334,12 @@ class VueRenderer {
       `<script src="/_saber/js/client.js" defer></script>`
 
     server.get('*', async (req, res) => {
-      this.buildRoutesInDevMode.add(req.url)
-      await this.writeRoutes()
+      if (!req.headers.accept.includes('text/html')) {
+        res.statusCode = 404
+        return res.end('404')
+      }
+
+      await setLastVisitedPath(req.url)
 
       devMiddleware.waitUntilValid(() => {
         const context = {
