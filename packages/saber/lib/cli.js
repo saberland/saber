@@ -82,3 +82,10 @@ function setNodeEnv(env) {
     process.env.NODE_ENV = env
   }
 }
+
+process.on('SIGINT', () => {
+  const { log } = require('saber-log')
+  log.log('')
+  log.info(`See you later, master!`) // <-- Saber says
+  process.exit()
+})
