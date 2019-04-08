@@ -1329,16 +1329,16 @@ function createMatcher (
   var pathMap = ref.pathMap;
   var nameMap = ref.nameMap;
 
-  // @modified: added `reset` option
-  function addRoutes (routes, reset) {
-    if (reset) {
-      var ref = createRouteMap(routes);
-      pathList = ref.pathList;
-      pathMap = ref.pathMap;
-      nameMap = ref.nameMap;
-    } else {
-      createRouteMap(routes, pathList, pathMap, nameMap);
-    }
+  function addRoutes (routes) {
+    createRouteMap(routes, pathList, pathMap, nameMap);
+  }
+
+  // @modified
+  function clearRoutes() {
+    var ref = createRouteMap([]);
+    pathList = ref.pathList;
+    pathMap = ref.pathMap;
+    nameMap = ref.nameMap;
   }
 
   function match (
@@ -1489,7 +1489,9 @@ function createMatcher (
 
   return {
     match: match,
-    addRoutes: addRoutes
+    addRoutes: addRoutes,
+    // @modified
+    clearRoutes: clearRoutes
   }
 }
 
@@ -2594,9 +2596,8 @@ VueRouter.prototype.resolve = function resolve (
   }
 };
 
-// @modified: added `reset` options
-VueRouter.prototype.addRoutes = function addRoutes (routes, reset) {
-  this.matcher.addRoutes(routes, reset);
+VueRouter.prototype.addRoutes = function addRoutes (routes) {
+  this.matcher.addRoutes(routes);
   if (this.history.current !== START) {
     this.history.transitionTo(this.history.getCurrentLocation());
   }

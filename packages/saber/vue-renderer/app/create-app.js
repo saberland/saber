@@ -15,7 +15,9 @@ Vue.use(Router)
 
 // Make `<RouterLink>` prefetch-able
 Vue.use(RoutePrefetch, {
-  componentName: 'SaberLink'
+  componentName: 'SaberLink',
+  // Only enable prefetching in production mode
+  prefetch: process.env.NODE_ENV === 'production'
 })
 
 Vue.component(Layout.name, Layout)
@@ -53,7 +55,10 @@ export default () => {
 
   if (module.hot) {
     module.hot.accept('#cache/routes', () => {
-      router.addRoutes(require('#cache/routes').default, true)
+      router.matcher.clearRoutes()
+      const routes = require('#cache/routes').default
+      router.options.routes = routes
+      router.addRoutes(routes)
     })
   }
 
@@ -77,11 +82,12 @@ export default () => {
           }
         }
         if (process.env.NODE_ENV !== 'production') {
-          throw new Error(
+          console.error(
             `Cannot resolve page ${relativePath} from ${
               this.$route.meta.__relative
-            }`
+            }, are you sure ${relativePath} exists?`
           )
+          return '/404.html'
         }
       }
     }

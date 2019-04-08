@@ -1,9 +1,5 @@
-import client from 'webpack-hot-middleware/client'
+import 'webpack-hot-middleware/client'
 
-export const init = ({ router }) => {
-  client.subscribe(obj => {
-    if (obj.action === 'router:push') {
-      router.push(obj.path)
-    }
-  })
+export const init = () => {
+  // nothing to do for now...
 }

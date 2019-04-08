@@ -120,8 +120,8 @@ class VueRenderer {
     const pages = [...this.api.pages.values()]
     const routes = `
     var beforeEnter = process.env.NODE_ENV === 'development' ? function (to, from, next) {
-      fetch('/__visit_page__?path=' + to.path)
-      return next(false)
+      fetch('/_saber/visit-page?path=' + to.path)
+      .then(() => next(to.path))
     } : undefined
 
     export default [
@@ -338,7 +338,7 @@ class VueRenderer {
       serverCompiler.watch({}, () => {})
     }
 
-    server.get('/__visit_page__', async (req, res) => {
+    server.get('/_saber/visit-page', async (req, res) => {
       this.buildRoutesInDevMode.add(req.query.path)
       if (this.buildRoutesInDevMode.size > 5) {
         const buildRoutesInDevMode = [...this.buildRoutesInDevMode]
@@ -348,7 +348,6 @@ class VueRenderer {
       await this.writeRoutes()
       devMiddleware.waitUntilValid(() => {
         res.end('{}')
-        hotMiddleware.publish({ action: 'router:push', path: req.query.path })
       })
     })
 
