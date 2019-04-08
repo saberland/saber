@@ -1,4 +1,5 @@
 const path = require('path')
+const url = require('url')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
 
@@ -339,7 +340,7 @@ class VueRenderer {
         return res.end('404')
       }
 
-      await setLastVisitedPath(req.url)
+      await setLastVisitedPath(url.parse(req.url).pathname)
 
       devMiddleware.waitUntilValid(() => {
         const context = {
