@@ -7,7 +7,9 @@ const ID = 'vue-renderer'
 class VueRenderer {
   constructor(api) {
     this.api = api
-    this.visitedRoutes = new Set()
+    // In dev mode we only build homepage by default
+    // Other pages will be built when visited
+    this.buildRoutesInDevMode = new Set(['/'])
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
@@ -143,13 +145,13 @@ class VueRenderer {
                 __relative: '${relativePath}',
                 __pageId: '${page.internal.id}'
               },
-              beforeEnter: ${this.visitedRoutes.has(
+              beforeEnter: ${this.buildRoutesInDevMode.has(
                 page.attributes.permalink
               )} ? undefined : beforeEnter,
               component: function() {
                 ${
                   this.api.mode === 'development' &&
-                  !this.visitedRoutes.has(page.attributes.permalink)
+                  !this.buildRoutesInDevMode.has(page.attributes.permalink)
                     ? 'return {render: function(){}}'
                     : `
                 return import(${chunkNameComment}${JSON.stringify(
@@ -337,11 +339,11 @@ class VueRenderer {
     }
 
     server.get('/__visit_page__', async (req, res) => {
-      this.visitedRoutes.add(req.query.path)
-      if (this.visitedRoutes.size > 5) {
-        const visitedRoutes = [...this.visitedRoutes]
-        visitedRoutes.shift()
-        this.visitedRoutes = new Set(visitedRoutes)
+      this.buildRoutesInDevMode.add(req.query.path)
+      if (this.buildRoutesInDevMode.size > 5) {
+        const buildRoutesInDevMode = [...this.buildRoutesInDevMode]
+        buildRoutesInDevMode.shift()
+        this.buildRoutesInDevMode = new Set(buildRoutesInDevMode)
       }
       await this.writeRoutes()
       devMiddleware.waitUntilValid(() => {
@@ -400,7 +402,7 @@ class VueRenderer {
       const renderScripts = () =>
         `<script src="/_saber/js/client.js" defer></script>`
       server.get('*', async (req, res) => {
-        this.visitedRoutes.add(req.url)
+        this.buildRoutesInDevMode.add(req.url)
         await this.writeRoutes()
 
         devMiddleware.waitUntilValid(() => {
