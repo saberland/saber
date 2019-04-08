@@ -246,9 +246,7 @@ class Saber {
   async dev() {
     await this.run({ watch: true })
 
-    const server = http.createServer(
-      this.renderer.getRequestHandler({ ssr: this.config.server.ssr })
-    )
+    const server = http.createServer(this.renderer.getRequestHandler())
 
     server.listen(this.config.server.port, this.config.server.host)
   }

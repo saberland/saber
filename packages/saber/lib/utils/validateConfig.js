@@ -50,8 +50,7 @@ module.exports = (config, { mode }) => {
   const server = struct(
     {
       host: 'string?',
-      port: 'number?',
-      ssr: 'boolean?'
+      port: 'number?'
     },
     {
       host: '0.0.0.0',

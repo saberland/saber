@@ -15,7 +15,9 @@ Vue.use(Router)
 
 // Make `<RouterLink>` prefetch-able
 Vue.use(RoutePrefetch, {
-  componentName: 'SaberLink'
+  componentName: 'SaberLink',
+  // Only enable prefetching in production mode
+  prefetch: process.env.NODE_ENV === 'production'
 })
 
 Vue.component(Layout.name, Layout)
@@ -34,7 +36,7 @@ Vue.mixin({
 })
 
 export default () => {
-  const router = new Router({
+  const routerOptions = {
     mode: 'history',
     routes,
     scrollBehavior(to, from, savedPosition) {
@@ -48,7 +50,17 @@ export default () => {
       }
       return { x: 0, y: 0 }
     }
-  })
+  }
+  const router = new Router(routerOptions)
+
+  if (module.hot) {
+    module.hot.accept('#cache/routes', () => {
+      router.matcher.clearRoutes()
+      const routes = require('#cache/routes').default
+      router.options.routes = routes
+      router.addRoutes(routes)
+    })
+  }
 
   const rootOptions = {
     head: {},
@@ -70,11 +82,12 @@ export default () => {
           }
         }
         if (process.env.NODE_ENV !== 'production') {
-          throw new Error(
+          console.error(
             `Cannot resolve page ${relativePath} from ${
               this.$route.meta.__relative
-            }`
+            }, are you sure ${relativePath} exists?`
           )
+          return '/404.html'
         }
       }
     }
@@ -94,7 +107,7 @@ export default () => {
 
 // Reloading browser when routes or layouts change
 if (module.hot) {
-  module.hot.accept(['#cache/routes', '#cache/layouts'], () => {
+  module.hot.accept(['#cache/layouts'], () => {
     location.reload()
   })
 }
