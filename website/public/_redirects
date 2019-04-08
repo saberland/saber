@@ -1,0 +1,5 @@
+# Redirect domain aliases to primary domain
+https://saberjs.org/* https://saber.land/:splat 301!
+
+# Optional: Redirect default Netlify subdomain to primary domain
+https://saber.netlify.com/* https://saber.land/:splat 301!
