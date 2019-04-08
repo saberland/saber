@@ -12,7 +12,7 @@ exports.apply = (api, options = {}) => {
   options = Object.assign(
     {
       limit: 30,
-      generator: 'Saber.js',
+      generator: 'Saber',
       copyright: 'All rights reserved'
     },
     options

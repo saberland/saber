@@ -1,7 +1,7 @@
 <br><br>
 
 <p align="center">
-<a href="https://saberjs.org"><img width="140" src="./website/images/logo.png" alt="saber logo"></a>
+<a href="https://saber.land"><img width="140" src="./website/images/logo.png" alt="saber logo"></a>
 </p>
 <br>
 
@@ -25,7 +25,7 @@ yarn create blog my-blog
 
 Then run `npm run dev` or `yarn dev` in the created project and you're done!
 
-Check out the [website](https://saberjs.org) for more details.
+Check out the [website](https://saber.land) for more details.
 
 ## Resources
 

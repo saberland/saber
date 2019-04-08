@@ -13,7 +13,7 @@ themeConfig:
     - text: About
       link: /about.html
   social:
-    twitter: _saberjs
+    twitter: saber_land
     github: egoist
     rss: true
 

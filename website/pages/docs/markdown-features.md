@@ -174,7 +174,7 @@ Input:
 ````markdown
 ```yaml {highlightLines:[2, '7-8']}
 siteConfig:
-  title: Saber.js
+  title: Saber
   description: A framework for building modern static websites.
 
 theme: ./src
@@ -188,7 +188,7 @@ Output:
 
 ```yaml {highlightLines:[2, '7-8']}
 siteConfig:
-  title: Saber.js
+  title: Saber
   description: A framework for building modern static websites.
 
 theme: ./src

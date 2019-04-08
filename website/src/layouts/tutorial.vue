@@ -25,7 +25,7 @@ export default {
 
   head() {
     return {
-      title: `${this.page.attributes.title} - Saber.js`
+      title: `${this.page.attributes.title} - Saber`
     }
   },
 
