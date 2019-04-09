@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "saber",
-    "saber": "saber saber"
+    "build": "saber build"
   },
   "devDependencies": {
     "saber": "latest",
