@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/egoist/saber/compare/saber@0.4.0...saber@0.4.1) (2019-04-09)
+
+### Bug Fixes
+
+- disable css sourcemaps ([cffab6f](https://github.com/egoist/saber/commit/cffab6f))
+
 # [0.4.0](https://github.com/egoist/saber/compare/saber@0.3.7...saber@0.4.0) (2019-04-09)
 
 ### Bug Fixes
