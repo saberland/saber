@@ -63,13 +63,15 @@ module.exports = (config, { dev }) => {
       publicUrl: 'string?',
       extractCSS: 'boolean?',
       loaderOptions: 'object?',
-      cssSourceMap: 'boolean?'
+      cssSourceMap: 'boolean?',
+      lazy: 'boolean?'
     },
     {
       publicUrl: '/',
       extractCSS: false,
       loaderOptions: {},
-      cssSourceMap: !dev
+      cssSourceMap: !dev,
+      lazy: false
     }
   )
 

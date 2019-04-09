@@ -81,6 +81,10 @@ class Saber {
     return Boolean(this.opts.dev)
   }
 
+  get lazy() {
+    return this.dev && this.config.build.lazy
+  }
+
   prepare() {
     // Load package.json data
     this.pkg = configLoader.load({

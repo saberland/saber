@@ -51,7 +51,7 @@ module.exports = class PrintStatusPlugin {
     compiler.hooks.done.tap('print-status', stats => {
       require('../utils/spinner').stop() // Just in case
 
-      const logFiles = () => {
+      const logFiles = stateful => {
         stats
           .toString({
             colors: true,
@@ -64,14 +64,20 @@ module.exports = class PrintStatusPlugin {
             hash: false
           })
           .split('\n')
-          .forEach(line => log.info(line))
+          .forEach(line => {
+            if (stateful) {
+              log.info(line)
+            } else {
+              log.log(line)
+            }
+          })
       }
 
       if (stats.hasErrors() || stats.hasWarnings()) {
         logFiles()
       } else {
         if (log.logLevel > 3) {
-          logFiles()
+          logFiles(true)
         }
         log.success(
           `Compiled ${this.type} successfully in ${prettyTime(

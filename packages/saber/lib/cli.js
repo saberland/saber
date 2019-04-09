@@ -8,18 +8,23 @@ cli
     ignoreOptionDefaultValue: true
   })
   .alias('dev')
+  .option('--lazy', 'Enable lazy page compilation')
   .option('--port <port>', 'Server port', { default: 3000 })
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
   .action((cwd = '.', options) => {
     setNodeEnv('development')
 
-    const { host, port } = options
+    const { host, port, lazy } = options
     delete options.host
     delete options.port
+    delete options.lazy
     return require('..')(Object.assign({ cwd, dev: true }, options), {
       server: {
         host,
         port
+      },
+      build: {
+        lazy
       }
     })
       .serve()

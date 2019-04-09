@@ -78,7 +78,8 @@ module.exports = (api, { type }) => {
       'process.client': type === 'client',
       'process.server': type === 'server',
       __DEV__: api.dev,
-      __PUBLIC_URL__: JSON.stringify(api.config.build.publicUrl)
+      __PUBLIC_URL__: JSON.stringify(api.config.build.publicUrl),
+      __LAZY__: api.config.build.lazy && api.dev
     }
   ])
 

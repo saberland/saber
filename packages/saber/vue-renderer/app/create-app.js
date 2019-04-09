@@ -53,6 +53,24 @@ export default () => {
   }
   const router = new Router(routerOptions)
 
+  if (__LAZY__) {
+    let hasPrevPage = false
+    const visitedRoutes = {}
+
+    router.beforeEach((to, from, next) => {
+      if (!hasPrevPage || visitedRoutes[to.path]) return next()
+
+      next(false)
+
+      visitedRoutes[to.path] = true
+      fetch('/_saber/visit-page?route=' + to.path)
+    })
+
+    router.afterEach(() => {
+      hasPrevPage = true
+    })
+  }
+
   if (module.hot) {
     module.hot.accept('#cache/routes', () => {
       router.matcher.clearRoutes()

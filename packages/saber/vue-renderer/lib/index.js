@@ -1,4 +1,5 @@
 const path = require('path')
+const { EventEmitter } = require('events')
 const url = require('url')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
@@ -8,9 +9,9 @@ const ID = 'vue-renderer'
 class VueRenderer {
   constructor(api) {
     this.api = api
-    // In dev mode we only build homepage by default
-    // Other pages will be built when visited
-    this.buildRoutesInDevMode = new Set(['/'])
+    // In dev mode pages will be built when visited
+    this.visitedRoutes = new Set()
+    this.builtRoutes = new Set()
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
@@ -118,13 +119,13 @@ class VueRenderer {
   }
 
   async writeRoutes() {
+    if (this._writingRoutes) {
+      return
+    }
+
+    this._writingRoutes = true
     const pages = [...this.api.pages.values()]
     const routes = `
-    var beforeEnter = process.env.NODE_ENV === 'development' ? function (to, from, next) {
-      fetch('/_saber/visit-page?path=' + to.path)
-      // Never call "next"
-    } : undefined
-
     export default [
       ${pages
         .map(page => {
@@ -146,14 +147,11 @@ class VueRenderer {
                 __relative: '${relativePath}',
                 __pageId: '${page.internal.id}'
               },
-              beforeEnter: ${this.buildRoutesInDevMode.has(
-                page.attributes.permalink
-              )} ? undefined : beforeEnter,
               component: function() {
                 ${
-                  this.api.dev &&
-                  !this.buildRoutesInDevMode.has(page.attributes.permalink)
-                    ? 'return {render: function(){}}'
+                  this.api.lazy &&
+                  !this.visitedRoutes.has(page.attributes.permalink)
+                    ? 'return Promise.resolve({render: function(){}})'
                     : `
                 return import(${chunkNameComment}${JSON.stringify(
                         componentPath
@@ -180,6 +178,8 @@ class VueRenderer {
       this.prevRoutes = routes
       await fs.outputFile(this.api.resolveCache('routes.js'), routes, 'utf8')
     }
+
+    this._writingRoutes = false
   }
 
   async build() {
@@ -289,23 +289,32 @@ class VueRenderer {
       log: false
     })
 
-    const setLastVisitedPath = async path => {
-      this.buildRoutesInDevMode.add(path)
-      if (this.buildRoutesInDevMode.size > 20) {
-        const buildRoutesInDevMode = [...this.buildRoutesInDevMode]
-        buildRoutesInDevMode.shift()
-        this.buildRoutesInDevMode = new Set(buildRoutesInDevMode)
-      }
-
-      await this.writeRoutes()
-      devMiddleware.waitUntilValid(() => {
-        hotMiddleware.publish({ action: 'router:push', path })
-      })
-    }
+    const event = new EventEmitter()
+    clientCompiler.hooks.watchRun.tap('saber-serve', () => {
+      event.emit('rebuild')
+    })
+    clientCompiler.hooks.done.tap('saber-serve', stats => {
+      event.emit('done', stats.hasErrors())
+    })
 
     server.get('/_saber/visit-page', async (req, res) => {
-      await setLastVisitedPath(req.query.path)
-      res.end('')
+      log.info(`Navigating to ${req.query.route}`)
+      res.end()
+
+      if (this.builtRoutes.has(req.query.route)) {
+        hotMiddleware.publish({ action: 'router:push', route: req.query.route })
+      } else {
+        event.once('done', error => {
+          this.builtRoutes.add(req.query.route)
+          hotMiddleware.publish({
+            action: 'router:push',
+            route: req.query.route,
+            error
+          })
+        })
+        this.visitedRoutes.add(req.query.route)
+        await this.writeRoutes()
+      }
     })
 
     server.use(
@@ -340,9 +349,7 @@ class VueRenderer {
         return res.end('404')
       }
 
-      await setLastVisitedPath(url.parse(req.url).pathname)
-
-      devMiddleware.waitUntilValid(() => {
+      const render = () => {
         const context = {
           url: req.url,
           head,
@@ -353,7 +360,24 @@ class VueRenderer {
         const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
         res.setHeader('content-type', 'text/html')
         res.end(html)
-      })
+      }
+
+      if (!this.api.lazy) {
+        return render()
+      }
+
+      const pathname = decodeURI(url.parse(req.url).pathname)
+
+      if (this.builtRoutes.has(pathname)) {
+        render()
+      } else {
+        event.once('done', () => {
+          this.builtRoutes.add(pathname)
+          render()
+        })
+        this.visitedRoutes.add(pathname)
+        await this.writeRoutes()
+      }
     })
 
     return server.handler
