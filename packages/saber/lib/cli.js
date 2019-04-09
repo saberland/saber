@@ -27,31 +27,25 @@ cli
   })
 
 cli
-  .command('build [app]', 'Compile the application')
-  .action((cwd = '.', options) => {
-    setNodeEnv('production')
-
-    return require('..')(Object.assign({ cwd, dev: false }, options))
-      .build()
-      .catch(handleError)
-  })
-
-cli
   .command(
-    'generate [app]',
+    'build [app]',
     'Compile the application and generate static HTML files'
   )
-  .option(
-    '--skip-build',
-    'Skip compiling the application if you already ran `saber build`'
-  )
+  .alias('generate')
+  .option('--skip-compilation', 'Skip the webpack compilation process')
   .action((cwd = '.', options) => {
     setNodeEnv('production')
 
-    const { skipBuild } = options
-    delete options.skipBuild
+    if (cli.matchedCommandName === 'generate') {
+      require('saber-log').log.warn(
+        `The "generate" command is now deprecated, please use "build" instead.`
+      )
+    }
+
+    const { skipCompilation } = options
+    delete options.skipCompilation
     return require('..')(Object.assign({ cwd, dev: false }, options))
-      .generate({ skipBuild })
+      .build({ skipCompilation })
       .catch(handleError)
   })
 

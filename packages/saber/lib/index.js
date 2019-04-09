@@ -227,17 +227,10 @@ class Saber {
     await this.hooks.emitRoutes.promise()
   }
 
-  // Build your app
-  async build() {
+  // Build app in production mode
+  async build({ skipCompilation }) {
     await this.run()
-    await this.renderer.build()
-    await this.hooks.afterBuild.promise()
-  }
-
-  // Build your app and generate static HTML files for each path
-  async generate({ skipBuild } = {}) {
-    await this.run()
-    if (!skipBuild) {
+    if (!skipCompilation) {
       await this.renderer.build()
       await this.hooks.afterBuild.promise()
     }
