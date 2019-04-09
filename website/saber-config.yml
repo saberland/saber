@@ -9,6 +9,12 @@ markdown:
   plugins:
   - resolve: markdown-it-footnote
 
+build:
+  lazy: true
+
+permalinks:
+  post: /blog/:slug.html
+
 themeConfig:
   sidebar:
   - title: Basics
@@ -48,3 +54,4 @@ plugins:
   - resolve: ../packages/saber-plugin-google-analytics
     options:
       trackId: UA-54857209-16
+  - resolve: ../packages/saber-plugin-query-posts

@@ -35,7 +35,6 @@
 
 <script>
 export const attributes = {
-  title: 'Saber',
   layout: 'index'
 }
 

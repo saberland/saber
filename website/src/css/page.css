@@ -21,9 +21,8 @@
   line-height: 1.6;
   margin: 20px 0;
 
-  & >p:first-child {
+  & >*:first-child {
     margin-top: 0;
-    font-size: 1.2rem;
   }
 
   & h2,

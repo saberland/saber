@@ -4,8 +4,9 @@
     <Sidebar class="home-sidebar" :items="$themeConfig.sidebar"/>
     <div class="content">
       <main class="main">
-      <slot name="default" />
-    </main>
+        <slot name="default"/>
+        <PostList :posts="page.posts" />
+      </main>
     </div>
   </div>
 </template>
@@ -13,19 +14,22 @@
 <script>
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
+import PostList from '../components/PostList.vue'
 
 export default {
   props: ['page'],
 
   head() {
+    const { title } = this.page.attributes
     return {
-      title: this.page.attributes.title
+      title: title ? `${title} - ${this.$siteConfig.title}` : this.$siteConfig.title
     }
   },
 
   components: {
     Header,
-    Sidebar
+    Sidebar,
+    PostList
   }
 }
 </script>

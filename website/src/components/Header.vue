@@ -22,6 +22,9 @@
           <saber-link to="/tutorial/tutorial.html">Tutorial</saber-link>
         </li>
         <li class="menu-item">
+          <saber-link to="/blog/">Blog</saber-link>
+        </li>
+        <li class="menu-item">
           <a href="https://github.com/egoist/saber" target="_blank">GitHub</a>
         </li>
       </ul>

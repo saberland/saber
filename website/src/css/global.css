@@ -8,7 +8,7 @@
   --sidebar-bg: white;
   --gray: #666;
   --dark: #000;
-  --text-color: #4e5b6a;
+  --text-color: #333;
   --text-light-color: #73849a;
 }
 
@@ -89,4 +89,11 @@ hr.footnotes-sep {
 
 .footnote-item >*:last-child {
   margin-bottom: 0;
+}
+
+.saber-highlight {
+  font-size: .875rem;
+  background-color: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 0;
 }

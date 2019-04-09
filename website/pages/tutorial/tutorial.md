@@ -232,7 +232,7 @@ yarn add saber-plugin-query-posts
 
 Create a `saber-config.yml` to use this plugin:
 
-```yml
+```yaml
 plugins:
   - resolve: saber-plugin-query-posts
 ```
