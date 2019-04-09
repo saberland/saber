@@ -7,7 +7,7 @@ const chars = {
   error: colors.red('error')
 }
 
-const isNumber = n => typeof n === 'number'
+const defined = n => typeof n !== 'undefined'
 
 class Log {
   constructor() {
@@ -23,12 +23,13 @@ class Log {
   // 2: error and wanring
   // 1: error
   // 0: nothing
-  logLevel() {
-    return isNumber(this.options.logLevel)
+  get logLevel() {
+    const logLevel = defined(this.options.logLevel)
       ? this.options.logLevel
-      : isNumber(process.env.SABER_LOG_LEVEL)
+      : defined(process.env.SABER_LOG_LEVEL)
       ? process.env.SABER_LOG_LEVEL
       : 3
+    return Number(logLevel)
   }
 
   log(...args) {
