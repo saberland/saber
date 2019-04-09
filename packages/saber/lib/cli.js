@@ -9,7 +9,7 @@ cli
   })
   .alias('dev')
   .option('--port <port>', 'Server port', { default: 3000 })
-  .option('--host <host>', 'Server host', { default: '0.0.0' })
+  .option('--host <host>', 'Server host', { default: '0.0.0.0' })
   .action((cwd = '.', options) => {
     setNodeEnv('development')
 
