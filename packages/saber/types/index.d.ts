@@ -16,6 +16,10 @@ declare module 'saber' {
        * If your website is located at a sub directory, e.g. `https://example.com/blog`, you should set this option to `/blog/` (trailing slash is optional).
        */
       publicUrl?: string
+      extractCSS?: boolean
+      loaderOptions?: any
+      cssSourceMap?: boolean
+      lazy?: boolean
     }
 
     plugins?: Plugin[]
