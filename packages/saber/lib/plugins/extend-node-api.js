@@ -34,7 +34,7 @@ exports.apply = api => {
               const result = hookHandler.call(api, ...args)
 
               if (hookHandler.name !== '__noopHandler__') {
-                log.info(`${hookName} ${colors.dim(`(${nodeApiId})`)}`)
+                log.verbose(() => `${hookName} ${colors.dim(`(${nodeApiId})`)}`)
               }
 
               if (tapType === 'tapPromise') {

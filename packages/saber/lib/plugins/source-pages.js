@@ -1,7 +1,7 @@
 const path = require('path')
 const { fs, glob } = require('saber-utils')
 const chokidar = require('chokidar')
-const { log } = require('saber-log')
+const { log, colors } = require('saber-log')
 const hash = require('hash-sum')
 
 const ID = 'builtin:source-pages'
@@ -30,7 +30,7 @@ exports.apply = api => {
             file.relative = file.path
             file.absolute = path.join(pagesDir, file.relative)
             file.content = await fs.readFile(file.absolute, 'utf8')
-            log.debug(`Found page`, file.absolute)
+            log.verbose(`Found page`, colors.dim(file.absolute))
             return file
           })
       )
@@ -58,7 +58,7 @@ exports.apply = api => {
     // This is triggered by all file actions: change, add, remove
     api.hooks.emitPages.tapPromise('pages', async () => {
       const pages = [...api.pages.values()]
-      log.debug('Emitting pages')
+      log.verbose('Emitting pages')
       // TODO: maybe write pages with limited concurrency?
       await Promise.all(
         pages.map(async page => {
@@ -81,7 +81,7 @@ exports.apply = api => {
               return
             }
           }
-          log.debug(`Emitting page ${outPath}`)
+          log.verbose(`Emitting page ${outPath}`)
           await fs.outputFile(outPath, newContent, 'utf8')
           page.internal.saved = true
         })

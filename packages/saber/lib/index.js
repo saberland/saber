@@ -55,18 +55,13 @@ class Saber {
 
     for (const hook of Object.keys(this.hooks)) {
       const ignoreNames = ['theme-node-api', 'user-node-api']
-      const debugHooks = ['onCreatePage']
       this.hooks[hook].intercept({
         register(tapInfo) {
           const { fn, name } = tapInfo
           tapInfo.fn = (...args) => {
             if (!ignoreNames.includes(name)) {
               const msg = `${hook} ${colors.dim(`(${name})`)}`
-              if (debugHooks.includes(hook)) {
-                log.debug(msg)
-              } else {
-                log.info(msg)
-              }
+              log.verbose(msg)
             }
             return fn(...args)
           }
@@ -75,8 +70,8 @@ class Saber {
       })
     }
 
-    if (opts.debug) {
-      process.env.SABER_DEBUG = true
+    if (opts.verbose) {
+      process.env.SABER_LOG_LEVEL = 4
     }
 
     this.prepare()
@@ -102,6 +97,14 @@ class Saber {
 
     this.setConfig(config, configPath)
 
+    if (this.configPath) {
+      log.info(
+        `Using config file: ${colors.dim(
+          path.relative(process.cwd(), configPath)
+        )}`
+      )
+    }
+
     this.RendererClass = this.config.renderer
       ? resolvePackage(this.config.renderer, {
           cwd: this.configDir,
@@ -124,18 +127,22 @@ class Saber {
           this.theme = distDir
         }
       }
+      log.info(`Using theme: ${colors.dim(this.config.theme)}`)
+      log.verbose(() => `Theme directory: ${colors.dim(this.theme)}`)
     } else {
       this.theme = this.RendererClass.defaultTheme
     }
-    log.info(`Using theme: ${this.theme}`)
 
     // Load plugins
-    for (const plugin of this.getPlugins()) {
+    const plugins = this.getPlugins()
+    log.info(`Using ${plugins.length} plugins`)
+    for (const plugin of plugins) {
       plugin.plugin.apply(this, plugin.options)
-      log.debug(
-        `Using plugin "${colors.bold(plugin.plugin.name)}" ${colors.dim(
-          plugin.resolve
-        )}`
+      log.verbose(
+        () =>
+          `Using plugin "${colors.bold(plugin.plugin.name)}" ${colors.dim(
+            plugin.resolve
+          )}`
       )
     }
 

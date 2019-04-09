@@ -52,8 +52,8 @@ module.exports = class PrintStatusPlugin {
       require('../utils/spinner').stop() // Just in case
 
       const logFiles = () => {
-        console.log(
-          stats.toString({
+        stats
+          .toString({
             colors: true,
             chunks: false,
             modules: false,
@@ -63,13 +63,14 @@ module.exports = class PrintStatusPlugin {
             timings: false,
             hash: false
           })
-        )
+          .split('\n')
+          .forEach(line => log.info(line))
       }
 
       if (stats.hasErrors() || stats.hasWarnings()) {
         logFiles()
       } else {
-        if (log.isDebug) {
+        if (log.logLevel > 3) {
           logFiles()
         }
         log.success(

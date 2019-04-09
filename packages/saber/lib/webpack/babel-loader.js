@@ -33,9 +33,9 @@ module.exports = babelLoader.custom(babel => {
         for (const file of [cfg.babelrc, cfg.config]) {
           if (file && !configs.has(file)) {
             configs.add(file)
-            if (log.isDebug) {
+            if (log.logLevel > 3) {
               spinner.stop()
-              log.debug(`Applying Babel config file ${file}`)
+              log.verbose(`Applying Babel config file ${file}`)
             }
           }
         }

@@ -57,7 +57,7 @@ cli
     return require('./serve')(Object.assign({ cwd }, options))
   })
 
-cli.option('--debug', 'Show debug logs')
+cli.option('-V, --verbose', 'Output verbose logs')
 cli.option('--no-progress', 'Disable progress bar')
 
 cli.version(require('../package').version)

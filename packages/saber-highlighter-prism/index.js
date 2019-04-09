@@ -16,7 +16,7 @@ module.exports = (code, lang) => {
   const grammer = Prism.languages[lang]
 
   if (!grammer) {
-    log.debug(`Prism doesn't support the language "${lang}"`)
+    log.warn(`Prism doesn't support the language "${lang}"`)
   }
 
   return Prism.highlight(code, grammer || {}, lang)

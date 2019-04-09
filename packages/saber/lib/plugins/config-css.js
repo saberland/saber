@@ -86,10 +86,12 @@ exports.apply = api => {
               {
                 sourceMap,
                 onConfigFile(configFile, resourcePath) {
-                  if (log.isDebug) {
+                  if (log.logLevel > 3) {
                     spinner.stop()
-                    log.debug(`Applying PostCSS config file ${configFile} to:`)
-                    log.debug(colors.dim(resourcePath))
+                    log.verbose(
+                      `Applying PostCSS config file ${configFile} to:`
+                    )
+                    log.verbose(colors.dim(resourcePath))
                   }
                 }
               },
