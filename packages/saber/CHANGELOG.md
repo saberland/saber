@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/egoist/saber/compare/saber@0.3.7...saber@0.4.0) (2019-04-09)
+
+### Bug Fixes
+
+- host name ([cc6edb3](https://github.com/egoist/saber/commit/cc6edb3))
+- lazy page compilation ([163e3e6](https://github.com/egoist/saber/commit/163e3e6))
+- transform renderer app ([5a0d53d](https://github.com/egoist/saber/commit/5a0d53d))
+- update types ([41c774a](https://github.com/egoist/saber/commit/41c774a))
+- use the pathname only ([34316d2](https://github.com/egoist/saber/commit/34316d2))
+- **dependency:** update joycon ([cb55e1e](https://github.com/egoist/saber/commit/cb55e1e))
+
+### Features
+
+- add chainMarkdown hook ([9891c0a](https://github.com/egoist/saber/commit/9891c0a))
+- build page on demand ([#50](https://github.com/egoist/saber/issues/50)) ([9acc0ea](https://github.com/egoist/saber/commit/9acc0ea))
+- deprecate saber generate in favor of saber build ([22270f8](https://github.com/egoist/saber/commit/22270f8))
+- display a message on SIGINT ([0c217b0](https://github.com/egoist/saber/commit/0c217b0))
+- output fewer logs ([d3a68ea](https://github.com/egoist/saber/commit/d3a68ea))
+- watch and reload saber-node.js again ([e624178](https://github.com/egoist/saber/commit/e624178))
+
 ## [0.3.7](https://github.com/egoist/saber/compare/saber@0.3.6...saber@0.3.7) (2019-04-05)
 
 ### Bug Fixes

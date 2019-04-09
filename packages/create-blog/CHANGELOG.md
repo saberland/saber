@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/egoist/saber/compare/create-blog@0.1.10...create-blog@0.2.0) (2019-04-09)
+
+### Bug Fixes
+
+- **create-blog:** update npm scripts ([7e364f6](https://github.com/egoist/saber/commit/7e364f6))
+
 ## [0.1.9](https://github.com/egoist/saber/compare/create-blog@0.1.8...create-blog@0.1.9) (2019-03-31)
 
 ### Bug Fixes

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.0.7...saber-plugin-query-posts@0.1.0) (2019-04-09)
+
+### Bug Fixes
+
+- **query-posts:** slugify tag name ([5d1b378](https://github.com/egoist/saber/commit/5d1b378))
+
+### Features
+
+- support categories ([0bb9dbb](https://github.com/egoist/saber/commit/0bb9dbb))
+- **query-posts:** allow to customize the permalink template for category and tag pages ([12d5546](https://github.com/egoist/saber/commit/12d5546))
+
 ## [0.0.7](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.0.6...saber-plugin-query-posts@0.0.7) (2019-03-31)
 
 ### Bug Fixes
