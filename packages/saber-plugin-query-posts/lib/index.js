@@ -12,11 +12,23 @@ exports.apply = (api, options = {}) => {
       categoriesMap: options.categoriesMap,
       paginationOptions: {
         perPage: options.perPage || 30
-      }
+      },
+      permalinks: Object.assign(
+        {
+          category: '/categories/:name',
+          tag: '/tags/:name'
+        },
+        options.permalinks
+      )
     })
   })
 
-  function injectPosts({ tagsMap, paginationOptions, categoriesMap }) {
+  function injectPosts({
+    tagsMap,
+    paginationOptions,
+    categoriesMap,
+    permalinks
+  }) {
     const allPosts = new Set()
     const injectPostsToPages = new Set()
     const allTagPosts = new Map()
@@ -82,7 +94,7 @@ exports.apply = (api, options = {}) => {
             attributes: {
               isTagPage: true,
               layout: 'tag',
-              permalink: `/tags/${tag}`,
+              permalink: permalinks.tag.replace(/:name/, tag),
               slug: tag
             },
             internal: {
@@ -107,7 +119,7 @@ exports.apply = (api, options = {}) => {
             attributes: {
               isCategoryPage: true,
               layout: 'category',
-              permalink: `/categories/${category}`,
+              permalink: permalinks.category.replace(/:name/, category),
               slug: category
             },
             internal: {

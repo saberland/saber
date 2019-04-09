@@ -147,6 +147,17 @@ For example:
 
 Same as `tagsMap` but for categories.
 
+### permalinks
+
+- Type: `{ category?: string, tag?: string }`
+- Default: `{ category: '/categories/:name', tag: '/tags/:tag' }`
+
+The permalink templates for category and tag pages, available placeholders:
+
+| placeholder | description                         |
+| ----------- | ----------------------------------- |
+| name        | Corresponding tag or category name. |
+
 ## License
 
 MIT.
