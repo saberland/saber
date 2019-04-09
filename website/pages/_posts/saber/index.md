@@ -43,7 +43,7 @@ $ npm run dev
 
 The reason why I'm building Saber is simple: I love Hexo & Jekyll, but I also love using webpack & Vue, I enjoy the dev experience that you edit something and it automatically reflects in your browser, without refreshing.
 
-Saber was previously known as [Peco](https://github.com/upash/peco) which is similar to _VuePress_ but also has the blog feature baked in. Saber is a complete rewrite that makes it possible to use data from anywhere, and it's not GraphQL based. Saber is designed to be simple, for Hexo / N[eu]xt.js users, it's is even easier to get started with.
+Saber was previously known as [Peco](https://github.com/upash/peco) which is similar to _VuePress_ but also has the blog feature baked in. Saber is a complete rewrite that makes it possible to use data from anywhere, and it's not GraphQL based. Saber is designed to be simple, for Hexo / N[eu]xt.js users, it's even easier to get started with.
 
 ## A small framework
 
