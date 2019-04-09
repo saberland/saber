@@ -24,11 +24,7 @@ export default {
 
 <style scoped>
 .post-title {
-  margin: 0;
-}
-
-/deep/ .page-meta {
-  margin-top: 10px;
+  margin: 0 0 10px 0;
 }
 
 .post {

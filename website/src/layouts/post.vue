@@ -56,6 +56,6 @@ export default {
 
 .page-title {
   font-size: 3rem;
-  margin: 0;
+  margin: 0 0 20px 0;
 }
 </style>

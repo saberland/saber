@@ -20,7 +20,6 @@ export default {
 
 <style scoped>
 .page-meta {
-  margin-top: 20px;
   color: var(--text-light-color);
 }
 </style>
