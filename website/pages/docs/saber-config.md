@@ -57,7 +57,7 @@ Extract CSS.
 ### cssSourceMap
 
 - Type: `boolean`
-- Default: `false` in production mode, `true` otherwise.
+- Default: `false`
 
 Source maps supports for CSS files.
 

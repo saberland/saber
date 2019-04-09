@@ -4,10 +4,8 @@ const { struct } = require('superstruct')
 /**
  * Validate saber config
  * @param {any} config
- * @param {object} options
- * @param {boolean} options.dev
  */
-module.exports = (config, { dev }) => {
+module.exports = config => {
   const siteConfig = struct.interface(
     {
       title: 'string?',
@@ -70,7 +68,7 @@ module.exports = (config, { dev }) => {
       publicUrl: '/',
       extractCSS: false,
       loaderOptions: {},
-      cssSourceMap: !dev,
+      cssSourceMap: false,
       lazy: false
     }
   )
