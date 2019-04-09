@@ -9477,6 +9477,11 @@ slide@^1.1.6:
   resolved "https://registry.npmjs.org/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
   integrity sha1-VusCfWW00tzmyy4tMsTUr8nh1wc=
 
+slugo@^0.2.3:
+  version "0.2.3"
+  resolved "http://registry.npm.taobao.org/slugo/download/slugo-0.2.3.tgz#2c602fe1e76d5fa3c6f75223537fbd80ae33929c"
+  integrity sha1-LGAv4edtX6PG91IjU3+9gK4zkpw=
+
 smart-buffer@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.0.1.tgz#07ea1ca8d4db24eb4cac86537d7d18995221ace3"

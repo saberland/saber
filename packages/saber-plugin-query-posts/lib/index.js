@@ -1,4 +1,6 @@
 const urlJoin = require('url-join')
+const slugify = require('slugo')
+const { paginate } = require('./utils')
 
 const ID = 'query-posts'
 
@@ -7,14 +9,19 @@ exports.name = ID
 exports.apply = (api, options = {}) => {
   api.hooks.onCreatePages.tap(ID, () => {
     injectPosts({
-      tagsMap: options.tagsMap || {}
+      tagsMap: options.tagsMap,
+      paginationOptions: {
+        perPage: options.perPage || 30
+      }
     })
   })
 
-  function injectPosts({ tagsMap }) {
+  function injectPosts({ tagsMap, paginationOptions }) {
     const allPosts = new Set()
     const injectPostsToPages = new Set()
     const allTagPosts = new Map()
+
+    tagsMap = Object.assign({}, tagsMap)
 
     for (const page of api.pages.values()) {
       if (page.attributes.draft) {
@@ -30,7 +37,13 @@ exports.apply = (api, options = {}) => {
         const tags = [].concat(page.attributes.tags || [])
         if (tags.length > 0) {
           for (const tag of tags) {
-            const tagId = tagsMap[tag] || tag
+            let tagId
+            if (tagsMap[tag]) {
+              tagId = tagsMap[tag]
+            } else {
+              tagId = slugify(tag)
+              tagsMap[tag] = tagId
+            }
             const posts = allTagPosts.get(tagId) || new Set()
             posts.add(pagePublicFields)
             allTagPosts.set(tagId, posts)
@@ -76,7 +89,8 @@ exports.apply = (api, options = {}) => {
             const aDate = new Date(a.attributes.date || a.attributes.createdAt)
             const bDate = new Date(b.attributes.date || b.attributes.createdAt)
             return aDate > bDate ? -1 : 1
-          })
+          }),
+          paginationOptions
         )
         const totalPages = paginatedPosts.length
 
@@ -128,16 +142,6 @@ exports.apply = (api, options = {}) => {
         }
       }
     }
-  }
-
-  function paginate(arr) {
-    const opts = { perPage: options.perPage || 30 }
-    const totalPages = Math.ceil(arr.length / opts.perPage)
-    const result = []
-    for (let i = 0; i < totalPages; i++) {
-      result[i] = arr.slice(i * opts.perPage, (i + 1) * opts.perPage)
-    }
-    return result
   }
 
   function getPaginationLink(pageIndex, permalink) {

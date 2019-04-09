@@ -78,6 +78,12 @@ hello
 
 Then it will generate `/tag/life` and `/tag/random` pages.
 
+### Tags Layout
+
+Tags page will use the `tags` layout or fallback to `default` layout.
+
+You can access the tag name in the layout component via `this.page.tag`.
+
 ## Options
 
 ### perPage
