@@ -1,6 +1,5 @@
 const urlJoin = require('url-join')
-const slugify = require('slugo')
-const { paginate } = require('./utils')
+const { paginate, getIdFromMap, getNameFromMap } = require('./utils')
 
 const ID = 'query-posts'
 
@@ -10,18 +9,21 @@ exports.apply = (api, options = {}) => {
   api.hooks.onCreatePages.tap(ID, () => {
     injectPosts({
       tagsMap: options.tagsMap,
+      categoriesMap: options.categoriesMap,
       paginationOptions: {
         perPage: options.perPage || 30
       }
     })
   })
 
-  function injectPosts({ tagsMap, paginationOptions }) {
+  function injectPosts({ tagsMap, paginationOptions, categoriesMap }) {
     const allPosts = new Set()
     const injectPostsToPages = new Set()
     const allTagPosts = new Map()
+    const allCategoryPosts = new Map()
 
     tagsMap = Object.assign({}, tagsMap)
+    categoriesMap = Object.assign({}, categoriesMap)
 
     for (const page of api.pages.values()) {
       if (page.attributes.draft) {
@@ -34,19 +36,34 @@ exports.apply = (api, options = {}) => {
       if (page.attributes.type === 'post') {
         const pagePublicFields = api.pages.getPagePublicFields(page)
         allPosts.add(pagePublicFields)
+
+        // Group posts for tag pages
         const tags = [].concat(page.attributes.tags || [])
         if (tags.length > 0) {
           for (const tag of tags) {
-            let tagId
-            if (tagsMap[tag]) {
-              tagId = tagsMap[tag]
-            } else {
-              tagId = slugify(tag)
-              tagsMap[tag] = tagId
-            }
+            const tagId = getIdFromMap(tagsMap, tag)
             const posts = allTagPosts.get(tagId) || new Set()
             posts.add(pagePublicFields)
             allTagPosts.set(tagId, posts)
+          }
+        }
+
+        // Group posts for category pages
+        const categories = []
+          .concat(page.attributes.categories || [])
+          .map(v => (Array.isArray(v) ? v : v.split('/')))
+
+        if (categories.length > 0) {
+          for (const category of categories) {
+            for (const index of category.keys()) {
+              const id = category
+                .slice(0, index + 1)
+                .map(name => getIdFromMap(categoriesMap, name))
+                .join('/')
+              const posts = allCategoryPosts.get(id) || new Set()
+              posts.add(pagePublicFields)
+              allCategoryPosts.set(id, posts)
+            }
           }
         }
       }
@@ -57,19 +74,19 @@ exports.apply = (api, options = {}) => {
       injectToPages(injectPostsToPages, allPosts)
     }
 
-    // Add tags pages
+    // Add tag pages
     for (const [tag, tagPosts] of allTagPosts.entries()) {
       injectToPages(
         new Set([
           {
             attributes: {
-              isTagsPage: true,
-              layout: 'tags',
+              isTagPage: true,
+              layout: 'tag',
               permalink: `/tags/${tag}`,
               slug: tag
             },
             internal: {
-              id: `internal_blog__tags__${tag}`,
+              id: `internal_blog__tag__${tag}`,
               // So that this page will be removed before next `onCreatePages` hook in watch mode
               parent: true
             }
@@ -77,7 +94,35 @@ exports.apply = (api, options = {}) => {
         ]),
         tagPosts,
         {
-          tag: getTagName(tag, tagsMap)
+          tag: getNameFromMap(tagsMap, tag)
+        }
+      )
+    }
+
+    // Add category pages
+    for (const [category, categoryPosts] of allCategoryPosts.entries()) {
+      injectToPages(
+        new Set([
+          {
+            attributes: {
+              isCategoryPage: true,
+              layout: 'category',
+              permalink: `/categories/${category}`,
+              slug: category
+            },
+            internal: {
+              id: `internal_blog__category__${category}`,
+              // So that this page will be removed before next `onCreatePages` hook in watch mode
+              parent: true
+            }
+          }
+        ]),
+        categoryPosts,
+        {
+          category: category
+            .split('/')
+            .map(v => getNameFromMap(categoriesMap, v))
+            .join('/')
         }
       )
     }
@@ -152,14 +197,5 @@ exports.apply = (api, options = {}) => {
       return
     }
     return urlJoin(permalink, `page/${pageIndex}`)
-  }
-
-  function getTagName(tag, tagsMap) {
-    for (const tagName of Object.keys(tagsMap)) {
-      if (tagsMap[tagName] === tag) {
-        return tagName
-      }
-    }
-    return tag
   }
 }

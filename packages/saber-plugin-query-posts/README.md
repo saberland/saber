@@ -60,9 +60,9 @@ export default {
 </script>
 ```
 
-### Tags Page
+## Tags
 
-It will automatically generate tags map `/tag/:tag` when you're using `tags` in page attributes, e.g. in a Markdown post:
+This plugin will automatically generate tag pages at `/tags/:tag` when you're using `tags` in page attributes, e.g. in a Markdown post:
 
 ```markdown
 ---
@@ -76,13 +76,47 @@ tags:
 hello
 ```
 
-Then it will generate `/tag/life` and `/tag/random` pages.
+Then it will generate `/tags/life` and `/tags/random` pages.
 
-### Tags Layout
+### Tag Layout
 
-Tags page will use the `tags` layout or fallback to `default` layout.
+Tag pages will use the `tag` layout or fallback to `default` layout.
 
 You can access the tag name in the layout component via `this.page.tag`.
+
+## Categories
+
+This plugin will automatically generate category pages at `/categories/:tag` when you're using `categories` in page attributes, e.g. in a Markdown post:
+
+```markdown
+---
+title: hello
+date: 2019-01-01
+categories:
+  - sports
+---
+
+hello
+```
+
+Then there will be a `/categories/sports` page，`categories` is an array, so you can assign the post to multiple categories.
+
+### Nesting Category
+
+It also support nesting categories:
+
+```yaml
+categories:
+  - sports/football
+```
+
+In this way, it will generate two pages: `/categories/sports` and `/categories/sports/football` and both of them will include this post.
+
+### Category Layout
+
+Category pages will use the `category` layout or fallback to `default` layout.
+
+You can access the category name in the layout component via `this.page.category`.
 
 ## Options
 
@@ -111,9 +145,7 @@ For example:
 
 ### categoriesMap
 
-[TODO]
-
-Categories are NOT IMPLEMENTED YET. I'm also not sure if we really need this since we already have tags.
+Same as `tagsMap` but for categories.
 
 ## License
 
