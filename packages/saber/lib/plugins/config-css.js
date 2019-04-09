@@ -18,10 +18,8 @@ exports.apply = api => {
     // if building for production but not extracting CSS, we need to minimize
     // the embbeded inline CSS as they will not be going through the optimizing
     // plugin.
-    const needInlineMinification = api.mode === 'production' && !shouldExtract
-    const fileNames = require('../utils/getFileNames')(
-      api.mode === 'production'
-    )
+    const needInlineMinification = !api.dev && !shouldExtract
+    const fileNames = require('../utils/getFileNames')(!api.dev)
 
     const cssnanoOptions = {
       safe: true,
@@ -56,10 +54,7 @@ exports.apply = api => {
           {
             sourceMap,
             modules,
-            localIdentName:
-              api.mode === 'production'
-                ? '[local]_[hash:base64:5]'
-                : '[path][name]__[local]--[hash:base64:5]',
+            localIdentName: '[local]_[hash:base64:5]',
             importLoaders:
               1 + // stylePostLoader injected by vue-loader
               1 + // postcss-loader

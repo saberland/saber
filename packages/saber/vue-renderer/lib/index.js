@@ -151,7 +151,7 @@ class VueRenderer {
               )} ? undefined : beforeEnter,
               component: function() {
                 ${
-                  this.api.mode === 'development' &&
+                  this.api.dev &&
                   !this.buildRoutesInDevMode.has(page.attributes.permalink)
                     ? 'return {render: function(){}}'
                     : `

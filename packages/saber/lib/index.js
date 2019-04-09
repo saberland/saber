@@ -27,7 +27,7 @@ class Saber {
       // Extend markdown-it config
       chainMarkdown: new SyncHook(['config']),
       // Before running the build process
-      beforeRun: new AsyncSeriesHook(['opts']),
+      beforeRun: new AsyncSeriesHook(),
       filterPlugins: new SyncWaterfallHook(['plugins']),
       // After all plugins have been applied
       afterPlugins: new SyncHook(),
@@ -82,8 +82,8 @@ class Saber {
     this.prepare()
   }
 
-  get mode() {
-    return this.opts.mode
+  get dev() {
+    return Boolean(this.opts.dev)
   }
 
   prepare() {
@@ -153,7 +153,7 @@ class Saber {
     this.config = merge({}, config, this.initialConfig)
     // Validate config, apply default values, normalize some values
     this.config = require('./utils/validateConfig')(this.config, {
-      mode: this.mode
+      dev: this.dev
     })
   }
 
@@ -221,8 +221,8 @@ class Saber {
     return this.hooks.getDocument.call(initialHTML, context)
   }
 
-  async run({ watch } = {}) {
-    await this.hooks.beforeRun.promise({ watch })
+  async run() {
+    await this.hooks.beforeRun.promise()
 
     await this.hooks.emitRoutes.promise()
   }
@@ -245,8 +245,8 @@ class Saber {
     await this.hooks.afterGenerate.promise()
   }
 
-  async dev() {
-    await this.run({ watch: true })
+  async serve() {
+    await this.run()
 
     const server = http.createServer(this.renderer.getRequestHandler())
 

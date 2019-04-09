@@ -4,10 +4,10 @@ const Config = require('webpack-chain')
 module.exports = (api, { type }) => {
   const config = new Config()
 
-  config.mode(api.mode)
-  config.devtool(api.mode === 'production' ? false : 'cheap-module-source-map')
+  config.mode(api.dev ? 'development' : 'production')
+  config.devtool(api.dev ? 'cheap-module-source-map' : false)
 
-  const fileNames = require('../utils/getFileNames')(api.mode === 'production')
+  const fileNames = require('../utils/getFileNames')(!api.dev)
 
   config.output
     .publicPath(`${api.config.build.publicUrl}_saber/`)
@@ -68,9 +68,7 @@ module.exports = (api, { type }) => {
 
   config.plugin('envs').use(require('webpack').DefinePlugin, [
     {
-      'process.env.NODE_ENV': JSON.stringify(
-        api.mode === 'production' ? 'production' : 'development'
-      )
+      'process.env.NODE_ENV': JSON.stringify(config.get('mode'))
     }
   ])
 
@@ -79,7 +77,7 @@ module.exports = (api, { type }) => {
       'process.browser': type === 'client',
       'process.client': type === 'client',
       'process.server': type === 'server',
-      __DEV__: api.mode !== 'production',
+      __DEV__: api.dev,
       __PUBLIC_URL__: JSON.stringify(api.config.build.publicUrl)
     }
   ])

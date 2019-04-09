@@ -78,7 +78,7 @@ module.exports = class PrintStatusPlugin {
           )}!`
         )
         // Only show URL for client build
-        if (this.api.mode === 'development' && this.type === 'client') {
+        if (this.api.dev && this.type === 'client') {
           const host =
             this.api.config.server.host === '0.0.0.0'
               ? 'localhost'

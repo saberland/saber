@@ -45,7 +45,7 @@ exports.apply = api => {
     await fs.outputFile(outFile, outContent, 'utf8')
   }
 
-  api.hooks.beforeRun.tapPromise(ID, async ({ watch }) => {
+  api.hooks.beforeRun.tapPromise(ID, async () => {
     const themeLayoutsDir = path.join(api.theme, 'layouts')
     const userLayoutsDir = api.resolveCwd('layouts')
     const [themeLayouts, userLayouts] = await Promise.all([
@@ -54,7 +54,7 @@ exports.apply = api => {
     ])
     await writeLayouts(themeLayouts, userLayouts)
 
-    if (watch) {
+    if (api.dev) {
       const watchLayouts = (dir, layouts) => {
         const chokidar = require('chokidar')
 

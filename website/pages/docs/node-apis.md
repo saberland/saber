@@ -44,16 +44,9 @@ interface Context {
 
 ### beforeRun
 
-- Type: `(this: SaberInstance, opts: Options) => void | Promise<void>`
+- Type: `(this: SaberInstance) => void | Promise<void>`
 
 Before running the webpack build process.
-
-```ts
-interface Options {
-  // Running in watch mode or not
-  watch: boolean
-}
-```
 
 ### afterBuild
 

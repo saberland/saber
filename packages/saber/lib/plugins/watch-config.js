@@ -9,7 +9,7 @@ const ID = 'builtin:emit-config'
 exports.name = ID
 
 exports.apply = api => {
-  api.hooks.beforeRun.tapPromise(ID, async ({ watch }) => {
+  api.hooks.beforeRun.tapPromise(ID, async () => {
     const outPath = api.resolveCache('config.json')
 
     const emit = config =>
@@ -38,7 +38,7 @@ exports.apply = api => {
     // Emit config.json anyways
     await emit(api.config)
 
-    if (watch) {
+    if (api.dev) {
       const cwd = api.configDir || api.resolveCwd()
       const watcher = require('chokidar').watch(CONFIG_FILES, {
         ignoreInitial: true,

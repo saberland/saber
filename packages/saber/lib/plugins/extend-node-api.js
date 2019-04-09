@@ -47,7 +47,7 @@ exports.apply = api => {
       })
     })
 
-    if (api.mode === 'development' && !/node_modules/.test(nodeApiFile)) {
+    if (api.dev && !/node_modules/.test(nodeApiFile)) {
       require('chokidar')
         .watch(nodeApiFile, {
           ignoreInitial: true

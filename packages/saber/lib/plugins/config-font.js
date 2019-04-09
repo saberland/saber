@@ -6,7 +6,7 @@ exports.name = ID
 
 exports.apply = api => {
   api.hooks.chainWebpack.tap(ID, config => {
-    const filename = getFileNames(api.mode === 'production').font
+    const filename = getFileNames(!api.dev).font
     config.module
       .rule('font')
       .test(/\.(eot|otf|ttf|woff|woff2)(\?.*)?$/)

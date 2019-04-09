@@ -5,9 +5,9 @@ const { struct } = require('superstruct')
  * Validate saber config
  * @param {any} config
  * @param {object} options
- * @param {'production' | 'development'} options.mode
+ * @param {boolean} options.dev
  */
-module.exports = (config, { mode }) => {
+module.exports = (config, { dev }) => {
   const siteConfig = struct.interface(
     {
       title: 'string?',
@@ -69,7 +69,7 @@ module.exports = (config, { mode }) => {
       publicUrl: '/',
       extractCSS: false,
       loaderOptions: {},
-      cssSourceMap: mode !== 'production'
+      cssSourceMap: !dev
     }
   )
 

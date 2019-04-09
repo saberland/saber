@@ -9,7 +9,7 @@ const ID = 'builtin:source-pages'
 exports.name = ID
 
 exports.apply = api => {
-  api.hooks.beforeRun.tapPromise(ID, async ({ watch }) => {
+  api.hooks.beforeRun.tapPromise(ID, async () => {
     const pagesDir = api.resolveCwd('pages')
     const exts = api.transformers.supportedExtensions
     const filePatterns = [
@@ -101,7 +101,7 @@ exports.apply = api => {
     await api.hooks.onCreatePages.promise()
     await api.hooks.emitPages.promise()
 
-    if (watch) {
+    if (api.dev) {
       const watcher = chokidar.watch(filePatterns, {
         cwd: pagesDir,
         ignoreInitial: true

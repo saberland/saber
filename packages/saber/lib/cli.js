@@ -16,13 +16,13 @@ cli
     const { host, port } = options
     delete options.host
     delete options.port
-    return require('..')(Object.assign({ cwd, mode: 'development' }, options), {
+    return require('..')(Object.assign({ cwd, dev: true }, options), {
       server: {
         host,
         port
       }
     })
-      .dev()
+      .serve()
       .catch(handleError)
   })
 
@@ -31,7 +31,7 @@ cli
   .action((cwd = '.', options) => {
     setNodeEnv('production')
 
-    return require('..')(Object.assign({ cwd, mode: 'production' }, options))
+    return require('..')(Object.assign({ cwd, dev: false }, options))
       .build()
       .catch(handleError)
   })
@@ -50,7 +50,7 @@ cli
 
     const { skipBuild } = options
     delete options.skipBuild
-    return require('..')(Object.assign({ cwd, mode: 'production' }, options))
+    return require('..')(Object.assign({ cwd, dev: false }, options))
       .generate({ skipBuild })
       .catch(handleError)
   })
