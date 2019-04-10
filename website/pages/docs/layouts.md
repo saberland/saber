@@ -7,7 +7,7 @@ Layouts are Vue components that wrap around your page. They allow you to have th
 
 You can use the `layout` attribute to use a layout component for specific page.
 
-Saber loads `*.{vue,js}` files from `./layouts` in your project root and [theme](./theming.md) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
+Saber loads `*.{vue,js}` files from `./layouts` in your project root and [theme](./themes.md) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
 
 Layout components have a prop named `page` which implements [Page Interface](./page-interface.md) and allows you to access page attributes and more.
 
