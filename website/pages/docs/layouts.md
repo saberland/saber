@@ -3,13 +3,28 @@ title: Layouts
 layout: docs
 ---
 
-You can use the `layout` attribute[^1] to use a layout component for specific page.
+Layouts are Vue components that wrap around your page. They allow you to have the source code for your template in one place so you don’t have to repeat things like your navigation and footer on every page.
 
-Saber uses `*.{vue,js}` files from `./layouts` in your project root and [theme](./theming.md) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
+You can use the `layout` attribute to use a layout component for specific page.
+
+Saber loads `*.{vue,js}` files from `./layouts` in your project root and [theme](./theming.md) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
 
 Layout components have a prop named `page` which implements [Page Interface](./page-interface.md) and allows you to access page attributes and more.
 
-The page contents will be available as a default slot in your layout component, for example:
+The page contents will be available as the default slot in your layout component, for example:
+
+A page `pages/about.md`:
+
+```markdown
+---
+title: Hello World
+layout: page
+---
+
+Saber is fantastic!
+```
+
+and with the layout component `layouts/page.vue`:
 
 ```vue
 <template>
@@ -26,4 +41,13 @@ export default {
 </script>
 ```
 
-[^1]: If you don't know what `page attributes` is, check out the [Pages](./pages.md) guide.
+This page will be rendered to following HTML:
+
+```html
+<div>
+  <h2 class="page-title">Hello World</h2>
+  <div class="page-content">
+    <p>Saber is fantastic!</p>
+  </div>
+</div>
+```

@@ -5,6 +5,8 @@ layout: docs
 
 Permalinks are the output path for your pages and posts. They allow you to structure the directories of your source code different from the directories in your output.
 
+By default we infer permalink from filename.
+
 ## Page Attribute
 
 The simplest way to change a permalink is using the page attribute `permalink`.

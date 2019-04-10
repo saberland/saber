@@ -79,7 +79,6 @@ export default {
 
 .item-title {
   font-size: 1rem;
-  text-transform: uppercase;
   margin-bottom: 10px;
   padding: 0 20px;
   color: var(--dark);

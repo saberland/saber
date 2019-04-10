@@ -7,7 +7,7 @@ date: 2019-04-09
 
 It's been two months already since the first release of Saber, but this is the first time we actually introduce it officially (excluding the [Tutorial](../../tutorial/tutorial.md)).
 
-<img src="./preview.png" alt="preview">
+<img src="../../../images/simple-index-md-page.png" alt="preview">
 
 Saber is a tool for building static websites with modern web techs like webpack, Babel and Vue. Getting started developing an application of any size is as easy as executing `saber`. 
 

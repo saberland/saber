@@ -11,7 +11,7 @@
 }
 
 .page-title {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
   color: var(--dark);
   line-height: 1.2;
@@ -54,7 +54,7 @@
   }
 
   & code {
-    background: #f5f7fa;
+    background: rgba(27,31,35,.05);
     border-radius: 3px;
     font-size: 14px;
     padding: 3px 5px;
@@ -85,4 +85,20 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   }
 
+
+  & blockquote {
+    background-color: rgba(255,229,100,.3);
+    border-left: 8px solid #ffe564;
+    padding: 15px 30px 15px 15px;
+    margin: 2rem 0;
+    color: #6a737d;
+
+    &>*:first-child {
+      margin-top: 0;
+    }
+
+    &>*:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

@@ -29,9 +29,19 @@ themeConfig:
         link: /docs/permalinks.html
       - title: Layouts
         link: /docs/layouts.html
-      - title: Theming
-        link: /docs/theming.html
-      - title: Public Folder
+      - title: Themes
+        link: /docs/themes.html
+  - title: Styles and Assets
+    children:
+      - title: Using CSS Modules
+        link: /docs/css-modules.html
+      - title: Using CSS Preprocessors
+        link: /docs/css-preprocessors.html
+      - title: Using PostCSS
+        link: /docs/postcss.html
+      - title: Adding Images, Fonts and Files
+        link: /docs/adding-images-fonts-and-files.html
+      - title: Using the Public Folder
         link: /docs/public-folder.html
   - title: References
     children:
