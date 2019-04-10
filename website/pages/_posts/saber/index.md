@@ -5,7 +5,7 @@ layout: post
 date: 2019-04-09
 ---
 
-It's been two months already since the first release of Saber, but this is the first time we actually introduce it officially (excluding the [Tutortial](../../tutorial/tutorial.md)).
+It's been two months already since the first release of Saber, but this is the first time we actually introduce it officially (excluding the [Tutorial](../../tutorial/tutorial.md)).
 
 <img src="./preview.png" alt="preview">
 
