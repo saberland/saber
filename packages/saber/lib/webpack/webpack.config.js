@@ -24,6 +24,7 @@ module.exports = (api, { type }) => {
   config.resolve.alias.set('#pages', api.resolveCwd('pages'))
   config.resolve.alias.set('#cache', api.resolveCwd('.saber'))
   config.resolve.alias.set('#theme', api.theme)
+  config.resolve.alias.set('@', api.opts.cwd)
   config.resolve.alias.set('saber-config$', api.resolveCache('config.json'))
   config.resolve.alias.set('saber/config$', api.resolveCache('config.json'))
   config.resolve.alias.set(

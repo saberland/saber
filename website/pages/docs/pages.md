@@ -13,7 +13,7 @@ Hello __Saber__!
 
 And run `saber` in your project:
 
-![page preview](../../images/simple-index-md-page.png)
+![page preview](@/images/simple-index-md-page.png)
 
 
 - `./pages/index.md` maps to `/index.html`
