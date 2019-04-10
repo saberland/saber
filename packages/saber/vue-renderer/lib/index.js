@@ -241,12 +241,17 @@ class VueRenderer {
           'Generating',
           path.relative(this.api.resolveCache('public'), generatedFileName)
         )
-        const markup = await renderer.renderToString(context)
-        const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
-          .replace(/^\s+/gm, '')
-          .replace(/\n+</g, '<')
-          .replace('<div id="_saber"></div>', markup)
-        await fs.outputFile(generatedFileName, html, 'utf8')
+        try {
+          const markup = await renderer.renderToString(context)
+          const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+            .replace(/^\s+/gm, '')
+            .replace(/\n+</g, '<')
+            .replace('<div id="_saber"></div>', markup)
+          await fs.outputFile(generatedFileName, html, 'utf8')
+        } catch (error) {
+          log.error(`Failed to render ${context.url}`)
+          throw error
+        }
       })
     )
 
