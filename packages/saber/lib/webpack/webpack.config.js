@@ -5,7 +5,13 @@ module.exports = (api, { type }) => {
   const config = new Config()
 
   config.mode(api.dev ? 'development' : 'production')
-  config.devtool(api.dev ? 'cheap-module-source-map' : false)
+  config.devtool(
+    type === 'server'
+      ? 'source-map'
+      : api.dev
+      ? 'cheap-module-source-map'
+      : false
+  )
 
   const fileNames = require('../utils/getFileNames')(!api.dev)
 
