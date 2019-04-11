@@ -51,3 +51,9 @@ This page will be rendered to following HTML:
   </div>
 </div>
 ```
+
+## 404 page
+
+You can use the `404` layout to customize 404 page.
+
+In production build, Saber will also generate `/404.html` which will be automatically used as 404 error page by hosting platforms like GitHub pages and Netlify.
