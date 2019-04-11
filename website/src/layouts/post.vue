@@ -3,13 +3,11 @@
     <Header :showToggle="true"/>
     <Sidebar class="home-sidebar" :items="$themeConfig.sidebar"/>
     <div class="content">
-      <main class="main">
-        <h1 class="page-title">{{ page.attributes.title }}</h1>
-        <PostMeta :page="page" />
-        <div class="page-content">
-          <slot name="default"/>
-        </div>
-      </main>
+      <h1 class="page-title">{{ page.attributes.title }}</h1>
+      <PostMeta :page="page"/>
+      <div class="page-content">
+        <slot name="default"/>
+      </div>
     </div>
   </div>
 </template>

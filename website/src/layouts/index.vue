@@ -3,10 +3,8 @@
     <Header :showToggle="true"/>
     <Sidebar class="home-sidebar" :items="$themeConfig.sidebar"/>
     <div class="content">
-      <main class="main">
-        <slot name="default"/>
-        <PostList :posts="page.posts" />
-      </main>
+      <slot name="default"/>
+      <PostList :posts="page.posts"/>
     </div>
   </div>
 </template>
@@ -22,7 +20,9 @@ export default {
   head() {
     const { title } = this.page.attributes
     return {
-      title: title ? `${title} - ${this.$siteConfig.title}` : this.$siteConfig.title
+      title: title
+        ? `${title} - ${this.$siteConfig.title}`
+        : this.$siteConfig.title
     }
   },
 

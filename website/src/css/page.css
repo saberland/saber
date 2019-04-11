@@ -1,9 +1,19 @@
 .main {
-  margin-top: var(--header-height);
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 var(--sidebar-width);
+
+  @media (max-width: 1280px) {
+    margin-right: 0;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0;
+  }
+}
+
+.content {
   padding: 20px 2.5rem;
   max-width: 770px;
+  margin: var(--header-height) auto;
 
   @media (max-width: 768px) {
     padding: 20px;

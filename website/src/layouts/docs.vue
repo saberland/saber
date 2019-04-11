@@ -1,15 +1,15 @@
 <template>
   <div class="layout">
-    <Header :showToggle="true" />
+    <Header :showToggle="true"/>
     <Sidebar :items="$themeConfig.sidebar"/>
-    <div class="content">
-      <main class="main">
+    <main class="main">
+      <div class="content">
         <div class="page-title">{{ page.attributes.title }}</div>
         <div class="page-content">
           <slot name="default"/>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
 </template>
 
