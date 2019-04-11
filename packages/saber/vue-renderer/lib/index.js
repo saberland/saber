@@ -54,9 +54,12 @@ class VueRenderer {
       // prettier-ignore
       config.module
         .rule('js')
+        // Load .js file as Saber page
         .oneOf('saber-page')
           .before('normal')
-          .resourceQuery(/saberPage/)
+          .resourceQuery(query => {
+            return /saberPage/.test(query) && !/vue/.test(query)
+          })
           .use('vue-loader')
             .loader('vue-loader')
             .end()
