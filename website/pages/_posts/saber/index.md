@@ -87,7 +87,7 @@ Saber has all the plugins that're required for building a blog:
 - If you want RSS feed, use [saber-plugin-generate-feed](https://github.com/egoist/saber/tree/master/packages/saber-plugin-generate-feed).
 - Find more at [awesome-saber](https://github.com/egoist/awesome-saber) or build your own!
 
-Check out the tutorial [Intro the Saber](http://localhost:3000/tutorial/tutorial.html) to learn how to build a simple blog, use layouts, and share your layouts as a theme.
+Check out the tutorial [Intro the Saber](../../tutorial/tutorial.md) to learn how to build a simple blog, use layouts, and share your layouts as a theme.
 
 ## Performance matters
 
