@@ -330,7 +330,7 @@ Everything seems to work fine now, but I just notice that our pages don't have b
 <script>
 export default {
   // ..omitted
-  props: ['page']
+  props: ['page'],
   head() {
     const pageTitle = this.page.attributes.title
     return {
