@@ -51,14 +51,14 @@ class VueRenderer {
         .use('page-prop-loader')
         .loader(require.resolve('./page-prop-loader'))
 
+      // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
       config.module
         .rule('js')
-        // Load .js file as Saber page
         .oneOf('saber-page')
           .before('normal')
           .resourceQuery(query => {
-            return /saberPage/.test(query) && !/vue/.test(query)
+            return /saberPage/.test(query) && !/type=script/.test(query)
           })
           .use('vue-loader')
             .loader('vue-loader')
@@ -69,14 +69,35 @@ class VueRenderer {
               api
             })
 
+      // Handle .vue components and .vue pages
+      // prettier-ignore
+      config.module.rule('vue')
+        .test(/\.vue$/)
+        .use('vue-loader')
+          .loader('vue-loader')
+          .end()
+        // saber-page-loader will return original content
+        // if the resource query doesn't contain `saberPage`
+        .use('saber-page-loader')
+          .loader(require.resolve('./saber-page-loader'))
+          .options({
+            api
+          })
+
+      // Get the available extensions for pages
+      // Excluding .vue and .js pages because we handled them in their own rules
       const { supportedExtensions } = api.transformers
       const pageExtensions = supportedExtensions
         .map(ext => new RegExp(`\\.${ext}$`))
-        .filter(re => !re.test('.js'))
+        .filter(re => !re.test('.js') && !re.test('.vue'))
+        .concat(/\.saberpage$/)
 
       config.module
         .rule('saber-page')
-        .test(pageExtensions.concat(/\.saberpage$/))
+        .test(pageExtensions)
+        .resourceQuery(query => {
+          return /saberPage/.test(query)
+        })
         .use('vue-loader')
         .loader('vue-loader')
         .end()
@@ -141,9 +162,12 @@ class VueRenderer {
                   .replace(/[^a-z0-9_-]/gi, '-')
               : page.internal.id
           }" */ `
+          // Always give the path a resource query
           const componentPath = page.internal.isFile
             ? `${absolutePath}?saberPage=${page.internal.id}`
-            : `#cache/pages/${page.internal.id}.saberpage`
+            : `#cache/pages/${page.internal.id}.saberpage?saberPage=${
+                page.internal.id
+              }`
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
               meta: {

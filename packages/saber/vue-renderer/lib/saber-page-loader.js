@@ -1,11 +1,8 @@
-const path = require('path')
 const qs = require('querystring')
 
 module.exports = function(source) {
-  const endsWithSaberPage = this.resourcePath.endsWith('.saberpage')
-  const pageId = endsWithSaberPage
-    ? path.basename(this.resourcePath, path.extname(this.resourcePath))
-    : this.resourceQuery && qs.parse(this.resourceQuery.slice(1)).saberPage
+  const pageId =
+    this.resourceQuery && qs.parse(this.resourceQuery.slice(1)).saberPage
 
   if (!pageId) return source
 
