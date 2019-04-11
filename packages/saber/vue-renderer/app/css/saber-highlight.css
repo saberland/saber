@@ -40,6 +40,15 @@
 .saber-highlight-code {
   position: relative;
   z-index: 2;
+  /**
+    Fixed a weird line-height issue on Chrome/Edge android
+    https://ws1.sinaimg.cn/large/006tNc79gy1g1ypzarsesj30gu0zk76b.jpg
+  */
+  font-size: 0;
+}
+
+code {
+  font-size: .875rem;
 }
 
 .code-line.highlighted {

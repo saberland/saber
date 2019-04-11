@@ -66,8 +66,8 @@
   & code {
     background: rgba(27,31,35,.05);
     border-radius: 3px;
-    font-size: 14px;
     padding: 3px 5px;
+    text-shadow: none;
     font-family: "SFMono-Regular", "Roboto Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   }
 
