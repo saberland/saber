@@ -1,5 +1,5 @@
 ---
-title: Adding Images, Fonts and Files
+title: Images, Fonts and Files
 layout: docs
 ---
 

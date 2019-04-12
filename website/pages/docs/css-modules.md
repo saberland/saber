@@ -1,5 +1,5 @@
 ---
-title: Using CSS Modules
+title: CSS Modules
 layout: docs
 ---
 
