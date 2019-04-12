@@ -25,7 +25,9 @@ yarn create blog my-blog
 
 Then run `npm run dev` or `yarn dev` in the created project and you're done!
 
-Check out the [website](https://saber.land) for more details.
+Check out the [website](https://saber.land) for more details or try the online CodeSandbox example:
+
+[![Edit saber-sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/egoist/saber-codesandbox/tree/master/?fontsize=14&module=%2Fpages%2Findex.md)
 
 ## Resources
 
