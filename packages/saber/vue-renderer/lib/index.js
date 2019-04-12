@@ -44,13 +44,6 @@ class VueRenderer {
         .use('page-component-loader')
         .loader(require.resolve('./page-component-loader'))
 
-      // Handle `<page-prop>` block in .vue file
-      config.module
-        .rule('page-prop')
-        .resourceQuery(/blockType=page-prop/)
-        .use('page-prop-loader')
-        .loader(require.resolve('./page-prop-loader'))
-
       // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
       config.module
@@ -103,6 +96,17 @@ class VueRenderer {
         .end()
         .use('saber-page-loader')
         .loader(require.resolve('./saber-page-loader'))
+        .options({
+          api
+        })
+
+      // Handle `<page-prop>` block in .vue file
+      config.module
+        .rule('page-prop')
+        .type('javascript/auto')
+        .resourceQuery(/blockType=page-prop/)
+        .use('page-prop-loader')
+        .loader(require.resolve('./page-prop-loader'))
         .options({
           api
         })

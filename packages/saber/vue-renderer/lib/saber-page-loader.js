@@ -16,7 +16,7 @@ module.exports = function(source) {
   return `
   ${transformer.getPageComponent(page)}
 
-  <page-prop>${JSON.stringify(api.pages.getPageProp(pageId))}</page-prop>
+  <page-prop>${pageId}</page-prop>
 
   ${page.internal.hoistedTags ? page.internal.hoistedTags.join('\n') : ''}
   `
