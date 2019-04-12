@@ -97,3 +97,24 @@ hr.footnotes-sep {
   border: 1px solid #f0f0f0;
   border-radius: 0;
 }
+
+table, td, th {
+  border-collapse: collapse;
+  border-color: var(--border-color);
+  border-style: solid;
+}
+
+td, th {
+  border-width: 0 1px 1px 0;
+  line-height: 1.5;
+  padding: 1em;
+  text-align: left;
+}
+
+table {
+  border-width: 1px 0 0 1px;
+  font-size: 13px;
+  margin: 2em 0;
+  overflow-x: auto;
+  width: 100%;
+}
