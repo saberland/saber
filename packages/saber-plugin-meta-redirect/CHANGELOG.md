@@ -7,4 +7,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- add saber-meta-redirect ([87b8e32](https://github.com/egoist/saber/commit/87b8e32))
+- add saber-meta-redirect ([bce7ac0](https://github.com/egoist/saber/commit/bce7ac0))
