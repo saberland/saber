@@ -88,3 +88,9 @@ process.on('SIGINT', () => {
   log.info(`See you later, master!`) // <-- Saber says
   process.exit()
 })
+
+process.on('unhandledRejection', error => {
+  const { log } = require('saber-log')
+  log.error(error.stack)
+  process.exitCode = 1
+})
