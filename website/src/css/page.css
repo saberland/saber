@@ -31,7 +31,7 @@
   line-height: 1.6;
   margin: 20px 0;
 
-  & >*:first-child {
+  & >*:first-child:not(h2) {
     margin-top: 0;
   }
 
@@ -40,6 +40,13 @@
   & h4,
   & h5 {
     color: var(--dark);
+
+    & code {
+      font-size: inherit;
+      background: transparent;
+      padding: 0;
+      font-family: inherit;
+    }
   }
 
   & h2 {
@@ -64,7 +71,7 @@
   }
 
   & code {
-    background: rgba(27,31,35,.05);
+    background: #f5f7fa;
     border-radius: 3px;
     padding: 3px 5px;
     text-shadow: none;
@@ -102,6 +109,23 @@
     padding: 15px 30px 15px 15px;
     margin: 2rem 0;
     color: #6a737d;
+
+    &>*:first-child {
+      margin-top: 0;
+    }
+
+    &>*:last-child {
+      margin-bottom: 0;
+    }
+
+    & code {
+      background: rgba(27,31,35,.05);
+    }
+  }
+
+  & .output {
+    border: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
 
     &>*:first-child {
       margin-top: 0;

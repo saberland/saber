@@ -31,6 +31,10 @@ themeConfig:
         link: /docs/layouts.html
       - title: Themes
         link: /docs/themes.html
+      - title: Markdown Features
+        link: /docs/markdown-features.html
+      - title: Using Vue in Markdown
+        link: /docs/using-vue-in-markdown.html
   - title: Styles and Assets
     children:
       - title: Using CSS Modules
@@ -45,8 +49,6 @@ themeConfig:
         link: /docs/public-folder.html
   - title: References
     children:
-      - title: Markdown Features
-        link: /docs/markdown-features.html
       - title: Saber Config
         link: /docs/saber-config.html
       - title: Plugin API
