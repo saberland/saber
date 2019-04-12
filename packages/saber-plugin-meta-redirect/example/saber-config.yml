@@ -1,0 +1,10 @@
+plugins:
+  - resolve: ../
+    options:
+      atomFeed: true
+      rss2Feed: true
+      jsonFeed: blog/feed.json
+
+siteConfig:
+  url: https://exampe.com
+  author: Your Name

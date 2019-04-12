@@ -35,7 +35,7 @@ Vue.mixin({
   }
 })
 
-export default () => {
+export default (context) => {
   const routerOptions = {
     mode: 'history',
     routes,
@@ -114,7 +114,24 @@ export default () => {
     }
   }
 
-  const browserApiContext = { Vue, router, rootOptions }
+  const addRedirect = (routes)=>{
+    if(!Array.isArray(routes)){
+      routes = [routes]
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      router.addRoutes(routes.map((rt)=> (
+        { path: `${rt.from}` , redirect: `${rt.to}.html` }
+        )
+      ))
+    }else{
+      routes.map(({from, to}) => {
+        context.addRedirect(from, to)
+      })
+    }
+  }
+
+  const browserApiContext = { Vue, router, rootOptions, addRedirect }
   injectConfig(browserApiContext)
   extendBrowserApi(browserApiContext)
 

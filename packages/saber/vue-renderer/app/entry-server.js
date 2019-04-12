@@ -2,7 +2,7 @@ import createApp from './create-app'
 
 export default context =>
   new Promise((resolve, reject) => {
-    const { app, router } = createApp()
+    const { app, router } = createApp(context)
     router.push(context.url)
     router.onReady(() => {
       if (context.res && router.currentRoute.name === 404) {
