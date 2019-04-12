@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/egoist/saber/compare/saber@0.4.1...saber@0.4.2) (2019-04-12)
+
+### Bug Fixes
+
+- better error log ([600b8a9](https://github.com/egoist/saber/commit/600b8a9))
+- correctly transform <script> blocks in .js pages ([cddc879](https://github.com/egoist/saber/commit/cddc879))
+- enable sourcemap for server build ([631a051](https://github.com/egoist/saber/commit/631a051))
+- make getPageLink fail loudly in production build ([f45c4e3](https://github.com/egoist/saber/commit/f45c4e3))
+- rewrite the webpack rules for handling pages ([8186171](https://github.com/egoist/saber/commit/8186171))
+- **cli:** handle unhandled promise rejection ([bbb9a4e](https://github.com/egoist/saber/commit/bbb9a4e))
+- **dependency:** update vue router ([cf3e8c6](https://github.com/egoist/saber/commit/cf3e8c6))
+- **hmr:** hopefully fixed the hot reloading issue in .md pages ([8a75ce6](https://github.com/egoist/saber/commit/8a75ce6))
+- **markdown:** line highlighting style ([f5311f2](https://github.com/egoist/saber/commit/f5311f2))
+
+### Features
+
+- add @ alias for project root ([7b0b28a](https://github.com/egoist/saber/commit/7b0b28a))
+
 ## [0.4.1](https://github.com/egoist/saber/compare/saber@0.4.0...saber@0.4.1) (2019-04-09)
 
 ### Bug Fixes
