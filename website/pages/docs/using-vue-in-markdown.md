@@ -8,17 +8,21 @@ layout: docs
 Markdown code is compiled to HTML first and then compiled to Vue render function, for example:
 
 ```markdown
-Hello __Saber__!
+Hello **Saber**!
 ```
 
 compiles to:
 
 ```js
 function render() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c('p', [_vm._v("Hello __Saber__!")])
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c('p', [
+    _vm._v('Hello '),
+    _c('strong', [_vm._v('Saber')]),
+    _vm._v('!')
+  ])
 }
 ```
 
@@ -61,7 +65,7 @@ And `{{ bar }}` is safe too! <span v-pre>{{ yeah }}</span>
 `<script>` tag in Markdown page is not normal HTML `<script>` element, it's treated as [Vue SFC `<script>` block](https://vue-loader.vuejs.org/spec.html#script) instead.
 
 ```markdown
-__This is an example:__
+**This is an example:**
 
 <button @click="count++">{{ count }}</button>
 
@@ -80,9 +84,9 @@ It renders:
 
 <div class="output">
 
-  __This is an example:__
+**This is an example:**
 
-  <button @click="count++">{{ count }}</button>
+<button @click="count++">{{ count }}</button>
 
 </div>
 
