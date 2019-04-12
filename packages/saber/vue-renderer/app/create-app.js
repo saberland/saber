@@ -99,17 +99,8 @@ export default () => {
             return `${route.path}${extraParams || ''}`
           }
         }
-        const message = `Cannot resolve page ${relativePath} from ${
-          this.$route.meta.__relative
-        }, are you sure ${relativePath} exists?`
-        if (process.env.NODE_ENV === 'development') {
-          console.error(message)
-        } else {
-          // Make it fail at build stage
-          throw new Error(message)
-        }
-        // Always return a link, otherwise vue-router will throw error in production build
-        return '/404.html'
+        // Not a page, return the link directly
+        return relativePath
       }
     }
   }
