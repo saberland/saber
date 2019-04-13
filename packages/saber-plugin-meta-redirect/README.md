@@ -23,10 +23,12 @@ In your `saber-node.js`:
 exports.onCreatePages = function ()
   this.pages.createRedirect({
     fromPath: '/about',
-    to: '/about-us'
+    toPath: '/about-us'
   })
 }
 ```
+
+Check out the docs for [`pages.createRedirect`](<https://saber.land/docs/saber-instance.html#pages.createredirect(config)>).
 
 ## License
 
