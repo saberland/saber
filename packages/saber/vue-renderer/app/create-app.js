@@ -35,7 +35,7 @@ Vue.mixin({
   }
 })
 
-export default () => {
+export default context => {
   const routerOptions = {
     mode: 'history',
     routes,
@@ -96,7 +96,10 @@ export default () => {
       const listeners = {}
       Object.keys(transition).forEach(key => {
         if (typeof transition[key] === 'function') {
-          const kebabKey = key.replace(/([a-z])([A-Z])/, (_, p1, p2) => `${p1}-${p2.toLowerCase()}`)
+          const kebabKey = key.replace(
+            /([a-z])([A-Z])/,
+            (_, p1, p2) => `${p1}-${p2.toLowerCase()}`
+          )
           listeners[kebabKey] = transition[key]
           delete transition[key]
         }
@@ -164,6 +167,7 @@ export default () => {
   }
 
   const browserApiContext = { Vue, router, rootOptions }
+
   injectConfig(browserApiContext)
   extendBrowserApi(browserApiContext)
 

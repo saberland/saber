@@ -9,6 +9,7 @@ module.exports = class Pages extends Map {
     super()
     this.api = api
     this.pageProps = new Map()
+    this.redirectRoutes = new Map()
   }
 
   /**
@@ -136,5 +137,15 @@ module.exports = class Pages extends Map {
       return page
     }
     return Object.assign({}, page, { content: undefined, internal: undefined })
+  }
+
+  createRedirect(_configs) {
+    if (_configs) {
+      const configs = [].concat(_configs)
+
+      for (const config of configs) {
+        this.redirectRoutes.set(config.fromPath, config)
+      }
+    }
   }
 }

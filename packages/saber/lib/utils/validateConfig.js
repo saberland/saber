@@ -4,8 +4,10 @@ const { struct } = require('superstruct')
 /**
  * Validate saber config
  * @param {any} config
+ * @param {object} options
+ * @param {boolean} options.dev
  */
-module.exports = config => {
+module.exports = (config, { dev }) => {
   const siteConfig = struct.interface(
     {
       title: 'string?',
@@ -90,8 +92,13 @@ module.exports = config => {
     throw err
   }
 
-  // Ensure that build.publicUrl ends with slash
-  result.build.publicUrl = result.build.publicUrl.replace(/\/?$/, '/')
+  if (dev) {
+    // Always use  / in dev mode
+    result.build.publicUrl = '/'
+  } else {
+    // Ensure that build.publicUrl ends with slash
+    result.build.publicUrl = result.build.publicUrl.replace(/\/?$/, '/')
+  }
 
   return result
 }

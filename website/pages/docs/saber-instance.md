@@ -9,63 +9,55 @@ An instance of the `Pages` class, it's used to store `page` ([PageInterface](./p
 
 ```ts
 interface Pages extends Map<id, PageInterface> {
-  /**
-   * Get a page with its public fields only
-   * Currently we only exclude `internal` and `content` properties
-   * @param id - The `id` can be a page id or the page object
-   **/
-  getPagePublicFields(
-    id: string | PageInterface
-  ): Omit<PageInterface, 'internal' | 'content'> | undefined
-
-  /**
-   * Create a new page
-   * When the page already exists it will override the existing one
-   **/
-  createPage(page: PageInterface): void
-
-  /**
-   * Remove pages that match the given `condition`
-   **/
-  removeWhere(condition: ((page: PageInterface) => boolean)): void
-
-  /**
-   * Extend the `page` prop on your layout/page component
-   * By default `page` prop is just the PageInterface
-   * It's not recommended to mutate `page` directly to add new properties
-   * That's why we have this method
-   *
-   * @param id - Page ID.
-   * @param obj - An object to be merged by the `page` prop
-   **/
-  extendPageProp(id: string, obj: any): void
+  // ...
 }
 ```
 
-Here're some examples:
+### `pages.getPagePublicFields(id)`
 
-```js
-// Get all pages as an array
-const allPages = [...api.pages.values()]
+- Params:
+  - `id`: `string` `PageInterface` A page ID or the page object.
+- Returns: `Omit<PageInterface, 'internal' | 'content'> | undefined`
 
-// Get all posts (excluding drafts)
-const allPosts = allPages.filter(
-  page => page.attributes.type === 'post' && !page.attributes.draft
-)
+Get a page with its public fields only.
 
-// Exclude internal fields
-const allPostsWithPublicFields = allPosts.map(post =>
-  api.pages.getPagePublicFields(post)
-)
+Currently we only exclude `internal` and `content` properties.
 
-// Add addtional fields to the `page` prop
-for (const page of api.pages.values() {
-  api.pages.extendPageProp(page.internal.id, {
-    foo: true
-  })
-  // Then you can access `this.page.foo` on your layout components
-})
-```
+### `pages.removeWhere(condition)`
+
+- Params: 
+  - `condition`: `(page: PageInterface) => boolean)`
+- Returns: `void`
+
+Remove pages that match the given `condition`.
+
+### `pages.extendPageProp(id, obj)`
+
+- Params:
+  - `id`: `string` Page ID.
+  - `obj`: `any` An object to be merged by the `page` prop.
+- Returns: `void`
+
+Extend the `page` prop on your layout/page component.
+
+By default `page` prop is just the PageInterface.
+
+It's not recommended to mutate `page` directly to add new properties.
+
+### `pages.createRedirect(config)`
+
+- Params:
+  - `config`: `RedirectConfig`
+- Returns: `void`
+
+`RedirectConfig` properties:
+
+|Property|Type|Default|Description|
+|---|---|---|---|
+|`fromPath`|`string`|N/A|Any valid URL. Must start with a forward slash|
+|`toPath`|`string`|N/A|Any valid URL. Must start with a forward slash|
+|`isPermanent`|`boolean`|`false`|This is a permanent redirect; defaults to temporary|
+|`redirectInBrowser`|`boolean`|`false`|Redirects are generally for redirecting legacy URLs to their new configuration. If you can’t update your UI for some reason, set `redirectInBrowser` to `true` and Saber will handle redirecting in the client as well.`
 
 ## hooks
 
