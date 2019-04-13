@@ -12,7 +12,6 @@ class VueRenderer {
     // In dev mode pages will be built when visited
     this.visitedRoutes = new Set()
     this.builtRoutes = new Set()
-    this.api.redirectRoutes = new Map()
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
@@ -267,9 +266,13 @@ class VueRenderer {
           }
         }
       ].map(async page => {
-        const context = { url: page.attributes.permalink }
-        context.addRedirect = (from, options) => {
-          this.api.redirectRoutes.set(from, options)
+        const context = {
+          url: page.attributes.permalink,
+          createRedirect: configs => {
+            for (const config of configs) {
+              this.api.redirectRoutes.set(config.fromPath, config)
+            }
+          }
         }
         const generatedFileName = getFileName(
           page.attributes.generatedFileName || page.attributes.permalink

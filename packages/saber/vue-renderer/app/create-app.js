@@ -35,7 +35,7 @@ Vue.mixin({
   }
 })
 
-export default (context) => {
+export default context => {
   const routerOptions = {
     mode: 'history',
     routes,
@@ -96,7 +96,10 @@ export default (context) => {
       const listeners = {}
       Object.keys(transition).forEach(key => {
         if (typeof transition[key] === 'function') {
-          const kebabKey = key.replace(/([a-z])([A-Z])/, (_, p1, p2) => `${p1}-${p2.toLowerCase()}`)
+          const kebabKey = key.replace(
+            /([a-z])([A-Z])/,
+            (_, p1, p2) => `${p1}-${p2.toLowerCase()}`
+          )
           listeners[kebabKey] = transition[key]
           delete transition[key]
         }
@@ -162,25 +165,28 @@ export default (context) => {
       next()
     })
   }
-  
-  const addRedirect = (routes)=>{
-    if(!Array.isArray(routes)){
-      routes = [routes]
+
+  const createRedirect = _configs => {
+    const configs = [].concat(_configs)
+
+    if (process.browser) {
+      const routes = configs
+        .filter(config => config.redirectInBrowser !== false)
+        .map(config => ({
+          path: config.fromPath,
+          redirect: config.toPath
+        }))
+      if (routes.length > 0) {
+        router.addRoutes(routes)
+      }
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      router.addRoutes(routes.map((rt)=> (
-        { path: `${rt.from}` , redirect: `${rt.to}.html` }
-        )
-      ))
-    }else{
-      routes.map(({from, to}) => {
-        context.addRedirect(from, to)
-      })
+    if (process.server) {
+      context.createRedirect(configs)
     }
   }
 
-  const browserApiContext = { Vue, router, rootOptions, addRedirect }
+  const browserApiContext = { Vue, router, rootOptions, createRedirect }
 
   injectConfig(browserApiContext)
   extendBrowserApi(browserApiContext)

@@ -9,29 +9,26 @@ exports.apply = api => {
     const { log } = api
     const { fs } = api.utils
 
-    const createPage = to => {
-      return `
-	    <html>
-	      <head>
-	        <meta http-equiv="refresh" content="0;url=${to}" />
-	      </head>
-	      <body>
-	      </body>
-	    </html>
-	  `
+    const outputDir = api.resolveCache('public')
+
+    const getFileNameFromLink = link => {
+      const filename = link.endsWith('.html')
+        ? link
+        : link.replace(/\/?$/, '/index.html')
+      return path.join(outputDir, filename)
     }
 
-    const writePage = async (fileName, to) => {
-      log.info(`Generating ${fileName}/index.html`)
-      await fs.outputFile(
-        path.join(api.resolveCache('public'), `${fileName}/index.html`),
-        createPage(to),
-        'utf8'
-      )
+    const getPageContent = toPath => {
+      return `<meta http-equiv="refresh" content="0;url=${toPath}" />`
     }
 
-    api.redirectRoutes.forEach((to, from) => {
-      writePage(from, to)
-    })
+    const writePage = async config => {
+      const fileName = getFileNameFromLink(config.fromPath)
+      log.info(`Generating ${path.relative(outputDir, fileName)}`)
+      await fs.outputFile(fileName, getPageContent(config.toPath), 'utf8')
+    }
+
+    const configs = [...api.redirectRoutes.values()]
+    await Promise.all(configs.map(config => writePage(config)))
   })
 }

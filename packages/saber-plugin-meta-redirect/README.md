@@ -19,29 +19,12 @@ plugins:
 
 In your `saber-browser.js`:
 
-```
-export default ({ addRedirect }) => {
-  addRedirect({
-      from: '/about',
-      to: '/about-us'
-    })
-}
-```
-
-To pass more routes use an array
-
-```
-export default ({ addRedirect }) => {
-  addRedirect([
-    {
-      from: '/originalRouteA',
-      to: '/newRouteA'
-    },
-    {
-      from: '/originalRouteB',
-      to: '/newRouteB'
-    }
-  ])
+```js
+export default ({ createRedirect }) => {
+  createRedirect({
+    fromPath: '/about',
+    to: '/about-us'
+  })
 }
 ```
 
