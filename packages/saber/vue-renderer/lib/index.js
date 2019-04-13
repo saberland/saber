@@ -156,7 +156,7 @@ class VueRenderer {
     this._writingRoutes = true
     const pages = [...this.api.pages.values()]
     const redirectRoutesInBrowser = [...this.api.pages.redirectRoutes.values()]
-      .filter(route => route.redirectInBrowser !== false)
+      .filter(route => route.redirectInBrowser)
       .map(
         route => `{ path: '${route.fromPath}', redirect: '${route.toPath}' }`
       )
