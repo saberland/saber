@@ -1,6 +1,6 @@
 # saber-plugin-meta-redirect
 
-Implement server redirect using HTML `<meta http-equiv="refresh">`.
+Generates `<meta>` redirect html files for redirecting on any static file host.
 
 ## Install
 

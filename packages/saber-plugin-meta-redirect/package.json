@@ -1,7 +1,7 @@
 {
   "name": "saber-plugin-meta-redirect",
   "version": "0.0.1",
-  "description": "Implement server redirect using HTML meta tag",
+  "description": "Generates meta redirect html files for redirecting on any static file host",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
