@@ -14,7 +14,7 @@ module.exports = function(source, map) {
 
       var PageComponent = Component.options.PageComponent
       if (PageComponent) {
-        // .vue or .js page, set route transition from PageComponent.options.transition
+        // .vue or .js page, set route transition from PageComponent.transition
         Component.options.transition = PageComponent.transition
       }
 
