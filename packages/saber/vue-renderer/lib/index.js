@@ -18,6 +18,8 @@ class VueRenderer {
 
       config.output.path(api.resolveCache(`dist-${type}`))
 
+      config.resolve.extensions.merge(['.vue'])
+
       // Use locally installed Vue if possible
       if (api.hasDependency('vue')) {
         config.resolve.alias.set(
