@@ -1,6 +1,6 @@
 # saber-plugin-meta-redirect
 
-Redirect routes
+Implement server redirect using HTML `<meta http-equiv="refresh">`.
 
 ## Install
 
