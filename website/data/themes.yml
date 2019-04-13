@@ -4,7 +4,7 @@ themes:
     github: https://github.com/iCyris/Ume
     demo: https://cyris.pen.moe/
     thumbnail: ume.png
-    categories: 
+    categories:
       - blog
       - portfolio
   - name: Vuepress
@@ -12,7 +12,7 @@ themes:
     github: https://github.com/askcreative/saber-theme-vuepress
     demo: https://saber-theme-vuepress.netlify.com/
     thumbnail: vuepress.png
-    categories: 
+    categories:
       - blog
       - portfolio
   - name: Minima
@@ -20,13 +20,13 @@ themes:
     github: https://github.com/egoist/saber-theme-minima
     demo: https://minima.saberjs.org/
     thumbnail: minima.png
-    categories: 
+    categories:
       - blog
   - name: Paper
     description: A simple theme like read on a paper
     github:
     demo: https://geekplux.com/
     thumbnail: paper.png
-    categories: 
+    categories:
       - blog
       - portfolio
