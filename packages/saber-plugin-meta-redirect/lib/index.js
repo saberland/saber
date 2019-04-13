@@ -20,7 +20,7 @@ exports.apply = api => {
     }
 
     const getPageContent = toPath => {
-      return `<meta http-equiv="refresh" content="0;url=${urlJoin(
+      return `<!DOCTYPE html><meta http-equiv="refresh" content="0;url=${urlJoin(
         api.config.build.publicUrl,
         toPath
       )}" />`
