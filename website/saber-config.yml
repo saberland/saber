@@ -35,6 +35,8 @@ themeConfig:
         link: /docs/markdown-features.html
       - title: Using Vue in Markdown
         link: /docs/using-vue-in-markdown.html
+      - title: Page Transition
+        link: /docs/page-transition.html
   - title: Styles and Assets
     children:
       - title: Using CSS Modules

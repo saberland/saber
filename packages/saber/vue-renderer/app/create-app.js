@@ -86,8 +86,37 @@ export default (context) => {
       layouts
     },
     router,
-    render: h => h('div', { attrs: { id: '_saber' } }, [h('router-view')]),
+    data() {
+      return {
+        transition: null
+      }
+    },
+    render(h) {
+      const transition = Object.assign({}, this.transition)
+      const listeners = {}
+      Object.keys(transition).forEach(key => {
+        if (typeof transition[key] === 'function') {
+          const kebabKey = key.replace(/([a-z])([A-Z])/, (_, p1, p2) => `${p1}-${p2.toLowerCase()}`)
+          listeners[kebabKey] = transition[key]
+          delete transition[key]
+        }
+      })
+      return h('div', { attrs: { id: '_saber' } }, [
+        h(
+          'transition',
+          {
+            props: transition,
+            on: listeners
+          },
+          [h('router-view')]
+        )
+      ])
+    },
     methods: {
+      setTransition(name) {
+        this.transition = name
+      },
+
       getPageLink(relativePath, extraParams) {
         relativePath = join(dirname(this.$route.meta.__relative), relativePath)
         for (const route of this.$router.options.routes) {
@@ -99,21 +128,41 @@ export default (context) => {
             return `${route.path}${extraParams || ''}`
           }
         }
-        const message = `Cannot resolve page ${relativePath} from ${
-          this.$route.meta.__relative
-        }, are you sure ${relativePath} exists?`
-        if (process.env.NODE_ENV === 'development') {
-          console.error(message)
-        } else {
-          // Make it fail at build stage
-          throw new Error(message)
-        }
-        // Always return a link, otherwise vue-router will throw error in production build
-        return '/404.html'
+        // Not a page, return the link directly
+        return relativePath
       }
     }
   }
 
+  if (process.browser) {
+    router.beforeEach(async (to, from, next) => {
+      const matched = router.getMatchedComponents(to)[0]
+      if (!matched) {
+        return next()
+      }
+
+      let component = await (typeof matched === 'function'
+        ? matched()
+        : matched)
+      component = component.default || component
+
+      let transition
+      if (typeof component.transition === 'function') {
+        transition = component.transition(to, from)
+      } else {
+        transition = component.transition
+      }
+      if (!transition || typeof transition === 'string') {
+        transition = { name: component.transition }
+      }
+      transition.name = transition.name || 'page'
+      transition.mode = transition.mode || 'out-in'
+
+      app.$saber.setTransition(transition)
+      next()
+    })
+  }
+  
   const addRedirect = (routes)=>{
     if(!Array.isArray(routes)){
       routes = [routes]
@@ -132,6 +181,7 @@ export default (context) => {
   }
 
   const browserApiContext = { Vue, router, rootOptions, addRedirect }
+
   injectConfig(browserApiContext)
   extendBrowserApi(browserApiContext)
 

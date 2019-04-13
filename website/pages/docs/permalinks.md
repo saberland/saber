@@ -26,8 +26,10 @@ Setting a permalink using the `permalink` attribute for every page on your site 
 To set a global permalink, you use the permalink variable in `saber-config.yml`. You can use placeholders to modify the output. For example:
 
 ```yaml
+# Default values:
 permalinks:
   post: /:year/:month/:day/:slug.html
+  page: /:slug.html
 ```
 
 Note that placeholders like `:year` and `:month` are parsed from the page attribute `date` which can be any valid date value like: `2015-02-31`, it defaults to the creation time of your page.

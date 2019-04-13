@@ -19,6 +19,8 @@ module.exports = (api, { type }) => {
     .publicPath(`${api.config.build.publicUrl}_saber/`)
     .filename(fileNames.js)
 
+  config.resolve.extensions.merge(['.mjs', '.js', '.json', '.wasm'])
+
   // Disable performance hints
   config.performance.hints(false)
 
