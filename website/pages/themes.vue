@@ -13,6 +13,7 @@
               viewBox="0 0 40 40"
               style="vertical-align: -0.125em;"
               @click="toggleSelection(key)"
+              v-if="filters.includes(key)"
             >
               <g>
                 <path
@@ -29,6 +30,7 @@
               viewBox="0 0 40 40"
               style="vertical-align:-0.125em"
               @click="toggleSelection(key)"
+              v-else
             >
               <g>
                 <path
@@ -48,7 +50,7 @@
         ({{themes.length}})
       </div>
       <div class="themes__gallery--list">
-        <div class="themes__card" v-for="(theme, index) in themes" :key="index">
+        <div class="themes__card" v-for="(theme, index) in filteredThemes" :key="index">
           <div class="themes__card--header">
             <div
               class="themes__card--thumbnail"
@@ -115,7 +117,8 @@ export const attributes = {
 export default {
   data() {
     return {
-      themes
+      themes,
+      filters: []
     }
   },
   computed: {
@@ -133,6 +136,17 @@ export default {
         acc = [...acc, ...theme.categories]
         return acc
       }, [])
+    },
+    filteredThemes() {
+      if (this.filters.length !== 0) {
+        return this.themes.filter(theme =>
+          theme.categories.some(cat => {
+            return this.filters.includes(cat)
+          })
+        )
+      } else {
+        return this.themes
+      }
     }
   },
   methods: {
@@ -143,7 +157,11 @@ export default {
       return require('../images/themes/' + name)
     },
     toggleSelection(key) {
-      this.categories[key].selected = !this.categories[key].selected
+      if (this.filters.includes(key)) {
+        this.filters.splice(this.filters.indexOf(key), 1)
+      } else {
+        this.filters.push(key)
+      }
     }
   }
 }

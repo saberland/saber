@@ -6,7 +6,7 @@ themes:
     thumbnail: ume.png
     categories: 
       - blog
-      - test
+      - portfolio
   - name: Vuepress
     description: Vuepress default theme for saber.js
     github: https://github.com/askcreative/saber-theme-vuepress
@@ -14,6 +14,7 @@ themes:
     thumbnail: vuepress.png
     categories: 
       - blog
+      - portfolio
   - name: Minima
     description: A Saber Port of the Default Jekyll Theme
     github: https://github.com/egoist/saber-theme-minima
@@ -28,3 +29,4 @@ themes:
     thumbnail: paper.png
     categories: 
       - blog
+      - portfolio
