@@ -274,8 +274,7 @@ class VueRenderer {
         }
       ].map(async page => {
         const context = {
-          url: page.attributes.permalink,
-          pages: this.api.pages
+          url: page.attributes.permalink
         }
         const generatedFileName = getFileName(
           page.attributes.generatedFileName || page.attributes.permalink
