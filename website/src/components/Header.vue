@@ -29,6 +29,9 @@
           <saber-link to="/tutorial/tutorial.html">Tutorial</saber-link>
         </li>
         <li class="menu-item">
+          <saber-link to="/themes.html">Themes</saber-link>
+        </li>
+        <li class="menu-item">
           <saber-link to="/blog/">Blog</saber-link>
         </li>
         <li class="menu-item">

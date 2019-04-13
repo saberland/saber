@@ -20,6 +20,15 @@
   }
 }
 
+.content-fluid {
+  padding: 20px 0;
+  margin: var(--header-height) 1rem;
+
+  @media (max-width 768px ) {
+    padding: 20px;
+  }
+}
+
 .page-title {
   font-size: 3rem;
   font-weight: 700;
