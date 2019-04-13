@@ -10,5 +10,8 @@
   "files": [
     "lib"
   ],
-  "xo": false
+  "xo": false,
+  "dependencies": {
+    "url-join": "^4.0.0"
+  }
 }

@@ -1,4 +1,5 @@
 const path = require('path')
+const urlJoin = require('url-join')
 
 const ID = 'meta-redirect'
 
@@ -19,7 +20,10 @@ exports.apply = api => {
     }
 
     const getPageContent = toPath => {
-      return `<meta http-equiv="refresh" content="0;url=${toPath}" />`
+      return `<meta http-equiv="refresh" content="0;url=${urlJoin(
+        api.config.build.publicUrl,
+        toPath
+      )}" />`
     }
 
     const writePage = async config => {
