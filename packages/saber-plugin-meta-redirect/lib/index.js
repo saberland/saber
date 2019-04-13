@@ -32,7 +32,7 @@ exports.apply = api => {
       await fs.outputFile(fileName, getPageContent(config.toPath), 'utf8')
     }
 
-    const configs = [...api.redirectRoutes.values()]
+    const configs = [...api.pages.redirectRoutes.values()]
     await Promise.all(configs.map(config => writePage(config)))
   })
 }

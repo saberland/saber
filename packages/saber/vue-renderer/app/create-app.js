@@ -166,27 +166,7 @@ export default context => {
     })
   }
 
-  const createRedirect = _configs => {
-    const configs = [].concat(_configs)
-
-    if (process.browser) {
-      const routes = configs
-        .filter(config => config.redirectInBrowser !== false)
-        .map(config => ({
-          path: config.fromPath,
-          redirect: config.toPath
-        }))
-      if (routes.length > 0) {
-        router.addRoutes(routes)
-      }
-    }
-
-    if (process.server) {
-      context.createRedirect(configs)
-    }
-  }
-
-  const browserApiContext = { Vue, router, rootOptions, createRedirect }
+  const browserApiContext = { Vue, router, rootOptions }
 
   injectConfig(browserApiContext)
   extendBrowserApi(browserApiContext)

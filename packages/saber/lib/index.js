@@ -52,8 +52,6 @@ class Saber {
 
     this.transformers = new Transformers()
     this.requestHandlers = {}
-    // The store for `createRedirect`
-    this.redirectRoutes = new Map()
 
     for (const hook of Object.keys(this.hooks)) {
       const ignoreNames = ['theme-node-api', 'user-node-api']

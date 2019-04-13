@@ -155,6 +155,12 @@ class VueRenderer {
 
     this._writingRoutes = true
     const pages = [...this.api.pages.values()]
+    const redirectRoutesInBrowser = [...this.api.pages.redirectRoutes.values()]
+      .filter(route => route.redirectInBrowser !== false)
+      .map(
+        route => `{ path: '${route.fromPath}', redirect: '${route.toPath}' }`
+      )
+      .join(',\n')
     const routes = `
     export default [
       ${pages
@@ -195,6 +201,7 @@ class VueRenderer {
             }`
         })
         .join(',\n')},
+      ${redirectRoutesInBrowser ? `${redirectRoutesInBrowser},` : ''}
       // An addtional route to catch all other requests, i.e. 404 page
       {
         path: '*',
@@ -268,11 +275,7 @@ class VueRenderer {
       ].map(async page => {
         const context = {
           url: page.attributes.permalink,
-          createRedirect: configs => {
-            for (const config of configs) {
-              this.api.redirectRoutes.set(config.fromPath, config)
-            }
-          }
+          pages: this.api.pages
         }
         const generatedFileName = getFileName(
           page.attributes.generatedFileName || page.attributes.permalink

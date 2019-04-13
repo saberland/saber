@@ -17,11 +17,11 @@ plugins:
   - resolve: saber-plugin-meta-redirect
 ```
 
-In your `saber-browser.js`:
+In your `saber-node.js`:
 
 ```js
-export default ({ createRedirect }) => {
-  createRedirect({
+exports.onCreatePages = function ()
+  this.pages.createRedirect({
     fromPath: '/about',
     to: '/about-us'
   })
