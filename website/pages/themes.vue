@@ -167,118 +167,116 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.themes {
-  &__container {
-    display: flex;
+<style scoped>
+.themes__container {
+  display: flex;
+}
+
+.themes__categories {
+  padding-right: 1rem;
+  flex-basis: var(--sidebar-width);
+
+  & .themes__categories--header {
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
   }
 
-  &__categories {
-    padding-right: 1rem;
-    flex-basis: var(--sidebar-width);
-
-    &--header {
-      text-transform: uppercase;
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    &--list {
-      &-item {
-        display: flex;
-        justify-content: space-between;
-        text-transform: capitalize;
-      }
-    }
-  }
-
-  &__gallery {
-    padding-left: 1rem;
-    width: 100%;
-
-    &--header {
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-
-      span {
-        font-weight: 600;
-      }
-    }
-
-    &--list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 3rem;
-    }
-  }
-
-  &__card {
-    &--header:hover &--thumbnail {
-      box-shadow: 0px 4px 8px rgba(46, 41, 51, 0.08),
-        0px 8px 16px rgba(71, 63, 79, 0.16);
-    }
-
-    &--thumbnail {
-      height: 12rem;
-      background-size: cover;
-      background-position: center;
-      transition: 0.3s;
-      margin-bottom: 1rem;
-    }
-
-    &--title {
-      font-weight: 600;
-    }
-
-    &--footer {
+  & .themes__categories--list {
+    & .themes__categories--list-item {
       display: flex;
       justify-content: space-between;
-      color: hsla(270, 3.674150944000001%, 0%, 0.36);
-    }
-
-    &--subtitle {
       text-transform: capitalize;
-      font-size: 0.8rem;
     }
+  }
+}
 
-    &--ext {
-      svg {
-        fill: hsla(270, 3.674150944000001%, 0%, 0.36);
-      }
+.themes__gallery {
+  padding-left: 1rem;
+  width: 100%;
 
-      svg:hover {
-        fill: black;
-      }
+  & .themes__gallery--header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+
+    & span {
+      font-weight: 600;
     }
   }
 
-  @media (max-width: 960px) {
-    &__gallery {
-      &--list {
-        grid-template-columns: repeat(2, 1fr);
-      }
+  & .themes__gallery--list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3rem;
+  }
+}
+
+.themes__card {
+  & .themes__card--header:hover &--thumbnail {
+    box-shadow: 0px 4px 8px rgba(46, 41, 51, 0.08),
+      0px 8px 16px rgba(71, 63, 79, 0.16);
+  }
+
+  & .themes__card--thumbnail {
+    height: 12rem;
+    background-size: cover;
+    background-position: center;
+    transition: 0.3s;
+    margin-bottom: 1rem;
+  }
+
+  & .themes__card--title {
+    font-weight: 600;
+  }
+
+  & .themes__card--footer {
+    display: flex;
+    justify-content: space-between;
+    color: hsla(270, 3.674150944000001%, 0%, 0.36);
+  }
+
+  & .themes__card--subtitle {
+    text-transform: capitalize;
+    font-size: 0.8rem;
+  }
+
+  & .themes__card--ext {
+    & svg {
+      fill: hsla(270, 3.674150944000001%, 0%, 0.36);
+    }
+
+    & svg:hover {
+      fill: black;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .themes__gallery {
+    & .themes__gallery--list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .themes__categories {
+    display: none;
+  }
+}
+
+@media (max-width: 660px) {
+  .themes__gallery {
+    & .themes__gallery--list {
+      grid-template-columns: 1fr;
+      justify-items: center;
     }
   }
 
-  @media (max-width: 768px) {
-    &__categories {
-      display: none;
-    }
-  }
-
-  @media (max-width: 660px) {
-    &__gallery {
-      &--list {
-        grid-template-columns: 1fr;
-        justify-items: center;
-      }
-    }
-
-    &__card {
-      width: 20rem;
-    }
+  .themes__card {
+    width: 20rem;
   }
 }
 </style>
