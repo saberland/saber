@@ -25,11 +25,14 @@ exports.apply = api => {
 
     const getRoute = link => urlJoin(api.config.build.publicUrl, link)
 
-    const getPageContent = routes => {
+    const getPageContent = (htmlRedirectRoutes, createRedirectRoutes) => {
       let newContent = ''
-      routes.forEach(route => {
+      htmlRedirectRoutes.forEach(route => {
         route = getRoute(route)
         newContent += `${route.replace('.html', '')} ${route} \n`
+      })
+      createRedirectRoutes.forEach(config => {
+        newContent += `${config.fromPath} ${config.toPath} \n`
       })
       return oldContent + newContent
     }
@@ -37,13 +40,10 @@ exports.apply = api => {
     const generateRedirects = async links => {
       const _redirects = path.join(outputDir, '/_redirects')
       log.info(`Generating ${path.relative(outputDir, _redirects)}`)
-      await fs.outputFile(_redirects, getPageContent(links), 'utf8')
+      await fs.outputFile(_redirects, getPageContent(links, [...api.pages.redirectRoutes.values()]), 'utf8')
     }
 
     let routes = [...api.pages.values()].map(page => page.attributes.permalink)
-    routes = routes.concat(
-      [...api.pages.redirectRoutes.values()].map(config => config.toPath)
-    )
     const filteredRoutes = routes.filter(
       x =>
         !x.endsWith('/') &&
