@@ -1,14 +1,15 @@
 export default ({ router }) => {
   if (process.browser) {
     router.beforeEach(async (to, from, next) => {
-      const matched = router.getMatchedComponents(to)[0]
-      if (!matched) {
-        return next()
+      // The default router component
+      let component = to.matched[0].components.default
+
+      // Resolve async component
+      if (typeof component === 'function') {
+        component = await component()
       }
 
-      let component = await (typeof matched === 'function'
-        ? matched()
-        : matched)
+      // ES compat
       component = component.default || component
 
       let transition
