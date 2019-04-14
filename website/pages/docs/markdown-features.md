@@ -214,6 +214,16 @@ In this case the rendered HTML will look like:
 
 Saber's default CSS works well with `prismjs/themes/prism.css`, for other themes some tweaks might be needed to suit your needs.
 
+If you want to change the font size or font family, you need to add CSS for both `.saber-highlight-mask` and `.saber-highlight-code code`:
+
+```css
+.saber-highlight-mask,
+.saber-highlight-code code {
+  /* Default: */
+  font-size: .875rem;
+}
+```
+
 ## Configure markdown-it
 
 Check out [markdown.options](./saber-config.md#markdown.options) for setting markdown-it options and [markdown.plugins](./saber-config.md#markdown.plugins) for adding markdown-it plugins.

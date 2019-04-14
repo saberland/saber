@@ -47,7 +47,7 @@
   font-size: 0;
 }
 
-code {
+code, .saber-highlight-mask {
   font-size: .875rem;
 }
 
