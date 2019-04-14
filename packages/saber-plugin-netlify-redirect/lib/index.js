@@ -13,7 +13,7 @@ exports.apply = api => {
     const outputDir = api.resolveCache('public')
     const publicDir = api.resolveCwd('public')
 
-    var oldContent = ''
+    let oldContent = ''
     try {
       oldContent = await fs.readFile(publicDir + '/_redirects')
     } catch (error) {
