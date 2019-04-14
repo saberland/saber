@@ -1,0 +1,18 @@
+{
+  "name": "saber-plugin-netlify-redirect",
+  "version": "0.0.1",
+  "description": "Generates meta redirect html files for redirecting on any static file host",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev:example": "saber example",
+    "build:example": "saber build example"
+  },
+  "files": [
+    "lib"
+  ],
+  "xo": false,
+  "dependencies": {
+    "url-join": "^4.0.0"
+  }
+}
