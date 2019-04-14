@@ -214,7 +214,7 @@ export default {
 }
 
 .themes__card {
-  & .themes__card--header:hover &--thumbnail {
+  & .themes__card--header:hover .themes__card--thumbnail {
     box-shadow: 0px 4px 8px rgba(46, 41, 51, 0.08),
       0px 8px 16px rgba(71, 63, 79, 0.16);
   }
