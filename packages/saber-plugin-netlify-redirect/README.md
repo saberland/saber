@@ -1,6 +1,6 @@
 # saber-plugin-netlify-redirect
 
-Generates \_redirects file for redirecting '/:page' to '/:page.html' on Netlify.
+Generates `_redirects` file for redirecting '/:page' to '/:page.html' on Netlify.
 
 ## Install
 
