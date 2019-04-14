@@ -150,7 +150,7 @@ Same as `tagsMap` but for categories.
 ### permalinks
 
 - Type: `{ category?: string, tag?: string }`
-- Default: `{ category: '/categories/:name', tag: '/tags/:tag' }`
+- Default: `{ category: '/categories/:name', tag: '/tags/:name' }`
 
 The permalink templates for category and tag pages, available placeholders:
 
