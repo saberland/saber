@@ -2190,10 +2190,10 @@ byte-size@^4.0.3:
   resolved "https://registry.npmjs.org/byte-size/-/byte-size-4.0.4.tgz#29d381709f41aae0d89c631f1c81aec88cd40b23"
   integrity sha512-82RPeneC6nqCdSwCX2hZUz3JPOvN5at/nTEw/CMf05Smu3Hrpo9Psb7LjN+k+XndNArG1EY8L4+BM3aTM4BCvw==
 
-cac@^6.4.3:
-  version "6.4.3"
-  resolved "http://registry.npm.taobao.org/cac/download/cac-6.4.3.tgz#903bd577194912781bdeec039b1b10a30a6c1fcd"
-  integrity sha1-kDvVdxlJEngb3uwDmxsQowpsH80=
+cac@^6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/cac/-/cac-6.5.1.tgz#c5685ebc20a8448558191d70a2a76636640308a0"
+  integrity sha512-mqKv0Ub/nXSoqlACRvrso3k7+nCdzUNimdh+3l0ywDNt27d/x5s/zEg2Ubf1MrsV5Q/DncxtXhNJLrJN6zq1jQ==
 
 cacache@^11.0.1, cacache@^11.0.2, cacache@^11.3.2:
   version "11.3.2"
