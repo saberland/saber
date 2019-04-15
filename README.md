@@ -15,12 +15,12 @@
 
 ## Quick Overview
 
-If you want to create a blog with Saber, you can achieve this by using a single command:
+You can create a new site with just a single command:
 
 ```bash
-npm init blog my-blog
+npm init site new-site
 # Or if you prefer Yarn
-yarn create blog my-blog
+yarn create site new-site
 ```
 
 Then run `npm run dev` or `yarn dev` in the created project and you're done!

@@ -1,14 +1,16 @@
 {
-  "name": "create-blog",
+  "name": "create-site",
   "version": "0.2.1",
   "bin": "cli.js",
   "files": [
-    "cli.js"
+    "cli.js",
+    "template"
   ],
-  "dependencies": {
-    "create-site": "^0.2.1"
-  },
   "license": "MIT",
+  "dependencies": {
+    "kleur": "^3.0.1",
+    "ncp": "^2.0.0"
+  },
   "author": {
     "name": "EGOIST",
     "email": "0x142857@gmail.com"
