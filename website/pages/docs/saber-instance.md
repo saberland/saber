@@ -13,6 +13,14 @@ interface Pages extends Map<id, PageInterface> {
 }
 ```
 
+### `pages.createPage(page)`
+
+- Params:
+  - `page`: `PageInterface`
+- Returns: `void`
+
+Create a new page or overwrite the existing page.
+
 ### `pages.getPagePublicFields(id)`
 
 - Params:
