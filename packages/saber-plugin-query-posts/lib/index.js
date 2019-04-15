@@ -49,10 +49,17 @@ exports.apply = (api, options = {}) => {
         const pagePublicFields = api.pages.getPagePublicFields(page)
         allPosts.add(pagePublicFields)
 
+        page.tags = []
+        page.categories = []
+
         // Group posts for tag pages
         const tags = [].concat(page.attributes.tags || [])
         if (tags.length > 0) {
           for (const tag of tags) {
+            page.tags.push({
+              name: tag,
+              link: permalinks.tag.replace(/:name/, tag)
+            })
             const tagId = getIdFromMap(tagsMap, tag)
             const posts = allTagPosts.get(tagId) || new Set()
             posts.add(pagePublicFields)
@@ -67,6 +74,10 @@ exports.apply = (api, options = {}) => {
 
         if (categories.length > 0) {
           for (const category of categories) {
+            page.categories.push({
+              name: category,
+              link: permalinks.category.replace(/:name/, category)
+            })
             for (const index of category.keys()) {
               const id = category
                 .slice(0, index + 1)
