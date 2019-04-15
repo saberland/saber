@@ -43,7 +43,9 @@ exports.apply = api => {
     for (const permalink of allPermalinks) {
       if (permalink.endsWith('.html')) {
         const fromPath = permalink.replace(/\.html$/, '')
+        // The fromPath is already used
         const hasRedirect = api.pages.redirectRoutes.has(fromPath)
+        // The fromPath is already an existing permalink
         const hasPermalink = allPermalinks.some(
           r => r.replace(/\/$/, '') === fromPath
         )
