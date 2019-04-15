@@ -13,7 +13,14 @@
 
 **Please consider [donating](https://www.patreon.com/egoist) to this project's author, [EGOIST](#author), to show your ❤️ and support.**
 
-## Quick Overview
+## Features
+
+- **Static Rendering.**<br>_With Saber, static rendering with Vue.js is easier now than ever._
+- **Zero Setup.**<br>_Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support._
+- **Bring Your Own Data.**<br>_Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more._
+- **Fully Extensible.**<br>_With Saber's powerful APIs and plugin system, you can customize almost everything._
+
+## Quick Start
 
 You can create a new site with just a single command:
 
@@ -25,7 +32,7 @@ yarn create site new-site
 
 Then run `npm run dev` or `yarn dev` in the created project and you're done!
 
-Check out the [website](https://saber.land) for more details or try the online CodeSandbox example:
+Dive into the [docs](https://saber.land) for more details or try the online CodeSandbox example:
 
 [![Edit saber-sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/egoist/saber-codesandbox/tree/master/?fontsize=14&module=%2Fpages%2Findex.md)
 
