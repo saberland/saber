@@ -1,6 +1,6 @@
 # saber-plugin-netlify-redirect
 
-Generates `_redirects` file for redirecting '/:page' to '/:page.html' and redirecting routes set with `pages.createRedirect` in `saber-node.js` on Netlify.
+Automatically generate or update `_redirects` file in your public folder for [Netlify](https://www.netlify.com/docs/redirects/).
 
 ## Install
 
@@ -16,6 +16,10 @@ In your `saber-config.yml`:
 plugins:
   - resolve: saber-plugin-netlify-redirect
 ```
+
+Then you can create redirects using the [`pages.createRedirect`](<https://saber.land/docs/saber-instance.html#pages.createredirect(config)>) API.
+
+Since Netlify automatically rewrites routes like `/about` to `/about.html`, this plugin will also create redirects for all `.html` routes so that `/about` will be redirected to `/about.html` when it does not exist.
 
 ## License
 
