@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/egoist/saber/compare/saber@0.4.2...saber@0.4.3) (2019-04-15)
+
+### Bug Fixes
+
+- return the link directly in getPageLink if it's not a page ([da876de](https://github.com/egoist/saber/commit/da876de))
+- simplify the default layout ([8480b74](https://github.com/egoist/saber/commit/8480b74))
+- **css:** set font-size for highlight mask ([bdb761e](https://github.com/egoist/saber/commit/bdb761e))
+- **vue-renderer:** fix scrollBehavior for page transition ([f3445d6](https://github.com/egoist/saber/commit/f3445d6))
+- **vue-renderer:** set transition after extendBrowserApi ([9499b12](https://github.com/egoist/saber/commit/9499b12))
+
+### Features
+
+- redirect support ([#56](https://github.com/egoist/saber/issues/56)) ([48c913f](https://github.com/egoist/saber/commit/48c913f))
+- resolve .vue files automatically ([186cb29](https://github.com/egoist/saber/commit/186cb29))
+- support page transition ([5af96c7](https://github.com/egoist/saber/commit/5af96c7))
+
 ## [0.4.2](https://github.com/egoist/saber/compare/saber@0.4.1...saber@0.4.2) (2019-04-12)
 
 ### Bug Fixes

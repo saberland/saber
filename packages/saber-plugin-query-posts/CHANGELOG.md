@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.1.0...saber-plugin-query-posts@0.1.1) (2019-04-15)
+
+### Bug Fixes
+
+- **plugin-query-posts:** typo ([#60](https://github.com/egoist/saber/issues/60)) ([830aea4](https://github.com/egoist/saber/commit/830aea4))
+- **query-posts:** inject createdAt updatedAt to page attributes, closes [#61](https://github.com/egoist/saber/issues/61) ([6d1d685](https://github.com/egoist/saber/commit/6d1d685))
+
 # [0.1.0](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.0.7...saber-plugin-query-posts@0.1.0) (2019-04-09)
 
 ### Bug Fixes
