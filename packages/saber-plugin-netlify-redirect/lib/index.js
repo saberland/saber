@@ -8,20 +8,10 @@ exports.name = ID
 exports.apply = api => {
   api.hooks.afterGenerate.tapPromise(ID, async () => {
     const { log } = api
+    /** @type {{fs: import('fs-extra') }} */
     const { fs } = api.utils
 
-    const outputDir = api.resolveCache('public')
-    const publicDir = api.resolveCwd('public')
-
-    var oldContent = ''
-    try {
-      oldContent = await fs.readFile(publicDir + '/_redirects')
-    } catch (error) {
-      if (error.code !== 'ENOENT') {
-        throw error
-      }
-    }
-    oldContent = oldContent.toString()
+    const outDir = api.resolveCache('public')
 
     const getRoute = link => urlJoin(api.config.build.publicUrl, link)
 
@@ -34,16 +24,26 @@ exports.apply = api => {
       createRedirectRoutes.forEach(config => {
         newContent += `${config.fromPath} ${config.toPath} \n`
       })
-      return oldContent + newContent
+      return newContent
     }
 
     const generateRedirects = async links => {
-      const _redirects = path.join(outputDir, '/_redirects')
-      log.info(`Generating ${path.relative(outputDir, _redirects)}`)
-      await fs.outputFile(_redirects, getPageContent(links, [...api.pages.redirectRoutes.values()]), 'utf8')
+      const redirectFilePath = path.join(outDir, '_redirects')
+      const content = getPageContent(links, [
+        ...api.pages.redirectRoutes.values()
+      ])
+      if (await fs.pathExists(redirectFilePath)) {
+        log.info(`Generating _redirects (append)`)
+        await fs.appendFile(redirectFilePath, content, 'utf8')
+      } else {
+        log.info(`Generating _redirects`)
+        await fs.outputFile(redirectFilePath, content, 'utf8')
+      }
     }
 
-    let routes = [...api.pages.values()].map(page => page.attributes.permalink)
+    const routes = [...api.pages.values()].map(
+      page => page.attributes.permalink
+    )
     const filteredRoutes = routes.filter(
       x =>
         !x.endsWith('/') &&
