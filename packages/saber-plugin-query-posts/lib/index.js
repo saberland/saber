@@ -150,6 +150,7 @@ exports.apply = (api, options = {}) => {
           paginationOptions
         )
         const totalPages = paginatedPosts.length
+        const date = new Date()
 
         for (const page of pages) {
           for (const [index, posts] of paginatedPosts.entries()) {
@@ -168,7 +169,9 @@ exports.apply = (api, options = {}) => {
                   (index === 0 ? undefined : page.internal.id)
               }),
               attributes: Object.assign({}, page.attributes, {
-                permalink
+                permalink,
+                createdAt: page.attributes.createdAt || date,
+                updatedAt: page.attributes.updatedAt || date
               })
             })
             api.pages.createPage(newPage)
