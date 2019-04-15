@@ -40,7 +40,9 @@ Dive into the [docs](https://saber.land) for more details or try the online Code
 
 - [Awesome Saber](https://github.com/egoist/awesome-saber) - A curated list of awesome Saber resources.
 
-## Community
+## Support
+
+Check out our [Roadmap](https://github.com/egoist/saber/projects/1) for upcoming features.
 
 - [Discord Chat](https://chat.saber.land)
 - [Spectrum Chat](https://spectrum.chat/saber)
@@ -48,11 +50,11 @@ Dive into the [docs](https://saber.land) for more details or try the online Code
 
 ## Contributing
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+1.  Fork it!
+2.  Create your feature branch: `git checkout -b my-new-feature`
+3.  Commit your changes: `git commit -am 'Add some feature'`
+4.  Push to the branch: `git push origin my-new-feature`
+5.  Submit a pull request :D
 
 ## Author
 
