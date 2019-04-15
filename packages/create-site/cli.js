@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const path = require('path')
+const { spawnSync } = require('child_process')
 const { promisify } = require('util')
 const colors = require('kleur')
 
@@ -30,6 +31,12 @@ console.log(`Creating a new site...`)
 
 const { ncp } = require('ncp')
 
+let hasYarn = false
+try {
+  spawnSync('yarn', ['--version'])
+  hasYarn = true
+} catch (error) {}
+
 promisify(ncp)(path.join(__dirname, 'template'), dir)
   .then(() => {
     console.log(
@@ -37,8 +44,13 @@ promisify(ncp)(path.join(__dirname, 'template'), dir)
     )
     console.log(colors.bold(`To start dev server, run:`))
     console.log(colors.cyan(`$ cd ${path.relative(process.cwd(), dir)}`))
-    console.log(colors.cyan(`$ npm install`))
-    console.log(colors.cyan(`$ npm run dev`))
+    if (hasYarn) {
+      console.log(colors.cyan(`$ yarn`))
+      console.log(colors.cyan(`$ yarn dev`))
+    } else {
+      console.log(colors.cyan(`$ npm install`))
+      console.log(colors.cyan(`$ npm run dev`))
+    }
     console.log(colors.dim(`For more details, please check out the README.md`))
   })
   .catch(console.error)
