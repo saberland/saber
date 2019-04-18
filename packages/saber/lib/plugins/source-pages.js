@@ -14,7 +14,7 @@ exports.apply = api => {
     const exts = api.transformers.supportedExtensions
     const filePatterns = [
       `**/*.${exts.length === 1 ? exts[0] : `{${exts.join(',')}}`}`,
-      '!**/{node_modules,dist,vendor}/**',
+      '!**/{node_modules,dist}/**',
       '!**/_!(posts)/**'
     ]
 
