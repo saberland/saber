@@ -49,18 +49,16 @@ exports.apply = (api, options = {}) => {
         const pagePublicFields = api.pages.getPagePublicFields(page)
         allPosts.add(pagePublicFields)
 
-        page.tags = []
-        page.categories = []
-
         // Group posts for tag pages
         const tags = [].concat(page.attributes.tags || [])
         if (tags.length > 0) {
+          page.tags = []
           for (const tag of tags) {
+            const tagId = getIdFromMap(tagsMap, tag)
             page.tags.push({
               name: tag,
-              link: permalinks.tag.replace(/:name/, tag)
+              link: permalinks.tag.replace(/:name/, tagId)
             })
-            const tagId = getIdFromMap(tagsMap, tag)
             const posts = allTagPosts.get(tagId) || new Set()
             posts.add(pagePublicFields)
             allTagPosts.set(tagId, posts)
@@ -73,16 +71,17 @@ exports.apply = (api, options = {}) => {
           .map(v => (Array.isArray(v) ? v : v.split('/')))
 
         if (categories.length > 0) {
+          page.categories = []
           for (const category of categories) {
-            page.categories.push({
-              name: category,
-              link: permalinks.category.replace(/:name/, category)
-            })
             for (const index of category.keys()) {
               const id = category
                 .slice(0, index + 1)
                 .map(name => getIdFromMap(categoriesMap, name))
                 .join('/')
+              page.categories.push({
+                name: category,
+                link: permalinks.category.replace(/:name/, id)
+              })
               const posts = allCategoryPosts.get(id) || new Set()
               posts.add(pagePublicFields)
               allCategoryPosts.set(id, posts)
