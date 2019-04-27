@@ -30,8 +30,21 @@ function getNameFromMap(map, id) {
   return id
 }
 
+/**
+ * Render permalink template
+ * @param {string} permalink
+ * @param {{[k:string]: string}} data
+ */
+function renderPermalink(permalink, data) {
+  for (const key of Object.keys(data)) {
+    permalink = permalink.replace(`:${key}`, data[key])
+  }
+  return permalink
+}
+
 module.exports = {
   paginate,
   getIdFromMap,
-  getNameFromMap
+  getNameFromMap,
+  renderPermalink
 }

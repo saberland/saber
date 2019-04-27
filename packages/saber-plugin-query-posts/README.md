@@ -76,7 +76,30 @@ tags:
 hello
 ```
 
-Then it will generate `/tags/life` and `/tags/random` pages.
+### Data Injected in Post Pages
+
+You can access the detailed info of the tags of a post page via `this.page.tags`, for instance:
+
+```yaml
+tags:
+  - life
+  - random
+```
+
+gives you:
+
+```js
+;[
+  {
+    name: 'life',
+    permalink: '/tags/life'
+  },
+  {
+    name: 'random',
+    permalink: '/tags/random'
+  }
+]
+```
 
 ### Tag Layout
 
@@ -100,6 +123,35 @@ hello
 ```
 
 Then there will be a `/categories/sports` page，`categories` is an array, so you can assign the post to multiple categories.
+
+### Data Injected in Post Pages
+
+You can access the detailed info of the categories of a post page via `this.page.categories`, for instance:
+
+```yaml
+categories:
+  - sports/football
+  - hobby
+```
+
+gives you:
+
+```js
+;[
+  {
+    name: 'sports',
+    permalink: '/categories/sports'
+  },
+  {
+    name: 'football',
+    permalink: '/categories/sports/football'
+  },
+  {
+    name: 'hobby',
+    permalink: '/categories/hobby'
+  }
+]
+```
 
 ### Nesting Category
 
@@ -150,13 +202,13 @@ Same as `tagsMap` but for categories.
 ### permalinks
 
 - Type: `{ category?: string, tag?: string }`
-- Default: `{ category: '/categories/:name', tag: '/tags/:name' }`
+- Default: `{ category: '/categories/:slug', tag: '/tags/:slug' }`
 
 The permalink templates for category and tag pages, available placeholders:
 
-| placeholder | description                         |
-| ----------- | ----------------------------------- |
-| name        | Corresponding tag or category name. |
+| placeholder | description                    |
+| ----------- | ------------------------------ |
+| slug        | Slugified tag / category name. |
 
 ## License
 
