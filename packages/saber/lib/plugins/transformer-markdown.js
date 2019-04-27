@@ -20,7 +20,7 @@ exports.apply = api => {
     getPageComponent(page) {
       return `
         <template>
-        <layout-manager :page="$page">
+        <layout-manager :page="$page" :layout="$options.layout">
           ${page.content || ''}
         </layout-manager>
         </template>

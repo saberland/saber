@@ -9,20 +9,21 @@ export default {
     },
     PageComponent: {
       type: null
+    },
+    layout: {
+      type: String
     }
   },
   inject: ['layouts'],
   render(
     h,
     {
-      props: { page, PageComponent },
+      props: { page, PageComponent, layout },
       children,
       injections: { layouts }
     }
   ) {
     const attrs = { props: { page } }
-
-    const { layout } = page.attributes
 
     if (typeof layout !== 'string') {
       return PageComponent ? h(PageComponent, attrs) : h('div', {

@@ -2,30 +2,53 @@ export default ({ router }) => {
   if (process.browser) {
     router.beforeEach(async (to, from, next) => {
       // The default router component
-      let component = to.matched[0].components.default
-
+      let RouteComponent = to.matched[0].components.default
       // Resolve async component
-      if (typeof component === 'function') {
-        component = await component()
+      if (typeof RouteComponent === 'function') {
+        RouteComponent = await RouteComponent()
       }
-
       // ES compat
-      component = component.default || component
+      RouteComponent = RouteComponent.default || RouteComponent
 
-      let transition
-      if (typeof component.transition === 'function') {
-        transition = component.transition(to, from)
-      } else {
-        transition = component.transition
-      }
-      if (!transition || typeof transition === 'string') {
-        transition = { name: component.transition }
-      }
-      transition.name = transition.name || 'page'
-      transition.mode = transition.mode || 'out-in'
+      const routeTransition = normalizeTransition(
+        RouteComponent.transition,
+        to,
+        from
+      )
 
-      router.app.setTransition(transition)
+      let layoutTransition
+      if (RouteComponent.layout) {
+        const { layouts } = router.app.$options
+        const LayoutComponent =
+          layouts[RouteComponent.layout] || layouts.default
+        if (LayoutComponent) {
+          layoutTransition = normalizeTransition(
+            LayoutComponent.transition,
+            to,
+            from
+          )
+        }
+      }
+
+      router.app.setTransition(
+        Object.assign(
+          {
+            name: 'page',
+            mode: 'out-in'
+          },
+          routeTransition || layoutTransition
+        )
+      )
       next()
     })
   }
+}
+
+function normalizeTransition(transition, to, from) {
+  if (typeof transition === 'function') {
+    transition = transition(to, from)
+  } else if (typeof transition === 'string') {
+    transition = { name: transition }
+  }
+  return transition
 }

@@ -13,18 +13,24 @@ module.exports = function(source, map) {
       Component.options.beforeCreate = [function() {
         this.$page = page
       }].concat(beforeCreate)
+      Component.options.layout = page.attributes.layout
 
-      var PageComponent = Component.options.PageComponent
-      if (PageComponent) {
-        // .vue or .js page, set route transition from PageComponent.transition
-        Component.options.transition = PageComponent.transition
-      }
+      // These options can be defined as Vue component option or page attribute
+      // They are also available in layout component except for the 'layout' option
+      var pageComponentOptions = ['layout', 'transition']
 
-      // Fallback to page attribute
-      if (Component.options.transition === undefined) {
-        Component.options.transition = page.attributes.transition
-      }
+      pageComponentOptions.forEach(function(name) {
+        var PageComponent = Component.options.PageComponent
+        if (PageComponent) {
+          // .vue or .js page, set route transition from PageComponent
+          Component.options[name] = PageComponent[name]
+        }
 
+        // Fallback to page attribute
+        if (Component.options[name] === undefined) {
+          Component.options[name] = page.attributes[name]
+        }
+      })
 
       Component.options.name = 'page-wrapper-' + page.attributes.slug.replace(/[^0-9a-z\\-]/i, '-')
       if (module.hot) {

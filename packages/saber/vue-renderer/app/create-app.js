@@ -33,6 +33,7 @@ export default context => {
     provide: {
       layouts
     },
+    layouts,
     router,
     data() {
       return {

@@ -4,7 +4,7 @@ exports.name = 'builtin:transformer-components'
 
 const getPageComponent = page => {
   return `<template>
-    <layout-manager :page="$page" :PageComponent="$options.PageComponent"></layout-manager>
+    <layout-manager :page="$page" :layout="$options.layout" :PageComponent="$options.PageComponent"></layout-manager>
   </template>
 
   <page-component>${slash(page.internal.absolute)}</page-component>
