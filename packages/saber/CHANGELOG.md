@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.4](https://github.com/egoist/saber/compare/saber@0.4.3...saber@0.4.4) (2019-04-27)
+
+### Bug Fixes
+
+- use devalue instead of JSON.stringify to serialize page prop ([8f57885](https://github.com/egoist/saber/commit/8f57885))
+
+### Features
+
+- update progress bar for build process ([19ced0e](https://github.com/egoist/saber/commit/19ced0e))
+
 ## [0.4.3](https://github.com/egoist/saber/compare/saber@0.4.2...saber@0.4.3) (2019-04-15)
 
 ### Bug Fixes

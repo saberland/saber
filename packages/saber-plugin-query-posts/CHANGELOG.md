@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.1.1...saber-plugin-query-posts@0.1.2) (2019-04-27)
+
+**Note:** Version bump only for package saber-plugin-query-posts
+
 ## [0.1.1](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.1.0...saber-plugin-query-posts@0.1.1) (2019-04-15)
 
 ### Bug Fixes
