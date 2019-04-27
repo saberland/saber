@@ -64,7 +64,7 @@ exports.apply = api => {
         pages.map(async page => {
           if (page.internal.saved) return
 
-          const newContent = JSON.stringify({
+          const newContentHash = hash({
             page,
             prop: api.pages.pageProps.get(page.internal.id)
           })
@@ -75,14 +75,14 @@ exports.apply = api => {
           // TODO: is there any better solution to checking if we need to write the page?
           const exists = await fs.pathExists(outPath)
           if (exists) {
-            const content = await fs.readFile(outPath, 'utf8')
-            if (content === newContent) {
+            const contentHash = await fs.readFile(outPath, 'utf8')
+            if (contentHash === newContentHash) {
               // Skip if content doesn't change
               return
             }
           }
           log.verbose(`Emitting page ${outPath}`)
-          await fs.outputFile(outPath, newContent, 'utf8')
+          await fs.outputFile(outPath, newContentHash, 'utf8')
           page.internal.saved = true
         })
       )

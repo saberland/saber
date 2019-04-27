@@ -1,7 +1,9 @@
+const devalue = require('devalue')
+
 module.exports = function(source, map) {
   const pageId = source.trim()
   const { api } = this.query
-  const page = JSON.stringify(api.pages.getPageProp(pageId))
+  const page = devalue(api.pages.getPageProp(pageId))
   this.callback(
     null,
     `
