@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.5](https://github.com/egoist/saber/compare/saber@0.4.4...saber@0.4.5) (2019-04-27)
+
+### Bug Fixes
+
+- get rid of the hack for hot reloading vue-router routes ([5903f92](https://github.com/egoist/saber/commit/5903f92))
+- use corresponding leave transition ([#73](https://github.com/egoist/saber/issues/73)) ([f31af42](https://github.com/egoist/saber/commit/f31af42))
+
+### Features
+
+- add saber-plugin-transformer-html ([dbd5258](https://github.com/egoist/saber/commit/dbd5258))
+- add saber-plugin-transformer-pug ([edc7891](https://github.com/egoist/saber/commit/edc7891))
+- support transition in layout component, closes [#66](https://github.com/egoist/saber/issues/66) ([afcec88](https://github.com/egoist/saber/commit/afcec88))
+
 ## [0.4.4](https://github.com/egoist/saber/compare/saber@0.4.3...saber@0.4.4) (2019-04-27)
 
 ### Bug Fixes
