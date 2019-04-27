@@ -1,0 +1,14 @@
+{
+  "name": "extract-sfc-blocks",
+  "version": "0.0.0",
+  "description": "Extract Vue SFC blocks from HTML",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "posthtml": "^0.11.3",
+    "stringify-attributes": "^1.0.0"
+  }
+}

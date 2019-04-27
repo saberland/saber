@@ -74,7 +74,8 @@
     ]
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "other-packages/*"
   ],
   "config": {
     "commitizen": {

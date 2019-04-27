@@ -1,3 +1,5 @@
+const extractSFCBlocks = require('extract-sfc-blocks')
+
 exports.name = 'transformer-html'
 
 exports.apply = api => {
@@ -7,7 +9,9 @@ exports.apply = api => {
       const { body, frontmatter } = api.transformers.parseFrontmatter(
         page.content
       )
-      page.content = body
+      const { html, blocks } = extractSFCBlocks(body)
+      page.content = html
+      page.internal.hoistedTags = blocks
       Object.assign(page.attributes, frontmatter)
     },
     getPageComponent(page) {

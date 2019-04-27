@@ -1,7 +1,7 @@
 {
-  "name": "saber-plugin-transformer-html",
+  "name": "saber-plugin-transformer-pug",
   "version": "0.0.0",
-  "description": "Write pages in HTML",
+  "description": "Write pages in Pug and add support for importing Pug files",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
@@ -13,6 +13,8 @@
   ],
   "xo": false,
   "dependencies": {
-    "extract-sfc-blocks": "^0.0.0"
+    "extract-sfc-blocks": "^0.0.0",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0"
   }
 }
