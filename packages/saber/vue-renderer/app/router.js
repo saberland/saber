@@ -31,7 +31,7 @@ if (process.client) {
 }
 
 export default () => {
-  const router = new Router({
+  const createRouter = routes => new Router({
     mode: 'history',
     routes,
     scrollBehavior(to, from, savedPosition) {
@@ -91,6 +91,8 @@ export default () => {
     }
   })
 
+  const router = createRouter(routes)
+
   if (__LAZY__) {
     let hasPrevPage = false
     const visitedRoutes = {}
@@ -111,10 +113,8 @@ export default () => {
 
   if (module.hot) {
     module.hot.accept('#cache/routes', () => {
-      router.matcher.clearRoutes()
-      const routes = require('#cache/routes').default
       router.options.routes = routes
-      router.addRoutes(routes)
+      router.matcher = createRouter(require('#cache/routes').default)
     })
   }
 
