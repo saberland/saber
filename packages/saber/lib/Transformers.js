@@ -3,6 +3,10 @@ module.exports = class Transformers {
     this.transformers = new Map()
   }
 
+  get parseFrontmatter() {
+    return require('./utils/parseFrontmatter')
+  }
+
   add(contentType, transformer) {
     this.transformers.set(contentType, transformer)
   }
