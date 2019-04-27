@@ -1,5 +1,10 @@
 const urlJoin = require('url-join')
-const { paginate, getIdFromMap, getNameFromMap } = require('./utils')
+const {
+  paginate,
+  getIdFromMap,
+  getNameFromMap,
+  renderPermalink
+} = require('./utils')
 
 const ID = 'query-posts'
 
@@ -15,8 +20,8 @@ exports.apply = (api, options = {}) => {
       },
       permalinks: Object.assign(
         {
-          category: '/categories/:name',
-          tag: '/tags/:name'
+          category: '/categories/:slug',
+          tag: '/tags/:slug'
         },
         options.permalinks
       )
@@ -54,14 +59,17 @@ exports.apply = (api, options = {}) => {
         if (tags.length > 0) {
           page.tags = []
           for (const tag of tags) {
-            const tagId = getIdFromMap(tagsMap, tag)
+            const tagSlug = getIdFromMap(tagsMap, tag)
             page.tags.push({
               name: tag,
-              permalink: permalinks.tag.replace(/:name/, tagId)
+              permalink: renderPermalink(permalinks.tag, {
+                name: tagSlug,
+                slug: tagSlug
+              })
             })
-            const posts = allTagPosts.get(tagId) || new Set()
+            const posts = allTagPosts.get(tagSlug) || new Set()
             posts.add(pagePublicFields)
-            allTagPosts.set(tagId, posts)
+            allTagPosts.set(tagSlug, posts)
           }
         }
 
@@ -74,17 +82,20 @@ exports.apply = (api, options = {}) => {
           page.categories = []
           for (const category of categories) {
             for (const index of category.keys()) {
-              const id = category
+              const categorySlug = category
                 .slice(0, index + 1)
                 .map(name => getIdFromMap(categoriesMap, name))
                 .join('/')
               page.categories.push({
                 name: category,
-                permalink: permalinks.category.replace(/:name/, id)
+                permalink: renderPermalink(permalinks.category, {
+                  name: categorySlug,
+                  slug: categorySlug
+                })
               })
-              const posts = allCategoryPosts.get(id) || new Set()
+              const posts = allCategoryPosts.get(categorySlug) || new Set()
               posts.add(pagePublicFields)
-              allCategoryPosts.set(id, posts)
+              allCategoryPosts.set(categorySlug, posts)
             }
           }
         }
