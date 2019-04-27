@@ -257,44 +257,55 @@ class VueRenderer {
         basedir: this.api.resolveCache('dist-server')
       }
     )
-    const getFileName = permalink => {
+    const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
         ? permalink
         : permalink.replace(/\/?$/, '/index.html')
       return path.join(this.api.resolveCache('public'), filename)
     }
-    await Promise.all(
+
+    /**
+     * @param {Array<{permalink:string, outputFilePath: string}>} routes
+     */
+    const writeFiles = routes =>
+      Promise.all(
+        routes.map(async route => {
+          const context = {
+            url: route.permalink
+          }
+          log.info(
+            'Generating',
+            path.relative(this.api.resolveCache('public'), route.outputFilePath)
+          )
+          try {
+            const markup = await renderer.renderToString(context)
+            const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+              .replace(/^\s+/gm, '')
+              .replace(/\n+</g, '<')
+              .replace('<div id="_saber"></div>', markup)
+            await fs.outputFile(route.outputFilePath, html, 'utf8')
+          } catch (error) {
+            log.error(`Failed to render ${context.url}`)
+            throw error
+          }
+        })
+      )
+
+    await writeFiles(
       [
         ...this.api.pages.values(),
         {
           attributes: {
             permalink: '/__never_existed__.html',
-            generatedFileName: '404.html'
+            outputFilePath: '404.html'
           }
         }
-      ].map(async page => {
-        const context = {
-          url: page.attributes.permalink
-        }
-        const generatedFileName = getFileName(
-          page.attributes.generatedFileName || page.attributes.permalink
+      ].map(page => ({
+        permalink: page.attributes.permalink,
+        outputFilePath: getOutputFilePath(
+          page.attributes.outputFilePath || page.attributes.permalink
         )
-        log.info(
-          'Generating',
-          path.relative(this.api.resolveCache('public'), generatedFileName)
-        )
-        try {
-          const markup = await renderer.renderToString(context)
-          const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
-            .replace(/^\s+/gm, '')
-            .replace(/\n+</g, '<')
-            .replace('<div id="_saber"></div>', markup)
-          await fs.outputFile(generatedFileName, html, 'utf8')
-        } catch (error) {
-          log.error(`Failed to render ${context.url}`)
-          throw error
-        }
-      })
+      }))
     )
 
     // Copy .saber/dist-client to .saber/public/_saber
