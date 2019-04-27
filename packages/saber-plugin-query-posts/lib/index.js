@@ -87,7 +87,8 @@ exports.apply = (api, options = {}) => {
                 .map(name => getIdFromMap(categoriesMap, name))
                 .join('/')
               page.categories.push({
-                name: category,
+                // The base name of the category
+                name: category[index],
                 permalink: renderPermalink(permalinks.category, {
                   name: categorySlug,
                   slug: categorySlug
