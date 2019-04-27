@@ -1,7 +1,10 @@
 const os = require('os')
 const { log, colors } = require('saber-log')
 const prettyTime = require('pretty-ms')
+const logUpdate = require('log-update')
 const prettyBytes = require('../utils/prettyBytes')
+
+const progressLogs = new Map()
 
 module.exports = class PrintStatusPlugin {
   constructor({ api, type }) {
@@ -27,29 +30,31 @@ module.exports = class PrintStatusPlugin {
       process.stdout.isTTY
     ) {
       const { ProgressPlugin } = require('webpack')
-      const bar = new ProgressPlugin((per, message, ...args) => {
-        const spinner = require('../utils/spinner')
-
-        const msg = `${(per * 100).toFixed(2)}% ${message} ${args
-          .map(arg => {
-            const message = arg.replace(os.homedir(), '~')
-            return message.length > 40
-              ? `...${message.substr(message.length - 39)}`
-              : message
-          })
-          .join(' ')}`
-
-        if (per === 1) {
-          spinner.stop()
-        } else {
-          spinner.start(msg)
-        }
+      const progressPlugin = new ProgressPlugin((per, message, ...args) => {
+        const msg =
+          per === 1
+            ? null
+            : `${(per * 100).toFixed(2)}% ${message} ${args
+                .map(arg => {
+                  const message = arg.replace(os.homedir(), '~')
+                  return message.length > 40
+                    ? `...${message.substr(
+                        message.length - 39 - this.type.length - 2
+                      )}`
+                    : message
+                })
+                .join(' ')}`
+        progressLogs.set(this.type, msg)
+        const messages = [...progressLogs.keys()]
+          .filter(type => progressLogs.get(type))
+          .map(type => `${type}: ${progressLogs.get(type)}`)
+        logUpdate(messages.join('\n'))
       })
-      bar.apply(compiler)
+      progressPlugin.apply(compiler)
     }
 
     compiler.hooks.done.tap('print-status', stats => {
-      require('../utils/spinner').stop() // Just in case
+      logUpdate.clear()
 
       const logFiles = stateful => {
         stats

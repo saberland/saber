@@ -1,6 +1,6 @@
 const babelLoader = require('babel-loader')
 const { log } = require('saber-log')
-const spinner = require('../utils/spinner')
+const logUpdate = require('log-update')
 
 module.exports = babelLoader.custom(babel => {
   const configs = new Set()
@@ -34,7 +34,7 @@ module.exports = babelLoader.custom(babel => {
           if (file && !configs.has(file)) {
             configs.add(file)
             if (log.logLevel > 3) {
-              spinner.stop()
+              logUpdate.clear()
               log.verbose(`Applying Babel config file ${file}`)
             }
           }

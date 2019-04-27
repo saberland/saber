@@ -1,5 +1,5 @@
 const { log, colors } = require('saber-log')
-const spinner = require('../utils/spinner')
+const logUpdate = require('log-update')
 
 const ID = 'builtin:config-css'
 
@@ -87,7 +87,7 @@ exports.apply = api => {
                 sourceMap,
                 onConfigFile(configFile, resourcePath) {
                   if (log.logLevel > 3) {
-                    spinner.stop()
+                    logUpdate.clear()
                     log.verbose(
                       `Applying PostCSS config file ${configFile} to:`
                     )
