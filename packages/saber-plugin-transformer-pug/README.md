@@ -19,7 +19,7 @@ plugins:
 
 Try it by populating a `pages/try.pug`:
 
-```html
+```pug
 strong hello world
 ```
 
