@@ -143,7 +143,7 @@ gives you:
     permalink: '/categories/sports'
   },
   {
-    name: 'sports/football',
+    name: 'football',
     permalink: '/categories/sports/football'
   },
   {
