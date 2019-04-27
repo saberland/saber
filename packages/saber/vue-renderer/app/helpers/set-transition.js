@@ -1,8 +1,24 @@
 export default ({ router }) => {
   if (process.browser) {
-    router.beforeEach(async (to, from, next) => {
+    function normalizeTransition(transition, to, from) {
+      if (typeof transition === 'function') {
+        transition = transition(to, from)
+      } else if (typeof transition === 'string') {
+        transition = { name: transition }
+      }
+      return transition
+    }
+
+    async function getTransition(route, args) {
+      if (
+        !route ||
+        !route.matched.length ||
+        !route.matched[0].components.default
+      ) {
+        return
+      }
       // The default router component
-      let RouteComponent = to.matched[0].components.default
+      let RouteComponent = route.matched[0].components.default
       // Resolve async component
       if (typeof RouteComponent === 'function') {
         RouteComponent = await RouteComponent()
@@ -12,8 +28,7 @@ export default ({ router }) => {
 
       const routeTransition = normalizeTransition(
         RouteComponent.transition,
-        to,
-        from
+        ...args
       )
 
       let layoutTransition
@@ -24,46 +39,38 @@ export default ({ router }) => {
         if (LayoutComponent) {
           layoutTransition = normalizeTransition(
             LayoutComponent.transition,
-            to,
-            from
+            ...args
           )
         }
       }
 
-      let transition = routeTransition || layoutTransition || {}
-      const leaveProperties = ['beforeLeave','leave', 'afterLeave', 'leaveClass', 'leaveCancelled', 'leaveToClass', 'leaveActiveClass']
+      return Object.assign(
+        {
+          name: 'page',
+          mode: 'out-in'
+        },
+        routeTransition || layoutTransition
+      )
+    }
 
-      for (const property of leaveProperties) {
-        const next = `nextTransition_${property}`
-        transition[next] = transition[property] // use current leave property for next route transition
-        
-        if (router.app.transition) {
-          transition[property] = router.app.transition[next] // apply the current route's leave properties
-        }
-        else {
-          transition[property] = undefined
+    router.beforeEach(async (to, from, next) => {
+      const [toTransition, fromTransition] = await Promise.all([
+        getTransition(to, [to, from]),
+        getTransition(from, [to, from])
+      ])
+
+      if (fromTransition) {
+        for (const key of Object.keys(fromTransition)) {
+          // prefer `leave` transitions of 'from' route
+          if (/leave/i.test(key)) {
+            toTransition[key] = fromTransition[key]
+          }
         }
       }
 
-      router.app.setTransition(
-        Object.assign(
-          {
-            name: 'page',
-            mode: 'out-in'
-          },
-          transition
-        )
-      )
+      router.app.setTransition(toTransition)
+
       next()
     })
   }
-}
-
-function normalizeTransition(transition, to, from) {
-  if (typeof transition === 'function') {
-    transition = transition(to, from)
-  } else if (typeof transition === 'string') {
-    transition = { name: transition }
-  }
-  return transition
 }
