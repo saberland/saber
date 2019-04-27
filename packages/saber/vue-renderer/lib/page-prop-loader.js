@@ -13,7 +13,6 @@ module.exports = function(source, map) {
       Component.options.beforeCreate = [function() {
         this.$page = page
       }].concat(beforeCreate)
-      Component.options.layout = page.attributes.layout
 
       // These options can be defined as Vue component option or page attribute
       // They are also available in layout component except for the 'layout' option
