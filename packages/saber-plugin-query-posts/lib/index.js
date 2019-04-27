@@ -57,7 +57,7 @@ exports.apply = (api, options = {}) => {
             const tagId = getIdFromMap(tagsMap, tag)
             page.tags.push({
               name: tag,
-              link: permalinks.tag.replace(/:name/, tagId)
+              permalink: permalinks.tag.replace(/:name/, tagId)
             })
             const posts = allTagPosts.get(tagId) || new Set()
             posts.add(pagePublicFields)
@@ -80,7 +80,7 @@ exports.apply = (api, options = {}) => {
                 .join('/')
               page.categories.push({
                 name: category,
-                link: permalinks.category.replace(/:name/, id)
+                permalink: permalinks.category.replace(/:name/, id)
               })
               const posts = allCategoryPosts.get(id) || new Set()
               posts.add(pagePublicFields)
