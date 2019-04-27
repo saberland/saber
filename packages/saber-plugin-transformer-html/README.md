@@ -17,7 +17,7 @@ plugins:
   - resolve: saber-plugin-transformer-html
 ```
 
-Try it by populate a `pages/try.html`:
+Try it by populating a `pages/try.html`:
 
 ```html
 <strong>hello world</strong>
