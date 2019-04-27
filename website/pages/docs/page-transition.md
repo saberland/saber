@@ -3,7 +3,15 @@ title: Page Transition
 layout: docs
 ---
 
-You can use the component option `transition` in a `.vue` or `.js` page to apply page-level transition effect:
+You can define `transition` in three ways to apply transition on page navigation:
+
+1. Page component option: `transition`
+2. Page attribute: `tranition`
+3. Layout component option: `transition`
+
+Priority: 1 > 2 > 3.
+
+For example, you can use the component option:
 
 ```js
 export default {
@@ -20,7 +28,7 @@ export default {
 }
 ```
 
-Alternatively you can use page attribute `transition` as well, this is useful if you just want to use front matter:
+Or use the page attribute `transition`, this is useful if you just want to use front matter:
 
 ```yaml
 # A string
@@ -31,7 +39,7 @@ transition:
   mode: string
 ```
 
-Note that you can **NOT** use a function as `transition` in page attribute
+Note that you can **NOT** use a function as `transition` in page attribute.
 
 All the props of Vue's built-in [`<transition>`](https://vuejs.org/v2/api/#transition) component can be used in our `transition` object:
 
