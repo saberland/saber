@@ -40,6 +40,6 @@ exports.apply = api => {
       .rule('pug')
       .test(/\.pug$/)
       .use('pug-loader')
-      .loader(require.resolve('pug-plain-loader'))
+      .loader(require.resolve('./pug-plain-loader'))
   })
 }
