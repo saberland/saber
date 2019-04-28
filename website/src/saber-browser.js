@@ -2,6 +2,7 @@ import 'nprogress/nprogress.css'
 import 'prismjs/themes/prism.css'
 import './css/global.css'
 import './css/page.css'
+import './css/highlight.css'
 
 export default ({ router, rootOptions }) => {
   if (process.browser) {

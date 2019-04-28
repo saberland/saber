@@ -1,5 +1,4 @@
 import './polyfills'
-import './css/saber-highlight.css'
 import { join, dirname } from 'path'
 import Vue from 'vue'
 import layouts from '#cache/layouts'
