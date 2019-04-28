@@ -36,7 +36,6 @@ function transformMarkdown(api, page) {
     Token: require('saber-markdown').Token,
     filePath: page.internal.absolute,
     pagesDir: api.resolveCwd('pages'),
-    runtimePolyfills: api.runtimePolyfills,
     setAttribute(name, value) {
       page.attributes[name] = value
     },

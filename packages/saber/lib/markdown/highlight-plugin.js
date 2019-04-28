@@ -1,5 +1,3 @@
-const path = require('path')
-
 const RE = /\s*{([^}]+)}/
 
 const parseOptions = str => {
@@ -56,10 +54,6 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
         `${v}`.split('-').map(v => parseInt(v, 10))
       )
     token.info = langName
-
-    if (highlightLines) {
-      env.runtimePolyfills.add(path.join(__dirname, 'saber-highlight.css'))
-    }
 
     const codeMask =
       `<div class="saber-highlight-mask${langClass ? ` ${langClass}` : ''}">` +

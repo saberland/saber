@@ -1,5 +1,5 @@
 import './polyfills'
-import '#cache/runtime-polyfills'
+import './css/saber-highlight.css'
 import { join, dirname } from 'path'
 import Vue from 'vue'
 import layouts from '#cache/layouts'
@@ -107,9 +107,9 @@ export default context => {
   }
 }
 
-// Reloading browser when following files change
+// Reloading browser when layouts change
 if (module.hot) {
-  module.hot.accept(['#cache/layouts', '#cache/runtime-polyfills'], () => {
+  module.hot.accept(['#cache/layouts'], () => {
     location.reload()
   })
 }
