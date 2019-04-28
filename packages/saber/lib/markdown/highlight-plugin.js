@@ -55,6 +55,10 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
       )
     token.info = langName
 
+    if (highlightLines) {
+      env.setInternal('injectSaberHighlightCSS', true)
+    }
+
     const codeMask =
       `<div class="saber-highlight-mask${langClass ? ` ${langClass}` : ''}">` +
       md.utils

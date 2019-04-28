@@ -51,6 +51,7 @@ class Saber {
     }
 
     this.transformers = new Transformers()
+    this.runtimePolyfills = new Set()
 
     for (const hook of Object.keys(this.hooks)) {
       const ignoreNames = ['theme-node-api', 'user-node-api']
@@ -181,7 +182,9 @@ class Saber {
       { resolve: require.resolve('./plugins/config-other-loaders') },
       { resolve: require.resolve('./plugins/watch-config') },
       { resolve: require.resolve('./plugins/layouts') },
-      { resolve: require.resolve('./plugins/emit-saber-variables') }
+      { resolve: require.resolve('./plugins/emit-saber-variables') },
+      { resolve: require.resolve('./plugins/inject-saber-highlight-css') },
+      { resolve: require.resolve('./plugins/emit-runtime-polyfills') }
     ]
 
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
