@@ -1,6 +1,8 @@
 const path = require('path')
 const hash = require('hash-sum')
 const { slash } = require('saber-utils')
+const { log } = require('saber-log')
+const merge = require('lodash.merge')
 const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')
 
@@ -12,43 +14,54 @@ module.exports = class Pages extends Map {
     this.redirectRoutes = new Map()
   }
 
-  /**
-   * Parse a file object and return a page object
-   * @param {*} file
-   */
-  parseFile(file) {
+  normalizePage(page, file) {
     const { api } = this
 
-    const relativePath = slash(file.relative)
-    const absolutePath = slash(file.absolute)
-    // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
-    const fileNameRegex = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
-    const parsedFileName = fileNameRegex.exec(
-      relativePath
-        // Remove leading _posts/
-        .replace(/^_posts\//, '')
-        // Remove extension
-        .replace(/\.[a-z]+$/i, '')
-    )
-    const slug = parsedFileName[16]
-
-    const page = {
-      attributes: {
-        slug
-      },
-      internal: {
-        id: hash(absolutePath),
-        absolute: absolutePath,
-        relative: relativePath,
-        isFile: true
-      },
-      contentType: api.transformers.getContentTypeByExtension(
-        path.extname(relativePath).slice(1)
-      ),
-      content: file.content
+    let parsedFileName
+    if (file) {
+      const relativePath = slash(file.relative)
+      const absolutePath = slash(file.absolute)
+      // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
+      const fileNameRegex = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
+      parsedFileName = fileNameRegex.exec(
+        relativePath
+          // Remove leading _posts/
+          .replace(/^_posts\//, '')
+          // Remove extension
+          .replace(/\.[a-z]+$/i, '')
+      )
+      const slug = parsedFileName[16]
+      page = merge({}, page, {
+        attributes: {
+          slug
+        },
+        internal: {
+          id: hash(absolutePath),
+          absolute: absolutePath,
+          relative: relativePath,
+          isFile: true
+        },
+        contentType: api.transformers.getContentTypeByExtension(
+          path.extname(relativePath).slice(1)
+        ),
+        content: file.content
+      })
+    } else {
+      page = merge(
+        {
+          attributes: {},
+          internal: {}
+        },
+        page
+      )
     }
 
-    const transformer = api.transformers.get(page.contentType)
+    let transformer = api.transformers.get(page.contentType)
+
+    if (!transformer) {
+      log.warn(`No transformer was found for content type: ${page.contentType}`)
+      transformer = api.transformers.get('default')
+    }
 
     // Get page attributes from the page content
     if (transformer.parse) {
@@ -64,25 +77,28 @@ module.exports = class Pages extends Map {
     // And transformers can update the attributes
     // So we set them after the transformers
 
-    // Read createdAt from page attribute
-    // Or fallback to `page.attributes.date` (Hexo compatibility)
-    // Or fallback to the date in fileName
-    // Or fallback to the `file.birthtime`
-    page.attributes.createdAt = new Date(
-      page.attributes.createdAt ||
-        page.attributes.date ||
-        parsedFileName[2] ||
-        file.birthtime
-    )
+    if (file && parsedFileName) {
+      // Read createdAt from page attribute
+      // Or fallback to `page.attributes.date` (Hexo compatibility)
+      // Or fallback to the date in fileName
+      // Or fallback to the `file.birthtime`
+      page.attributes.createdAt = new Date(
+        page.attributes.createdAt ||
+          page.attributes.date ||
+          parsedFileName[2] ||
+          file.birthtime
+      )
 
-    // Read updatedAt from page attribute
-    // Or fallback to `page.attributes.updated` (Hexo compatibility)
-    // Or fallback to `file.mtime`
-    page.attributes.updatedAt = new Date(
-      page.attributes.updatedAt || page.attributes.updated || file.mtime
-    )
+      // Read updatedAt from page attribute
+      // Or fallback to `page.attributes.updated` (Hexo compatibility)
+      // Or fallback to `file.mtime`
+      page.attributes.updatedAt = new Date(
+        page.attributes.updatedAt || page.attributes.updated || file.mtime
+      )
 
-    page.attributes.type = page.attributes.type || getPageType(relativePath)
+      page.attributes.type =
+        page.attributes.type || getPageType(slash(file.relative))
+    }
 
     page.attributes.permalink =
       page.attributes.permalink ||
@@ -93,16 +109,19 @@ module.exports = class Pages extends Map {
           : api.config.permalinks
       )
 
-    return page
-  }
-
-  createPage(page) {
     if (!page.internal || !page.internal.id) {
       throw new Error(`Page must have an internal id.`)
     }
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
+    return page
+  }
+
+  createPage(page, { file, normalize } = {}) {
+    if (normalize !== false) {
+      page = this.normalizePage(page, file)
+    }
     this.pageProps.set(page.internal.id, {})
     this.set(page.internal.id, page)
   }

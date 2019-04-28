@@ -12,7 +12,7 @@ module.exports = class Transformers {
   }
 
   get(contentType) {
-    return this.transformers.get(contentType || 'default')
+    return this.transformers.get(contentType)
   }
 
   get supportedExtensions() {

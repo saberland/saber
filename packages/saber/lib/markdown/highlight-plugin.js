@@ -17,13 +17,13 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
     `<div${preWrapperAttrs}>${codeMask}<pre${preAttrs}><code${codeAttrs}>${code.trim()}</code></pre></div>`
 
   md.renderer.rules.fence = (...args) => {
-    const [tokens, idx, options, , self] = args
+    const [tokens, idx, options, env, self] = args
     const token = tokens[idx]
 
     const langName = token.info.replace(RE, '').trim()
 
     const code = options.highlight
-      ? options.highlight(token.content, langName)
+      ? options.highlight(token.content, langName, env)
       : md.utils.escapeHtml(token.content)
 
     const renderAttrs = attrs => self.renderAttrs({ attrs })
