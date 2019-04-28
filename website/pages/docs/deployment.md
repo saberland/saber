@@ -85,11 +85,7 @@ Add the following `scripts` in your `package.json`:
 
 ### Step 2: Add `.nojekyll` to turn off Jekyll
 
-We also need to add a `.nojekyll` file to [turn off Jekyll integration of GitHub Pages](https://help.github.com/en/articles/files-that-start-with-an-underscore-are-missing):
-
-```bash
-touch ./public/.nojekyll
-```
+Adding a file `.nojekyll` to the `public/` folder to [turn off Jekyll integration of GitHub Pages](https://help.github.com/en/articles/files-that-start-with-an-underscore-are-missing).
 
 ### Step 3: Deploy the site by running `npm run deploy`
 
