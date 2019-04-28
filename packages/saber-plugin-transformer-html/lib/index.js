@@ -16,7 +16,7 @@ exports.apply = api => {
     },
     getPageComponent(page) {
       return `<template>
-        <layout-manager :page="$page" :layout="$options.layout">
+        <layout-manager>
           ${page.content || ''}
         </layout-manager>
       </template>

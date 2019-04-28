@@ -2,34 +2,26 @@
 export default {
   name: 'layout-manager',
   functional: true,
-  props: {
-    page: {
-      type: Object,
-      required: true
-    },
-    PageComponent: {
-      type: null
-    },
-    layout: {
-      type: String
-    }
-  },
   inject: ['layouts'],
   render(
     h,
     {
-      props: { page, PageComponent, layout },
-      children,
-      injections: { layouts }
+      injections: { layouts },
+      parent,
+      scopedSlots
     }
   ) {
+    const page = parent.$page
+    const { layout, isVueSFC } = parent.$options
+    const { component: componentSlot, default: defaultSlot } = scopedSlots
+
     const attrs = { props: { page } }
 
     if (typeof layout !== 'string') {
-      return PageComponent ? h(PageComponent, attrs) : h('div', {
+      return componentSlot ? componentSlot(attrs.props) : h('div', {
         ...attrs,
         class: '_saber-page'
-      }, children)
+      }, defaultSlot())
     }
 
     const LayoutComponent = layouts[layout] || layouts.default
@@ -38,7 +30,7 @@ export default {
       console.error(`Cannot find layout component "${layout}" in `, layouts)
     }
 
-    return h(LayoutComponent, attrs, PageComponent ? [h(PageComponent, attrs)] : children)
+    return h(LayoutComponent, attrs, componentSlot ? componentSlot(attrs.props) : defaultSlot())
   }
 }
 </script>

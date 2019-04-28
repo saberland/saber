@@ -39,13 +39,6 @@ class VueRenderer {
       // Transform js files in ../app folder
       config.module.rule('js').include.add(path.join(__dirname, '../app'))
 
-      // Handle `<page-component>` block in .vue file
-      config.module
-        .rule('page-component')
-        .resourceQuery(/blockType=page-component/)
-        .use('page-component-loader')
-        .loader(require.resolve('./page-component-loader'))
-
       // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
       config.module
