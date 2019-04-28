@@ -395,7 +395,7 @@ class VueRenderer {
       `<script src="/_saber/js/client.js" defer></script>`
 
     server.get('*', async (req, res) => {
-      if (!req.headers.accept.includes('text/html')) {
+      if (!req.headers.accept || !req.headers.accept.includes('text/html')) {
         res.statusCode = 404
         return res.end('404')
       }
