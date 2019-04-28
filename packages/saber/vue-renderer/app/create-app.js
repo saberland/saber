@@ -53,8 +53,8 @@ export default context => {
           delete transition[key]
         }
       })
-      const { beforeEnter } = listeners
-      listeners.beforeEnter = el => {
+      const beforeEnter = listeners['before-enter']
+      listeners['before-enter'] = el => {
         this.$emit('trigger-scroll')
         beforeEnter && beforeEnter(el)
       }
