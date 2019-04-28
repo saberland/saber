@@ -1,14 +1,38 @@
+const path = require('path')
 const devalue = require('devalue')
+const { slash } = require('saber-utils')
 
 module.exports = function(source, map) {
   const pageId = source.trim()
   const { api } = this.query
-  const page = devalue(api.pages.getPageProp(pageId))
+  const page = api.pages.getPageProp(pageId)
+  const pageString = devalue(page)
+  const { assets } = page.attributes
   this.callback(
     null,
     `
     export default function(Component) {
-      var page = ${page}
+      var page = ${pageString}
+
+      ${
+        assets
+          ? Object.keys(assets)
+              .map(
+                name =>
+                  assets[name] &&
+                  !/^\//.test(assets[name]) &&
+                  !/^https?:\/\//.test(assets[name]) &&
+                  `
+         assets[name] = require('${slash(
+           path.resolve(this.context, assets[name])
+         )}')
+      `
+              )
+              .filter(Boolean)
+              .join('\n')
+          : ''
+      }
+
       var beforeCreate = Component.options.beforeCreate || []
       Component.options.beforeCreate = [function() {
         this.$page = page
