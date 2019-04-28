@@ -62,17 +62,6 @@ module.exports = (api, { type }) => {
     .use('babel-loader')
     .loader(require.resolve('./babel-loader'))
 
-  config.module
-    .rule('request-loader')
-    .type('json')
-    .include.add(path.join(__dirname, 'request-loader-placeholder'))
-    .end()
-    .use('request-loader')
-    .loader(require.resolve('./request-loader'))
-    .options({
-      api
-    })
-
   config.plugin('timefix').use(require('time-fix-plugin'))
 
   config.plugin('envs').use(require('webpack').DefinePlugin, [

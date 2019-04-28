@@ -51,7 +51,6 @@ class Saber {
     }
 
     this.transformers = new Transformers()
-    this.requestHandlers = {}
 
     for (const hook of Object.keys(this.hooks)) {
       const ignoreNames = ['theme-node-api', 'user-node-api']
