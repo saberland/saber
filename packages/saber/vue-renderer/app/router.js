@@ -114,7 +114,7 @@ export default () => {
   if (module.hot) {
     module.hot.accept('#cache/routes', () => {
       router.options.routes = routes
-      router.matcher = createRouter(require('#cache/routes').default)
+      router.matcher = createRouter(require('#cache/routes').default).matcher
     })
   }
 
