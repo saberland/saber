@@ -36,10 +36,23 @@ exports.apply = api => {
   })
 
   api.hooks.chainWebpack.tap(ID, config => {
+    config.resolveLoader.alias.set(
+      'saber-pug-frontmatter-loader',
+      require.resolve('./saber-pug-frontmatter-loader')
+    )
+
     config.module
       .rule('pug')
       .test(/\.pug$/)
+      .oneOf('vue')
+      .resourceQuery(/\?vue/)
       .use('pug-loader')
       .loader(require.resolve('pug-plain-loader'))
+      .end()
+      .oneOf('normal')
+      .use('pug-loader')
+      .loader('saber-pug-frontmatter-loader')
+      .before('pug-plain-loader')
+      .end()
   })
 }
