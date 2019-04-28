@@ -30,7 +30,7 @@ export default {
       console.error(`Cannot find layout component "${layout}" in `, layouts)
     }
 
-    return h(LayoutComponent, attrs, componentSlot ? componentSlot(attrs.props) : defaultSlot())
+    return h(LayoutComponent, attrs, componentSlot ? componentSlot(attrs.props) : defaultSlot ? defaultSlot() : null)
   }
 }
 </script>
