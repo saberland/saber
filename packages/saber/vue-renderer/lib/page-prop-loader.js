@@ -32,6 +32,7 @@ module.exports = function(source, map) {
       })
 
       Component.options.isPageWrapper = true
+      Component.options.isVueSFC = ${['vue', 'js'].includes(page.contentType)}
       Component.options.name = 'page-wrapper-' + page.attributes.slug.replace(/[^0-9a-z\\-]/i, '-')
       if (module.hot) {
         var Vue = require('vue').default

@@ -13,13 +13,10 @@ export default {
     }
   ) {
     let pageWrapper
-    let isComponentFile // .vue or .js
+    const { isVueSFC, isPageWrapper } = parent.$options // .vue or .js
 
-    if (parent.$options.isPageWrapper) {
+    if (isPageWrapper) {
       pageWrapper = parent
-    } else if (parent.$parent && parent.$parent.$options.isPageWrapper) {
-      isComponentFile = true
-      pageWrapper = parent.$parent
     } else {
       throw new Error(`You can only use the <Layout> component in a page component.`)
     }
@@ -30,7 +27,7 @@ export default {
     const attrs = { props: { page, layout }, attrs: data.attrs, scopedSlots }
 
     if (typeof layout !== 'string') {
-      if (isComponentFile) {
+      if (isVueSFC) {
         const defaultSlot = scopedSlots().default
         if (defaultSlot.length > 0) {
           console.error(`When 'layout' attribute is not specified, the default slot of <Layout> component can only have ONE child element`)
