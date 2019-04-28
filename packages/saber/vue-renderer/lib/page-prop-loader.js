@@ -23,7 +23,7 @@ module.exports = function(source, map) {
                   !/^\//.test(assets[name]) &&
                   !/^https?:\/\//.test(assets[name]) &&
                   `
-         assets[name] = require('${slash(
+         page.attributes.assets[name] = require('${slash(
            path.resolve(this.context, assets[name])
          )}')
       `
