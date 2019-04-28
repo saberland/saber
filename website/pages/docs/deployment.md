@@ -108,7 +108,7 @@ Your `CNAME` file should look like this:
 mywebsite.com
 ```
 
-### Docker
+## Docker
 
 [TODO]
 
