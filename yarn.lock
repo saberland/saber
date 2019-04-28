@@ -4328,8 +4328,8 @@ fb-watchman@^2.0.0:
 
 feed@^2.0.4:
   version "2.0.4"
-  resolved "http://registry.npm.taobao.org/feed/download/feed-2.0.4.tgz#14cd71b3bae1e965b81f7e0c5927e8941de996f8"
-  integrity sha1-FM1xs7rh6WW4H34MWSfolB3plvg=
+  resolved "https://registry.npmjs.org/feed/-/feed-2.0.4.tgz#14cd71b3bae1e965b81f7e0c5927e8941de996f8"
+  integrity sha512-sWatfulDP6d18qVaWcu34qmq9ml6UeN6nHSBJpNZ2muBqxjPAdT375whPYAHP+gqLfyabtYU5qf2Dv4nqtlp0w==
   dependencies:
     luxon "^1.3.3"
     xml "^1.0.1"
@@ -6937,9 +6937,9 @@ lru-cache@^5.1.1:
     yallist "^3.0.2"
 
 luxon@^1.3.3:
-  version "1.12.0"
-  resolved "http://registry.npm.taobao.org/luxon/download/luxon-1.12.0.tgz#d02d53c8d8aaebe6b4c00ba1ce1be3913546b2e7"
-  integrity sha1-0C1TyNiq6+a0wAuhzhvjkTVGsuc=
+  version "1.12.1"
+  resolved "https://registry.npmjs.org/luxon/-/luxon-1.12.1.tgz#924bd61404f70b0cc5168918cb0ac108e52aacc4"
+  integrity sha512-Zv/qJb2X1ESTrlniAViWx2aqGwi2cVpeoZFTbPdPiCu4EsadKsmb/QCH8HQjMUpDZKKJIHKHsJxV5Rwpq47HKQ==
 
 magic-string@^0.25.1:
   version "0.25.1"
@@ -9821,8 +9821,8 @@ slide@^1.1.6:
 
 slugo@^0.2.3:
   version "0.2.3"
-  resolved "http://registry.npm.taobao.org/slugo/download/slugo-0.2.3.tgz#2c602fe1e76d5fa3c6f75223537fbd80ae33929c"
-  integrity sha1-LGAv4edtX6PG91IjU3+9gK4zkpw=
+  resolved "https://registry.npmjs.org/slugo/-/slugo-0.2.3.tgz#2c602fe1e76d5fa3c6f75223537fbd80ae33929c"
+  integrity sha512-4nav6mk321IWKaWxgvygjp2JB0d5sNGgkPUJ+EGQZmmcvuXS+4DwdhhPa9L8WBg6fVQDID3PO+t6wYM1NqVbkA==
 
 smart-buffer@^4.0.1:
   version "4.0.1"
@@ -11322,7 +11322,7 @@ xml-name-validator@^3.0.0:
 
 xml@^1.0.1:
   version "1.0.1"
-  resolved "http://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
+  resolved "https://registry.npmjs.org/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
   integrity sha1-eLpyAgApxbyHuKgaPPzXS0ovweU=
 
 xo-init@^0.7.0:
