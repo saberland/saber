@@ -1,35 +1,37 @@
 <template>
-  <div class="page-index">
-    <div class="slogan">
-      <span class="logo"></span>
-      <div class="slogan-content">
-        A framework
-        <br>for building
-        <br>modern static websites.
+  <saber-layout>
+    <div class="page-index">
+      <div class="slogan">
+        <span class="logo"></span>
+        <div class="slogan-content">
+          A framework
+          <br>for building
+          <br>modern static websites.
+        </div>
       </div>
+      <div class="features">
+        <div class="feature">
+          <span>Static Rendering.</span> With Saber, static rendering with Vue.js is easier now than ever.
+        </div>
+        <div class="feature">
+          <span>Zero Setup.</span> Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.
+        </div>
+        <div class="feature">
+          <span>Bring Your Own Data.</span>
+          Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.
+        </div>
+        <div class="feature">
+          <span>Fully Extensible.</span> With Saber's powerful APIs and plugin system, you can customize almost everything.
+        </div>
+      </div>
+      <section>
+        <saber-link
+          class="getting-started"
+          :to="$saber.getPageLink('./docs/index.md')"
+        >Getting Started →</saber-link>
+      </section>
     </div>
-    <div class="features">
-      <div class="feature">
-        <span>Static Rendering.</span> With Saber, static rendering with Vue.js is easier now than ever.
-      </div>
-      <div class="feature">
-        <span>Zero Setup.</span> Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.
-      </div>
-      <div class="feature">
-        <span>Bring Your Own Data.</span>
-        Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.
-      </div>
-      <div class="feature">
-        <span>Fully Extensible.</span> With Saber's powerful APIs and plugin system, you can customize almost everything.
-      </div>
-    </div>
-    <section>
-      <saber-link
-        class="getting-started"
-        :to="$saber.getPageLink('./docs/index.md')"
-      >Getting Started →</saber-link>
-    </section>
-  </div>
+  </saber-layout>
 </template>
 
 
@@ -59,7 +61,7 @@ export default {}
   margin-right: 30px;
 
   &:hover {
-    animation: rotation .3s infinite linear;
+    animation: rotation 0.3s infinite linear;
   }
 
   @media (max-width: 768px) {

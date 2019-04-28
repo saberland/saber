@@ -5,9 +5,9 @@ exports.apply = api => {
     getPageComponent(page) {
       return `
         <template>
-          <layout-manager :page="$page" :layout="$options.layout">
+          <saber-layout>
             ${page.content || ''}
-          </layout-manager>
+          </saber-layout>
         </template>
       `
     }

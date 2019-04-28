@@ -3,12 +3,20 @@ const { slash } = require('saber-utils')
 exports.name = 'builtin:transformer-components'
 
 const getPageComponent = page => {
-  return `<template>
-    <layout-manager :page="$page" :layout="$options.layout" :PageComponent="$options.PageComponent"></layout-manager>
-  </template>
+  return `<script>
+  import PageComponent from '${slash(page.internal.absolute)}'
 
-  <page-component>${slash(page.internal.absolute)}</page-component>
-  `
+  export default {
+    render(h) {
+      return h(PageComponent, {
+        props: {
+          page: this.$page,
+          layout: this.$options.layout
+        }
+      })
+    }
+  }
+  </script>`
 }
 
 exports.apply = api => {

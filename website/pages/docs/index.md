@@ -5,6 +5,12 @@ layout: docs
 
 Saber is a static website generator, it is like Hexo but, you can use Vue, React or other view layers[^1] to write layouts, Saber will also generate a universal website[^2] out-of-the-box.
 
+<template v-slot:foo>
+
+**foo**
+
+</template>
+
 ## Disclaimer
 
 A word of caution: Saber is currently in beta stage. We encourage brave early adopters, it works but expect bugs large and small. We do maintain a [changelog](https://github.com/egoist/saber/releases) for breaking changes, new features and bug fixes though.
