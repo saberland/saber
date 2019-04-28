@@ -212,9 +212,21 @@ In this case the rendered HTML will look like:
 </div>
 ```
 
-Saber's default CSS works well with `prismjs/themes/prism.css`, for other themes some tweaks might be needed to suit your needs.
+You also need the package `saber-highlight-css` which provides some default styles for line highlight to render properly:
 
-If you want to change the font size or font family, you need to add CSS for both `.saber-highlight-mask` and `.saber-highlight-code code`:
+```bash
+yarn add saber-highlight-css
+```
+
+Then import in your `saber-browser.js`:
+
+```js
+import 'saber-highlight-css/default.css'
+```
+
+The default CSS works well with `prismjs/themes/prism.css`, for other themes some tweaks might be needed to suit your needs.
+
+If you want to override the font size or font family, you need to add CSS for both `.saber-highlight-mask` and `.saber-highlight-code code`:
 
 ```css
 .saber-highlight-mask,

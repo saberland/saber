@@ -183,7 +183,6 @@ class Saber {
       { resolve: require.resolve('./plugins/watch-config') },
       { resolve: require.resolve('./plugins/layouts') },
       { resolve: require.resolve('./plugins/emit-saber-variables') },
-      { resolve: require.resolve('./plugins/inject-saber-highlight-css') },
       { resolve: require.resolve('./plugins/emit-runtime-polyfills') }
     ]
 
