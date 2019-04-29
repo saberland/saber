@@ -1,6 +1,6 @@
 ---
 title: Writing Pages in HTML or Pug
-subtitle: Like magic!
+subtitle: Learn how to write pages in HTML, Pug and how to write a transformer.
 layout: post
 date: 2019-04-29
 ---
