@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.7](https://github.com/egoist/saber/compare/saber@0.4.6...saber@0.4.7) (2019-04-29)
+
+### Bug Fixes
+
+- disable vue prodution tip ([07bb217](https://github.com/egoist/saber/commit/07bb217))
+- set the default value for page.contentType ([d5fc5d7](https://github.com/egoist/saber/commit/d5fc5d7))
+
 ## [0.4.6](https://github.com/egoist/saber/compare/saber@0.4.5...saber@0.4.6) (2019-04-29)
 
 ### Bug Fixes
