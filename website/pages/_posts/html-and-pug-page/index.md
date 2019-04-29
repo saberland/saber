@@ -144,7 +144,7 @@ You now know that it's possible to write pages in many languages, so let's start
 
 We will need two dependencies:
 
-- `asciidoc`: An AsciiDoc parser.
+- `asciidoctor`: An AsciiDoc parser.
 - `extract-sfc-blocks`: Extract `<script>` and `<style>` blocks from HTML.
 
 ```bash
