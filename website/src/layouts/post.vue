@@ -25,6 +25,14 @@ export default {
       title: `${this.page.attributes.title} - ${this.$siteConfig.title}`,
       meta: [
         {
+          name: 'twitter:card',
+          content: 'summary'
+        },
+        {
+          name: 'twitter:site',
+          content: '@saber_land'
+        },
+        {
           name: 'twitter:title',
           content: this.page.attributes.title
         },
