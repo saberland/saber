@@ -17,6 +17,15 @@ module.exports = class Pages extends Map {
   normalizePage(page, file) {
     const { api } = this
 
+    page = merge(
+      {
+        attributes: {},
+        internal: {},
+        contentType: 'default'
+      },
+      page
+    )
+
     let parsedFileName
     if (file) {
       const relativePath = slash(file.relative)
@@ -46,14 +55,6 @@ module.exports = class Pages extends Map {
         ),
         content: file.content
       })
-    } else {
-      page = merge(
-        {
-          attributes: {},
-          internal: {}
-        },
-        page
-      )
     }
 
     let transformer = api.transformers.get(page.contentType)
