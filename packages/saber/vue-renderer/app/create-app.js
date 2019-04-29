@@ -10,6 +10,8 @@ import extendBrowserApi from '#cache/extend-browser-api'
 import injectConfig from './helpers/inject-config'
 import setTransition from './helpers/set-transition'
 
+Vue.config.productionTip = false
+
 Vue.component(Layout.name, Layout)
 
 Vue.use(Meta, {
