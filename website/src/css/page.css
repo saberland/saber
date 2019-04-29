@@ -135,4 +135,10 @@
       margin-bottom: 0;
     }
   }
+
+  & small {
+    & code {
+      font-size: inherit;
+    }
+  }
 }
