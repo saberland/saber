@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.6](https://github.com/egoist/saber/compare/saber@0.4.5...saber@0.4.6) (2019-04-29)
+
+### Bug Fixes
+
+- beforeEnter hook ([#77](https://github.com/egoist/saber/issues/77)) ([bcef9f7](https://github.com/egoist/saber/commit/bcef9f7))
+- ensure req.headers ([ec264d1](https://github.com/egoist/saber/commit/ec264d1))
+- render error for pages with no defaultSlot ([#78](https://github.com/egoist/saber/issues/78)) ([fce58e7](https://github.com/egoist/saber/commit/fce58e7))
+- use router.matcher ([d5ae9b1](https://github.com/egoist/saber/commit/d5ae9b1))
+
+### Features
+
+- exclude css for line highlighting ([9c49257](https://github.com/egoist/saber/commit/9c49257))
+- inject saber-highlight.css on demand ([7a7c65f](https://github.com/egoist/saber/commit/7a7c65f))
+- inject saber-highlight.css on demand (another attempt) ([3b30ce2](https://github.com/egoist/saber/commit/3b30ce2))
+
 ## [0.4.5](https://github.com/egoist/saber/compare/saber@0.4.4...saber@0.4.5) (2019-04-27)
 
 ### Bug Fixes
