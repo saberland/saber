@@ -16,12 +16,19 @@
             {{ prevNextPage.next.title }} <span class="arrow">→</span>
           </saber-link>
         </div>
+        <div class="page-meta">
+          <span class="last-edited">
+            Last Edited on {{ updatedDate }}
+          </span>
+          <a class="edit-link" target="_blank" :href="editLink">Edit This Page on GitHub</a>
+        </div>
       </div>
     </main>
   </div>
 </template>
 
 <script>
+import format from 'date-fns/format'
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
 import DocMixin from '../mixins/doc'
@@ -54,6 +61,14 @@ export default {
         }
       }
       return {}
+    },
+
+    updatedDate() {
+      return format(this.page.attributes.updatedAt, 'MMMM DD, YYYY')
+    },
+
+    editLink() {
+      return `https://github.com/egoist/saber/blob/master/website/pages/${this.page.attributes.slug}.md`
     }
   },
 
@@ -69,7 +84,6 @@ export default {
   display: inline-block;
   width: 100%;
   margin-top: 80px;
-  font-weight: 700;
 }
 
 .arrow {
@@ -94,5 +108,15 @@ export default {
     border-color: #dddddd;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
+}
+
+.page-meta {
+  margin-top: 20px;
+  padding-top: 20px;
+  color: #666666;
+  font-size: .6rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
 }
 </style>
