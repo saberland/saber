@@ -15,19 +15,63 @@ Run following command to check your Node.js version:
 node -v
 ```
 
-## Install
+## Creating a New Project from Scratch
 
-Using `npm` which is the default package manager for Node.js:
+Creating a new directory `my-site` and populate a `package.json`:
 
 ```bash
-cd my-website
+mkdir my-site
+cd my-site
+npm init -y
+```
+
+Install Saber with npm:
+
+```bash
 npm install saber
 ```
 
-Or using [Yarn](https://yarnpkg.com) which is an alternative package manager developed by Facebook:
+Alternatively, you can also install Saber with [Yarn](https://yarnpkg.com) which is an alternative package manager developed by Facebook:
 
 ```bash
-cd my-website
-# You need to install Yarn first
 yarn add saber
 ```
+
+Make sure you have Yarn installed first.
+
+Configure `scripts` in `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "saber",
+    "build": "saber build"
+  }
+}
+```
+
+Then you can run `npm run dev` to start the dev server, or run `npm run build` to create a production build of your app.
+
+## Using the Generator
+
+You can also generate a new site with just a single command:
+
+```bash
+npm init site my-site
+```
+
+Or using Yarn:
+
+```bash
+yarn create site my-site
+```
+
+Then start the dev server:
+
+```bash
+cd my-site
+npm install
+npm run dev
+```
+
+For more details, check out the `README.md` in `my-site/`.
