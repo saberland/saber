@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 const RE = /\s*{([^}]+)}/
 
 const parseOptions = str => {
@@ -19,12 +22,37 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx, options, env, self] = args
     const token = tokens[idx]
+    const tokenInfo = token.info || ''
 
-    const langName = token.info.replace(RE, '').trim()
+    const langName = tokenInfo.replace(RE, '').trim()
+    const withValidTokenInfo = RE.test(tokenInfo)
+
+    let fenceOptions = {}
+    if (withValidTokenInfo) {
+      fenceOptions = parseOptions(tokenInfo)
+    }
+
+    const { external: useExternal = false } = fenceOptions
+
+    let { content = '' } = token
+
+    if (useExternal) {
+      try {
+        const basedir = path.dirname(env.filePath)
+        const relPath = content.trim()
+        const _p = path.isAbsolute(relPath)
+          ? relPath
+          : path.resolve(basedir, relPath)
+
+        if (fs.existsSync(_p)) {
+          content = fs.readFileSync(_p, { encoding: 'utf-8', flag: 'r' }) || ''
+        }
+      } catch (error) {} // eslint-disable-line no-empty
+    }
 
     const code = options.highlight
-      ? options.highlight(token.content, langName, env)
-      : md.utils.escapeHtml(token.content)
+      ? options.highlight(content, langName, env)
+      : md.utils.escapeHtml(content)
 
     const renderAttrs = attrs => self.renderAttrs({ attrs })
 
@@ -43,22 +71,21 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
       ['data-lang', langName]
     ])
 
-    if (!token.info || !RE.test(token.info)) {
+    if (!withValidTokenInfo) {
       return renderPreWrapper(preWrapperAttrs, preAttrs, codeAttrs, code)
     }
 
-    const fenceOptions = parseOptions(token.info)
-    const highlightLines =
-      fenceOptions.highlightLines &&
-      fenceOptions.highlightLines.map(v =>
-        `${v}`.split('-').map(v => parseInt(v, 10))
-      )
+    const highlightLines = fenceOptions.highlightLines
+      ? fenceOptions.highlightLines.map(v =>
+          `${v}`.split('-').map(v => parseInt(v, 10))
+        )
+      : []
     token.info = langName
 
     const codeMask =
       `<div class="saber-highlight-mask${langClass ? ` ${langClass}` : ''}">` +
       md.utils
-        .escapeHtml(token.content)
+        .escapeHtml(content)
         .split('\n')
         .map((split, index) => {
           split = split || '&#8203;'

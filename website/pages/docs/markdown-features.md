@@ -236,6 +236,39 @@ If you want to override the font size or font family, you need to add CSS for bo
 }
 ```
 
+### External sources
+
+
+It's better to require a large deal of sources outside of main body, for file structures below:
+
+```plain
+example/assets
+├── go_bath.css
+├── go_bath.go
+└── go_bath.js
+example/pages/go_bath.md
+```
+
+You can require sources like below:
+
+````markdown
+```javascript {external: true}
+../assets/go_bath.js
+```
+
+```go {external: true}
+../assets/go_bath.go
+```
+
+```css {external: true}
+../assets/go_bath.css
+```
+````
+
+The content in code block would be treated as path relative to the file where main body at.
+
+**Warning** All external sources are required at first compile! it would **NOT** trigger HMR even if you update file source file.
+
 ## Configure markdown-it
 
 Check out [markdown.options](./saber-config.md#markdown.options) for setting markdown-it options and [markdown.plugins](./saber-config.md#markdown.plugins) for adding markdown-it plugins.
