@@ -116,7 +116,10 @@ exports.apply = (api, options = {}) => {
             attributes: {
               isTagPage: true,
               layout: 'tag',
-              permalink: permalinks.tag.replace(/:name/, tag),
+              permalink: renderPermalink(permalinks.tag, {
+                name: tag,
+                slug: tag
+              }),
               slug: tag
             },
             internal: {
@@ -141,7 +144,10 @@ exports.apply = (api, options = {}) => {
             attributes: {
               isCategoryPage: true,
               layout: 'category',
-              permalink: permalinks.category.replace(/:name/, category),
+              permalink: renderPermalink(permalinks.category, {
+                name: category,
+                slug: category
+              }),
               slug: category
             },
             internal: {
