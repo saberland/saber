@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.1.2...saber-plugin-query-posts@0.1.3) (2019-04-30)
+
+### Bug Fixes
+
+- **query-posts:** fix generated permalink for tag and category ([ce86aee](https://github.com/egoist/saber/commit/ce86aee))
+
 ## [0.1.2](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.1.1...saber-plugin-query-posts@0.1.2) (2019-04-27)
 
 **Note:** Version bump only for package saber-plugin-query-posts
