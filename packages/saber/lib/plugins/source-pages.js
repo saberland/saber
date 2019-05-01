@@ -1,5 +1,5 @@
 const path = require('path')
-const { fs, glob } = require('saber-utils')
+const { fs, glob, slash } = require('saber-utils')
 const chokidar = require('chokidar')
 const { log, colors } = require('saber-log')
 const hash = require('hash-sum')
@@ -112,7 +112,7 @@ exports.apply = api => {
         if (type === 'remove') {
           await api.hooks.manipulatePage.promise({
             action: 'remove',
-            id: hash(filepath)
+            id: hash(slash(filepath))
           })
         } else {
           const file = await fs.stat(filepath)
