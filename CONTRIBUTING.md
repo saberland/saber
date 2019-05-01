@@ -46,11 +46,9 @@ If you are about to do a release on the stable channel, make sure to use `git ch
 
 ### 4. Creating the Release
 
-As the next step, you need to run release. It is used to automatically create a release commit, tag and update `CHANGELOG.md` for you.
+As the next step, you need to run release. It is used to automatically create a release commit, tag and update `CHANGELOG.md` and create a GitHub Release for you.
 
 - Stable release: Run `yarn release-stable` on the `master` branch.
 - Canary release: Run `yarn release-canary` on the `canary` branch.
 
-After creating a release, run `yarn lerna publish from-git` to publish it on npm.
-
-Automatically generated `CHANGELOG.md` is great, but it's not very user-friendly. After publishing, create a GitHub Release with the same text as the changelog entry. See previous Releases for inspiration.
+Automatically generated changelog is great, but it's not very user-friendly. After publishing, you may need to modify the GitHub Release content to make it more user-friendly. See previous Releases for inspiration.

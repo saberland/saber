@@ -6,8 +6,9 @@
     "lint": "xo",
     "commit": "git-cz",
     "prepare": "lerna run prepublishOnly",
-    "release-stable": "lerna version --conventional-commits",
-    "release-canary": "lerna version prerelease --conventional-commits --preid canary"
+    "release-stable": "node ./scripts/release stable",
+    "release-canary": "node ./scripts/release canary",
+    "set-token": "node ./scripts/set-token"
   },
   "repository": {
     "url": "egoist/saber",
@@ -17,6 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "commitizen": "^3.0.5",
+    "conf": "^4.0.2",
     "cz-conventional-changelog": "^2.1.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-rem": "^4.0.0",
