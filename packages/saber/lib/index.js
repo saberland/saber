@@ -141,13 +141,7 @@ class Saber {
     const plugins = this.getPlugins()
     log.info(`Using ${plugins.length} plugins`)
     for (const plugin of plugins) {
-      plugin.apply(this, plugin.options)
-      log.verbose(
-        () =>
-          `Using plugin "${colors.bold(plugin.name)}" ${
-            plugin.__path ? colors.dim(plugin.__path) : ''
-          }`
-      )
+      this.applyPlugin(plugin)
     }
 
     this.hooks.afterPlugins.call()
@@ -166,6 +160,16 @@ class Saber {
     this.config = require('./utils/validateConfig')(this.config, {
       dev: this.dev
     })
+  }
+
+  applyPlugin(plugin) {
+    plugin.apply(this, plugin.options)
+    log.verbose(
+      () =>
+        `Using plugin "${colors.bold(plugin.name)}" ${
+          plugin.__path ? colors.dim(plugin.__path) : ''
+        }`
+    )
   }
 
   getPlugins() {
