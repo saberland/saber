@@ -5,7 +5,9 @@
     "test": "npm run lint",
     "lint": "xo",
     "commit": "git-cz",
-    "prepare": "lerna run prepublishOnly"
+    "prepare": "lerna run prepublishOnly",
+    "release-stable": "lerna version --conventional-commits",
+    "release-canary": "lerna version prerelease --conventional-commits --preid canary"
   },
   "repository": {
     "url": "egoist/saber",
