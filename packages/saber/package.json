@@ -1,6 +1,6 @@
 {
   "name": "saber",
-  "version": "0.4.8-canary.1",
+  "version": "0.4.8-canary.2",
   "files": [
     "bin",
     "lib",
@@ -43,8 +43,8 @@
     "pretty-ms": "^4.0.0",
     "resolve-from": "^4.0.0",
     "saber-log": "^0.2.0",
-    "saber-markdown": "^0.0.3",
-    "saber-utils": "^0.1.0",
+    "saber-markdown": "^0.0.4-canary.0",
+    "saber-utils": "^0.1.1-canary.0",
     "serve-static": "^1.13.2",
     "superstruct": "^0.6.0",
     "tapable": "^1.1.1",

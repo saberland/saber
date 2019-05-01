@@ -1,12 +1,12 @@
 {
   "name": "create-blog",
-  "version": "0.2.2",
+  "version": "0.2.3-canary.0",
   "bin": "cli.js",
   "files": [
     "cli.js"
   ],
   "dependencies": {
-    "create-site": "^0.2.2"
+    "create-site": "^0.2.3-canary.0"
   },
   "license": "MIT",
   "author": {

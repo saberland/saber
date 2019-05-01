@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.8-canary.2](https://github.com/egoist/saber/compare/saber@0.4.8-canary.1...saber@0.4.8-canary.2) (2019-05-01)
+
+### Bug Fixes
+
+- **deps:** update dependency mini-css-extract-plugin to ^0.6.0 ([#93](https://github.com/egoist/saber/issues/93)) ([e642875](https://github.com/egoist/saber/commit/e642875))
+
 ## [0.4.8-canary.1](https://github.com/egoist/saber/compare/saber@0.4.8-canary.0...saber@0.4.8-canary.1) (2019-05-01)
 
 ### Bug Fixes
