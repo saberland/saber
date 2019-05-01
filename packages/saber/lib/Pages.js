@@ -45,7 +45,7 @@ module.exports = class Pages extends Map {
           slug
         },
         internal: {
-          id: hash(absolutePath),
+          id: hash(file.absolute),
           absolute: absolutePath,
           relative: relativePath,
           isFile: true

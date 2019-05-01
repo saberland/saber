@@ -112,7 +112,7 @@ exports.apply = api => {
         if (type === 'remove') {
           await api.hooks.manipulatePage.promise({
             action: 'remove',
-            id: hash(slash(filepath))
+            id: slash(filepath)
           })
         } else {
           const file = await fs.stat(filepath)
