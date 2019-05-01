@@ -141,12 +141,12 @@ class Saber {
     const plugins = this.getPlugins()
     log.info(`Using ${plugins.length} plugins`)
     for (const plugin of plugins) {
-      plugin.plugin.apply(this, plugin.options)
+      plugin.apply(this, plugin.options)
       log.verbose(
         () =>
-          `Using plugin "${colors.bold(plugin.plugin.name)}" ${colors.dim(
-            plugin.resolve
-          )}`
+          `Using plugin "${colors.bold(plugin.name)}" ${
+            plugin.__path ? colors.dim(plugin.__path) : ''
+          }`
       )
     }
 
@@ -198,15 +198,20 @@ class Saber {
           })
         : []
 
-    const plugins = this.hooks.filterPlugins.call([
-      ...builtinPlugins,
-      ...configPlugins
-    ])
+    const plugins = [...builtinPlugins, ...configPlugins].map(
+      ({ resolve, options }) => {
+        const plugin = require(resolve)
+        plugin.__path = resolve
+        if (plugin.filterPlugins) {
+          this.hooks.filterPlugins.tap(plugin.name, plugins =>
+            plugin.filterPlugins(plugins, options)
+          )
+        }
+        return plugin
+      }
+    )
 
-    return plugins.map(p => {
-      p.plugin = require(p.resolve)
-      return p
-    })
+    return this.hooks.filterPlugins.call(plugins)
   }
 
   resolveCache(...args) {
