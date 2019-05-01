@@ -32,9 +32,7 @@ permalinks:
   page: /:slug.html
 ```
 
-Note that placeholders like `:year` and `:month` are parsed from the page attribute `date` which can be any valid date value like: `2015-02-31`, it defaults to the creation time of your page.
-
-In the example above we are setting the permalink template for `post` pages, however you can set permalinks for each type of page individually.
+Note that placeholders like `:year` and `:month` are parsed from the page attribute `createdAt` which can be any valid date value like: `2015-02-31`, it defaults to the creation time of your page.
 
 ### Placeholders
 

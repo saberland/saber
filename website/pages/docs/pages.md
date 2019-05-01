@@ -21,6 +21,8 @@ And run `saber` in your project:
 - `./pages/docs/index.md` maps to `/docs/index.html`
 - and so on..
 
+<small><i>Note: If you don't like the `.html` suffix, feel free to customize the [permalinks](./permalinks.md).</i></small>
+
 A page is made of two parts, the attributes (optional) and the content. __The `attributes` is a mechanism for the page component to communicate with its layout component.__
 
 To define attributes for Markdown page you can use the front matter:
