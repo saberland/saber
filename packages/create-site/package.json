@@ -8,7 +8,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "kleur": "3.0.1",
+    "kleur": "3.0.3",
     "ncp": "2.0.0"
   },
   "author": {
