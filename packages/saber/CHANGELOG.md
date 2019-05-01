@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.8-canary.1](https://github.com/egoist/saber/compare/saber@0.4.8-canary.0...saber@0.4.8-canary.1) (2019-05-01)
+
+### Bug Fixes
+
+- a huge mistake ([8a6401f](https://github.com/egoist/saber/commit/8a6401f))
+
 ## [0.4.8-canary.0](https://github.com/egoist/saber/compare/saber@0.4.7...saber@0.4.8-canary.0) (2019-05-01)
 
 ### Bug Fixes
