@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.8-canary.0](https://github.com/egoist/saber/compare/saber@0.4.7...saber@0.4.8-canary.0) (2019-05-01)
+
+### Bug Fixes
+
+- hash the original filepath ([2a0d03e](https://github.com/egoist/saber/commit/2a0d03e))
+- use slash for filepath ([#90](https://github.com/egoist/saber/issues/90)), closes [#67](https://github.com/egoist/saber/issues/67) ([8f23e65](https://github.com/egoist/saber/commit/8f23e65))
+
+### Features
+
+- add api.applyPlugin ([79c7a9c](https://github.com/egoist/saber/commit/79c7a9c))
+- add plugin property: filterPlugins ([69946c8](https://github.com/egoist/saber/commit/69946c8))
+
 ## [0.4.7](https://github.com/egoist/saber/compare/saber@0.4.6...saber@0.4.7) (2019-04-29)
 
 ### Bug Fixes
