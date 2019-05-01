@@ -101,7 +101,6 @@ Finally, make sure GitHub Pages option in your GitHub project settings is set to
 
 ![gh-pages-setting](@/images/gh-pages-setting.png)
 
-
 ### Step 5: Optionally, configure the domain
 
 You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `public/` folder.
@@ -112,9 +111,52 @@ Your `CNAME` file should look like this:
 mywebsite.com
 ```
 
+## [ZEIT Now](https://zeit.co/now)
+
+[Now](https://zeit.co/docs) offers a simple, single-command deployment. You can use now to deploy your app for free.
+
+The first step is to install Now. You can do this by installing [the Now Desktop app](https://zeit.co/download), which also installs Now CLI and keeps it up-to-date, or by installing [Now CLI](https://zeit.co/download#now-cli) directly with npm:
+
+```bash
+npm i -g now
+```
+
+Adding a `now.json` in your project:
+
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": ".saber/public" }
+    }
+  ]
+}
+```
+
+Updating your npm scripts in `package.json`:
+
+```diff
+{
+  "scripts": {
++   "now-build": "npm run build",
+    "build": "saber build",
+    "dev": "saber"
+  }
+}
+```
+
+Then run the command `now` in your project, you will be given a now.sh URL as a response as your build is deployed, similar to the following: https://my-saber-app-dxcikdrgk.now.sh/
+
+Click or paste the deployment URL into your browser when the build is complete and you will see your deployed app.
+
+Check out [Now for GitHub](https://zeit.co/docs/v2/integrations/now-for-github) and [Now for GitLab](https://zeit.co/docs/v2/integrations/now-for-gitlab/) for continuous intergration.
+
 ## Docker
 
 [TODO]
 
 PR welcome for using a docker image to build and serve your Saber application.
-
+```
