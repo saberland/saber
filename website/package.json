@@ -13,6 +13,6 @@
     "prismjs": "1.15.0"
   },
   "devDependencies": {
-    "postcss-preset-env": "6.5.0"
+    "postcss-preset-env": "6.6.0"
   }
 }
