@@ -37,7 +37,7 @@
     "joycon": "^2.2.4",
     "lodash.merge": "^4.6.1",
     "log-update": "^3.2.0",
-    "mini-css-extract-plugin": "^0.5.0",
+    "mini-css-extract-plugin": "^0.6.0",
     "object-assign": "^4.1.1",
     "polka": "^0.5.1",
     "pretty-ms": "^4.0.0",
