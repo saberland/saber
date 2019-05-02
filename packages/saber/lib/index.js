@@ -210,6 +210,7 @@ class Saber {
       ({ resolve, options }) => {
         const plugin = require(resolve)
         plugin.__path = resolve
+        plugin.options = options
         if (plugin.filterPlugins) {
           this.hooks.filterPlugins.tap(plugin.name, plugins =>
             plugin.filterPlugins(plugins, options)
