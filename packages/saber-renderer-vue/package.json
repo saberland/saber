@@ -1,0 +1,29 @@
+{
+  "name": "saber-renderer-vue",
+  "version": "0.1.0",
+  "license": "MIT",
+  "files": [
+    "app",
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "dependencies": {
+    "devalue": "^1.1.0",
+    "object-assign": "^4.1.1",
+    "polka": "^0.5.2",
+    "saber-log": "^0.2.0",
+    "saber-utils": "^0.1.0",
+    "serve-static": "^1.13.2",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "vue-server-renderer": "^2.6.10",
+    "webpack": "^4.30.0",
+    "webpack-dev-middleware": "^3.6.2",
+    "webpack-hot-middleware": "^2.24.4",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "xo": false,
+  "engines": {
+    "node": ">=8"
+  }
+}
