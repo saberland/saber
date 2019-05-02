@@ -25,9 +25,9 @@ Theme layouts are populated under `$theme/layouts` directory and this directory 
 
 There are already a number of themes available for you to play with. If you decide to make your own theme, feel free to create a pull request adding it [here](https://github.com/egoist/saber/blob/master/website/pages/docs/themes.md)!
 
-- [Minima](https://github.com/egoist/saber-theme-minima) - Port of the default Jekyll theme by [egoist](https://github.com/egoist)
-- [Tailsaw](https://github.com/krmax44/saber-theme-tailsaw) - Port of the Jigsaw starter theme by [krmax44](https://github.com/krmax44)
-- [Paper](https://github.com/geekplux/blog/tree/master/packages/saber-theme-paper) - A simple theme like a paper.
-- [Ume](https://github.com/iCyris/Ume) - An elegant blog theme.
+- [Minima](https://github.com/egoist/saber-theme-minima) - Port of the default Jekyll theme by [egoist](https://github.com/egoist).
+- [Tailsaw](https://github.com/krmax44/saber-theme-tailsaw) - Port of the Jigsaw starter theme by [krmax44](https://github.com/krmax44).
+- [Paper](https://github.com/geekplux/blog/tree/master/packages/saber-theme-paper) - A simple theme like a paper by [geekplux](https://github.com/geekplux).
+- [Ume](https://github.com/iCyris/Ume) - An elegant blog theme by [iCyris](https://github.com/iCyris).
 
 We are also working on adding a page on this site to showcase all the themes.
