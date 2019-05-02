@@ -50,11 +50,11 @@ Check out our [Roadmap](https://github.com/egoist/saber/projects/1) for upcoming
 
 ## Contributing
 
-1.  Fork it!
-2.  Create your feature branch: `git checkout -b my-new-feature`
-3.  Commit your changes: `git commit -am 'Add some feature'`
-4.  Push to the branch: `git push origin my-new-feature`
-5.  Submit a pull request :D
+This project is supported by [IssueHunt](https://issuehunt.io/r/egoist/saber), financial rewards are granted to whoever solves the issues via pull requests.
+
+[![IsshueHunt](https://cdn.jsdelivr.net/gh/BoostIO/issuehunt-materials/v1/issuehunt-button-v1.svg)](https://issuehunt.io/r/egoist/saber).
+
+Make sure to check out the [Contributing Guide](./CONTRIBUTING.md) first.
 
 ## Author
 

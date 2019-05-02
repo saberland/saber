@@ -21,7 +21,15 @@ yarn
 yarn dev # which uses the global `saber` command
 ```
 
+## Pull Requests
+
+Before starting to work on an issue, first ensure there are no open PRs for it already, then comment that you intend to work on it, to prevent others from wasting their time doing the same work.
+
+If the issue you're working on is funded by IssueHunt, you also need to submit the PR URL to IssueHunt after submitting your PR on GitHub.
+
 ## Publish a new version
+
+If you have write access to this project:
 
 ```bash
 # In root directory
