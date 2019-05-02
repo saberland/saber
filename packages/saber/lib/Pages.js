@@ -113,6 +113,7 @@ module.exports = class Pages extends Map {
     if (!page.internal || !page.internal.id) {
       throw new Error(`Page must have an internal id.`)
     }
+
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
@@ -123,6 +124,7 @@ module.exports = class Pages extends Map {
     if (normalize !== false) {
       page = this.normalizePage(page, file)
     }
+
     this.pageProps.set(page.internal.id, {})
     this.set(page.internal.id, page)
   }
@@ -156,6 +158,7 @@ module.exports = class Pages extends Map {
     if (!page) {
       return page
     }
+
     return Object.assign({}, page, { content: undefined, internal: undefined })
   }
 

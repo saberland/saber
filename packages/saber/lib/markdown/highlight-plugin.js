@@ -67,6 +67,7 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
             if (start && end) {
               return lineNumber >= start && lineNumber <= end
             }
+
             return lineNumber === start
           })
           if (inRange) {
@@ -75,6 +76,7 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
               : ''
             return `<div class="code-line highlighted"${style}>${split}</div>`
           }
+
           return `<div class="code-line">${split}</div>`
         })
         .join('') +

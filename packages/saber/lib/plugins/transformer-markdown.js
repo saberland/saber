@@ -100,6 +100,7 @@ function transformMarkdown(api, page) {
           if (typeof p === 'string') {
             p = { resolve: p }
           }
+
           p.name = p.name || p.resolve
           p.resolve = resolvePackage(p.resolve, { cwd: configDir })
           return p

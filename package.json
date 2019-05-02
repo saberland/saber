@@ -24,7 +24,7 @@
     "lerna": "3.13.4",
     "lint-staged": "8.1.5",
     "prettier": "1.17.0",
-    "xo": "0.23.0"
+    "xo": "0.24.0"
   },
   "xo": {
     "extends": [
@@ -35,7 +35,8 @@
       "import/no-unassigned-import": "off",
       "unicorn/filename-case": "off",
       "no-await-in-loop": "off",
-      "unicorn/no-abusive-eslint-disable": "off"
+      "unicorn/no-abusive-eslint-disable": "off",
+      "camelcase": "off"
     },
     "ignore": [
       "**/dist/**",

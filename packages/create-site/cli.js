@@ -51,6 +51,7 @@ promisify(ncp)(path.join(__dirname, 'template'), dir)
       console.log(colors.cyan(`$ npm install`))
       console.log(colors.cyan(`$ npm run dev`))
     }
+
     console.log(colors.dim(`For more details, please check out the README.md`))
   })
   .catch(console.error)

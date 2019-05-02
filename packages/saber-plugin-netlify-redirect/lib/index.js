@@ -22,6 +22,7 @@ exports.apply = api => {
           config.toPath
         )} ${config.isPermanent ? '301' : '302'}\n`
       }
+
       return content
     }
 

@@ -1,7 +1,6 @@
 const path = require('path')
-const url = require('url')
 const { Feed } = require('feed')
-const { getFeedPath } = require('./utils')
+const { getFeedPath, resolveURL } = require('./utils')
 
 const ID = 'generate-feed'
 
@@ -28,9 +27,9 @@ exports.apply = (api, options = {}) => {
   const rss2FeedPath = getFeedPath(options.rss2Feed, 'rss2.xml')
 
   const feedLinks = {
-    json: jsonFeedPath && url.resolve(siteConfig.url, jsonFeedPath),
-    atom: atomFeedPath && url.resolve(siteConfig.url, atomFeedPath),
-    rss2: rss2FeedPath && url.resolve(siteConfig.url, rss2FeedPath)
+    json: jsonFeedPath && resolveURL(siteConfig.url, jsonFeedPath),
+    atom: atomFeedPath && resolveURL(siteConfig.url, atomFeedPath),
+    rss2: rss2FeedPath && resolveURL(siteConfig.url, rss2FeedPath)
   }
 
   api.hooks.afterGenerate.tapPromise(ID, async () => {
@@ -42,7 +41,7 @@ exports.apply = (api, options = {}) => {
         posts.push({
           title: page.attributes.title,
           id: page.attributes.permalink,
-          link: url.resolve(siteConfig.url, page.attributes.permalink),
+          link: resolveURL(siteConfig.url, page.attributes.permalink),
           // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
           description: excerpt && excerpt.replace(/<(?:.|\n)*?>/gm, ''),
           content: page.content,
@@ -51,6 +50,7 @@ exports.apply = (api, options = {}) => {
         })
       }
     }
+
     // Order by published
     const items = posts
       .sort((a, b) => {

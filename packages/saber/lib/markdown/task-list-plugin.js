@@ -42,6 +42,7 @@ function parentToken(tokens, index) {
       return i
     }
   }
+
   return -1
 }
 
@@ -75,6 +76,7 @@ function makeCheckbox(token, id, options, TokenConstructor) {
   if (checked === true) {
     checkbox.attrs.push(['checked', 'true'])
   }
+
   if (options.disabled === true) {
     checkbox.attrs.push(['disabled', 'true'])
   }
@@ -109,9 +111,11 @@ function endWrap(TokenConstructor) {
 function isInline(token) {
   return token.type === 'inline'
 }
+
 function isParagraph(token) {
   return token.type === 'paragraph_open'
 }
+
 function isListItem(token) {
   return token.type === 'list_item_open'
 }

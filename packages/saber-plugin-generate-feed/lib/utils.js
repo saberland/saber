@@ -1,4 +1,6 @@
 // @ts-check
+const { URL } = require('url')
+
 /**
  * Get feed path
  * @param {string|boolean|undefined} feedPath
@@ -14,4 +16,13 @@ exports.getFeedPath = (feedPath, defaultPath) => {
   }
 
   return null
+}
+
+/**
+ * @param {string} base
+ * @param {string} pathname
+ * @returns {string}
+ */
+exports.resolveURL = (base, pathname) => {
+  return new URL(base, pathname).href
 }

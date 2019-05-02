@@ -20,6 +20,7 @@ module.exports = class Transformers {
     for (const transformer of this.transformers.values()) {
       extensions = [...extensions, ...(transformer.extensions || [])]
     }
+
     return extensions
   }
 

@@ -35,8 +35,10 @@ module.exports = (content, filepath) => {
     if (filepath) {
       log.error(`Error parsing front matter in ${filepath}`)
     }
+
     throw error
   }
+
   return {
     frontmatter,
     body: body && body.trim()

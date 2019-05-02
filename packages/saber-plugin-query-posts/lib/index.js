@@ -46,10 +46,12 @@ exports.apply = (api, options = {}) => {
       if (page.attributes.draft) {
         continue
       }
+
       if (page.attributes.injectAllPosts) {
         injectPostsToPages.add(page)
         continue
       }
+
       if (page.attributes.type === 'post') {
         const pagePublicFields = api.pages.getPagePublicFields(page)
         allPosts.add(pagePublicFields)
@@ -236,9 +238,11 @@ exports.apply = (api, options = {}) => {
     if (pageIndex === 1) {
       return permalink
     }
+
     if (pageIndex === 0) {
       return
     }
+
     return urlJoin(permalink, `page/${pageIndex}`)
   }
 }
