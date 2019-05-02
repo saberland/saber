@@ -9,40 +9,21 @@
 
 <br><br><br><br>
 
----
+## Supporting Saber
 
-**Please consider [donating](https://www.patreon.com/egoist) to this project's author, [EGOIST](#author), to show your ❤️ and support.**
+Saber is an open source project. It's an independent project with its ongoing development made possible thanks to the support by our amazing backers.
 
-## Features
+Issues on Saber can be funded by anyone and the money will be distributed to contributors and maintainers. If you use Saber please consider becoming a backer:
 
-- **Static Rendering.**<br>_With Saber, static rendering with Vue.js is easier now than ever._
-- **Zero Setup.**<br>_Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support._
-- **Bring Your Own Data.**<br>_Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more._
-- **Fully Extensible.**<br>_With Saber's powerful APIs and plugin system, you can customize almost everything._
+[![IsshueHunt](https://cdn.jsdelivr.net/gh/BoostIO/issuehunt-materials/v1/issuehunt-button-v1.svg)](https://issuehunt.io/r/egoist/saber)
 
-## Quick Start
+## Documentation
 
-You can create a new site with just a single command:
+📝 **https://saber.land**
 
-```bash
-npm init site new-site
-# Or if you prefer Yarn
-yarn create site new-site
-```
+The source code of the docs can be founded [here](./website/pages).
 
-Then run `npm run dev` or `yarn dev` in the created project and you're done!
-
-Dive into the [docs](https://saber.land) for more details or try the online CodeSandbox example:
-
-[![Edit saber-sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/egoist/saber-codesandbox/tree/master/?fontsize=14&module=%2Fpages%2Findex.md)
-
-## Resources
-
-- [Awesome Saber](https://github.com/egoist/awesome-saber) - A curated list of awesome Saber resources.
-
-## Support
-
-Check out our [Roadmap](https://github.com/egoist/saber/projects/1) for upcoming features.
+## Community
 
 - [Discord Chat](https://chat.saber.land)
 - [Spectrum Chat](https://spectrum.chat/saber)
@@ -50,15 +31,14 @@ Check out our [Roadmap](https://github.com/egoist/saber/projects/1) for upcoming
 
 ## Contributing
 
-This project is supported by [IssueHunt](https://issuehunt.io/r/egoist/saber), financial rewards are granted to whoever solves the issues via pull requests.
+Check out the [Contributing Guide](./CONTRIBUTING.md) if you want to join the development.
 
-[![IsshueHunt](https://cdn.jsdelivr.net/gh/BoostIO/issuehunt-materials/v1/issuehunt-button-v1.svg)](https://issuehunt.io/r/egoist/saber).
+Check out our [Roadmap](https://github.com/egoist/saber/projects/1) for upcoming features.
 
-Make sure to check out the [Contributing Guide](./CONTRIBUTING.md) first.
+## Contributors
 
-## Author
+[![contributors](https://opencollective.com/saber/contributors.svg?button=false)](https://github.com/egoist/saber/graphs/contributors)
 
-**Saber** © EGOIST, Released under the [MIT](./LICENSE) License.<br>
-Authored and maintained by EGOIST with help from contributors ([list](https://github.com/egoist/saber/contributors)).
+## License
 
-> [Website](https://github.com/egoist) · GitHub [@EGOIST](https://github.com/egoist) · Twitter [@\_egoistlily](https://twitter.com/_egoistlily)
+MIT &copy; [EGOIST](https://egoist.sh)
