@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/egoist/saber/compare/create-site@0.2.3...create-site@0.2.4) (2019-05-02)
+
+### Bug Fixes
+
+- **deps:** update dependency kleur to v3.0.3 ([#116](https://github.com/egoist/saber/issues/116)) ([5275279](https://github.com/egoist/saber/commit/5275279))
+
 ## [0.2.3](https://github.com/egoist/saber/compare/create-site@0.2.3-canary.0...create-site@0.2.3) (2019-05-01)
 
 **Note:** Version bump only for package create-site

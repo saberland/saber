@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/egoist/saber/compare/saber-utils@0.1.1...saber-utils@0.1.2) (2019-05-02)
+
+### Bug Fixes
+
+- **saber-utils:** compatible with windows ([#99](https://github.com/egoist/saber/issues/99)) ([8bc0db5](https://github.com/egoist/saber/commit/8bc0db5))
+
 ## [0.1.1](https://github.com/egoist/saber/compare/saber-utils@0.1.1-canary.0...saber-utils@0.1.1) (2019-05-01)
 
 **Note:** Version bump only for package saber-utils

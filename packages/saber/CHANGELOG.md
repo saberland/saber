@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.9](https://github.com/egoist/saber/compare/saber@0.4.8...saber@0.4.9) (2019-05-02)
+
+### Bug Fixes
+
+- **core:** fix plugins options not loaded ([#131](https://github.com/egoist/saber/issues/131)) ([09da7a8](https://github.com/egoist/saber/commit/09da7a8))
+- **deps:** update dependency chokidar to v3 ([#122](https://github.com/egoist/saber/issues/122)) ([9149fdd](https://github.com/egoist/saber/commit/9149fdd))
+- **deps:** update dependency pretty-ms to v5 ([#123](https://github.com/egoist/saber/issues/123)) ([b6de2c7](https://github.com/egoist/saber/commit/b6de2c7))
+- **deps:** update dependency resolve-from to v5 ([#124](https://github.com/egoist/saber/issues/124)) ([e10a4a3](https://github.com/egoist/saber/commit/e10a4a3))
+
 ## [0.4.8](https://github.com/egoist/saber/compare/saber@0.4.8-canary.2...saber@0.4.8) (2019-05-01)
 
 **Note:** Version bump only for package saber

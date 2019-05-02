@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-transformer-html",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Write pages in HTML",
   "license": "MIT",
   "main": "lib/index.js",
@@ -13,6 +13,6 @@
   ],
   "xo": false,
   "dependencies": {
-    "extract-sfc-blocks": "^0.0.1"
+    "extract-sfc-blocks": "^0.0.2"
   }
 }
