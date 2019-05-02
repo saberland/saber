@@ -49,9 +49,9 @@ class Saber {
       // Call this hook to manipulate a page, it's usually used by file watcher
       manipulatePage: new AsyncSeriesHook(['data']),
       // Called before generating a page
-      beforeGeneratePage: new AsyncSeriesHook(['context']),
+      beforeGeneratePage: new AsyncSeriesHook(['context', 'file']),
       // Called after generating a page
-      afterGeneratePage: new AsyncSeriesHook(['context'])
+      afterGeneratePage: new AsyncSeriesHook(['context', 'file'])
     }
 
     this.transformers = new Transformers()
