@@ -24,5 +24,5 @@ exports.getFeedPath = (feedPath, defaultPath) => {
  * @returns {string}
  */
 exports.resolveURL = (base, pathname) => {
-  return new URL(base, pathname).href
+  return new URL(pathname, base).href
 }
