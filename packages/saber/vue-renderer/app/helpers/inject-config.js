@@ -1,15 +1,29 @@
-import { siteConfig, themeConfig } from 'saber/config'
+import { siteConfig, themeConfig, locales } from 'saber/config'
 
 export default ({ Vue }) => {
-  const configStore = Vue.observable({ siteConfig, themeConfig })
+  const store = Vue.observable({ siteConfig, themeConfig, locales })
+
+  const getMatchedConfig = (currentRoute, key) => {
+    const routes = Object.keys(store.locales)
+    let matchedRoute = '/'
+    for (const route of routes) {
+      if (route !== '/') {
+        if (currentRoute === route || currentRoute.indexOf(`${route}/`) === 0){
+          matchedRoute = route
+        }
+      }
+    }
+    const matchedLocale = store.locales[matchedRoute]
+    return Object.assign({}, store[key], matchedLocale && matchedLocale[key])
+  }
 
   Vue.mixin({
     computed: {
       $siteConfig() {
-        return configStore.siteConfig
+        return getMatchedConfig(this.$route.path, 'siteConfig')
       },
       $themeConfig() {
-        return configStore.themeConfig
+        return getMatchedConfig(this.$route.path, 'themeConfig')
       }
     }
   })
@@ -17,8 +31,9 @@ export default ({ Vue }) => {
   if (module.hot) {
     module.hot.accept('saber/config', () => {
       const config = require('saber/config')
-      configStore.siteConfig = config.siteConfig
-      configStore.themeConfig = config.themeConfig
+      store.siteConfig = config.siteConfig
+      store.themeConfig = config.themeConfig
+      store.locales = config.locales
     })
   }
 }
