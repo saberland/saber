@@ -1,7 +1,6 @@
 const path = require('path')
 
 module.exports = function(md) {
-  // eslint-disable-next-line camelcase
   md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
     const token = tokens[idx]
 
@@ -43,7 +42,6 @@ module.exports = function(md) {
     return self.renderToken(tokens, idx, options)
   }
 
-  // eslint-disable-next-line camelcase
   md.renderer.rules.link_close = (tokens, idx, options, env, self) => {
     const openToken = tokens[idx - 2]
     const token = tokens[idx]
@@ -53,6 +51,7 @@ module.exports = function(md) {
         token.tag = 'saber-link'
       }
     }
+
     return prefix + self.renderToken(tokens, idx, options)
   }
 }

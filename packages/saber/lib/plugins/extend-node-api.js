@@ -40,6 +40,7 @@ exports.apply = api => {
               if (tapType === 'tapPromise') {
                 return Promise.resolve(result)
               }
+
               return result
             })
           }

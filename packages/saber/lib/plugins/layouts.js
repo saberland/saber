@@ -94,6 +94,7 @@ exports.apply = api => {
       if (!/node_modules/.test(themeLayoutsDir)) {
         watchLayouts(themeLayoutsDir, themeLayouts)
       }
+
       watchLayouts(userLayoutsDir, userLayouts)
     }
   })

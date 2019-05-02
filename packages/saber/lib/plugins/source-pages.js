@@ -81,6 +81,7 @@ exports.apply = api => {
               return
             }
           }
+
           log.verbose(`Emitting page ${outPath}`)
           await fs.outputFile(outPath, newContentHash, 'utf8')
           page.internal.saved = true
@@ -127,6 +128,7 @@ exports.apply = api => {
         await api.hooks.emitPages.promise()
         await api.hooks.emitRoutes.promise()
       }
+
       watcher.on('add', handler('add'))
       watcher.on('unlink', handler('remove'))
       watcher.on('change', handler('change'))

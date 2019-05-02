@@ -63,8 +63,10 @@ class Saber {
               const msg = `${hook} ${colors.dim(`(${name})`)}`
               log.verbose(msg)
             }
+
             return fn(...args)
           }
+
           return tapInfo
         }
       })
@@ -131,6 +133,7 @@ class Saber {
           this.theme = distDir
         }
       }
+
       log.info(`Using theme: ${colors.dim(this.config.theme)}`)
       log.verbose(() => `Theme directory: ${colors.dim(this.theme)}`)
     } else {
@@ -197,6 +200,7 @@ class Saber {
             if (typeof p === 'string') {
               p = { resolve: p }
             }
+
             p.resolve = resolveFrom(this.configDir, p.resolve)
             return p
           })
@@ -211,6 +215,7 @@ class Saber {
             plugin.filterPlugins(plugins, options)
           )
         }
+
         return plugin
       }
     )
@@ -255,6 +260,7 @@ class Saber {
       await this.renderer.build()
       await this.hooks.afterBuild.promise()
     }
+
     await this.renderer.generate()
     await this.hooks.afterGenerate.promise()
   }

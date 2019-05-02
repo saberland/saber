@@ -7,6 +7,7 @@ function paginate(arr, options) {
   for (let i = 0; i < totalPages; i++) {
     result[i] = arr.slice(i * options.perPage, (i + 1) * options.perPage)
   }
+
   return result
 }
 
@@ -18,6 +19,7 @@ function getIdFromMap(map, name) {
     id = slugify(name.replace(/\//g, '-'))
     map[name] = id
   }
+
   return id
 }
 
@@ -27,6 +29,7 @@ function getNameFromMap(map, id) {
       return name
     }
   }
+
   return id
 }
 
@@ -39,6 +42,7 @@ function renderPermalink(permalink, data) {
   for (const key of Object.keys(data)) {
     permalink = permalink.replace(`:${key}`, data[key])
   }
+
   return permalink
 }
 

@@ -5,6 +5,7 @@ function stringifyNode(node) {
   if (typeof node === 'string') {
     return node
   }
+
   const content = node.content || []
   return `<${node.tag}${stringifyAttrs(node.attrs || {})}>${content
     .map(n => stringifyNode(n))
@@ -20,6 +21,7 @@ module.exports = input => {
           blocks.push(stringifyNode(node))
           return
         }
+
         return node
       })
   ]).process(input, {

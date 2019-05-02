@@ -84,6 +84,7 @@ module.exports = class PrintStatusPlugin {
         if (log.logLevel > 3) {
           logFiles(true)
         }
+
         log.success(
           `Compiled ${this.type} successfully in ${prettyTime(
             Date.now() - stats.startTime

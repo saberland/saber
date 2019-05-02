@@ -1,7 +1,6 @@
 const hasExcerptMark = value => /<!--\s*more\s*-->/.test(value.trim())
 
 module.exports = (md, { paragraphOnly = true } = {}) => {
-  // eslint-disable-next-line camelcase
   md.renderer.rules.paragraph_close = (...args) => {
     const [tokens, idx, options, env, self] = args
 
@@ -22,6 +21,7 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
             }
           }
         }
+
         env.setAttribute(
           'excerpt',
           self.render(tokens.slice(startIndex, idx + 1), options, env)
@@ -32,9 +32,8 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
     return self.renderToken(tokens, idx, options)
   }
 
-  // eslint-disable-next-line camelcase
   const htmlRule = md.renderer.rules.html_block
-  // eslint-disable-next-line camelcase
+
   md.renderer.rules.html_block = (...args) => {
     const [tokens, idx, options, env, self] = args
     const token = tokens[idx]

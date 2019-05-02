@@ -9,15 +9,18 @@ function getPeerDependentsMap() {
     if (language === 'meta') {
       return false
     }
+
     if (components.languages[language].peerDependencies) {
       let { peerDependencies } = components.languages[language]
       if (!Array.isArray(peerDependencies)) {
         peerDependencies = [peerDependencies]
       }
+
       peerDependencies.forEach(peerDependency => {
         if (!peerDependentsMap[peerDependency]) {
           peerDependentsMap[peerDependency] = []
         }
+
         peerDependentsMap[peerDependency].push(language)
       })
     }
@@ -29,6 +32,7 @@ function getPeerDependents(mainLanguage) {
   if (!peerDependentsMap) {
     peerDependentsMap = getPeerDependentsMap()
   }
+
   return peerDependentsMap[mainLanguage] || []
 }
 
@@ -39,6 +43,7 @@ function loadLanguages(arr, withoutDependencies) {
       return language !== 'meta'
     })
   }
+
   if (arr && arr.length === 0) {
     return
   }
@@ -83,6 +88,7 @@ function loadLanguages(arr, withoutDependencies) {
         delete Prism.languages[dependent]
         return true
       }
+
       return false
     })
     if (dependents.length > 0) {
