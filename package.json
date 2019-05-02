@@ -42,7 +42,7 @@
       "**/dist/**",
       "**/vendor/**",
       "*.min.js",
-      "**/vue-renderer/app/**",
+      "packages/saber-renderer-vue/app/**",
       "**/example/**",
       "website/**"
     ],
@@ -70,7 +70,7 @@
       "**/dist/**",
       "**/vendor/**",
       "*.min.js",
-      "**/vue-renderer/app/**",
+      "packages/saber-renderer-vue/app/**",
       "**/example/**",
       "website/**"
     ]

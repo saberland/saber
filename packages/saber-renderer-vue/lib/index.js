@@ -4,9 +4,9 @@ const url = require('url')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
 
-const ID = 'vue-renderer'
+const ID = 'renderer-vue'
 
-class VueRenderer {
+class Renderer {
   constructor(api) {
     this.api = api
     // In dev mode pages will be built when visited
@@ -435,10 +435,10 @@ class VueRenderer {
   }
 }
 
-VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
-VueRenderer.getDocument = require('./get-document')
+Renderer.defaultTheme = path.join(__dirname, '../app/theme')
+Renderer.getDocument = require('./get-document')
 
-module.exports = VueRenderer
+module.exports = Renderer
 
 function runCompiler(compiler) {
   return new Promise((resolve, reject) => {
