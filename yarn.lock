@@ -3939,10 +3939,10 @@ es6-promisify@^5.0.0:
   dependencies:
     es6-promise "^4.0.3"
 
-escape-goat@^1.1.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/escape-goat/-/escape-goat-1.3.0.tgz#bf3ee8ad1e488fbba404b084b2e4a55e09231c64"
-  integrity sha512-E2nU1Y39N5UgfLU8qwMlK0vZrZprIwWLeVmDYN8wd/e37hMtGzu2w1DBiREts0XHfgyZEQlj/hYr0H0izF0HDQ==
+escape-goat@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/escape-goat/-/escape-goat-2.0.0.tgz#be9120096b3002eae301ea9db824247d688121b9"
+  integrity sha512-XNBgZcQeOGSzOPRqqOrMkFjBA0MCWRb2CqfMjZatMNkAki2YrKj2PwoZhIZwk/AikpbMwGOCPUVjpe+MOeR5tw==
 
 escape-html@~1.0.3:
   version "1.0.3"
@@ -10333,12 +10333,12 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-stringify-attributes@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/stringify-attributes/-/stringify-attributes-1.0.0.tgz#9e8b2f9a9467e7b48093cb2124ebc1c17e6382c5"
-  integrity sha1-nosvmpRn57SAk8shJOvBwX5jgsU=
+stringify-attributes@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/stringify-attributes/-/stringify-attributes-2.0.0.tgz#0355827de224ec8a94ca81a267f92a3f5f778820"
+  integrity sha512-wrVfRV6sCCB6wr3gx8OgKsp/9dSWWbKr8ifLfOxEcd/BBoa8d5pAf4BZb/jQW1JZnoZImjvUdxdo3ikYHZmYiw==
   dependencies:
-    escape-goat "^1.1.0"
+    escape-goat "^2.0.0"
 
 stringify-object@^3.2.2:
   version "3.3.0"
