@@ -422,10 +422,7 @@ class VueRenderer {
         return render()
       }
 
-      const queryPosition = req.url.indexOf('?')
-      const pathname = decodeURI(
-        queryPosition === -1 ? req.url : req.url.slice(0, queryPosition)
-      )
+      const pathname = req.path
 
       if (this.builtRoutes.has(pathname)) {
         render()
