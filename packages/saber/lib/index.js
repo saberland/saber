@@ -47,7 +47,11 @@ class Saber {
       // Emit pages as .saberpage files when necessary
       emitPages: new AsyncSeriesHook(),
       // Call this hook to manipulate a page, it's usually used by file watcher
-      manipulatePage: new AsyncSeriesHook(['data'])
+      manipulatePage: new AsyncSeriesHook(['data']),
+      // Called before exporting a page as static HTML file
+      beforeExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
+      // Called after exporting a page
+      afterExportPage: new AsyncSeriesHook(['context', 'exportedPage'])
     }
 
     this.transformers = new Transformers()
