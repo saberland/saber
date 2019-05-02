@@ -9,6 +9,6 @@
   "license": "MIT",
   "dependencies": {
     "posthtml": "^0.11.3",
-    "stringify-attributes": "^1.0.0"
+    "stringify-attributes": "^2.0.0"
   }
 }
