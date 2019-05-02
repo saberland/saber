@@ -402,7 +402,7 @@ class VueRenderer {
         return res.end('404')
       }
 
-      const render = async () => {
+      const render = () => {
         const context = {
           url: req.url,
           head,
