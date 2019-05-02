@@ -8,7 +8,7 @@ main()
 
 async function main() {
   for (const file of files) {
-    const res = await require('@zeit/ncc')(file, {
+    const res = await require('@zeit/ncc')(path.normalize(file), {
       minify: true,
       sourceMap: false,
       watch: false
