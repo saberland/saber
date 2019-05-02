@@ -276,7 +276,9 @@ class VueRenderer {
               .replace(/^\s+/gm, '')
               .replace(/\n+</g, '<')
               .replace('<div id="_saber"></div>', markup)
+            await this.api.hooks.beforeGeneratePage.promise(context)
             await fs.outputFile(route.outputFilePath, html, 'utf8')
+            await this.api.hooks.afterGeneratePage.promise(context)
           } catch (error) {
             log.error(`Failed to render ${context.url}`)
             throw error
@@ -400,7 +402,7 @@ class VueRenderer {
         return res.end('404')
       }
 
-      const render = () => {
+      const render = async () => {
         const context = {
           url: req.url,
           head,
