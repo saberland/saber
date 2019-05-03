@@ -10,7 +10,7 @@ exports.apply = api => {
     const { log } = api
     const { fs } = api.utils
 
-    const outputDir = api.resolveCache('public')
+    const outputDir = api.resolveExportDir()
 
     const getFileNameFromLink = link => {
       const filename = link.endsWith('.html')
