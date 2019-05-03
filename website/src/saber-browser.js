@@ -4,7 +4,7 @@ import '../../packages/saber-highlight-css/default.css'
 import './css/global.css'
 import './css/page.css'
 
-export default ({ router, rootOptions }) => {
+export default ({ router, setHead }) => {
   if (process.browser) {
     const nprogress = require('nprogress')
 
@@ -25,24 +25,22 @@ export default ({ router, rootOptions }) => {
     })
   }
 
-  rootOptions.head = function() {
-    return {
-      htmlAttrs: {
-        lang: 'en'
-      },
-      meta: [
-        {
-          name: 'description',
-          content: this.$siteConfig.description
-        }
-      ],
-      link: [
-        {
-          href:
-            'https://fonts.googleapis.com/css?family=Roboto',
-          rel: 'stylesheet'
-        }
-      ]
-    }
-  }
+  setHead(vm => ({
+    htmlAttrs: {
+      lang: 'en'
+    },
+    meta: [
+      {
+        name: 'description',
+        content: vm.$siteConfig.description
+      }
+    ],
+    link: [
+      {
+        href:
+          'https://fonts.googleapis.com/css?family=Roboto',
+        rel: 'stylesheet'
+      }
+    ]
+  }))
 }

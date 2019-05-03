@@ -30,8 +30,26 @@ Vue.mixin({
 export default context => {
   const router = createRouter()
 
+  let customHead
+  let customRootComponent
+
   const rootOptions = {
-    head: {},
+    head() {
+      const head =
+        typeof customHead === 'function'
+          ? customHead.call(this, this)
+          : customHead || {}
+      return {
+        ...head,
+        meta: [
+          {
+            name: 'generator',
+            content: `Saber v${__SABER_VERSION__}`
+          },
+          ...(head.meta || [])
+        ]
+      }
+    },
     provide: {
       layouts
     },
@@ -60,7 +78,7 @@ export default context => {
         this.$emit('trigger-scroll')
         beforeEnter && beforeEnter(el)
       }
-      return h('div', { attrs: { id: '_saber' } }, [
+      const children = [
         h(
           'transition',
           {
@@ -69,6 +87,9 @@ export default context => {
           },
           [h('router-view')]
         )
+      ]
+      return h('div', { attrs: { id: '_saber' } }, [
+        customRootComponent ? h(customRootComponent, {}, children) : children
       ])
     },
     methods: {
@@ -93,7 +114,16 @@ export default context => {
     }
   }
 
-  const browserApiContext = { Vue, router, rootOptions }
+  const setHead = input => (customHead = input)
+  const setRootComponent = input => (customRootComponent = input)
+
+  const browserApiContext = {
+    Vue,
+    router,
+    rootOptions,
+    setHead,
+    setRootComponent
+  }
 
   injectConfig(browserApiContext)
   extendBrowserApi(browserApiContext)

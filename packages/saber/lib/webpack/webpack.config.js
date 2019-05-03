@@ -77,7 +77,8 @@ module.exports = (api, { type }) => {
       'process.server': type === 'server',
       __DEV__: api.dev,
       __PUBLIC_URL__: JSON.stringify(api.config.build.publicUrl),
-      __LAZY__: api.config.build.lazy && api.dev
+      __LAZY__: api.config.build.lazy && api.dev,
+      __SABER_VERSION__: JSON.stringify(require('../../package').version)
     }
   ])
 
