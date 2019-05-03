@@ -5,5 +5,8 @@
   "files": [
     "index.js",
     "saber-browser.js"
-  ]
+  ],
+  "peerDependencies": {
+    "saber": "^0.4.9"
+  }
 }

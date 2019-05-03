@@ -12,5 +12,8 @@
   "xo": false,
   "dependencies": {
     "feed": "^2.0.4"
+  },
+  "peerDependencies": {
+    "saber": "^0.4.9"
   }
 }

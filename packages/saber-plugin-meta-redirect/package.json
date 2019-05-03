@@ -14,5 +14,8 @@
   "xo": false,
   "dependencies": {
     "url-join": "^4.0.0"
+  },
+  "peerDependencies": {
+    "saber": "^0.4.9"
   }
 }

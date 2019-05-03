@@ -10,5 +10,8 @@
   "xo": false,
   "dependencies": {
     "execa": "^1.0.0"
+  },
+  "peerDependencies": {
+    "saber": "^0.4.9"
   }
 }

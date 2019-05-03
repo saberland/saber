@@ -13,5 +13,8 @@
   "dependencies": {
     "slugo": "^0.2.3",
     "url-join": "^4.0.0"
+  },
+  "peerDependencies": {
+    "saber": "^0.4.9"
   }
 }
