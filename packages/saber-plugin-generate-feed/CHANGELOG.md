@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/egoist/saber/compare/saber-plugin-generate-feed@0.2.3...saber-plugin-generate-feed@0.2.4) (2019-05-03)
+
+### Bug Fixes
+
+- bump saber in some plugins ([85de766](https://github.com/egoist/saber/commit/85de766))
+
 ## [0.2.3](https://github.com/egoist/saber/compare/saber-plugin-generate-feed@0.2.2...saber-plugin-generate-feed@0.2.3) (2019-05-03)
 
 ### Bug Fixes

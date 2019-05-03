@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-netlify-redirect",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Automatically generate or update `_redirects` file in your public folder for Netlify.",
   "license": "MIT",
   "main": "lib/index.js",
