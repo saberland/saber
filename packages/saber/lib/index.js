@@ -282,6 +282,14 @@ class Saber {
     server.listen(this.config.server.port, this.config.server.host)
   }
 
+  async serveOutDir() {
+    return require('./utils/serveDir')({
+      dir: this.resolveOutDir(),
+      host: this.config.server.host,
+      port: this.config.server.port
+    })
+  }
+
   hasDependency(name) {
     return this.getDependencies().includes(name)
   }
