@@ -422,7 +422,7 @@ class VueRenderer {
         return render()
       }
 
-      const pathname = req.path
+      const pathname = decodeURI(req.path)
 
       if (this.builtRoutes.has(pathname)) {
         render()
