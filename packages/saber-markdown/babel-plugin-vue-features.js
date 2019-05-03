@@ -23,7 +23,8 @@ module.exports = ({ types: t }) => {
           path.parent.id.name === 'HTML_SEQUENCES'
         ) {
           console.log('support top-level components')
-          path.node.elements.push(
+          path.node.elements = [
+            ...path.node.elements.slice(0, -2),
             // PascalCase Components
             t.arrayExpression([
               t.regExpLiteral('^<[A-Z]'),
@@ -32,11 +33,12 @@ module.exports = ({ types: t }) => {
             ]),
             // custom elements with hyphens
             t.arrayExpression([
-              t.regExpLiteral('^<w+\\-'),
+              t.regExpLiteral('^<\\w+\\-'),
               t.regExpLiteral('>'),
               t.booleanLiteral(true)
-            ])
-          )
+            ]),
+            ...path.node.elements.slice(-2)
+          ]
         }
       }
     }
