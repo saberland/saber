@@ -243,8 +243,10 @@ class VueRenderer {
   }
 
   async generate() {
-    // Remove .saber/public
-    await fs.remove(this.api.resolveCache('public'))
+    const outDir = this.api.resolveOutDir()
+
+    // Remove output directory
+    await fs.remove(outDir)
 
     const { createBundleRenderer } = require('vue-server-renderer')
     const renderer = createBundleRenderer(
@@ -258,7 +260,6 @@ class VueRenderer {
         basedir: this.api.resolveCache('dist-server')
       }
     )
-    const outDir = this.api.resolveOutDir()
 
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')

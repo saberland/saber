@@ -474,4 +474,4 @@ Note that `$projectRoot/layouts` directory still works even if you're using a th
 
 ## Building for Production
 
-Run `yarn saber generate` in your project, the output website can be found at `.saber/public` directory, then you can run `yarn saber serve` to preview the production build locally. You can also directly deploy this directory to GitHub pages or Netlify.
+Run `yarn saber generate` in your project, the output website can be found at `public` directory, then you can run `yarn saber serve` to preview the production build locally. You can also directly deploy this directory to GitHub pages or Netlify.
