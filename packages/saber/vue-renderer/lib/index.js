@@ -38,6 +38,12 @@ class VueRenderer {
       // Transform js files in ../app folder
       config.module.rule('js').include.add(path.join(__dirname, '../app'))
 
+      const vueLoaderOptions = {
+        compilerOptions: {
+          modules: []
+        }
+      }
+
       // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
       config.module
@@ -49,6 +55,7 @@ class VueRenderer {
           })
           .use('vue-loader')
             .loader('vue-loader')
+            .options(vueLoaderOptions)
             .end()
           .use('saber-page-loader')
             .loader(require.resolve('./saber-page-loader'))
@@ -62,6 +69,7 @@ class VueRenderer {
         .test(/\.vue$/)
         .use('vue-loader')
           .loader('vue-loader')
+          .options(vueLoaderOptions)
           .end()
         // saber-page-loader will return original content
         // if the resource query doesn't contain `saberPage`
@@ -87,6 +95,7 @@ class VueRenderer {
         })
         .use('vue-loader')
         .loader('vue-loader')
+        .options(vueLoaderOptions)
         .end()
         .use('saber-page-loader')
         .loader(require.resolve('./saber-page-loader'))

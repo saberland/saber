@@ -22,6 +22,9 @@ module.exports = ({ types: t }) => {
           path.parent.type === 'VariableDeclarator' &&
           path.parent.id.name === 'HTML_SEQUENCES'
         ) {
+          // Using Vue components at top-level
+          // Previously `<foo-bar>` is transformed to `<p><foo-bar></p>`
+          // Now it's just `<foo-bar>`
           console.log('support top-level components')
           path.node.elements = [
             ...path.node.elements.slice(0, -2),
