@@ -240,6 +240,10 @@ class Saber {
     return path.join(__dirname, '../', ...args)
   }
 
+  resolveExportDir(...args) {
+    return this.resolveCwd(this.config.build.exportDir, ...args)
+  }
+
   createWebpackChain(opts) {
     opts = Object.assign({ type: 'client' }, opts)
     const config = require('./webpack/webpack.config')(this, opts)

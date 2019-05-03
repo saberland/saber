@@ -258,11 +258,13 @@ class VueRenderer {
         basedir: this.api.resolveCache('dist-server')
       }
     )
+    const exportDir = this.api.resolveCwd(this.api.config.build.exportDir)
+
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
         ? permalink
         : permalink.replace(/\/?$/, '/index.html')
-      return path.join(this.api.resolveCache('public'), filename)
+      return path.join(exportDir, filename)
     }
 
     /**
@@ -274,10 +276,7 @@ class VueRenderer {
           const context = {
             url: route.permalink
           }
-          log.info(
-            'Generating',
-            path.relative(this.api.resolveCache('public'), route.outputFilePath)
-          )
+          log.info('Generating', path.relative(exportDir, route.outputFilePath))
           try {
             const markup = await renderer.renderToString(context)
             const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
@@ -315,22 +314,23 @@ class VueRenderer {
       }))
     )
 
-    // Copy .saber/dist-client to .saber/public/_saber
+    // Copy .saber/dist-client/ to public/_saber/
     await fs.copy(
       this.api.resolveCache('dist-client'),
-      this.api.resolveCache('public/_saber')
+      path.join(exportDir, '_saber')
     )
 
-    const copyPublicFiles = async dir => {
+    // Copy static files to exportDir
+    const copyStaticFiles = async dir => {
       if (await fs.pathExists(dir)) {
-        await fs.copy(dir, this.api.resolveCache('public'))
+        await fs.copy(dir, exportDir)
       }
     }
 
-    // Copy files in $theme/public/ to the root of .saber/public/
-    await copyPublicFiles(path.join(this.api.theme, 'public'))
-    // Copy files in public/ to the root of .saber/public/
-    await copyPublicFiles(this.api.resolveCwd('public'))
+    // Copy files in $theme/static/ to the root of public/
+    await copyStaticFiles(path.join(this.api.theme, 'static'))
+    // Copy files in static/ to the root of public/
+    await copyStaticFiles(this.api.resolveCwd('static'))
   }
 
   getRequestHandler() {
