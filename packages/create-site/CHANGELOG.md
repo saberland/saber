@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/egoist/saber/compare/create-site@0.2.4...create-site@0.2.5) (2019-05-03)
+
+### Features
+
+- change output directory ([#142](https://github.com/egoist/saber/issues/142)) ([2b2f8cc](https://github.com/egoist/saber/commit/2b2f8cc))
+
 ## [0.2.4](https://github.com/egoist/saber/compare/create-site@0.2.3...create-site@0.2.4) (2019-05-02)
 
 ### Bug Fixes

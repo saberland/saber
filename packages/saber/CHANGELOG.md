@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.10](https://github.com/egoist/saber/compare/saber@0.4.9...saber@0.4.10) (2019-05-03)
+
+### Bug Fixes
+
+- invalid URL error ([#139](https://github.com/egoist/saber/issues/139)) ([636cd72](https://github.com/egoist/saber/commit/636cd72))
+- set default options for vue-loader ([9195df5](https://github.com/egoist/saber/commit/9195df5))
+
+### Features
+
+- add browser api: setHead, setRootComponent ([9bca0cd](https://github.com/egoist/saber/commit/9bca0cd))
+- change output directory ([#142](https://github.com/egoist/saber/issues/142)) ([2b2f8cc](https://github.com/egoist/saber/commit/2b2f8cc))
+
 ## [0.4.9](https://github.com/egoist/saber/compare/saber@0.4.8...saber@0.4.9) (2019-05-02)
 
 ### Bug Fixes

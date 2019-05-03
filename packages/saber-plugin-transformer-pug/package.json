@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-transformer-pug",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Write pages in Pug and add support for importing Pug files",
   "license": "MIT",
   "main": "lib/index.js",

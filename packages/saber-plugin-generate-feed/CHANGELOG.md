@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/egoist/saber/compare/saber-plugin-generate-feed@0.2.2...saber-plugin-generate-feed@0.2.3) (2019-05-03)
+
+### Bug Fixes
+
+- add saber to peerDependencies in all plugins ([1e80cb2](https://github.com/egoist/saber/commit/1e80cb2))
+
+### Features
+
+- change output directory ([#142](https://github.com/egoist/saber/issues/142)) ([2b2f8cc](https://github.com/egoist/saber/commit/2b2f8cc))
+
 ## [0.2.2](https://github.com/egoist/saber/compare/saber-plugin-generate-feed@0.2.1...saber-plugin-generate-feed@0.2.2) (2019-05-02)
 
 ### Bug Fixes

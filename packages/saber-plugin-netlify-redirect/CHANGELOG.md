@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/egoist/saber/compare/saber-plugin-netlify-redirect@0.0.3...saber-plugin-netlify-redirect@0.0.4) (2019-05-03)
+
+### Bug Fixes
+
+- add saber to peerDependencies in all plugins ([1e80cb2](https://github.com/egoist/saber/commit/1e80cb2))
+
+### Features
+
+- change output directory ([#142](https://github.com/egoist/saber/issues/142)) ([2b2f8cc](https://github.com/egoist/saber/commit/2b2f8cc))
+
 ## [0.0.3](https://github.com/egoist/saber/compare/saber-plugin-netlify-redirect@0.0.2...saber-plugin-netlify-redirect@0.0.3) (2019-05-02)
 
 **Note:** Version bump only for package saber-plugin-netlify-redirect

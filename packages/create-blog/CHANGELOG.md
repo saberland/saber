@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/egoist/saber/compare/create-blog@0.2.4...create-blog@0.2.5) (2019-05-03)
+
+**Note:** Version bump only for package create-blog
+
 ## [0.2.4](https://github.com/egoist/saber/compare/create-blog@0.2.3...create-blog@0.2.4) (2019-05-02)
 
 **Note:** Version bump only for package create-blog
