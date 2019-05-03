@@ -11,7 +11,7 @@ exports.apply = api => {
     /** @type {{fs: import('fs-extra') }} */
     const { fs } = api.utils
 
-    const outDir = api.resolveExportDir()
+    const outDir = api.resolveOutDir()
 
     const getAbsoluteLink = link => urlJoin(api.config.build.publicUrl, link)
 

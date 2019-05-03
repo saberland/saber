@@ -40,6 +40,13 @@ Like `siteConfig` you can import it from `saber/config` or reference in componen
 
 ## build
 
+### outDir
+
+- Type: `string`
+- Default: `public`
+
+The directory to output HTML files and other static assets.
+
 ### publicUrl
 
 - Type: `string`

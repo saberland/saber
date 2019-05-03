@@ -240,8 +240,8 @@ class Saber {
     return path.join(__dirname, '../', ...args)
   }
 
-  resolveExportDir(...args) {
-    return this.resolveCwd(this.config.build.exportDir, ...args)
+  resolveOutDir(...args) {
+    return this.resolveCwd(this.config.build.outDir, ...args)
   }
 
   createWebpackChain(opts) {

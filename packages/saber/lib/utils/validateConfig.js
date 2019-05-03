@@ -65,7 +65,7 @@ module.exports = (config, { dev }) => {
       loaderOptions: 'object?',
       cssSourceMap: 'boolean?',
       lazy: 'boolean?',
-      exportDir: 'string?'
+      outDir: 'string?'
     },
     {
       publicUrl: '/',
@@ -73,7 +73,7 @@ module.exports = (config, { dev }) => {
       loaderOptions: {},
       cssSourceMap: false,
       lazy: false,
-      exportDir: 'public'
+      outDir: 'public'
     }
   )
 

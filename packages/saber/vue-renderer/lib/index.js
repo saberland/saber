@@ -258,13 +258,13 @@ class VueRenderer {
         basedir: this.api.resolveCache('dist-server')
       }
     )
-    const exportDir = this.api.resolveCwd(this.api.config.build.exportDir)
+    const outDir = this.api.resolveOutDir()
 
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
         ? permalink
         : permalink.replace(/\/?$/, '/index.html')
-      return path.join(exportDir, filename)
+      return path.join(outDir, filename)
     }
 
     /**
@@ -276,7 +276,7 @@ class VueRenderer {
           const context = {
             url: route.permalink
           }
-          log.info('Generating', path.relative(exportDir, route.outputFilePath))
+          log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
             const markup = await renderer.renderToString(context)
             const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
@@ -317,13 +317,13 @@ class VueRenderer {
     // Copy .saber/dist-client/ to public/_saber/
     await fs.copy(
       this.api.resolveCache('dist-client'),
-      path.join(exportDir, '_saber')
+      path.join(outDir, '_saber')
     )
 
-    // Copy static files to exportDir
+    // Copy static files to outDir
     const copyStaticFiles = async dir => {
       if (await fs.pathExists(dir)) {
-        await fs.copy(dir, exportDir)
+        await fs.copy(dir, outDir)
       }
     }
 
