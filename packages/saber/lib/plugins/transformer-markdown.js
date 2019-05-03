@@ -85,7 +85,7 @@ function transformMarkdown(api, page) {
     },
     {
       name: 'headings',
-      resolve: require.resolve('../markdown/headings')
+      resolve: require.resolve('../markdown/headings-plugin')
     },
     {
       name: 'highlight',
