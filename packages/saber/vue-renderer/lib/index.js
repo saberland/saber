@@ -1,6 +1,5 @@
 const path = require('path')
 const { EventEmitter } = require('events')
-const url = require('url')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
 
@@ -423,7 +422,7 @@ class VueRenderer {
         return render()
       }
 
-      const pathname = decodeURI(new url.URL(req.url).pathname)
+      const pathname = decodeURI(req.path)
 
       if (this.builtRoutes.has(pathname)) {
         render()
