@@ -85,7 +85,13 @@ function transformMarkdown(api, page) {
     },
     {
       name: 'headings',
-      resolve: require.resolve('../markdown/headings-plugin')
+      resolve: require.resolve('../markdown/headings-plugin'),
+      options: {
+        slugify:
+          markdown.slugify &&
+          require(resolvePackage(markdown.slugify, { cwd: configDir })),
+        injectMarkdownHeadings: false
+      }
     },
     {
       name: 'highlight',

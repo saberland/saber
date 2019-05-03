@@ -13,6 +13,7 @@ module.exports = (md, options) => {
   }
 
   const config = Object.assign(defaultOptions, options)
+  const slugFn = config.slugify || slugify
 
   md.core.ruler.push('md_headings', state => {
     const { tokens, env } = state
@@ -45,7 +46,7 @@ module.exports = (md, options) => {
             text = heading.content
           }
 
-          const slug = config.slugify(text)
+          const slug = slugFn(text)
 
           headings.push({
             text,
