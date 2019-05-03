@@ -240,6 +240,10 @@ class Saber {
     return path.join(__dirname, '../', ...args)
   }
 
+  resolveOutDir(...args) {
+    return this.resolveCwd(this.config.build.outDir, ...args)
+  }
+
   createWebpackChain(opts) {
     opts = Object.assign({ type: 'client' }, opts)
     const config = require('./webpack/webpack.config')(this, opts)
@@ -276,6 +280,14 @@ class Saber {
     const server = http.createServer(this.renderer.getRequestHandler())
 
     server.listen(this.config.server.port, this.config.server.host)
+  }
+
+  async serveOutDir() {
+    return require('./utils/serveDir')({
+      dir: this.resolveOutDir(),
+      host: this.config.server.host,
+      port: this.config.server.port
+    })
   }
 
   hasDependency(name) {

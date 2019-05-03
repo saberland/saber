@@ -3,11 +3,11 @@ title: Deployment
 layout: docs
 ---
 
-The command `saber build` creates a `.saber/public` directory with a production build of your app. Set up your favorite HTTP server to properly serve static `.html` files and other static assets.
+The command `saber build` creates a `public` directory with a production build of your app. Set up your favorite HTTP server to properly serve static `.html` files and other static assets.
 
 ## Built-in Static Server
 
-You can use the built-in static server via the `saber serve` command, it automatically serves `.saber/public` directory:
+You can use the built-in static server via the `saber serve` command, it automatically serves `public` directory:
 
 ```bash
 cd my-site
@@ -23,14 +23,14 @@ You don't need the built-in static server in order to serve a Saber application,
 
 ```bash
 npm i -g sirv-cli
-sirv .saber/public
+sirv public
 ```
 
 Or [`serve`](https://github.com/zeit/serve):
 
 ```bash
 npm i -g serve
-serve .saber/public
+serve public
 ```
 
 ## Building for Relative Paths
@@ -78,7 +78,7 @@ Add the following `scripts` in your `package.json`:
 ```diff
   "scripts": {
 +   "predeploy": "npm run build",
-+   "deploy": "gh-pages -d .saber/public",
++   "deploy": "gh-pages -d public",
     "dev": "saber",
     "build": "saber build",
 ```
@@ -130,7 +130,7 @@ Adding a `now.json` in your project:
     {
       "src": "package.json",
       "use": "@now/static-build",
-      "config": { "distDir": ".saber/public" }
+      "config": { "distDir": "public" }
     }
   ]
 }

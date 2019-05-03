@@ -82,13 +82,11 @@ exports.apply = (api, options = {}) => {
     const { log } = api
     const { fs } = api.utils
 
+    const outDir = api.resolveOutDir()
+
     const writeFeed = async (fileName, content) => {
       log.info(`Generating ${fileName}`)
-      await fs.outputFile(
-        path.join(api.resolveCache('public'), fileName),
-        content,
-        'utf8'
-      )
+      await fs.outputFile(path.join(outDir, fileName), content, 'utf8')
     }
 
     await Promise.all([

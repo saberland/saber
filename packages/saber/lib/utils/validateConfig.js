@@ -64,14 +64,16 @@ module.exports = (config, { dev }) => {
       extractCSS: 'boolean?',
       loaderOptions: 'object?',
       cssSourceMap: 'boolean?',
-      lazy: 'boolean?'
+      lazy: 'boolean?',
+      outDir: 'string?'
     },
     {
       publicUrl: '/',
       extractCSS: false,
       loaderOptions: {},
       cssSourceMap: false,
-      lazy: false
+      lazy: false,
+      outDir: 'public'
     }
   )
 

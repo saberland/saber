@@ -1,7 +1,7 @@
 const path = require('path')
 const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
-const { log } = require('saber-log')
+const { log, colors } = require('saber-log')
 
 const ID = 'vue-renderer'
 
@@ -243,8 +243,38 @@ class VueRenderer {
   }
 
   async generate() {
-    // Remove .saber/public
-    await fs.remove(this.api.resolveCache('public'))
+    const hasOldPublicFolder = await Promise.all([
+      fs.pathExists(this.api.resolveCache('public')),
+      fs.pathExists(this.api.resolveCwd('public'))
+    ]).then(([hasOldOutDir, hasPublicDir]) => hasOldOutDir && hasPublicDir)
+    if (hasOldPublicFolder) {
+      // Prevent from deleting public folder
+      throw new Error(
+        [
+          `It seems you are using the ${colors.underline(
+            colors.cyan('public')
+          )} folder to store static files,`,
+          ` this behavior has changed and now we use ${colors.underline(
+            colors.cyan('static')
+          )} folder for static files`,
+          ` while ${colors.underline(
+            colors.cyan('public')
+          )} folder is used to output generated files,`,
+          ` to prevent from unexpectedly deleting your ${colors.underline(
+            colors.cyan('public')
+          )} folder, please rename it to ${colors.underline(
+            colors.cyan('static')
+          )} and delete ${colors.underline(
+            colors.cyan('.saber/public')
+          )} folder as well`
+        ].join('')
+      )
+    }
+
+    const outDir = this.api.resolveOutDir()
+
+    // Remove output directory
+    await fs.remove(outDir)
 
     const { createBundleRenderer } = require('vue-server-renderer')
     const renderer = createBundleRenderer(
@@ -258,11 +288,12 @@ class VueRenderer {
         basedir: this.api.resolveCache('dist-server')
       }
     )
+
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
         ? permalink
         : permalink.replace(/\/?$/, '/index.html')
-      return path.join(this.api.resolveCache('public'), filename)
+      return path.join(outDir, filename)
     }
 
     /**
@@ -274,10 +305,7 @@ class VueRenderer {
           const context = {
             url: route.permalink
           }
-          log.info(
-            'Generating',
-            path.relative(this.api.resolveCache('public'), route.outputFilePath)
-          )
+          log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
             const markup = await renderer.renderToString(context)
             const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
@@ -315,22 +343,23 @@ class VueRenderer {
       }))
     )
 
-    // Copy .saber/dist-client to .saber/public/_saber
+    // Copy .saber/dist-client/ to public/_saber/
     await fs.copy(
       this.api.resolveCache('dist-client'),
-      this.api.resolveCache('public/_saber')
+      path.join(outDir, '_saber')
     )
 
-    const copyPublicFiles = async dir => {
+    // Copy static files to outDir
+    const copyStaticFiles = async dir => {
       if (await fs.pathExists(dir)) {
-        await fs.copy(dir, this.api.resolveCache('public'))
+        await fs.copy(dir, outDir)
       }
     }
 
-    // Copy files in $theme/public/ to the root of .saber/public/
-    await copyPublicFiles(path.join(this.api.theme, 'public'))
-    // Copy files in public/ to the root of .saber/public/
-    await copyPublicFiles(this.api.resolveCwd('public'))
+    // Copy files in $theme/static/ to the root of public/
+    await copyStaticFiles(path.join(this.api.theme, 'static'))
+    // Copy files in static/ to the root of public/
+    await copyStaticFiles(this.api.resolveCwd('static'))
   }
 
   getRequestHandler() {
@@ -383,12 +412,12 @@ class VueRenderer {
     })
 
     server.use(
-      require('serve-static')(this.api.resolveCwd('public'), {
+      require('serve-static')(this.api.resolveCwd('static'), {
         dotfiles: 'allow'
       })
     )
     server.use(
-      require('serve-static')(path.join(this.api.theme, 'public'), {
+      require('serve-static')(path.join(this.api.theme, 'static'), {
         dotfiles: 'allow'
       })
     )

@@ -23,6 +23,8 @@ themeConfig:
         link: /docs/
       - title: Installation
         link: /docs/installation.html
+      - title: Project Structure
+        link: /docs/project-structure.html
       - title: Pages
         link: /docs/pages.html
       - title: Permalinks
@@ -49,8 +51,8 @@ themeConfig:
         link: /docs/postcss.html
       - title: Using Images, Fonts and Files
         link: /docs/images-fonts-and-files.html
-      - title: Using the Public Folder
-        link: /docs/public-folder.html
+      - title: Using the Static Folder
+        link: /docs/static-folder.html
   - title: References
     children:
       - title: Saber Config

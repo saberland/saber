@@ -10,13 +10,13 @@ exports.apply = api => {
     const { log } = api
     const { fs } = api.utils
 
-    const outputDir = api.resolveCache('public')
+    const outDir = api.resolveOutDir()
 
     const getFileNameFromLink = link => {
       const filename = link.endsWith('.html')
         ? link
         : link.replace(/\/?$/, '/index.html')
-      return path.join(outputDir, filename)
+      return path.join(outDir, filename)
     }
 
     const getPageContent = toPath => {
@@ -28,7 +28,7 @@ exports.apply = api => {
 
     const writePage = async config => {
       const fileName = getFileNameFromLink(config.fromPath)
-      log.info(`Generating ${path.relative(outputDir, fileName)}`)
+      log.info(`Generating ${path.relative(outDir, fileName)}`)
       await fs.outputFile(fileName, getPageContent(config.toPath), 'utf8')
     }
 
