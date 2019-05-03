@@ -1,7 +1,7 @@
 const path = require('path')
 const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
-const { log } = require('saber-log')
+const { log, colors } = require('saber-log')
 
 const ID = 'vue-renderer'
 
@@ -243,6 +243,34 @@ class VueRenderer {
   }
 
   async generate() {
+    const hasOldPublicFolder = await Promise.all([
+      fs.pathExists(this.api.resolveCache('public')),
+      fs.pathExists(this.api.resolveCwd('public'))
+    ]).then(([hasOldOutDir, hasPublicDir]) => hasOldOutDir && hasPublicDir)
+    if (hasOldPublicFolder) {
+      // Prevent from deleting public folder
+      throw new Error(
+        [
+          `It seems you are using the ${colors.underline(
+            colors.cyan('public')
+          )} folder to store static files,`,
+          ` this behavior has changed and now we use ${colors.underline(
+            colors.cyan('static')
+          )} folder for static files`,
+          ` while ${colors.underline(
+            colors.cyan('public')
+          )} folder is used to output generated files,`,
+          ` to prevent from unexpectedly deleting your ${colors.underline(
+            colors.cyan('public')
+          )} folder, please rename it to ${colors.underline(
+            colors.cyan('static')
+          )} and delete ${colors.underline(
+            colors.cyan('.saber/public')
+          )} folder as well`
+        ].join('')
+      )
+    }
+
     const outDir = this.api.resolveOutDir()
 
     // Remove output directory
