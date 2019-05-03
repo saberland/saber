@@ -1,11 +1,18 @@
+const slugify = s =>
+  encodeURIComponent(
+    String(s)
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+  )
+
 module.exports = (md, options) => {
   const defaultOptions = {
     injectMarkdownHeadings: false,
-    slugify: content => require('slugify')(content, { lower: true })
+    slugify
   }
 
   const config = Object.assign(defaultOptions, options)
-  const { slugify } = config
 
   md.core.ruler.push('md_headings', state => {
     const { tokens, env } = state
@@ -38,7 +45,7 @@ module.exports = (md, options) => {
             text = heading.content
           }
 
-          const slug = slugify(text)
+          const slug = config.slugify(text)
 
           headings.push({
             text,

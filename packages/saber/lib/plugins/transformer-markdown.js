@@ -84,6 +84,10 @@ function transformMarkdown(api, page) {
       resolve: require.resolve('../markdown/escape-interpolations-plugin')
     },
     {
+      name: 'headings',
+      resolve: require.resolve('../markdown/headings')
+    },
+    {
       name: 'highlight',
       resolve: require.resolve('../markdown/highlight-plugin')
     },
