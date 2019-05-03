@@ -383,12 +383,12 @@ class VueRenderer {
     })
 
     server.use(
-      require('serve-static')(this.api.resolveCwd('public'), {
+      require('serve-static')(this.api.resolveCwd('static'), {
         dotfiles: 'allow'
       })
     )
     server.use(
-      require('serve-static')(path.join(this.api.theme, 'public'), {
+      require('serve-static')(path.join(this.api.theme, 'static'), {
         dotfiles: 'allow'
       })
     )
