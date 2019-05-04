@@ -26,29 +26,51 @@ exports.apply = (api, options = {}) => {
   const atomFeedPath = getFeedPath(options.atomFeed, 'atom.xml')
   const rss2FeedPath = getFeedPath(options.rss2Feed, 'rss2.xml')
 
-  const feedLinks = {
-    json: jsonFeedPath && resolveURL(siteConfig.url, jsonFeedPath),
-    atom: atomFeedPath && resolveURL(siteConfig.url, atomFeedPath),
-    rss2: rss2FeedPath && resolveURL(siteConfig.url, rss2FeedPath)
-  }
+  api.hooks.defineVariables.tap(ID, variables => {
+    return Object.assign(variables, {
+      jsonFeedPath,
+      atomFeedPath,
+      rss2FeedPath
+    })
+  })
+
+  api.browserApi.add(path.join(__dirname, 'saber-browser.js'))
 
   api.hooks.afterGenerate.tapPromise(ID, async () => {
+    const allLocalePaths = new Set(
+      ['/'].concat(Object.keys(api.config.locales || {}))
+    )
+    await Promise.all(
+      [...allLocalePaths].map(localePath => generateFeed(localePath))
+    )
+  })
+
+  async function generateFeed(localePath) {
     // Prepare posts
     const posts = []
     for (const page of api.pages.values()) {
-      if (page.attributes.type === 'post' && !page.attributes.draft) {
-        const { excerpt } = page.attributes
-        posts.push({
-          title: page.attributes.title,
-          id: page.attributes.permalink,
-          link: resolveURL(siteConfig.url, page.attributes.permalink),
-          // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
-          description: excerpt && excerpt.replace(/<(?:.|\n)*?>/gm, ''),
-          content: page.content,
-          date: page.attributes.updatedAt,
-          published: page.attributes.createdAt
-        })
+      if (page.attributes.type !== 'post' || page.attributes.draft) {
+        continue
       }
+
+      const matchedLocalePath = api.pages.getMatchedLocalePath(
+        page.attributes.permalink
+      )
+      if (localePath !== matchedLocalePath) {
+        continue
+      }
+
+      const { excerpt } = page.attributes
+      posts.push({
+        title: page.attributes.title,
+        id: page.attributes.permalink,
+        link: resolveURL(siteConfig.url, page.attributes.permalink),
+        // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
+        description: excerpt && excerpt.replace(/<(?:.|\n)*?>/gm, ''),
+        content: page.content,
+        date: page.attributes.updatedAt,
+        published: page.attributes.createdAt
+      })
     }
 
     // Order by published
@@ -57,6 +79,8 @@ exports.apply = (api, options = {}) => {
         return b.published - a.published
       })
       .slice(0, options.limit)
+
+    const feedLinks = {}
 
     // Feed instance
     const feed = new Feed({
@@ -90,23 +114,12 @@ exports.apply = (api, options = {}) => {
     }
 
     await Promise.all([
-      jsonFeedPath && writeFeed(jsonFeedPath, feed.json1()),
-      atomFeedPath && writeFeed(atomFeedPath, feed.atom1()),
-      rss2FeedPath && writeFeed(rss2FeedPath, feed.rss2())
+      jsonFeedPath &&
+        writeFeed(path.join('./', localePath, jsonFeedPath), feed.json1()),
+      atomFeedPath &&
+        writeFeed(path.join('./', localePath, atomFeedPath), feed.atom1()),
+      rss2FeedPath &&
+        writeFeed(path.join('./', localePath, rss2FeedPath), feed.rss2())
     ])
-  })
-
-  api.hooks.defineVariables.tap(ID, variables => {
-    return Object.assign(variables, {
-      feedLink: feedLinks.atom || feedLinks.rss2 || feedLinks.json,
-      feedLinks,
-      feedLinkType: feedLinks.atom
-        ? 'atom'
-        : feedLinks.rss2
-        ? 'rss2'
-        : feedLinks.json
-        ? 'json'
-        : undefined
-    })
-  })
+  }
 }

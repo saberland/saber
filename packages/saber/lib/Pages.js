@@ -174,4 +174,18 @@ module.exports = class Pages extends Map {
       }
     }
   }
+
+  getMatchedLocalePath(permalink) {
+    const localePaths = Object.keys(this.api.config.locales || {}).filter(
+      p => p !== '/'
+    )
+
+    for (const localePath of localePaths) {
+      if (localePath === permalink || permalink.startsWith(localePath)) {
+        return localePath
+      }
+    }
+
+    return '/'
+  }
 }

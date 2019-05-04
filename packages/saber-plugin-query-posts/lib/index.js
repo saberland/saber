@@ -3,8 +3,7 @@ const {
   paginate,
   getIdFromMap,
   getNameFromMap,
-  renderPermalink,
-  matchLocalePath
+  renderPermalink
 } = require('./utils')
 
 const ID = 'query-posts'
@@ -13,14 +12,12 @@ exports.name = ID
 
 exports.apply = (api, options = {}) => {
   api.hooks.onCreatePages.tap(ID, () => {
-    const localePaths = Object.keys(api.config.locales || {}).filter(
-      p => p !== '/'
+    const allLocalePaths = new Set(
+      ['/'].concat(Object.keys(api.config.locales || {}))
     )
-    const allLocalePaths = ['/'].concat(localePaths)
     for (const currentLocalePath of allLocalePaths) {
       injectPosts({
         currentLocalePath,
-        localePaths,
         tagsMap: options.tagsMap,
         categoriesMap: options.categoriesMap,
         paginationOptions: {
@@ -39,7 +36,6 @@ exports.apply = (api, options = {}) => {
 
   function injectPosts({
     currentLocalePath,
-    localePaths,
     tagsMap,
     paginationOptions,
     categoriesMap,
@@ -58,21 +54,11 @@ exports.apply = (api, options = {}) => {
         continue
       }
 
-      if (currentLocalePath === '/') {
-        const matchedOtherLocale = localePaths.some(localePath =>
-          matchLocalePath(localePath, page.attributes.permalink)
-        )
-        if (matchedOtherLocale) {
-          continue
-        }
-      } else {
-        const matchedCurrentLocale = matchLocalePath(
-          currentLocalePath,
-          page.attributes.permalink
-        )
-        if (!matchedCurrentLocale) {
-          continue
-        }
+      const matchedLocalePath = api.pages.getMatchedLocalePath(
+        page.attributes.permalink
+      )
+      if (matchedLocalePath !== currentLocalePath) {
+        continue
       }
 
       if (page.attributes.injectAllPosts) {

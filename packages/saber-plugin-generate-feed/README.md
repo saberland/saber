@@ -24,23 +24,17 @@ plugins:
       jsonFeed: true
 ```
 
-### Saber Variables
+### Get feed links in component
 
-This plugin will also inject some useful Saber variables you can use at runtime:
+This plugin will also inject feed links as Vue computed property:
 
 ```js
-import variables from 'saber/variables'
+// Recommended feed, atom > rss2 > json
+this.$feed
+// { permalink: string, type: 'atom' | 'rss2' | 'json' }
 
-variables.feedLinks
+this.$allFeeds
 // { rss2?: string, json?: string, atom?: string }
-
-variables.feedLink
-// The link to preferred feed
-// Atom > RSS2 > JSON
-
-variables.feedLinkType
-// The type of `variables.feedLink`
-// `atom | rss2 | json`
 ```
 
 ### Configure Feed Author
