@@ -84,7 +84,7 @@ Just like Hexo, Saber uses `pages/_posts` folder for blog posts. If you populate
 Saber has all the plugins that're required for building a blog: 
 
 - If you want to display post list on your homepage, you can use [saber-plugin-query-post](https://github.com/egoist/saber/tree/master/packages/saber-plugin-query-posts) which also automatically generates _tag_ and _category_ pages. 
-- If you want RSS feed, use [saber-plugin-generate-feed](https://github.com/egoist/saber/tree/master/packages/saber-plugin-generate-feed).
+- If you want to generate RSS feed, use [saber-plugin-feed](https://github.com/egoist/saber/tree/master/packages/saber-plugin-feed).
 - Find more at [awesome-saber](https://github.com/egoist/awesome-saber) or build your own!
 
 Check out the tutorial [Intro the Saber](../../tutorial/tutorial.md) to learn how to build a simple blog, use layouts, and share your layouts as a theme.

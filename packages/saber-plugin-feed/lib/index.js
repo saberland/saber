@@ -19,7 +19,7 @@ exports.apply = (api, options = {}) => {
 
   const { siteConfig } = api.config
   if (!siteConfig.url) {
-    throw new Error(`siteConfig.url is required for saber-plugin-generate-feed`)
+    throw new Error(`siteConfig.url is required for saber-plugin-feed`)
   }
 
   const jsonFeedPath = getFeedPath(options.jsonFeed, 'feed.json')
