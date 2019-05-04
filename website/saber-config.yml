@@ -40,6 +40,8 @@ themeConfig:
         link: /docs/using-vue-in-markdown.html
       - title: Page Transition
         link: /docs/page-transition.html
+      - title: Internationalization
+        link: /docs/i18n.html
       - title: Deployment
         link: /docs/deployment.html
   - title: Styles and Assets

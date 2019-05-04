@@ -31,6 +31,21 @@ This option is used for configuring the basic information of your website, e.g. 
 
 For reusuablity, a theme should use this option for customization instead of hard-coding everything in the theme itself. You can access it via `this.$themeConfig` in your component.
 
+## locales
+
+- Type: `object`
+
+You can use this option to override `siteConfig` and `themeConfig` for specific paths, see more about [Internationalization](i18n.md).
+
+```ts
+interface Locales {
+  [path: string]: {
+    siteConfig?: SiteConfig
+    themeConfig?: ThemeConfig
+  }
+}
+```
+
 ## build
 
 ### outDir

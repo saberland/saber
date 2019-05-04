@@ -67,6 +67,29 @@ It's not recommended to mutate `page` directly to add new properties.
 |`isPermanent`|`boolean`|`false`|This is a permanent redirect; defaults to temporary|
 |`redirectInBrowser`|`boolean`|`false`|Redirects are generally for redirecting legacy URLs to their new configuration. If you can’t update your UI for some reason, set `redirectInBrowser` to `true` and Saber will handle redirecting in the client as well.`
 
+### `pages.getMatchedLocalePath(permalink)`
+
+- Params:
+  - `permalink`: `string`
+- Returns: `string`
+
+Get matched locale path, for example if you have following Saber config:
+
+```yaml
+locales:
+  /cn:
+    lang: zh
+    title: 我的网站
+```
+
+```js
+pages.getMatchedLocalePath('/about')
+//=> '/'
+
+pages.getMatchedLocalePath('/cn/about')
+//=> '/cn'
+```
+
 ## hooks
 
 Hooks are also known as the [Saber Nodes APIs](./node-apis.md), you can use hooks in a plugin like this:
