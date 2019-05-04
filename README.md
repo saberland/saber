@@ -5,7 +5,7 @@
 </p>
 <br>
 
-<p align="center"><a href="https://npmjs.com/package/saber"><img src="https://flat.badgen.net/npm/v/saber" alt="NPM version"></a> <a href="https://npmjs.com/package/saber"><img src="https://flat.badgen.net/npm/dm/saber" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/saber/tree/master"><img src="https://flat.badgen.net/circleci/github/egoist/saber/master" alt="CircleCI"></a> <a href="https://chat.saber.land"><img alt="discord chat" src="https://flat.badgen.net/badge/chat/on%20discord/7289da"></a></p>
+<p align="center"><a href="https://npmjs.com/package/saber"><img src="https://flat.badgen.net/npm/v/saber" alt="NPM version"></a> <a href="https://npmjs.com/package/saber"><img src="https://flat.badgen.net/npm/dm/saber" alt="NPM downloads"></a> <a href="https://circleci.com/gh/saberland/saber/tree/master"><img src="https://flat.badgen.net/circleci/github/saberland/saber/master" alt="CircleCI"></a> <a href="https://chat.saber.land"><img alt="discord chat" src="https://flat.badgen.net/badge/chat/on%20discord/7289da"></a></p>
 
 <br><br><br><br>
 
