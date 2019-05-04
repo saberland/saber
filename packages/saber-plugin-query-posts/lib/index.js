@@ -3,7 +3,8 @@ const {
   paginate,
   getIdFromMap,
   getNameFromMap,
-  renderPermalink
+  renderPermalink,
+  matchLocalePath
 } = require('./utils')
 
 const ID = 'query-posts'
@@ -12,23 +13,33 @@ exports.name = ID
 
 exports.apply = (api, options = {}) => {
   api.hooks.onCreatePages.tap(ID, () => {
-    injectPosts({
-      tagsMap: options.tagsMap,
-      categoriesMap: options.categoriesMap,
-      paginationOptions: {
-        perPage: options.perPage || 30
-      },
-      permalinks: Object.assign(
-        {
-          category: '/categories/:slug',
-          tag: '/tags/:slug'
+    const localePaths = Object.keys(api.config.locales || {}).filter(
+      p => p !== '/'
+    )
+    const allLocalePaths = ['/'].concat(localePaths)
+    for (const currentLocalePath of allLocalePaths) {
+      injectPosts({
+        currentLocalePath,
+        localePaths,
+        tagsMap: options.tagsMap,
+        categoriesMap: options.categoriesMap,
+        paginationOptions: {
+          perPage: options.perPage || 30
         },
-        options.permalinks
-      )
-    })
+        permalinks: Object.assign(
+          {
+            category: '/categories/:slug',
+            tag: '/tags/:slug'
+          },
+          options.permalinks
+        )
+      })
+    }
   })
 
   function injectPosts({
+    currentLocalePath,
+    localePaths,
     tagsMap,
     paginationOptions,
     categoriesMap,
@@ -45,6 +56,23 @@ exports.apply = (api, options = {}) => {
     for (const page of api.pages.values()) {
       if (page.attributes.draft) {
         continue
+      }
+
+      if (currentLocalePath === '/') {
+        const matchedOtherLocale = localePaths.some(localePath =>
+          matchLocalePath(localePath, page.attributes.permalink)
+        )
+        if (matchedOtherLocale) {
+          continue
+        }
+      } else {
+        const matchedCurrentLocale = matchLocalePath(
+          currentLocalePath,
+          page.attributes.permalink
+        )
+        if (!matchedCurrentLocale) {
+          continue
+        }
       }
 
       if (page.attributes.injectAllPosts) {

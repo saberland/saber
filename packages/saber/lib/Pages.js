@@ -104,6 +104,9 @@ module.exports = class Pages extends Map {
     page.attributes.permalink =
       page.attributes.permalink ||
       getPermalink(
+        Object.keys(api.config.locales || {})
+          .map(p => p.slice(1))
+          .filter(Boolean),
         page.attributes,
         typeof api.config.permalinks === 'function'
           ? api.config.permalinks(page)

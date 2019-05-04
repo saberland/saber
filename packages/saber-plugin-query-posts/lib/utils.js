@@ -46,9 +46,14 @@ function renderPermalink(permalink, data) {
   return permalink
 }
 
+function matchLocalePath(localePath, p) {
+  return p === localePath || p.startsWith(`${localePath}/`)
+}
+
 module.exports = {
   paginate,
   getIdFromMap,
   getNameFromMap,
-  renderPermalink
+  renderPermalink,
+  matchLocalePath
 }

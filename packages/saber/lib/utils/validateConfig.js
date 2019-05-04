@@ -77,10 +77,13 @@ module.exports = (config, { dev }) => {
     }
   )
 
+  const locales = struct('object?')
+
   const schema = struct({
     build,
     siteConfig,
     themeConfig,
+    locales,
     theme: 'string?',
     plugins,
     markdown,
