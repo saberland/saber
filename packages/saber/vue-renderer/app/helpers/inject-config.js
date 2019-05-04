@@ -3,27 +3,30 @@ import { siteConfig, themeConfig, locales } from 'saber/config'
 export default ({ Vue }) => {
   const store = Vue.observable({ siteConfig, themeConfig, locales })
 
-  const getMatchedConfig = (currentRoute, key) => {
-    const routes = Object.keys(store.locales)
-    let matchedRoute = '/'
-    for (const route of routes) {
-      if (route !== '/') {
-        if (currentRoute === route || currentRoute.indexOf(`${route}/`) === 0){
-          matchedRoute = route
-        }
-      }
-    }
-    const matchedLocale = store.locales[matchedRoute]
+  const getMatchedConfig = (localePath, key) => {
+    const matchedLocale = store.locales[localePath]
     return Object.assign({}, store[key], matchedLocale && matchedLocale[key])
   }
 
   Vue.mixin({
     computed: {
+      $localePath() {
+        const allLocalePaths = Object.keys(store.locales)
+        let localePath = '/'
+        for (const path of allLocalePaths) {
+          if (path !== '/') {
+            if (this.$route.path === path || this.$route.path.indexOf(`${path}/`) === 0){
+              localePath = path
+            }
+          }
+        }
+        return localePath
+      },
       $siteConfig() {
-        return getMatchedConfig(this.$route.path, 'siteConfig')
+        return getMatchedConfig(this.$localePath, 'siteConfig')
       },
       $themeConfig() {
-        return getMatchedConfig(this.$route.path, 'themeConfig')
+        return getMatchedConfig(this.$localePath, 'themeConfig')
       }
     }
   })
