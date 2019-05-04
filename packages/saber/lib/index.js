@@ -52,7 +52,9 @@ class Saber {
       // Called before exporting a page as static HTML file
       beforeExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
       // Called after exporting a page
-      afterExportPage: new AsyncSeriesHook(['context', 'exportedPage'])
+      afterExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
+      // Called after creating the server
+      onCreateServer: new SyncHook(['server'])
     }
 
     this.transformers = new Transformers()
