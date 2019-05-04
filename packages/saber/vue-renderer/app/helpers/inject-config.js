@@ -22,6 +22,9 @@ export default ({ Vue }) => {
         }
         return localePath
       },
+      $locales() {
+        return store.locales
+      },
       $siteConfig() {
         return getMatchedConfig(this.$localePath, 'siteConfig')
       },
