@@ -7,7 +7,7 @@
   "devDependencies": {
     "saber": "latest",
     "saber-theme-minima": "latest",
-    "saber-plugin-generate-feed": "latest",
+    "saber-plugin-feed": "latest",
     "saber-plugin-query-posts": "latest"
   }
 }

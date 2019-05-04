@@ -104,6 +104,9 @@ module.exports = class Pages extends Map {
     page.attributes.permalink =
       page.attributes.permalink ||
       getPermalink(
+        Object.keys(api.config.locales || {})
+          .map(p => p.slice(1))
+          .filter(Boolean),
         page.attributes,
         typeof api.config.permalinks === 'function'
           ? api.config.permalinks(page)
@@ -170,5 +173,19 @@ module.exports = class Pages extends Map {
         this.redirectRoutes.set(config.fromPath, config)
       }
     }
+  }
+
+  getMatchedLocalePath(permalink) {
+    const localePaths = Object.keys(this.api.config.locales || {}).filter(
+      p => p !== '/'
+    )
+
+    for (const localePath of localePaths) {
+      if (localePath === permalink || permalink.startsWith(localePath)) {
+        return localePath
+      }
+    }
+
+    return '/'
   }
 }

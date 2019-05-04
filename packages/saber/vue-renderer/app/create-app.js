@@ -39,8 +39,19 @@ export default context => {
         typeof customHead === 'function'
           ? customHead.call(this, this)
           : customHead || {}
+
+      const htmlAttrs = {
+        lang: this.$siteConfig.lang,
+        ...head.htmlAttrs
+      }
+
+      if (!htmlAttrs.lang) {
+        delete htmlAttrs.lang
+      }
+
       return {
         ...head,
+        htmlAttrs,
         meta: [
           {
             name: 'generator',

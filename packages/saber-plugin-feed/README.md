@@ -1,11 +1,11 @@
-# saber-plugin-generate-feed
+# saber-plugin-feed
 
 Generate feed in Atom 1.0 or RSS 2.0 or JSON format.
 
 ## Install
 
 ```bash
-yarn add saber-plugin-generate-feed
+yarn add saber-plugin-feed
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-generate-feed
+  - resolve: saber-plugin-feed
     options:
       # Generate atom.xml
       atomFeed: true
@@ -24,23 +24,17 @@ plugins:
       jsonFeed: true
 ```
 
-### Saber Variables
+### Get Feed Links in Component
 
-This plugin will also inject some useful Saber variables you can use at runtime:
+This plugin will also inject feed links as Vue computed property:
 
 ```js
-import variables from 'saber/variables'
+// Recommended feed, atom > rss2 > json
+this.$feed
+// { permalink: string, type: 'atom' | 'rss2' | 'json' }
 
-variables.feedLinks
+this.$allFeeds
 // { rss2?: string, json?: string, atom?: string }
-
-variables.feedLink
-// The link to preferred feed
-// Atom > RSS2 > JSON
-
-variables.feedLinkType
-// The type of `variables.feedLink`
-// `atom | rss2 | json`
 ```
 
 ### Configure Feed Author

@@ -17,7 +17,8 @@ exports.apply = api => {
         outPath,
         JSON.stringify({
           siteConfig: config.siteConfig || {},
-          themeConfig: config.themeConfig || {}
+          themeConfig: config.themeConfig || {},
+          locales: config.locales || {}
         }),
         'utf8'
       )
@@ -26,7 +27,8 @@ exports.apply = api => {
       const dropUnnecessary = config =>
         Object.assign({}, config, {
           siteConfig: undefined,
-          themeConfig: undefined
+          themeConfig: undefined,
+          locales: undefined
         })
       if (!deepEqual(dropUnnecessary(newConfig), dropUnnecessary(prevConfig))) {
         log.warn(

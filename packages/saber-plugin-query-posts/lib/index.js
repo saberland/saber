@@ -12,23 +12,30 @@ exports.name = ID
 
 exports.apply = (api, options = {}) => {
   api.hooks.onCreatePages.tap(ID, () => {
-    injectPosts({
-      tagsMap: options.tagsMap,
-      categoriesMap: options.categoriesMap,
-      paginationOptions: {
-        perPage: options.perPage || 30
-      },
-      permalinks: Object.assign(
-        {
-          category: '/categories/:slug',
-          tag: '/tags/:slug'
+    const allLocalePaths = new Set(
+      ['/'].concat(Object.keys(api.config.locales || {}))
+    )
+    for (const currentLocalePath of allLocalePaths) {
+      injectPosts({
+        currentLocalePath,
+        tagsMap: options.tagsMap,
+        categoriesMap: options.categoriesMap,
+        paginationOptions: {
+          perPage: options.perPage || 30
         },
-        options.permalinks
-      )
-    })
+        permalinks: Object.assign(
+          {
+            category: '/categories/:slug',
+            tag: '/tags/:slug'
+          },
+          options.permalinks
+        )
+      })
+    }
   })
 
   function injectPosts({
+    currentLocalePath,
     tagsMap,
     paginationOptions,
     categoriesMap,
@@ -44,6 +51,13 @@ exports.apply = (api, options = {}) => {
 
     for (const page of api.pages.values()) {
       if (page.attributes.draft) {
+        continue
+      }
+
+      const matchedLocalePath = api.pages.getMatchedLocalePath(
+        page.attributes.permalink
+      )
+      if (matchedLocalePath !== currentLocalePath) {
         continue
       }
 
