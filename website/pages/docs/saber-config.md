@@ -18,25 +18,18 @@ The path to your theme or a npm package name (`saber-theme-` prefix is optional)
 - Type: `object`
 - Need Restarting: NO
 
-This option is used for configuring the basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`, these can be imported in your app:
+This option is used for configuring the basic information of your website, e.g. `siteConfig.title` and `siteConfig.description`. You can acces it via `this.$siteConfig` in your component.
 
-```js
-import { siteConfig } from 'saber/config'
+### lang
 
-// You need to write custom logic to handle hot reloading
-// ...
-```
-
-Alternatively you can access `this.$siteConfig` in your component, in this way it will automatically trigger hot reloading when the actual `siteConfig` changes.
+`siteConfig.lang` will be used as the value of `lang` attribute for the `<html>` element.
 
 ## themeConfig
 
 - Type: `object`
 - Need Restarting: NO
 
-For reusuablity, a theme should use this option for customization instead of hard-coding everything in the theme itself.
-
-Like `siteConfig` you can import it from `saber/config` or reference in component via `this.$themeConfig`.
+For reusuablity, a theme should use this option for customization instead of hard-coding everything in the theme itself. You can access it via `this.$themeConfig` in your component.
 
 ## build
 
