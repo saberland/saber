@@ -24,7 +24,7 @@ plugins:
       jsonFeed: true
 ```
 
-### Get feed links in component
+### Get Feed Links in Component
 
 This plugin will also inject feed links as Vue computed property:
 
