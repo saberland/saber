@@ -51,6 +51,10 @@ module.exports = (api, { type }) => {
     .rule('js')
     .test(/\.js$/)
     .include.add(filepath => {
+      if (api.browserApi.has(filepath)) {
+        return true
+      }
+
       if (/node_modules/.test(filepath)) {
         return false
       }
