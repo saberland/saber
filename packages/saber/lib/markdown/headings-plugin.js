@@ -1,19 +1,14 @@
-const slugify = s =>
-  encodeURIComponent(
-    String(s)
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, '-')
+const slugify = require('slugo')
+
+module.exports = (md, options = {}) => {
+  options = Object.assign(
+    {
+      injectMarkdownHeadings: false,
+      slugify
+    },
+    options
   )
-
-module.exports = (md, options) => {
-  const defaultOptions = {
-    injectMarkdownHeadings: false,
-    slugify
-  }
-
-  const config = Object.assign(defaultOptions, options)
-  const slugFn = config.slugify || slugify
+  const slugFn = options.slugify || slugify
 
   md.core.ruler.push('md_headings', state => {
     const { tokens, env } = state
@@ -22,7 +17,7 @@ module.exports = (md, options) => {
 
     if (
       injectMarkdownHeadings === true ||
-      (injectMarkdownHeadings !== false && config.injectMarkdownHeadings)
+      (injectMarkdownHeadings !== false && options.injectMarkdownHeadings)
     ) {
       for (let i = 0; i < tokens.length; i++) {
         if (tokens[i].type !== 'heading_close') {

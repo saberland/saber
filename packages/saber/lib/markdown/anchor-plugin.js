@@ -1,10 +1,4 @@
-const slugify = s =>
-  encodeURIComponent(
-    String(s)
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-  )
+const slugify = require('slugo')
 
 const position = {
   false: 'push',
