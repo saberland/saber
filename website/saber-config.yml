@@ -1,6 +1,7 @@
 siteConfig:
   title: Saber
   description: A framework for building modern static websites.
+  lang: en
 
 theme: ./src
 

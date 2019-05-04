@@ -26,9 +26,6 @@ export default ({ router, setHead }) => {
   }
 
   setHead(vm => ({
-    htmlAttrs: {
-      lang: 'en'
-    },
     meta: [
       {
         name: 'description',
