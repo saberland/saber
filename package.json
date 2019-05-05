@@ -8,7 +8,7 @@
     "prepare": "lerna run prepublishOnly"
   },
   "repository": {
-    "url": "egoist/saber",
+    "url": "saberland/saber",
     "type": "git"
   },
   "author": "egoist<0x142857@gmail.com>",
