@@ -1,6 +1,8 @@
 import VueLazyload from 'vue-lazyload'
-import optionPriority from './utils' // eslint-disable-line import/default
 import styles from './styles.module.css'
+
+const optionPriority = (general, specific, key) =>
+  specific[key] || (specific[key] !== false && general[key])
 
 export default function(Vue) {
   const options = Object.assign(

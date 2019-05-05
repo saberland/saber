@@ -9,7 +9,7 @@
 }
 
 .blendIn {
-  transition: filter .3s;
+  transition: filter 0.5s;
 }
 
 .blendIn[lazy='loading'] {
