@@ -5,11 +5,11 @@ export default context => {
     const { notifyUpdates } = __PWA_OPTIONS__
     const { Workbox } = require('workbox-window')
 
-    if (notifyUpdates) {
-      const workbox = (context.workbox = new Workbox(
-        `${__PUBLIC_URL__}service-worker.js`
-      ))
+    const workbox = (context.workbox = new Workbox(
+      `${__PUBLIC_URL__}service-worker.js`
+    ))
 
+    if (notifyUpdates) {
       const toast = require('native-toast')
       require('native-toast/dist/native-toast.css')
 

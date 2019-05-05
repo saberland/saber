@@ -4,7 +4,10 @@ const ID = 'pwa'
 
 exports.name = ID
 
-exports.apply = (api, { notifyUpdates = true } = {}) => {
+exports.apply = (
+  api,
+  { notifyUpdates = true, generateSWOptions = {} } = {}
+) => {
   if (api.dev) {
     // Uninstall server-worker.js in dev mode
     api.hooks.onCreateServer.tap(ID, server => {
@@ -26,12 +29,13 @@ exports.apply = (api, { notifyUpdates = true } = {}) => {
     api.hooks.afterGenerate.tapPromise(ID, async () => {
       const { generateSW } = require('workbox-build')
       await generateSW({
+        ...generateSWOptions,
         swDest: api.resolveOutDir('service-worker.js'),
         importWorkboxFrom: 'local',
         globDirectory: api.resolveOutDir(),
         globPatterns: [
           '**/*.{js,css,html,png,jpg,jpeg,gif,svg,woff,woff2,eot,ttf,otf}'
-        ]
+        ].concat(generateSWOptions.globPatterns || [])
       })
     })
   }
