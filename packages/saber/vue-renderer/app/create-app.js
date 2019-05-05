@@ -34,6 +34,7 @@ export default context => {
   let customRootComponent
 
   const rootOptions = {
+    mixins: [],
     head() {
       const head =
         typeof customHead === 'function'
