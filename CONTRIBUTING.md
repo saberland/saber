@@ -21,6 +21,8 @@ yarn
 yarn dev # which uses the global `saber` command
 ```
 
+Visual Studio Code users can take advantage of the debug configuration shipping with Saber, which allows testing Saber with the documentation website. If you want to debug with a different project, set `cwd` under `.vscode/launch.json` to your Saber project's working directory.
+
 ## Pull Requests
 
 Before starting to work on an issue, first ensure there are no open PRs for it already, then comment that you intend to work on it, to prevent others from wasting their time doing the same work.
