@@ -18,7 +18,8 @@ export default context => {
           const {
             pwaFirstTimeInstallMessage = 'Ready for offline use',
             pwaUpdateReadyMessage = 'A new version of this app is available',
-            pwaUpdateButtonMessage = 'UPDATE'
+            pwaUpdateButtonMessage = 'UPDATE',
+            pwaDismissMessage = 'DISMISS'
            } = this.$siteConfig
 
           const showUpdateNotifier = () => {
@@ -50,7 +51,15 @@ export default context => {
             if (!event.isUpdate) {
               new SnackBar(pwaFirstTimeInstallMessage, {
                 position: 'right',
-                timeout: 5000
+                timeout: 5000,
+                actions: [
+                  {
+                    text: pwaDismissMessage,
+                    callback(_, snackbar) {
+                      snackbar.destroy()
+                    }
+                  }
+                ]
               })
             }
           })
