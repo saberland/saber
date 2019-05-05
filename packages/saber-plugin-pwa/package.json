@@ -12,7 +12,7 @@
     "saber": "^0.4.10"
   },
   "dependencies": {
-    "native-toast": "^2.0.0",
+    "@egoist/snackbar": "^1.0.2",
     "workbox-build": "^4.3.1",
     "workbox-window": "^4.3.1"
   }

@@ -10,40 +10,39 @@ export default context => {
     ))
 
     if (notifyUpdates) {
-      const toast = require('native-toast')
-      require('native-toast/dist/native-toast.css')
+      const { SnackBar } = require('@egoist/snackbar')
+      require('@egoist/snackbar/dist/snackbar.css')
 
       const showUpdateNotifier = () => {
-        const button = document.createElement('span')
-        button.textContent = 'click to apply'
-        Object.assign(button.style, {
-          color: 'pink',
-          cursor: 'pointer'
-        })
-        button.addEventListener('click', () => {
-          button.textContent = 'updating..'
-          button.disabled = true
+        new SnackBar('A new version of this app is available', {
+          position: 'right',
+          timeout: 20000,
+          actions: [
+            {
+              text: 'UPDATE',
+              style: {
+                color: 'pink'
+              },
+              callback(button) {
+                button.innerHTML = `<svg width="20" height="20" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#fff"><g transform="translate(1 1)" stroke-width="2" fill="none" fill-rule="evenodd"><circle stroke-opacity=".5" cx="18" cy="18" r="18"/><path d="M2.433 27.037c4.99 8.597 16.008 11.52 24.604 6.53"><animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"/></path></g></svg>`
+                button.disabled = true
 
-          workbox.addEventListener('controlling', event => {
-            window.location.reload()
-          })
+                workbox.addEventListener('controlling', event => {
+                  window.location.reload()
+                })
 
-          workbox.messageSW({ type: 'SKIP_WAITING' })
-        })
-        toast({
-          message: 'A new version of this app is available',
-          position: 'south-east',
-          timeout: 20000, // 20 seconds
-          elements: [button]
+                workbox.messageSW({ type: 'SKIP_WAITING' })
+              }
+            }
+          ]
         })
       }
 
       workbox.addEventListener('installed', event => {
         if (!event.isUpdate) {
-          toast({
-            message: 'Ready for offline use',
-            position: 'south-east',
-            timeout: 5000 // 5 seconds
+          new SnackBar('Ready for offline use', {
+            position: 'right',
+            timeout: 5000
           })
         }
       })
