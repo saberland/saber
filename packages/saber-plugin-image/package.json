@@ -1,7 +1,12 @@
 {
-  "name": "saber-plugin-images",
+  "name": "saber-plugin-image",
   "version": "0.0.1",
   "main": "lib/index.js",
+  "files": [
+    "lib/index.js",
+    "lib/SaberImage.js",
+    "lib/saber-browser.js"
+  ],
   "license": "MIT",
   "dependencies": {
     "lib": "^4.0.2",

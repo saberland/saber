@@ -1,13 +1,28 @@
+const { join } = require('path')
+
 const ID = 'images'
 
 exports.name = ID
 
 exports.apply = (api, options = {}) => {
-  options = Object.assign({}, options)
+  options = Object.assign(
+    {
+      lazyLoad: true,
+      placeholder: true,
+      blendIn: true
+    },
+    options
+  )
 
-  console.log(api)
+  api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
   api.hooks.chainWebpack.tap(ID, config => {
+    config.plugin('constants').tap(([constants]) => [
+      Object.assign(constants, {
+        __SABER_IMAGE_OPTIONS__: options
+      })
+    ])
+
     config.module.rule('image').exclude.add(/\.(jpe?g|png)$/i)
 
     config.module
@@ -17,7 +32,7 @@ exports.apply = (api, options = {}) => {
       .tap(options =>
         Object.assign(options, {
           transformAssetUrls: Object.assign(options.transformAssetUrls || {}, {
-            's-image': ['src']
+            'saber-image': ['src']
           })
         })
       )
