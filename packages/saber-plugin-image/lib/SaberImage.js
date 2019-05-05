@@ -1,4 +1,5 @@
 import VueLazyload from 'vue-lazyload'
+import optionPriority from './utils' // eslint-disable-line import/default
 import styles from './styles.module.css'
 
 export default function(Vue) {
@@ -9,15 +10,10 @@ export default function(Vue) {
     }
   )
 
-  console.log(options)
-
   Vue.use(VueLazyload, options)
 
   Vue.component('saber-image', {
     props: ['src', 'lazy'],
-    data() {
-      return { loaded: false }
-    },
     render(h) {
       const {
         src: { width, height, src, srcSet: srcset, placeholder },
@@ -26,13 +22,11 @@ export default function(Vue) {
 
       const lazy = Object.assign(options, this.lazy)
 
-      if (lazy.lazyLoad || (lazy.lazyLoad !== false && options.lazyLoad)) {
+      if (optionPriority(options, lazy, 'lazyLoad')) {
         const loading =
-          ((lazy.placeholder ||
-            (lazy.placeholder !== false && options.placeholder)) &&
-            placeholder) ||
+          (optionPriority(options, lazy, 'placeholder') && placeholder) ||
           lazy.placeholder ||
-          options.loading
+          options.placeholder
 
         return h('img', {
           attrs: {
@@ -42,8 +36,7 @@ export default function(Vue) {
             height
           },
           class:
-            (lazy.blendIn || (lazy.blendIn !== false && options.blendIn)) &&
-            loading
+            optionPriority(options, lazy, 'blendIn') && loading
               ? { [styles.blendIn]: true }
               : {},
           directives: [
