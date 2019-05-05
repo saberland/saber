@@ -3,7 +3,7 @@ title: Introduction
 layout: docs
 ---
 
-Sabe!!x is a static website generator, it is like Hexo but, you can use Vue, React or other view layers[^1] to write layouts, Saber will also generate a universal website[^2] out-of-the-box.
+Saber is a static website generator, it is like Hexo but, you can use Vue, React or other view layers[^1] to write layouts, Saber will also generate a universal website[^2] out-of-the-box.
 
 ## Disclaimer
 
