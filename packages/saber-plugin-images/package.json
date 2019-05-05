@@ -1,0 +1,13 @@
+{
+  "name": "saber-plugin-images",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lib": "^4.0.2",
+    "package.json": "^2.0.1",
+    "responsive-loader": "^1.2.0",
+    "sharp": "^0.22.1",
+    "vue-lazyload": "^1.2.6"
+  }
+}
