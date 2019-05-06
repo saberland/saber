@@ -83,7 +83,7 @@ function transformMarkdown(api, page) {
         slugify:
           markdown.slugify &&
           require(resolvePackage(markdown.slugify, { cwd: configDir })),
-        ...markdown.options.headings
+        ...((markdown.options && markdown.option.headings) || {})
       }
     },
     {
