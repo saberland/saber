@@ -90,8 +90,7 @@ function transformMarkdown(api, page) {
         slugify:
           markdown.slugify &&
           require(resolvePackage(markdown.slugify, { cwd: configDir })),
-        injectMarkdownHeadings:
-          (markdown.options && markdown.injectMarkdownHeadings) || false
+        injectMarkdownHeadings: markdown.injectMarkdownHeadings || false
       }
     },
     {
