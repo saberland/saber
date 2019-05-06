@@ -8,10 +8,9 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "prismjs": "^1.15.0",
     "saber-log": "^0.2.0"
   },
-  "peerDependencies": {
-    "saber": "^0.4.9"
+  "devDependencies": {
+    "prismjs": "^1.16.0"
   }
 }

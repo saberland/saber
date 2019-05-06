@@ -120,18 +120,18 @@ Output:
 
 ### Code Highlighting
 
-To highlight code blocks, you need to use a highlighter, [Prism.js](https://prismjs.com/) is what we recommend:
+To highlight code blocks, you need to use a highlighter plugin, [Prism.js](https://prismjs.com/) is what we recommend:
 
 ```bash
 # In your project
-yarn add saber-highlighter-prism
+yarn add saber-plugin-prismjs
 ```
 
-Then set the markdown highlighter in your `saber-config.yml`:
+Then add this plugin in your `saber-config.yml`:
 
 ```yaml
-markdown:
-  highlighter: prism
+plugins:
+  - resolve: saber-plugin-prismjs
 ```
 
 Input:
@@ -172,29 +172,23 @@ import 'prismjs/themes/prism.css'
 Input:
 
 ````markdown
-```yaml {highlightLines:[2, '7-8']}
+```yaml {highlightLines:['2-3', 5]}
 siteConfig:
   title: Saber
   description: A framework for building modern static websites.
 
 theme: ./src
-
-markdown:
-  highlighter: prism
 ```
 ````
 
 Output:
 
-```yaml {highlightLines:[2, '7-8']}
+```yaml {highlightLines:['2-3', 5]}
 siteConfig:
   title: Saber
   description: A framework for building modern static websites.
 
 theme: ./src
-
-markdown:
-  highlighter: prism
 ```
 
 In this case the rendered HTML will look like:

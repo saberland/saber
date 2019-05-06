@@ -6,7 +6,6 @@ siteConfig:
 theme: ./src
 
 markdown:
-  highlighter: prism
   plugins:
   - resolve: markdown-it-footnote
 
@@ -78,3 +77,4 @@ plugins:
   - resolve: ../packages/saber-plugin-query-posts
   - resolve: ../packages/saber-plugin-netlify-redirect
   - resolve: ../packages/saber-plugin-git-modification-time
+  - resolve: ../packages/saber-plugin-prismjs
