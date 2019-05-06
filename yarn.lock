@@ -703,10 +703,10 @@
     postcss-load-config "^2.0.0"
     schema-utils "^1.0.0"
 
-"@egoist/snackbar@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/@egoist/snackbar/-/snackbar-1.0.2.tgz#c329e0265838defbffadc13074be6b49a94d928c"
-  integrity sha512-XhSyzK8EtmbymGLE7NmP4ZSFuj5MDH6Y1xdgRhiy1UnjVO1aHmIQWeeJ+734DUXFjKH8FhsPAonO2YwJm0pUbg==
+"@egoist/snackbar@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@egoist/snackbar/-/snackbar-1.1.0.tgz#338d3bae9e96c20b37ce98e29b1710e7b30094fb"
+  integrity sha512-iNTXCXb6ypuDY2fXBBPsVbLyh97hAy83iaNNdlpt1paimloXiw6MfoYyHP7eV/l+QL8vPB2A8Kokjqt9CmU9wQ==
 
 "@hapi/address@2.x.x":
   version "2.0.0"

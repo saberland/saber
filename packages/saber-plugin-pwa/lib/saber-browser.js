@@ -12,7 +12,7 @@ export default context => {
         ))
 
         if (notifyUpdates) {
-          const { SnackBar } = require('@egoist/snackbar')
+          const { createSnackbar } = require('@egoist/snackbar')
           require('@egoist/snackbar/dist/snackbar.css')
 
           const {
@@ -23,7 +23,7 @@ export default context => {
            } = this.$siteConfig
 
           const showUpdateNotifier = () => {
-            new SnackBar(pwaUpdateReadyMessage, {
+            createSnackbar(pwaUpdateReadyMessage, {
               position: 'right',
               timeout: 20000,
               actions: [
@@ -49,15 +49,12 @@ export default context => {
 
           workbox.addEventListener('installed', event => {
             if (!event.isUpdate) {
-              new SnackBar(pwaFirstTimeInstallMessage, {
+              createSnackbar(pwaFirstTimeInstallMessage, {
                 position: 'right',
                 timeout: 5000,
                 actions: [
                   {
-                    text: pwaDismissMessage,
-                    callback(_, snackbar) {
-                      snackbar.destroy()
-                    }
+                    text: pwaDismissMessage
                   }
                 ]
               })
