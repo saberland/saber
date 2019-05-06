@@ -308,7 +308,18 @@ class VueRenderer {
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
             const markup = await renderer.renderToString(context)
-            const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+            const initialDocumentData = require('./get-initial-document-data')(
+              context
+            )
+            context.documentData = this.api.hooks.getDocumentData.call(
+              initialDocumentData
+            )
+            const initialDocument = require('./get-initial-document')(
+              context.documentData
+            )
+            const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
+              initialDocument
+            )}`
               .replace(/^\s+/gm, '')
               .replace(/\n+</g, '<')
               .replace('<div id="_saber"></div>', markup)
@@ -425,18 +436,6 @@ class VueRenderer {
     server.use(devMiddleware)
     server.use(hotMiddleware)
 
-    const head = new Proxy(
-      {},
-      {
-        get() {
-          return ''
-        }
-      }
-    )
-    const noop = () => ''
-    const renderScripts = () =>
-      `<script src="/_saber/js/client.js" defer></script>`
-
     server.get('*', async (req, res) => {
       if (!req.headers.accept || !req.headers.accept.includes('text/html')) {
         res.statusCode = 404
@@ -445,13 +444,21 @@ class VueRenderer {
 
       const render = () => {
         const context = {
-          url: req.url,
-          head,
-          renderStyles: noop,
-          renderScripts,
-          renderState: noop
+          url: req.url
         }
-        const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+
+        const initialDocumentData = require('./get-initial-document-data')(
+          context
+        )
+        context.documentData = this.api.hooks.getDocumentData.call(
+          initialDocumentData
+        )
+        const initialDocument = require('./get-initial-document')(
+          context.documentData
+        )
+        const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
+          initialDocument
+        )}`
         res.setHeader('content-type', 'text/html')
         res.end(html)
       }
@@ -479,7 +486,6 @@ class VueRenderer {
 }
 
 VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
-VueRenderer.getDocument = require('./get-document')
 
 module.exports = VueRenderer
 

@@ -36,7 +36,8 @@ class Saber {
       afterBuild: new AsyncSeriesHook(),
       // Called after generate static HTML files
       afterGenerate: new AsyncSeriesHook(),
-      getDocument: new SyncWaterfallHook(['html', 'document']),
+      getDocumentData: new SyncWaterfallHook(['documentData']),
+      getDocument: new SyncWaterfallHook(['document']),
       defineVariables: new SyncWaterfallHook(['variables']),
       // Called before creating pages for the first time
       initPages: new AsyncSeriesHook(),
