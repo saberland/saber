@@ -15,12 +15,22 @@ module.exports = (md, options = {}) => {
     const injectMarkdownHeadings = env.getAttribute('injectMarkdownHeadings')
     const headings = []
 
-    if (
-      injectMarkdownHeadings === true ||
+    const inject =
+      injectMarkdownHeadings ||
       (injectMarkdownHeadings !== false && options.injectMarkdownHeadings)
-    ) {
+    const injectLevels = Array.isArray(inject) ? inject : [2, 3, 4, 5]
+
+    if (inject) {
       for (let i = 0; i < tokens.length; i++) {
         if (tokens[i].type !== 'heading_close') {
+          continue
+        }
+
+        const headingOpen = tokens[i - 2]
+        const level =
+          headingOpen.type === 'heading_open' && headingOpen.markup.length // number of '#' defines level
+
+        if (!injectLevels.includes(level)) {
           continue
         }
 
@@ -45,7 +55,8 @@ module.exports = (md, options = {}) => {
 
           headings.push({
             text,
-            slug
+            slug,
+            level
           })
         }
       }
