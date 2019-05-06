@@ -69,13 +69,6 @@ function transformMarkdown(api, page) {
       resolve: require.resolve('../markdown/hoist-tags-plugin')
     },
     {
-      name: 'anchor',
-      resolve: require.resolve('../markdown/anchor-plugin'),
-      options: markdown.slugify && {
-        slugify: require(resolvePackage(markdown.slugify, { cwd: configDir }))
-      }
-    },
-    {
       name: 'excerpt',
       resolve: require.resolve('../markdown/excerpt-plugin')
     },
@@ -90,7 +83,7 @@ function transformMarkdown(api, page) {
         slugify:
           markdown.slugify &&
           require(resolvePackage(markdown.slugify, { cwd: configDir })),
-        injectMarkdownHeadings: markdown.injectMarkdownHeadings || false
+        ...markdown.options.headings
       }
     },
     {

@@ -5,7 +5,7 @@ const createEnv = require('./create-env')
 const input = `
 # Heading
 
-## Another heading
+## \`Another heading\`
 
 ### [This time around, a link is present](http://localhost)
 
