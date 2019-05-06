@@ -1,9 +1,6 @@
 import VueLazyload from 'vue-lazyload'
 import styles from './styles.module.css'
 
-const optionPriority = (general, specific, key) =>
-  specific[key] || (specific[key] !== false && general[key])
-
 export default function(Vue) {
   const options = Object.assign(
     (process.browser && __SABER_IMAGE_OPTIONS__) || {}, // eslint-disable-line no-undef
@@ -17,18 +14,38 @@ export default function(Vue) {
   Vue.component('saber-image', {
     props: ['src', 'lazy'],
     render(h) {
-      const {
-        src: { width, height, src, srcSet: srcset, placeholder },
-        $attrs
-      } = this
-
       const lazy = Object.assign(options, this.lazy)
 
-      if (optionPriority(options, lazy, 'lazyLoad')) {
+      const getOption = key =>
+        lazy[key] || (lazy[key] !== false && options[key])
+
+      const { $attrs } = this
+
+      if (getOption('lazyLoad')) {
+        if (typeof this.src === 'string') {
+          const { src } = this
+
+          return h('img', {
+            attrs: $attrs,
+            directives: [
+              {
+                name: 'lazy',
+                value: {
+                  src
+                }
+              }
+            ]
+          })
+        }
+
+        const { width, height, src, srcSet: srcset, placeholder } = this.src
+
         const loading =
-          (optionPriority(options, lazy, 'placeholder') && placeholder) ||
+          (getOption('placeholder') && placeholder) ||
           lazy.placeholder ||
           options.placeholder
+
+        const blendIn = getOption('blendIn')
 
         return h('img', {
           attrs: {
@@ -37,10 +54,14 @@ export default function(Vue) {
             width,
             height
           },
-          class:
-            optionPriority(options, lazy, 'blendIn') && loading
-              ? { [styles.blendIn]: true }
-              : {},
+          class: { [styles.blendIn]: true },
+          style: {
+            transition: `filter ${
+              blendIn
+                ? (typeof blendIn === 'number' && blendIn / 1000) || 0.5
+                : 0
+            }s`
+          },
           directives: [
             {
               name: 'lazy',
@@ -53,6 +74,13 @@ export default function(Vue) {
         })
       }
 
+      if (typeof this.src === 'string') {
+        return h('img', {
+          attrs: { ...$attrs, src: this.src }
+        })
+      }
+
+      const { src, srcSet: srcset } = this.src
       return h('img', {
         attrs: { ...$attrs, src, srcset }
       })

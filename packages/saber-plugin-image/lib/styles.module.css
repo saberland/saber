@@ -1,15 +1,11 @@
 .enter-active-class,
 .leave-active-class {
-  transition: opacity .5s;
+  transition: opacity 0.5s;
 }
 
 .enter-class,
 .leave-to-class {
   opacity: 0;
-}
-
-.blendIn {
-  transition: filter 0.5s;
 }
 
 .blendIn[lazy='loading'] {
