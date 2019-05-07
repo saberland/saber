@@ -1782,10 +1782,10 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack@4.4.24":
-  version "4.4.24"
-  resolved "https://registry.npmjs.org/@types/webpack/-/webpack-4.4.24.tgz#75bc301176066f566ec54151b6101c2b45abb8b2"
-  integrity sha512-yg99CjvB7xZ/iuHrsZ7dkGKoq/FRDzqLzAxKh2EmTem6FWjzrty4FqCqBYuX5z+MFwSaaQGDAX4Q9HQkLjGLnQ==
+"@types/webpack@4.4.31":
+  version "4.4.31"
+  resolved "https://registry.npmjs.org/@types/webpack/-/webpack-4.4.31.tgz#f59b9d8210cf4d2fd254fe6d1f5ba86e557867f5"
+  integrity sha512-WNALmv/wxy2+OoF7A5GD8BVotXnkuMHlojVWKj/neFHU3Ut2Azbu1A7Yi2Vr6eX3z+31XgR/dJ5NpX4pQZ7ieQ==
   dependencies:
     "@types/anymatch" "*"
     "@types/node" "*"
