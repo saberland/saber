@@ -19,6 +19,20 @@ plugins:
 
 ## Options
 
+### name
+
+- Type: `string`
+- Default: `siteConfig.title | 'Saber PWA App'`
+
+The name for your PWA.
+
+### themeColor
+
+- Type: `string`
+- Default: `#ffffff`
+
+The theme color for your PWA.
+
 ### notifyUpdates
 
 - Type: `boolean`

@@ -1,4 +1,4 @@
-module.exports = async (api, { name, themeColor, iconPaths }) => {
+module.exports = async (api, { name, themeColor }) => {
   const { log } = api
   const { fs } = api.utils
 
@@ -11,18 +11,6 @@ module.exports = async (api, { name, themeColor, iconPaths }) => {
       {
         short_name: name,
         name,
-        icons: [
-          iconPaths.favicon16 && {
-            src: iconPaths.favicon16,
-            sizes: '16x16',
-            type: 'image/png'
-          },
-          iconPaths.favicon32 && {
-            src: iconPaths.favicon32,
-            sizes: '32x32',
-            type: 'image/png'
-          }
-        ].filter(Boolean),
         start_url: '/index.html',
         display: 'standalone',
         theme_color: themeColor,

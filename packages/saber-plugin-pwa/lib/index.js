@@ -29,15 +29,7 @@ exports.apply = (
       ])
     })
 
-    const {
-      iconPaths,
-      name,
-      themeColor,
-      assetsVersion,
-      msTileColor,
-      appleMobileWebAppCapable,
-      appleMobileWebAppStatusBarStyle
-    } = getAppConfig(
+    const { name, themeColor, assetsVersion } = getAppConfig(
       Object.assign({ name: api.config.siteConfig.title }, appConfig)
     )
 
@@ -54,7 +46,6 @@ exports.apply = (
       })
 
       await generateManifest(api, {
-        iconPaths,
         name,
         themeColor
       })
@@ -72,46 +63,7 @@ exports.apply = (
         createElement('meta', {
           name: 'theme-color',
           content: themeColor
-        }),
-        // Add to home screen for Safari on iOS
-        iconPaths.appleTouchIcon &&
-          createElement('meta', {
-            name: 'apple-mobile-web-app-capable',
-            content: appleMobileWebAppCapable
-          }),
-        iconPaths.appleTouchIcon &&
-          createElement('meta', {
-            name: 'apple-mobile-web-app-status-bar-style',
-            content: appleMobileWebAppStatusBarStyle
-          }),
-        iconPaths.appleTouchIcon &&
-          createElement('meta', {
-            name: 'apple-mobile-web-app-title',
-            content: name
-          }),
-        iconPaths.appleTouchIcon &&
-          createElement('link', {
-            rel: 'apple-touch-icon',
-            href: `${publicUrl}${iconPaths.appleTouchIcon}${assetsVersionStr}`
-          }),
-        iconPaths.appleTouchIcon &&
-          createElement('link', {
-            rel: 'mask-icon',
-            href: `${publicUrl}${iconPaths.safariMaskIcon}${assetsVersionStr}`,
-            color: themeColor
-          }),
-
-        // Add to home screen for Windows
-        iconPaths.msTileImage &&
-          createElement('meta', {
-            name: 'msapplication-TileImage',
-            content: `${publicUrl}${iconPaths.msTileImage}${assetsVersionStr}`
-          }),
-        iconPaths.msTileImage &&
-          createElement('meta', {
-            name: 'msapplication-TileColor',
-            content: msTileColor
-          })
+        })
       ]
         .filter(Boolean)
         .join('')

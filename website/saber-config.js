@@ -85,11 +85,6 @@ module.exports = {
               handler: 'StaleWhileRevalidate'
             }
           ]
-        },
-        iconPaths: {
-          appleTouchIcon: false,
-          safariMaskIcon: false,
-          msTileImage: false
         }
       }
     }
