@@ -6677,10 +6677,10 @@ istanbul-reports@^2.2.3:
   dependencies:
     handlebars "^4.1.0"
 
-javascript-stringify@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.npmjs.org/javascript-stringify/-/javascript-stringify-1.6.0.tgz#142d111f3a6e3dae8f4a9afd77d45855b5a9cce3"
-  integrity sha1-FC0RHzpuPa6PSpr9d9RYVbWpzOM=
+javascript-stringify@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/javascript-stringify/-/javascript-stringify-2.0.0.tgz#ef750216ae66504ffd670b68c8b8aa07bdf7b588"
+  integrity sha512-zzK8+ByrzvOL6N92hRewwUKL0wN0TOaIuUjX0Jj8lraxWvr5wHYs2YTjaj2lstF+8qMv5cmPPef47va8NT8lDw==
 
 jest-changed-files@^24.7.0:
   version "24.7.0"
@@ -12047,13 +12047,13 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-chain@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/webpack-chain/-/webpack-chain-5.2.0.tgz#752c01e42752412610b27e3dbd6e0781146a465a"
-  integrity sha512-JXz9YgEkTqx8hvnES2VMRyWHNFlqJfLmA5QTyuJOXalkGg+MVdOgB0UaYtc4iDadEmzJLe8UyCl4wyDq3wWZDg==
+webpack-chain@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/webpack-chain/-/webpack-chain-6.0.0.tgz#9c36525a1271a54e7bfd1791199b395f400ae4f1"
+  integrity sha512-NK62XgJOOSmYs4kaXFIKKeClpuOVHY7m6e4XwxbVX/2HAUboH6xFCTVXMVv8+jB6K8o/UGjlo1Cv3XXOyNAAGw==
   dependencies:
     deepmerge "^1.5.2"
-    javascript-stringify "^1.6.0"
+    javascript-stringify "^2.0.0"
 
 webpack-dev-middleware@^3.5.0:
   version "3.5.0"
