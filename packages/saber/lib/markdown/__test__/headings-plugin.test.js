@@ -5,15 +5,13 @@ const createEnv = require('./create-env')
 const input = `
 # Heading
 
-## \`Another heading\`
+## \`Heading\`
 
 ### [This time around, a link is present](http://localhost)
 
 #### Deep on so many levels!
 
-##### Still in there
-
-###### h6 masterrace`
+##### Still in there`
 
 test('inject markdown headings enabled', () => {
   const md = new Markdown()
@@ -22,11 +20,15 @@ test('inject markdown headings enabled', () => {
   md.use(headingsPlugin)
   md.render(input, env)
   expect(env.getAttribute('markdownHeadings')).toEqual(
-    // by default, h2~h5 are injected
     expect.arrayContaining([
       {
-        text: 'Another heading',
-        slug: 'another-heading',
+        text: 'Heading',
+        slug: 'heading',
+        level: 1
+      },
+      {
+        text: 'Heading',
+        slug: 'heading-2',
         level: 2
       },
       {
@@ -43,39 +45,6 @@ test('inject markdown headings enabled', () => {
         text: 'Still in there',
         slug: 'still-in-there',
         level: 5
-      }
-    ])
-  )
-})
-
-test('inject markdown headings enabled', () => {
-  const md = new Markdown()
-  const { env } = createEnv()
-  env.setAttribute('injectMarkdownHeadings', [1, 3, 5, 6]) // inject level h1, h3, h5 and h6
-  md.use(headingsPlugin)
-  md.render(input, env)
-  expect(env.getAttribute('markdownHeadings')).toEqual(
-    // by default, h2~h5 are injected
-    expect.arrayContaining([
-      {
-        text: 'Heading',
-        slug: 'heading',
-        level: 1
-      },
-      {
-        text: 'This time around, a link is present',
-        slug: 'this-time-around-a-link-is-present',
-        level: 3
-      },
-      {
-        text: 'Still in there',
-        slug: 'still-in-there',
-        level: 5
-      },
-      {
-        text: 'h6 masterrace',
-        slug: 'h6-masterrace',
-        level: 6
       }
     ])
   )
