@@ -6,7 +6,6 @@ module.exports = {
   },
   theme: './src',
   markdown: {
-    highlighter: 'prism',
     headings: {
       permalink: true
     },
