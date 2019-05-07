@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main 1`] = `
+"<pre><code># Fate
+## Assassin
+### ibn al-Sabbah
+### Angra Mainyu
+## Lancer
+### Diarmuid Ua Duibhne
+### Cúchulainn
+</code></pre>
+"
+`;
