@@ -49,11 +49,11 @@ const permalinkRenderer = (
 }
 
 const defaultOptions = {
-  levels: 1,
-  permalink: false,
+  levels: 6,
+  permalink: true,
   permalinkClass: 'header-anchor',
-  permalinkSymbol: '¶',
-  permalinkBefore: false,
+  permalinkSymbol: '#',
+  permalinkBefore: true,
   permalinkComponent: 'saber-link',
   permalinkRenderer,
   permalinkHref: slug => `#${slug}`,

@@ -114,9 +114,47 @@ Output:
 | Header    | Title       |
 | Paragraph | Text        |
 
-### Table of Contents
+### Headings
 
-[TODO]
+Saber automatically injects all markdown headings as `page.attributes.headings`, if you have a page:
+
+```markdown
+# A page
+
+## A section
+
+### Another section
+```
+
+The `page.attributes.headings` will be:
+
+```js
+[
+  {
+    text: 'A page',
+    slug: 'a-page',
+    level: 1
+  },
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+  {
+    text: 'Another section',
+    slug: 'another-section',
+    level: 3
+  }
+]
+```
+
+You can use the frontmatter to disable it in this page:
+
+```yaml
+injectMarkdownHeadings: false
+```
+
+If you want to disable this globally, check out [markdown.headings](saber-config.md#headings) option.
 
 ### Code Highlighting
 

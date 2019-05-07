@@ -51,6 +51,20 @@
     & a {
       color: inherit;
     }
+
+    & a.header-anchor {
+      color: var(--theme-color);
+      font-size: .85em;
+      float: left;
+      margin-left: -.87em;
+      padding-right: .23em;
+      margin-top: .125em;
+      opacity: 0;
+    }
+
+    &:hover a.header-anchor {
+      opacity: 1;
+    }
   }
 
   & h2 {
