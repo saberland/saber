@@ -9,6 +9,8 @@ module.exports = function(source, map) {
   const pageString = devalue(page)
 
   let output = `
+    import path from 'path'
+
     export default function(Component) {
     var page = ${pageString}
   `
@@ -24,6 +26,16 @@ module.exports = function(source, map) {
   })
 
   output += `
+    if (page.posts) {
+      page.posts.forEach(function(post, i) {
+        if (post.attributes && post.attributes.assets) {
+          Object.keys(post.attributes.assets).forEach(function(asset) {
+            page.posts[i].attributes.assets[asset] = require('@/pages/' + path.join(post.internal.relative, '../', post.attributes.assets[asset]))
+          })
+        }
+      })
+    }
+  
     var beforeCreate = Component.options.beforeCreate || []
     Component.options.beforeCreate = [function() {
       this.$page = page

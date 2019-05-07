@@ -52,7 +52,7 @@ exports.apply = (api, options = {}) => {
       }
       if (page.attributes.type === 'post') {
         const pagePublicFields = api.pages.getPagePublicFields(page)
-        allPosts.add(pagePublicFields)
+        allPosts.add({ ...pagePublicFields, internal: page.internal })
 
         // Group posts for tag pages
         const tags = [].concat(page.attributes.tags || [])
