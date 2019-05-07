@@ -87,6 +87,13 @@ function transformMarkdown(api, page) {
       }
     },
     {
+      name: 'toc',
+      resolve: require.resolve('../markdown/toc-plugin'),
+      options: markdown.slugify && {
+        slugify: require(resolvePackage(markdown.slugify, { cwd: configDir }))
+      }
+    },
+    {
       name: 'highlight',
       resolve: require.resolve('../markdown/highlight-plugin')
     },

@@ -6,6 +6,7 @@ import layouts from '#cache/layouts'
 import createRouter from './router'
 import Meta from './vendor/vue-meta'
 import Layout from './LayoutManager.vue'
+import TOC from './theme/TOC'
 import extendBrowserApi from '#cache/extend-browser-api'
 import injectConfig from './helpers/inject-config'
 import setTransition from './helpers/set-transition'
@@ -13,6 +14,7 @@ import setTransition from './helpers/set-transition'
 Vue.config.productionTip = false
 
 Vue.component(Layout.name, Layout)
+Vue.component(TOC.name, TOC)
 
 Vue.use(Meta, {
   keyName: 'head',
