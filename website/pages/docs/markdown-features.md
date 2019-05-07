@@ -270,4 +270,4 @@ If you want to override the font size or font family, you need to add CSS for bo
 
 ## Configure markdown-it
 
-Check out [markdown.options](./saber-config.md#markdown.options) for setting markdown-it options and [markdown.plugins](./saber-config.md#markdown.plugins) for adding markdown-it plugins.
+Check out [markdown.options](./saber-config.md#options) for setting markdown-it options and [markdown.plugins](./saber-config.md#plugins-2) for adding markdown-it plugins.
