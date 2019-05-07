@@ -43,7 +43,6 @@ const permalinkRenderer = (
 }
 
 const defaultOptions = {
-  injectMarkdownHeadings: false,
   levels: 1,
   permalink: false,
   permalinkClass: 'header-anchor',
@@ -51,6 +50,7 @@ const defaultOptions = {
   permalinkBefore: false,
   permalinkRenderer,
   permalinkHref: slug => `#${slug}`,
+  injectMarkdownHeadings: false,
   slugify: slugo
 }
 
@@ -64,13 +64,6 @@ module.exports = (md, options = {}) => {
     const slugs = []
 
     const injectMarkdownHeadings = env.getAttribute('injectMarkdownHeadings')
-    const injectHeadings =
-      injectMarkdownHeadings ||
-      (injectMarkdownHeadings !== false && options.injectMarkdownHeadings)
-
-    const injectHeadingsLevels = Array.isArray(injectHeadings)
-      ? injectHeadings
-      : [2, 3, 4, 5]
 
     const anchorLevels = Array.isArray(options.levels)
       ? options.levels
@@ -81,12 +74,10 @@ module.exports = (md, options = {}) => {
         continue
       }
 
+      const heading = tokens[i - 1]
       const headingOpen = tokens[i - 2]
-
       const level =
         headingOpen.type === 'heading_open' && headingOpen.markup.length // number of '#' defines level
-
-      const heading = tokens[i - 1]
 
       if (heading.type === 'inline') {
         const text = heading.children
@@ -109,7 +100,10 @@ module.exports = (md, options = {}) => {
           options.permalinkRenderer(slug, options, state, heading)
         }
 
-        if (injectHeadings && injectHeadingsLevels.includes(level)) {
+        if (
+          injectMarkdownHeadings ||
+          (injectMarkdownHeadings !== false && options.injectMarkdownHeadings)
+        ) {
           headings.push({
             text,
             slug,
