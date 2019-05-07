@@ -50,7 +50,7 @@ const permalinkRenderer = (
 
 const defaultOptions = {
   levels: 6,
-  permalink: true,
+  permalink: false,
   permalinkClass: 'header-anchor',
   permalinkSymbol: '#',
   permalinkBefore: true,
