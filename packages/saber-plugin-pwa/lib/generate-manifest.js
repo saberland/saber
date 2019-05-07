@@ -34,6 +34,6 @@ module.exports = async (api, { name, themeColor, iconPaths }) => {
     2
   )
 
-  log.info(`Generating manifest.json (update)`)
+  log.info(`Generating manifest.json`)
   await fs.outputFile(manifestPath, newManifest, 'utf8')
 }
