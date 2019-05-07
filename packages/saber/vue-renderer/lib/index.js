@@ -377,6 +377,8 @@ class VueRenderer {
     const webpack = require('webpack')
     const server = require('polka')()
 
+    this.api.hooks.onCreateServer.call(server)
+
     const clientConfig = this.api
       .createWebpackChain({ type: 'client' })
       .toConfig()
