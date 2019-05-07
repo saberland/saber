@@ -16,6 +16,7 @@ const defaults = {
 
 module.exports = (config = {}) => {
   return Object.assign({}, defaults, config, {
-    iconPaths: Object.assign({}, defaults.iconPaths, config.iconPaths)
+    iconPaths: Object.assign({}, defaults.iconPaths, config.iconPaths),
+    name: config.name || defaults.name
   })
 }

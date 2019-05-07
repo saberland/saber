@@ -37,7 +37,9 @@ exports.apply = (
       msTileColor,
       appleMobileWebAppCapable,
       appleMobileWebAppStatusBarStyle
-    } = getAppConfig(appConfig)
+    } = getAppConfig(
+      Object.assign({ name: api.config.siteConfig.title }, appConfig)
+    )
 
     api.hooks.afterGenerate.tapPromise(ID, async () => {
       const { generateSW } = require('workbox-build')
