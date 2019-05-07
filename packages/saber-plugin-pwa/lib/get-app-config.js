@@ -1,6 +1,6 @@
 const defaults = {
   name: 'Saber PWA App',
-  themeColor: '#3880ff', // saber.land theme color
+  themeColor: '#ffffff',
   msTileColor: '#000000',
   appleMobileWebAppCapable: 'no',
   appleMobileWebAppStatusBarStyle: 'default',
