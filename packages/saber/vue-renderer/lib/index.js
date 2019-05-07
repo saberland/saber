@@ -308,18 +308,14 @@ class VueRenderer {
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
             const markup = await renderer.renderToString(context)
-            const initialDocumentData = require('./get-initial-document-data')(
+            let documentData = require('./get-initial-document-data')(context)
+            documentData = this.api.hooks.getDocumentData.call(
+              documentData,
               context
             )
-            context.documentData = this.api.hooks.getDocumentData.call(
-              initialDocumentData
-            )
-            const initialDocument = require('./get-initial-document')(
-              context.documentData
-            )
-            const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
-              initialDocument
-            )}`
+            let document = require('./get-initial-document')(documentData)
+            document = this.api.hooks.getDocument.call(document, context)
+            const html = `<!DOCTYPE html>${document}`
               .replace(/^\s+/gm, '')
               .replace(/\n+</g, '<')
               .replace('<div id="_saber"></div>', markup)
