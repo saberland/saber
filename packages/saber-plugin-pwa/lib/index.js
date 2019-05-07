@@ -1,4 +1,5 @@
 const path = require('path')
+const generateManifest = require('./generate-manifest')
 
 const ID = 'pwa'
 
@@ -6,7 +7,7 @@ exports.name = ID
 
 exports.apply = (
   api,
-  { notifyUpdates = true, generateSWOptions = {} } = {}
+  { notifyUpdates = true, generateSWOptions = {}, ...manifestOptions } = {}
 ) => {
   if (api.dev) {
     // Uninstall server-worker.js in dev mode
@@ -37,6 +38,8 @@ exports.apply = (
           '**/*.{js,css,html,png,jpg,jpeg,gif,svg,woff,woff2,eot,ttf,otf}'
         ].concat(generateSWOptions.globPatterns || [])
       })
+
+      await generateManifest(api, manifestOptions)
     })
   }
 }
