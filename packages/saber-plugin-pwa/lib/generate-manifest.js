@@ -23,7 +23,7 @@ module.exports = async (api, { name, themeColor, iconPaths }) => {
             type: 'image/png'
           }
         ].filter(Boolean),
-        start_url: '.',
+        start_url: '/index.html',
         display: 'standalone',
         theme_color: themeColor,
         background_color: '#ffffff'
