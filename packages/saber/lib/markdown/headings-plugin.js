@@ -10,7 +10,13 @@ const uniqueSlug = (slug, slugs) => {
 
 const permalinkRenderer = (
   slug,
-  { permalinkBefore, permalinkClass, permalinkSymbol, permalinkHref }, // options
+  {
+    permalinkBefore,
+    permalinkClass,
+    permalinkSymbol,
+    permalinkHref,
+    permalinkComponent
+  }, // options
   { Token }, // markdown state
   { children } // heading
 ) => {
@@ -18,17 +24,17 @@ const permalinkRenderer = (
   space.content = ' '
 
   const linkTokens = [
-    Object.assign(new Token('link_open', 'a', 1), {
+    Object.assign(new Token('link_open', permalinkComponent, 1), {
       attrs: [
         ['class', permalinkClass],
-        ['href', permalinkHref(slug)],
+        ['to', permalinkHref(slug)],
         ['aria-hidden', 'true']
       ]
     }),
     Object.assign(new Token('html_block', '', 0), {
       content: permalinkSymbol
     }),
-    new Token('link_close', 'a', -1)
+    new Token('link_close', permalinkComponent, -1)
   ]
 
   // append or prepend according to position option.
@@ -48,6 +54,7 @@ const defaultOptions = {
   permalinkClass: 'header-anchor',
   permalinkSymbol: '¶',
   permalinkBefore: false,
+  permalinkComponent: 'saber-link',
   permalinkRenderer,
   permalinkHref: slug => `#${slug}`,
   injectMarkdownHeadings: true,
