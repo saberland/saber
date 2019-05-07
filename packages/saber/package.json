@@ -64,6 +64,7 @@
   "devDependencies": {
     "@types/fs-extra": "5.0.5",
     "@types/resolve-from": "4.0.0",
+    "@types/superstruct": "^0.5.0",
     "@types/webpack": "4.4.24",
     "jest": "24.7.1",
     "markdown-it-footnote": "3.0.1",
