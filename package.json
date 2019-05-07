@@ -36,7 +36,9 @@
       "unicorn/filename-case": "off",
       "no-await-in-loop": "off",
       "unicorn/no-abusive-eslint-disable": "off",
-      "camelcase": "off"
+      "camelcase": "off",
+      "no-negated-condition": "off",
+      "unicorn/number-literal-case": "off"
     },
     "ignore": [
       "**/dist/**",

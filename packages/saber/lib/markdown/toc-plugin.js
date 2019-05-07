@@ -11,14 +11,15 @@ module.exports = (md, options) => {
   options = Object.assign({}, defaults, options)
   const tocRegexp = options.markerPattern
 
-  function toc (state, silent) {
-    var token
-    var match
+  function toc(state, silent) {
+    let token
+    let match
 
     // Reject if the token does not start with [
-    if (state.src.charCodeAt(state.pos) !== 0x5B /* [ */) {
+    if (state.src.charCodeAt(state.pos) !== 0x5b /* [ */) {
       return false
     }
+
     // Don't run any pairs in validation mode
     if (silent) {
       return false
@@ -26,8 +27,12 @@ module.exports = (md, options) => {
 
     // Detect TOC markdown
     match = tocRegexp.exec(state.src)
-    match = !match ? [] : match.filter(function (m) { return m })
-    if (match.length < 1) {
+    match = !match
+      ? []
+      : match.filter(function(m) {
+          return m
+        })
+    if (match.length === 0) {
       return false
     }
 
@@ -38,9 +43,9 @@ module.exports = (md, options) => {
     token = state.push('toc_close', 'toc', -1)
 
     // Update pos so the parser can continue
-    var newline = state.src.indexOf('\n')
+    const newline = state.src.indexOf('\n')
     if (newline !== -1) {
-      state.pos = state.pos + newline
+      state.pos += newline
     } else {
       state.pos = state.pos + state.posMax + 1
     }
@@ -48,7 +53,7 @@ module.exports = (md, options) => {
     return true
   }
 
-  md.renderer.rules.toc_open = function () {
+  md.renderer.rules.toc_open = function() {
     return vBindEscape`<TOC
       :class=${options.containerClass}
       :list-type=${options.listType}
@@ -56,12 +61,14 @@ module.exports = (md, options) => {
     >`
   }
 
-  md.renderer.rules.toc_body = function () {
-    return `<template slot="header">${options.containerHeaderHtml}</template>`
-      + `<template slot="footer">${options.containerFooterHtml}</template>`
+  md.renderer.rules.toc_body = function() {
+    return (
+      `<template slot="header">${options.containerHeaderHtml}</template>` +
+      `<template slot="footer">${options.containerFooterHtml}</template>`
+    )
   }
 
-  md.renderer.rules.toc_close = function () {
+  md.renderer.rules.toc_close = function() {
     return `</TOC>`
   }
 
@@ -70,12 +77,16 @@ module.exports = (md, options) => {
 }
 
 /** escape double quotes in v-bind derivatives */
-function vBindEscape (strs, ...args) {
+function vBindEscape(strs, ...args) {
   return strs.reduce((prev, curr, index) => {
-    return prev + curr + (index >= args.length
-      ? ''
-      : `"${JSON.stringify(args[index])
-        .replace(/"/g, "'")
-        .replace(/([^\\])(\\\\)*\\'/g, (_, char) => char + '\\u0022')}"`)
+    return (
+      prev +
+      curr +
+      (index >= args.length
+        ? ''
+        : `"${JSON.stringify(args[index])
+            .replace(/"/g, "'")
+            .replace(/([^\\])(\\\\)*\\'/g, (_, char) => char + '\\u0022')}"`)
+    )
   }, '')
 }
