@@ -80,10 +80,10 @@ function transformMarkdown(api, page) {
       name: 'headings',
       resolve: require.resolve('../markdown/headings-plugin'),
       options: {
+        ...markdown.headings,
         slugify:
           markdown.slugify &&
-          require(resolvePackage(markdown.slugify, { cwd: configDir })),
-        ...((markdown.options && markdown.option.headings) || {})
+          require(resolvePackage(markdown.slugify, { cwd: configDir }))
       }
     },
     {
