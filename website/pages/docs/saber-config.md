@@ -141,6 +141,20 @@ The path to a module or npm package name that highlights code blocks in markdown
 
 Note that a highlighter will only tokenize the code, you need to add corresponding CSS yourself.
 
+### headings
+
+- Type: `object`
+
+Options for the internal markdown-it plugin for generating markdown headings and heading anchors.
+
+|Property|Type|Default|Description|
+|---|---|---|---|
+|`injectMarkdownHeadings`|`boolean`|`true`|Inject markdown headings as `page.attributes.markdownHeadings`|
+|`permalink`|`boolean`|`false`|Generating permalinks.|
+|`permalinkComponent`|`string`|`saber-link`||
+|`permalinkBefore`|`bolean`|`true`|Inject permalink before heading text.|
+|`permalinkSymbol`|`string`|`#`|The permalink symbol.|
+
 ### options
 
 - Type: `object`
