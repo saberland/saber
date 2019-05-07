@@ -50,7 +50,7 @@ const defaultOptions = {
   permalinkBefore: false,
   permalinkRenderer,
   permalinkHref: slug => `#${slug}`,
-  injectMarkdownHeadings: false,
+  injectMarkdownHeadings: true,
   slugify: slugo
 }
 
