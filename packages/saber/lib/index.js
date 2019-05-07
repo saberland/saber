@@ -254,9 +254,14 @@ class Saber {
     return config
   }
 
-  getDocument(context) {
-    const initialHTML = this.RendererClass.getDocument(context)
-    return this.hooks.getDocument.call(initialHTML, context)
+  getDocument(documentData, context) {
+    const document = this.RendererClass.getDocument(documentData)
+    return this.hooks.getDocument.call(document, context)
+  }
+
+  getDocumentData(context) {
+    const documentData = this.RendererClass.getDocumentData(context)
+    return this.hooks.getDocumentData.call(documentData, context)
   }
 
   async run() {

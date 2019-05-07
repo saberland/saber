@@ -321,7 +321,8 @@ class VueRenderer {
               .replace('<div id="_saber"></div>', markup)
             const exportedPage = {
               content: html,
-              path: route.outputFilePath
+              path: route.outputFilePath,
+              markup
             }
             await this.api.hooks.beforeExportPage.promise(context, exportedPage)
             await fs.outputFile(route.outputFilePath, html, 'utf8')
@@ -484,6 +485,8 @@ class VueRenderer {
 }
 
 VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
+VueRenderer.getDocumentData = require('./get-initial-document-data')
+VueRenderer.getDocument = require('./get-initial-document')
 
 module.exports = VueRenderer
 

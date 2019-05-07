@@ -12,6 +12,9 @@ export default async context => {
     context.res.statusCode = 404
   }
 
+  const matchedComponents = router.getMatchedComponents()
+  context.amp = matchedComponents[0].amp
+  
   context.metaInfo = app.$meta()
 
   return app
