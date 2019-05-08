@@ -5,14 +5,14 @@ const ID = 'amp'
 exports.name = ID
 
 exports.apply = api => {
-  let isAMP = false
+  let exportedHTMLPage = false
 
   api.hooks.beforeExportPage.tapPromise(ID, async () => {
-    isAMP = false
+    exportedHTMLPage = false // Set is to false so that we doesn't make changes to the data in getDocumentData.tap (export a the page as page.html)
   })
 
   api.hooks.getDocumentData.tap(ID, (data, context) => {
-    if (isAMP) {
+    if (exportedHTMLPage) {
       data.htmlAttrs += ' amp'
       data.link += `<link rel="canonical" href="${context.url}">`
       data.style =
@@ -27,13 +27,13 @@ exports.apply = api => {
   })
 
   api.hooks.afterExportPage.tapPromise(ID, async (context, exportedPage) => {
-    isAMP = context.amp
     if (context.amp) {
+      exportedHTMLPage = true // Set it to true so that we can make changes to the data in getDocumentData.tap
       const { log } = api
       const { fs } = api.utils
       const outputDir = api.resolveCache('public')
 
-      context.documentData = api.getDocumentData(context)
+      context.documentData = api.getDocumentData(context) // will trigger getDocumentData.tap check packages/saber/lib/index.js line 262 in the PR
       const html = `<!DOCTYPE html>${api.getDocument(
         context.documentData,
         context
