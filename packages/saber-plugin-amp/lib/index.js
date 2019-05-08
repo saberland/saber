@@ -8,7 +8,7 @@ exports.apply = api => {
   let exportedHTMLPage = false
 
   api.hooks.beforeExportPage.tapPromise(ID, async () => {
-    exportedHTMLPage = false // Set is to false so that we doesn't make changes to the data in getDocumentData.tap (export a the page as page.html)
+    exportedHTMLPage = false // Set it to false so that we doesn't make changes to the data in getDocumentData.tap (exporting/generating page.html)
   })
 
   api.hooks.getDocumentData.tap(ID, (data, context) => {
