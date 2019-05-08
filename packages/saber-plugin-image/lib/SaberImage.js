@@ -54,7 +54,7 @@ export default function(Vue) {
             width,
             height
           },
-          class: { [styles.blendIn]: true },
+          class: { [styles.blendIn]: blendIn },
           style: {
             transition: `filter ${
               blendIn
