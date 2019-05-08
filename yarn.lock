@@ -10403,10 +10403,10 @@ rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0:
     estree-walker "^0.6.0"
     micromatch "^3.1.10"
 
-rollup@1.11.0:
-  version "1.11.0"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-1.11.0.tgz#a4e157759eed90f935ce2827c4beee8a9172386d"
-  integrity sha512-6a/3P64AW7rXNQ3rQrkOoH4Dt1YVXBCX7CRaUDklfioB9mxSQMA9sBctN/8YifDPNeRgLnrSDQRb+5ym+WGCiw==
+rollup@1.11.3:
+  version "1.11.3"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-1.11.3.tgz#6f436db2a2d6b63f808bf60ad01a177643dedb81"
+  integrity sha512-81MR7alHcFKxgWzGfG7jSdv+JQxSOIOD/Fa3iNUmpzbd7p+V19e1l9uffqT8/7YAHgGOzmoPGN3Fx3L2ptOf5g==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "^11.13.9"
