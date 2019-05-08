@@ -1,3 +1,5 @@
+const { prefixSpace } = require('./utils')
+
 module.exports = context => {
   if (!context.metaInfo) {
     return {
@@ -28,7 +30,7 @@ module.exports = context => {
 
   return {
     title: title.text(),
-    htmlAttrs: htmlAttrs.text(),
+    htmlAttrs: `data-saber-ssr${prefixSpace(htmlAttrs.text())}`,
     headAttrs: headAttrs.text(),
     bodyAttrs: bodyAttrs.text(),
     link: link.text(),

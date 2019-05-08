@@ -1,4 +1,4 @@
-const prefixSpace = input => (input ? ` ${input}` : '')
+const { prefixSpace } = require('./utils')
 
 /**
  * Get the initial HTML sent from server-side
@@ -17,7 +17,7 @@ module.exports = ({
   htmlAttrs
 }) => {
   return `
-    <html data-saber-ssr${prefixSpace(htmlAttrs)}>
+    <html${prefixSpace(htmlAttrs)}>
       <head${prefixSpace(headAttrs)}>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
