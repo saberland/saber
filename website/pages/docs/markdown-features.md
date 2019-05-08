@@ -16,12 +16,14 @@ Front matter is used to set page attributes:
 ```markdown
 ---
 title: My Page Title
+assets:
+  cover: ./cool-photo.png
 ---
 
 Markdown content goes here...
 ```
 
-You can use [YAML](https://yaml.org/) syntax in the front matter.
+You can use [YAML](https://yaml.org/) syntax in the front matter. Assets will be resolved with Webpack.
 
 ### Excerpt
 
@@ -65,7 +67,6 @@ Isn't it?
 
 Blah blah..
 ```
-
 
 ### Task List
 
@@ -232,7 +233,7 @@ If you want to override the font size or font family, you need to add CSS for bo
 .saber-highlight-mask,
 .saber-highlight-code code {
   /* Default: */
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 ```
 
