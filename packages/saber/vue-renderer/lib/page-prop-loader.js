@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 const devalue = require('devalue')
 const { slash } = require('saber-utils')
 
@@ -25,17 +25,25 @@ module.exports = function(source, map) {
     }
   })
 
+  if (page.posts) {
+    page.posts.forEach((post, i) => {
+      if (post.attributes && post.attributes.assets) {
+        const { assets } = post.attributes
+        Object.keys(assets).forEach(asset => {
+          const path = join(
+            'pages/',
+            post.internal.relative,
+            '../',
+            assets[asset]
+          )
+
+          output += `page.posts[${i}].attributes.assets['${asset}'] = require('@/${path}')`
+        })
+      }
+    })
+  }
+
   output += `
-    if (page.posts) {
-      page.posts.forEach(function(post, i) {
-        if (post.attributes && post.attributes.assets) {
-          Object.keys(post.attributes.assets).forEach(function(asset) {
-            page.posts[i].attributes.assets[asset] = require('@/pages/' + path.join(post.internal.relative, '../', post.attributes.assets[asset]))
-          })
-        }
-      })
-    }
-  
     var beforeCreate = Component.options.beforeCreate || []
     Component.options.beforeCreate = [function() {
       this.$page = page
