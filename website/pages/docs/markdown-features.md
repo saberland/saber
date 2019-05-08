@@ -116,7 +116,7 @@ Output:
 
 ### Headings
 
-Saber automatically injects all markdown headings as `page.attributes.headings`, if you have a page:
+Saber automatically injects all markdown headings as `page.attributes.markdownHeadings`, if you have a page:
 
 ```markdown
 # A page
@@ -126,7 +126,7 @@ Saber automatically injects all markdown headings as `page.attributes.headings`,
 ### Another section
 ```
 
-The `page.attributes.headings` will be:
+The `page.attributes.markdownHeadings` will be:
 
 ```js
 [
