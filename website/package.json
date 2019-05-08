@@ -10,7 +10,8 @@
     "jump.js": "1.0.2",
     "markdown-it-footnote": "3.0.1",
     "nprogress": "0.2.0",
-    "prismjs": "1.16.0"
+    "prismjs": "1.16.0",
+    "typeface-roboto": "^0.0.54"
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"
