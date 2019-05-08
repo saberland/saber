@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/egoist/saber/compare/saber@0.4.10...saber@0.5.0) (2019-05-08)
+
+### Bug Fixes
+
+- inject ssrContext to the params of getDocument, getDocumentData hooks ([0f6669e](https://github.com/egoist/saber/commit/0f6669e))
+- **deps:** update dependency webpack-chain to v6 ([#158](https://github.com/egoist/saber/issues/158)) ([3bfc1c7](https://github.com/egoist/saber/commit/3bfc1c7))
+
+### Features
+
+- add hooks.getDocumentData ([a9bb9b2](https://github.com/egoist/saber/commit/a9bb9b2))
+- add markdown-it plugin to collect headings ([#145](https://github.com/egoist/saber/issues/145)) ([4715558](https://github.com/egoist/saber/commit/4715558))
+- add saber-plugin-pwa ([#149](https://github.com/egoist/saber/issues/149)) ([7e5c298](https://github.com/egoist/saber/commit/7e5c298))
+- i18n support ([#137](https://github.com/egoist/saber/issues/137)) ([1613626](https://github.com/egoist/saber/commit/1613626))
+
 ## [0.4.10](https://github.com/egoist/saber/compare/saber@0.4.9...saber@0.4.10) (2019-05-03)
 
 ### Bug Fixes

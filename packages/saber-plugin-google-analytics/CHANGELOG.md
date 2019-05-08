@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/egoist/saber/compare/saber-plugin-google-analytics@0.0.4...saber-plugin-google-analytics@0.0.5) (2019-05-08)
+
+### Bug Fixes
+
+- **google-analytics:** use path instead of upath ([9240d1f](https://github.com/egoist/saber/commit/9240d1f))
+
 ## [0.0.4](https://github.com/egoist/saber/compare/saber-plugin-google-analytics@0.0.3...saber-plugin-google-analytics@0.0.4) (2019-05-03)
 
 ### Bug Fixes
