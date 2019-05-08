@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/egoist/saber/compare/saber@0.5.1...saber@0.5.2) (2019-05-08)
+
+### Bug Fixes
+
+- add missing file ([3b67bc0](https://github.com/egoist/saber/commit/3b67bc0))
+
 ## [0.5.1](https://github.com/egoist/saber/compare/saber@0.5.0...saber@0.5.1) (2019-05-08)
 
 ### Bug Fixes
