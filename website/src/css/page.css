@@ -89,6 +89,7 @@
   }
 
   & code {
+    font-size: .875rem;
     background: #f5f7fa;
     border-radius: 3px;
     padding: 3px 5px;

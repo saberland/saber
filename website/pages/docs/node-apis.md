@@ -5,57 +5,16 @@ layout: docs
 
 ## Usage
 
-Implement any of these APIs by exporting them from a file named `saber-node.js` in the root of your project.
+Implement any of [Saber Hooks](saber-instance.md#hooks) by exporting them from a file named `saber-node.js` in the root of your project.
 
 During developing, you need to restart the server if you made any changes in this file.
 
-## APIs
-
-### onCreatePage
-
-- Type: `(this: SaberInstance, page: Page) => void`
-
-Called when a new page is added.
+For example:
 
 ```js
-exports.onCreatePage = function(page) {
-  // Add an addtional field on the page
-  page.foo = 'foo'
+exports.onCreatePage = function (page) {
+  page.attributes.foo = true
 }
 ```
 
-### onCreatePages
-
-- Type: `(this: SaberInstance) => void | Promise<void>`
-
-Called when Saber finished adding pages. If you want to create a page from other pages, do it in this hook.
-
-### chainWebpack
-
-- Type: `(this: SaberInstance, config: WebpackChain, context: Context) => void`
-
-Called when creating [webpack-chain](https://github.com/neutrinojs/webpack-chain) instance which is used to create webpack config.
-
-```typescript
-interface Context {
-  type: 'client' | 'server'
-}
-```
-
-### beforeRun
-
-- Type: `(this: SaberInstance) => void | Promise<void>`
-
-Before running the webpack build process.
-
-### afterBuild
-
-- Type: `(this: SaberInstance) => void | Promise<void>`
-
-Called when webpack build is finished.
-
-### afterGenerate
-
-- Type: `(this: SaberInstance) => void | Promise<void>`
-
-Called when static HTML files are generated.
+You can access [Saber Instance](saber-instance.md) via `this`.
