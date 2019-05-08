@@ -56,7 +56,7 @@
     "vue-server-renderer": "^2.6.10",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.28.4",
-    "webpack-chain": "^5.2.0",
+    "webpack-chain": "^6.0.0",
     "webpack-dev-middleware": "^3.5.0",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-node-externals": "^1.7.2"
