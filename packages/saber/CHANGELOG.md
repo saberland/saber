@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.3](https://github.com/egoist/saber/compare/saber@0.5.2...saber@0.5.3) (2019-05-08)
+
+### Bug Fixes
+
+- throw error when using old public folder in all commands ([b8d92f7](https://github.com/egoist/saber/commit/b8d92f7))
+
 ## [0.5.2](https://github.com/egoist/saber/compare/saber@0.5.1...saber@0.5.2) (2019-05-08)
 
 ### Bug Fixes
