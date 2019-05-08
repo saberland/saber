@@ -75,3 +75,9 @@ npm run dev
 ```
 
 For more details, check out the `README.md` in `my-site/`.
+
+## CodeSandbox Example
+
+The easiest way to try out Saber is to edit and preview the example project on [CodeSandbox](https://codesandbox.io/s/github/egoist/saber-codesandbox/tree/master/?module=%2Fpages%2Findex.md).
+
+<iframe src="https://codesandbox.io/embed/github/egoist/saber-codesandbox/tree/master/?fontsize=14" title="saber-sandbox" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
