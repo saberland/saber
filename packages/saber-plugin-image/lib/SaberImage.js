@@ -14,7 +14,11 @@ export default function(Vue) {
   Vue.component('saber-image', {
     props: ['src', 'lazy'],
     render(h) {
-      const lazy = Object.assign(options, this.lazy)
+      const lazy = Object.assign(
+        options,
+        JSON.parse(this.$attrs['data-lazy'] || '{}'),
+        this.lazy
+      )
 
       const getOption = key =>
         lazy[key] || (lazy[key] !== false && options[key])

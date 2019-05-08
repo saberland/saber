@@ -1,4 +1,5 @@
 const { join } = require('path')
+const { parse } = require('querystring')
 
 const ID = 'images'
 
@@ -9,12 +10,53 @@ exports.apply = (api, options = {}) => {
     {
       lazyLoad: true,
       placeholder: true,
-      blendIn: true
+      blendIn: true,
+      markdownImages: false
     },
     options
   )
 
   api.browserApi.add(join(__dirname, 'saber-browser.js'))
+
+  if (options.markdownImages) {
+    api.hooks.chainMarkdown.tap(ID, config => {
+      config.plugin(ID).use(md => {
+        md.core.ruler.push(ID, state => {
+          const { tokens } = state
+
+          for (const token of tokens) {
+            if (token.type === 'inline' && token.children) {
+              const { children } = token
+
+              // clone children to avoid an infinite loop
+              for (const child of [...children]) {
+                if (child.type === 'image' || child.tag === 'img') {
+                  child.tag = 'saber-image'
+                  child.nesting = 1
+
+                  const src = child.attrGet('src')
+                  const querystring = parse(src.split('?')[1])
+                  Object.keys(querystring).forEach(key => {
+                    const query = querystring[key]
+                    if (query === 'true') querystring[key] = true
+                    if (query === 'false') querystring[key] = false
+                  })
+                  child.attrSet('data-lazy', JSON.stringify(querystring))
+
+                  // append closing tag for saber-image
+                  children.splice(
+                    children.indexOf(child) + 1,
+                    0,
+                    new state.Token('image_close', 'saber-image', -1)
+                  )
+                }
+              }
+            }
+          }
+        })
+      })
+    })
+  }
 
   api.hooks.chainWebpack.tap(ID, config => {
     config.plugin('constants').tap(([constants]) => [
