@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/egoist/saber/compare/saber@0.5.0...saber@0.5.1) (2019-05-08)
+
+### Bug Fixes
+
+- **vue-renderer:** only add data-saber-ssr attribute in production mode ([09c8d34](https://github.com/egoist/saber/commit/09c8d34))
+
 # [0.5.0](https://github.com/egoist/saber/compare/saber@0.4.10...saber@0.5.0) (2019-05-08)
 
 ### Bug Fixes
