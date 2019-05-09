@@ -1,11 +1,11 @@
-# saber-plugin-images
+# saber-plugin-image
 
 Allows the generation of responsive images (`srcset` included), lazy-loading and all that good stuff.
 
 ## Install
 
 ```bash
-yarn add saber-plugin-images
+yarn add saber-plugin-image
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-images
+  - resolve: saber-plugin-image
     options:
       sizes:
         - 1000
