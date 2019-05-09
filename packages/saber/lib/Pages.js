@@ -5,6 +5,7 @@ const { log } = require('saber-log')
 const merge = require('lodash.merge')
 const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')
+const { prefixAssets } = require('./utils/assetsAttribute')
 
 module.exports = class Pages extends Map {
   constructor(api) {
@@ -115,6 +116,10 @@ module.exports = class Pages extends Map {
 
     if (!page.internal || !page.internal.id) {
       throw new Error(`Page must have an internal id.`)
+    }
+
+    if (page.attributes.assets) {
+      page.attributes.assets = prefixAssets(page.attributes.assets)
     }
 
     // Ensure this page is not saved

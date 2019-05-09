@@ -1,9 +1,10 @@
 const devalue = require('devalue')
+const { markToRequire } = require('../../lib/utils/assetsAttribute')
 
 module.exports = function(source, map) {
   const pageId = source.trim()
   const { api } = this.query
-  const page = devalue(api.pages.getPageProp(pageId))
+  const page = markToRequire(devalue(api.pages.getPageProp(pageId)))
   this.callback(
     null,
     `
