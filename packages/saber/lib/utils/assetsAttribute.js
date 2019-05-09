@@ -33,12 +33,12 @@ const prefixAssets = assets => {
  * Replace strings starting with the MARK to `require` call
  * @param {string} str
  */
-const markToRequire = str =>
+const requireAssets = str =>
   str.replace(MARK_GLOBAL_RE, (_, p1) => {
     return `require("${p1}")`
   })
 
 module.exports = {
   prefixAssets,
-  markToRequire
+  requireAssets
 }
