@@ -1,10 +1,15 @@
-const devalue = require('devalue')
+const serialize = require('serialize-javascript')
 const { markToRequire } = require('../../lib/utils/assetsAttribute')
 
 module.exports = function(source, map) {
   const pageId = source.trim()
   const { api } = this.query
-  const page = markToRequire(devalue(api.pages.getPageProp(pageId)))
+  const page = markToRequire(
+    serialize(api.pages.getPageProp(pageId), {
+      isJSON: true,
+      space: process.env.NODE_ENV === 'production' ? 0 : 2
+    })
+  )
   this.callback(
     null,
     `
