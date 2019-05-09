@@ -48,7 +48,7 @@ These options can be passed either in the Saber configuration or to each `<saber
 | `lazyLoad`       | Turn lazy loading off or on.                                                                                                                                           | `true`                 | `Boolean`           |
 | `placeholder`    | Display a generated placeholder while the image is loading.                                                                                                            | `true`                 | `Boolean`           |
 | `blendIn`        | Requires `placeholder` to be enabled. Smoothly blends in the loaded image once loaded. You can also pass the transition duration in milliseconds instead of a boolean. |                        | `Boolean | Integer` |
-| `markdownImages` | Transforms `![Markdown](./images.png)` into `<saber-image>`. You can still pass options via the query-string, e. g. `image.png?blendIn=true&sizes[]=100,sizes[]=200`   | `false`                | `Boolean`           |
+| `markdownImages` | Transforms `![Markdown](./images.png)` into `<saber-image>`. You can pass options via the query-string, e. g. `image.png?blendIn=true&sizes[]=100,sizes[]=200`         | `true`                 | `Boolean`           |
 | `quality`        | JPEG compression quality.                                                                                                                                              | `85`                   | `Integer`           |
 | `sizes`          | Images will be downscaled to the specified widths.                                                                                                                     | _original image width_ | `Array<Integer>`    |
 

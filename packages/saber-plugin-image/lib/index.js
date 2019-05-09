@@ -11,7 +11,7 @@ exports.apply = (api, options = {}) => {
       lazyLoad: true,
       placeholder: true,
       blendIn: true,
-      markdownImages: false
+      markdownImages: true
     },
     options
   )
