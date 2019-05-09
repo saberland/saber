@@ -19,8 +19,10 @@ const prefixAssets = assets => {
   const result = {}
   for (const key of Object.keys(assets)) {
     const value = assets[key]
-    if (!isExternal(value)) {
-      result[key] = `${MARK}${assets[key]}`
+    if (value.startsWith(MARK)) {
+      result[key] = value
+    } else if (!isExternal(value)) {
+      result[key] = `${MARK}${value}`
     }
   }
 
