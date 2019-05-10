@@ -39,19 +39,6 @@ Currently we only exclude `internal` and `content` properties.
 
 Remove pages that match the given `condition`.
 
-### `pages.extendPageProp(id, obj)`
-
-- Params:
-  - `id`: `string` Page ID.
-  - `obj`: `any` An object to be merged by the `page` prop.
-- Returns: `void`
-
-Extend the `page` prop on your layout/page component.
-
-By default `page` prop is just the PageInterface.
-
-It's not recommended to mutate `page` directly to add new properties.
-
 ### `pages.createRedirect(config)`
 
 - Params:

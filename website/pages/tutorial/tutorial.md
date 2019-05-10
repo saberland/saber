@@ -385,13 +385,13 @@ exports.onCreatePages = function() {
     .sort((a, b) => {
       return a.attributes.createdAt > b.attributes.createdAt ? 1 : -1
     })
+  const selectFields = page => ({
+    title: page.attributes.title,
+    permalink: page.attributes.permalink
+  })
   for (const [index, post] of posts.entries()) {
-    // It's NOT recommended to mutate `page` directly to add addtional props
-    // Use `extendPageProp` instead to add more properties to the `page` prop
-    this.pages.extendPageProp(post.internal.id, {
-      prevPost: this.pages.getPagePublicFields(posts[index - 1]),
-      nextPost: this.pages.getPagePublicFields(posts[index + 1])
-    })
+    post.prevPost = selectFields(posts[index - 1])
+    post.nextPost = selectFields(posts[index + 1])
   }
 }
 ```
@@ -401,13 +401,13 @@ Now adding following markup to the `page` layout to show previous / next post:
 ```vue
 <ul>
   <li v-if="page.prevPost">
-    <router-link :to="page.prevPost.attributes.permalink">
-      Previous: {{ page.prevPost.attributes.title }}
+    <router-link :to="page.prevPost.permalink">
+      Previous: {{ page.prevPost.title }}
     </router-link>
   </li>
   <li v-if="page.nextPost">
-    <router-link :to="page.nextPost.attributes.permalink">
-      Next: {{ page.nextPost.attributes.title }}
+    <router-link :to="page.nextPost.permalink">
+      Next: {{ page.nextPost.title }}
     </router-link>
   </li>
 </ul>
