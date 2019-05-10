@@ -48,7 +48,7 @@ This is a wonderful world..
 Blah blah..
 ```
 
-Then `page.attributes.excerpt` will be `<p>This is a wonderful world..</p>`. If you only need plain text, you can strip HTML tags with a simple regular expression: `html.replace(/<(?:.|\n)*?>/gm, '')`.
+Then `page.excerpt` will be `<p>This is a wonderful world..</p>`. If you only need plain text, you can strip HTML tags with a simple regular expression: `html.replace(/<(?:.|\n)*?>/gm, '')`.
 
 If you're using `<!-- more -->` comment, please note that only block comment is supported for now, i.e. you can't use `<!-- more -->` inside a paragraqh:
 
@@ -64,6 +64,14 @@ Isn't it?
 <!-- more -->
 
 Blah blah..
+```
+
+To disable this, set `excerpt` to `false` in your page:
+
+```markdown
+---
+excerpt: false
+---
 ```
 
 
