@@ -155,7 +155,7 @@ class VueRenderer {
     }
 
     this._writingRoutes = true
-    const pages = [...this.api.pages.values()]
+    const pages = this.api.nodes.chain('allPages').data()
     const redirectRoutesInBrowser = [...this.api.pages.redirectRoutes.values()]
       .filter(route => route.redirectInBrowser)
       .map(
@@ -166,31 +166,29 @@ class VueRenderer {
     export default [
       ${pages
         .map(page => {
-          const relativePath = slash(page.internal.relative)
-          const absolutePath = slash(page.internal.absolute)
+          const relativePath = slash(page.relative)
+          const absolutePath = slash(page.absolute)
           const chunkNameComment = `/* webpackChunkName: "page--${
-            page.internal.isFile
+            page.isFile
               ? path
                   .relative(this.api.resolveCwd('pages'), absolutePath)
                   .replace(/[^a-z0-9_-]/gi, '-')
-              : page.internal.id
+              : page.id
           }" */ `
           // Always give the path a resource query
-          const componentPath = page.internal.isFile
-            ? `${absolutePath}?saberPage=${page.internal.id}`
-            : `#cache/pages/${page.internal.id}.saberpage?saberPage=${
-                page.internal.id
-              }`
+          const componentPath = page.isFile
+            ? `${absolutePath}?saberPage=${page.id}`
+            : `#cache/pages/${page.id}.saberpage?saberPage=${page.id}`
           return `{
-              path: ${JSON.stringify(page.attributes.permalink)},
+              path: ${JSON.stringify(page.fields.permalink)},
               meta: {
                 __relative: '${relativePath}',
-                __pageId: '${page.internal.id}'
+                __pageId: '${page.id}'
               },
               component: function() {
                 ${
                   this.api.lazy &&
-                  !this.visitedRoutes.has(page.attributes.permalink)
+                  !this.visitedRoutes.has(page.fields.permalink)
                     ? 'return Promise.resolve({render: function(){}})'
                     : `
                 return import(${chunkNameComment}${JSON.stringify(
@@ -309,15 +307,15 @@ class VueRenderer {
       [
         ...this.api.pages.values(),
         {
-          attributes: {
+          fields: {
             permalink: '/__never_existed__.html',
             outputFilePath: '404.html'
           }
         }
       ].map(page => ({
-        permalink: page.attributes.permalink,
+        permalink: page.fields.permalink,
         outputFilePath: getOutputFilePath(
-          page.attributes.outputFilePath || page.attributes.permalink
+          page.fields.outputFilePath || page.fields.permalink
         )
       }))
     )

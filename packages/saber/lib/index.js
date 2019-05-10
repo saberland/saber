@@ -10,12 +10,14 @@ const BrowserApi = require('./BrowserApi')
 const Transformers = require('./Transformers')
 const configLoader = require('./utils/configLoader')
 const resolvePackage = require('./utils/resolvePackage')
+const nodes = require('./nodes')
 
 class Saber {
   constructor(opts = {}, config = {}) {
     this.opts = opts
     this.opts.cwd = path.resolve(opts.cwd || '.')
     this.initialConfig = config
+    this.nodes = nodes
     this.pages = new Pages(this)
     this.browserApi = new BrowserApi(this)
     this.log = log

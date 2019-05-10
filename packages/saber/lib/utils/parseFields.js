@@ -13,30 +13,30 @@ module.exports = (content, filepath) => {
     plugins: ['typescript', 'jsx', 'objectRestSpread', 'classProperties']
   })
 
-  let attributes = {}
+  let fields = {}
 
   traverse.default(ast, {
     ObjectExpression(path) {
-      const isAttributes =
+      const isFields =
         path.parent &&
         path.parent.type === 'VariableDeclarator' &&
-        path.parent.id.name === 'attributes'
-      const isConstAttributes =
-        isAttributes &&
+        path.parent.id.name === 'fields'
+      const isConstFields =
+        isFields &&
         path.parentPath.parent &&
         path.parentPath.parent.kind === 'const'
-      const isExportedConstAttributes =
-        isConstAttributes &&
+      const isExportedConstFields =
+        isConstFields &&
         path.parentPath.parentPath &&
         path.parentPath.parentPath.parent.type === 'ExportNamedDeclaration'
-      if (isExportedConstAttributes) {
+      if (isExportedConstFields) {
         const { confident, value } = path.evaluate()
         if (confident) {
-          attributes = value
+          fields = value
           path.node.properties = []
         } else {
           throw new Error(
-            `"attributes" is supposed to have the same value when executed in runtime and build time.`
+            `"fields" is supposed to have the same value when executed in runtime and build time.`
           )
         }
       }
@@ -46,7 +46,7 @@ module.exports = (content, filepath) => {
   const { code } = generator.default(ast)
 
   return {
-    attributes,
+    fields,
     code
   }
 }

@@ -40,13 +40,11 @@ exports.apply = api => {
       'manipulate-page',
       async ({ action, id, page }) => {
         // Remove all child pages
-        api.pages.removeWhere(page => page.internal.parent)
+        api.nodes.removeWhere(node => node.parent && node.isPage)
 
         if (action === 'remove') {
           // Remove itself
-          api.pages.removeWhere(page => {
-            return page.internal.id === id
-          })
+          api.nodes.findAndRemove({ id })
         } else if (action) {
           api.pages.createPage(page, { normalize: false })
           await api.hooks.onCreatePage.promise(page)
@@ -57,21 +55,15 @@ exports.apply = api => {
     // Write all pages
     // This is triggered by all file actions: change, add, remove
     api.hooks.emitPages.tapPromise('pages', async () => {
-      const pages = [...api.pages.values()]
+      const pages = api.nodes.chain('allPages').data()
       log.verbose('Emitting pages')
       // TODO: maybe write pages with limited concurrency?
       await Promise.all(
         pages.map(async page => {
-          if (page.internal.saved) return
+          if (page.saved) return
 
-          const newContentHash = hash({
-            page,
-            prop: api.pages.pageProps.get(page.internal.id)
-          })
-          const outPath = api.resolveCache(
-            'pages',
-            `${page.internal.id}.saberpage`
-          )
+          const newContentHash = hash(page)
+          const outPath = api.resolveCache('pages', `${page.id}.saberpage`)
           // TODO: is there any better solution to checking if we need to write the page?
           const exists = await fs.pathExists(outPath)
           if (exists) {
@@ -84,7 +76,7 @@ exports.apply = api => {
 
           log.verbose(`Emitting page ${outPath}`)
           await fs.outputFile(outPath, newContentHash, 'utf8')
-          page.internal.saved = true
+          page.saved = true
         })
       )
     })

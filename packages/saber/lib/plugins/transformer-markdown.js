@@ -9,9 +9,9 @@ exports.apply = api => {
     parse(page) {
       const { frontmatter, body } = require('../utils/parseFrontmatter')(
         page.content,
-        page.internal.absolute
+        page.absolute
       )
-      Object.assign(page.attributes, frontmatter)
+      Object.assign(page.fields, frontmatter)
       page.content = body
     },
     transform(page) {
@@ -34,20 +34,9 @@ function transformMarkdown(api, page) {
   const { markdown = {} } = api.config
   const env = {
     Token: require('saber-markdown').Token,
-    filePath: page.internal.absolute,
+    filePath: page.absolute,
     pagesDir: api.resolveCwd('pages'),
-    setAttribute(name, value) {
-      page.attributes[name] = value
-    },
-    getAttribute(name) {
-      return page.attributes[name]
-    },
-    setInternal(name, value) {
-      page.internal[name] = value
-    },
-    getInternal(name) {
-      return page.internal[name]
-    }
+    page
   }
 
   const chain = new MarkdownChain()

@@ -8,14 +8,14 @@
 /**
  * Get the permalink of a page
  * @param {string[]} localeNames
- * @param {object} attributes - Page attributes
- * @param {string} attributes.slug - The page slug
- * @param {string} attributes.type - The page type
- * @param {Date}  attributes.createdAt - The creation time
+ * @param {object} fields - Node fields
+ * @param {string} fields.slug - The page slug
+ * @param {string} fields.type - The page type
+ * @param {Date}  fields.createdAt - The creation time
  * @param {import('saber').Permalinks} permalinks - The `permalinks` config option
  */
-module.exports = (localeNames, attributes, permalinks) => {
-  if (attributes.slug === 'index') return '/'
+module.exports = (localeNames, fields, permalinks) => {
+  if (fields.slug === 'index') return '/'
 
   permalinks = Object.assign(
     {
@@ -25,11 +25,11 @@ module.exports = (localeNames, attributes, permalinks) => {
     permalinks
   )
 
-  const permalinkTemplate = permalinks[attributes.type] || permalinks.page
-  const date = new Date(attributes.createdAt)
+  const permalinkTemplate = permalinks[fields.type] || permalinks.page
+  const date = new Date(fields.createdAt)
 
   let prefix = ''
-  let { slug } = attributes
+  let { slug } = fields
   for (const localeName of localeNames) {
     const RE = new RegExp(`^${localeName}(/|$)`)
     if (RE.test(slug)) {

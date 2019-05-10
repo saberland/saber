@@ -6,7 +6,7 @@ export default {
   }
 }
 
-export const attributes = {
+export const fields = {
   title: 'wow'
 }
 

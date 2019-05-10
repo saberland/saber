@@ -9,7 +9,7 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
         return token.type === 'html_block' && hasExcerptMark(token.content)
       })
 
-      if (autoExcerpt && !env.__excerpted && !env.getAttribute('excerpt')) {
+      if (autoExcerpt && !env.__excerpted && !env.page.fields.excerpt) {
         env.__excerpted = true
         let startIndex = 0
         if (paragraphOnly) {
@@ -22,9 +22,10 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
           }
         }
 
-        env.setAttribute(
-          'excerpt',
-          self.render(tokens.slice(startIndex, idx + 1), options, env)
+        env.page.fields.excerpt = self.render(
+          tokens.slice(startIndex, idx + 1),
+          options,
+          env
         )
       }
     }
@@ -41,12 +42,9 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
     if (
       hasExcerptMark(token.content) &&
       !env.__excerpted &&
-      !env.getAttribute('excerpt')
+      !env.page.fields.excerpt
     ) {
-      env.setAttribute(
-        'excerpt',
-        self.render(tokens.slice(0, idx), options, env)
-      )
+      env.page.fields.excerpt = self.render(tokens.slice(0, idx), options, env)
       env.__excerpted = true
     }
 

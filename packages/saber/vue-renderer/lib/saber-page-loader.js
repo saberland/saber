@@ -7,7 +7,7 @@ module.exports = function(source) {
   if (!pageId) return source
 
   const { api } = this.query
-  const page = Object.assign({}, api.pages.get(pageId))
+  const page = Object.assign({}, api.nodes.by('id', pageId))
 
   this.addDependency(api.resolveCache(`pages/${pageId}.saberpage`))
 
@@ -18,6 +18,6 @@ module.exports = function(source) {
 
   <page-prop>${pageId}</page-prop>
 
-  ${page.internal.hoistedTags ? page.internal.hoistedTags.join('\n') : ''}
+  ${page.hoistedTags ? page.hoistedTags.join('\n') : ''}
   `
 }

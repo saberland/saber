@@ -36,6 +36,7 @@
     "joycon": "^2.2.4",
     "lodash.merge": "^4.6.1",
     "log-update": "^3.2.0",
+    "lokijs": "^1.5.6",
     "mini-css-extract-plugin": "^0.6.0",
     "object-assign": "^4.1.1",
     "polka": "^0.5.1",
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "5.1.0",
+    "@types/lokijs": "^1.5.2",
     "@types/resolve-from": "4.0.0",
     "@types/superstruct": "0.5.0",
     "@types/webpack": "4.4.31",

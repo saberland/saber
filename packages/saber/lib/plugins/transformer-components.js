@@ -4,7 +4,7 @@ exports.name = 'builtin:transformer-components'
 
 const getPageComponent = page => {
   return `<script>
-  import PageComponent from "${slash(page.internal.absolute)}"
+  import PageComponent from "${slash(page.absolute)}"
 
   export default {
     render(h) {
@@ -27,11 +27,11 @@ exports.apply = api => {
     parse(page) {
       const sfc = require('vue-template-compiler').parseComponent(page.content)
       if (sfc.script) {
-        const { attributes } = require('../utils/parseAttributes')(
+        const { fields } = require('../utils/parseFields')(
           sfc.script.content,
-          page.internal.absolute
+          page.absolute
         )
-        Object.assign(page.attributes, attributes)
+        Object.assign(page.fields, fields)
       }
     },
     getPageComponent
@@ -40,11 +40,11 @@ exports.apply = api => {
   api.transformers.add('js', {
     extensions: ['js'],
     transform(page) {
-      const { attributes } = require('../utils/parseAttributes')(
+      const { fields } = require('../utils/parseFields')(
         page.content,
-        page.internal.absolute
+        page.absolute
       )
-      Object.assign(page.attributes, attributes)
+      Object.assign(page.fields, fields)
     },
     getPageComponent
   })

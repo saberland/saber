@@ -7,12 +7,19 @@ const getPermalink = require('./utils/getPermalink')
 const getPageType = require('./utils/getPageType')
 const { prefixAssets } = require('./utils/assetsAttribute')
 
-module.exports = class Pages extends Map {
+module.exports = class Database {
   constructor(api) {
-    super()
     this.api = api
-    this.pageProps = new Map()
     this.redirectRoutes = new Map()
+
+    api.nodes.addTransform('allPages', [
+      {
+        type: 'find',
+        value: {
+          isPage: true
+        }
+      }
+    ])
   }
 
   normalizePage(page, file) {
@@ -20,8 +27,8 @@ module.exports = class Pages extends Map {
 
     page = merge(
       {
-        attributes: {},
-        internal: {},
+        fields: {},
+        isPage: true,
         contentType: 'default'
       },
       page
@@ -42,15 +49,13 @@ module.exports = class Pages extends Map {
       )
       const slug = parsedFileName[16]
       page = merge({}, page, {
-        attributes: {
+        fields: {
           slug
         },
-        internal: {
-          id: hash(file.absolute),
-          absolute: absolutePath,
-          relative: relativePath,
-          isFile: true
-        },
+        id: hash(file.absolute),
+        absolute: absolutePath,
+        relative: relativePath,
+        isFile: true,
         contentType: api.transformers.getContentTypeByExtension(
           path.extname(relativePath).slice(1)
         ),
@@ -65,7 +70,7 @@ module.exports = class Pages extends Map {
       transformer = api.transformers.get('default')
     }
 
-    // Get page attributes from the page content
+    // Get page fields from the page content
     if (transformer.parse) {
       transformer.parse(page)
     }
@@ -75,56 +80,55 @@ module.exports = class Pages extends Map {
       transformer.transform(page)
     }
 
-    // These attributes depend on other attributes
-    // And transformers can update the attributes
+    // These fields depend on other fields
+    // And transformers can update the fields
     // So we set them after the transformers
 
     if (file && parsedFileName) {
       // Read createdAt from page attribute
-      // Or fallback to `page.attributes.date` (Hexo compatibility)
+      // Or fallback to `page.fields.date` (Hexo compatibility)
       // Or fallback to the date in fileName
       // Or fallback to the `file.birthtime`
-      page.attributes.createdAt = new Date(
-        page.attributes.createdAt ||
-          page.attributes.date ||
+      page.fields.createdAt = new Date(
+        page.fields.createdAt ||
+          page.fields.date ||
           parsedFileName[2] ||
           file.birthtime
       )
 
       // Read updatedAt from page attribute
-      // Or fallback to `page.attributes.updated` (Hexo compatibility)
+      // Or fallback to `page.fields.updated` (Hexo compatibility)
       // Or fallback to `file.mtime`
-      page.attributes.updatedAt = new Date(
-        page.attributes.updatedAt || page.attributes.updated || file.mtime
+      page.fields.updatedAt = new Date(
+        page.fields.updatedAt || page.fields.updated || file.mtime
       )
 
-      page.attributes.type =
-        page.attributes.type || getPageType(slash(file.relative))
+      page.fields.type = page.fields.type || getPageType(slash(file.relative))
     }
 
-    page.attributes.permalink =
-      page.attributes.permalink ||
+    page.fields.permalink =
+      page.fields.permalink ||
       getPermalink(
         Object.keys(api.config.locales || {})
           .map(p => p.slice(1))
           .filter(Boolean),
-        page.attributes,
+        page.fields,
         typeof api.config.permalinks === 'function'
           ? api.config.permalinks(page)
           : api.config.permalinks
       )
 
-    if (!page.internal || !page.internal.id) {
-      throw new Error(`Page must have an internal id.`)
+    if (!page.id) {
+      throw new Error(`A node must have an id.`)
     }
 
-    page.attributes.assets = page.attributes.assets
-      ? prefixAssets(page.attributes.assets)
+    page.fields.assets = page.fields.assets
+      ? prefixAssets(page.fields.assets)
       : {}
 
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook
-    page.internal.saved = false
+    page.saved = false
     return page
   }
 
@@ -133,55 +137,15 @@ module.exports = class Pages extends Map {
       page = this.normalizePage(page, file)
     }
 
-    this.pageProps.set(page.internal.id, {})
-    this.set(page.internal.id, page)
-  }
-
-  removeWhere(getCondition) {
-    for (const page of this.values()) {
-      const condition = getCondition(page)
-      if (condition) {
-        this.delete(page.internal.id)
-        this.pageProps.delete(page.internal.id)
-      }
-    }
-  }
-
-  getPageProp(id) {
-    return Object.assign(
-      {},
-      this.pageProps.get(id),
-      this.getPagePublicFields(id)
-    )
-  }
-
-  extendPageProp(id, page) {
-    this.pageProps.set(id, Object.assign({}, this.pageProps.get(id), page))
-    // Mark this page as unsaved when the page prop changes
-    this.get(id).internal.saved = false
-  }
-
-  getPagePublicFields(page) {
-    page = typeof page === 'string' ? this.get(page) : page
-    if (!page) {
-      return page
-    }
-
-    return Object.assign({}, page, { content: undefined, internal: undefined })
-  }
-
-  createRedirect(_configs) {
-    if (_configs) {
-      const configs = [].concat(_configs)
-
-      for (const config of configs) {
-        this.redirectRoutes.set(config.fromPath, config)
-      }
+    if (page.$loki === undefined) {
+      this.api.nodes.insert(page)
+    } else {
+      this.api.nodes.update(page)
     }
   }
 
   getMatchedLocalePath(permalink) {
-    const localePaths = Object.keys(this.api.config.locales || {}).filter(
+    const localePaths = Object.keys(this.config.locales || {}).filter(
       p => p !== '/'
     )
 
@@ -192,5 +156,15 @@ module.exports = class Pages extends Map {
     }
 
     return '/'
+  }
+
+  createRedirect(_configs) {
+    if (_configs) {
+      const configs = [].concat(_configs)
+
+      for (const config of configs) {
+        this.redirectRoutes.set(config.fromPath, config)
+      }
+    }
   }
 }

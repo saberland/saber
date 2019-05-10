@@ -56,14 +56,17 @@ exports.apply = api => {
         .on('all', async action => {
           await updateNodeApi()
           // Remove all child pages
-          api.pages.removeWhere(page => page.internal.parent)
+          api.nodes.removeWhere(node => node.parent && node.isPage)
           await Promise.all(
-            [...api.pages.values()].map(async page => {
-              // Recreate the page
-              api.pages.createPage(page)
-              // A page has been created
-              await api.hooks.onCreatePage.promise(page)
-            })
+            api.nodes
+              .chain('allPages')
+              .data()
+              .map(async page => {
+                // Recreate the page
+                api.pages.createPage(page)
+                // A page has been created
+                await api.hooks.onCreatePage.promise(page)
+              })
           )
           // All pages are created
           await api.hooks.onCreatePages.promise()

@@ -5,7 +5,7 @@ module.exports = function(source, map) {
   const pageId = source.trim()
   const { api } = this.query
   const page = requireAssets(
-    serialize(api.pages.getPageProp(pageId), {
+    serialize(api.nodes.by('id', pageId).fields, {
       isJSON: true,
       space: process.env.NODE_ENV === 'production' ? 0 : 2
     })
@@ -20,7 +20,7 @@ module.exports = function(source, map) {
         this.$page = page
       }].concat(beforeCreate)
 
-      // These options can be defined as Vue component option or page attribute
+      // These options can be defined as Vue component option or page field
       // They are also available in layout component except for the 'layout' option
       var pageComponentOptions = ['layout', 'transition']
 
@@ -31,13 +31,13 @@ module.exports = function(source, map) {
           Component.options[name] = PageComponent[name]
         }
 
-        // Fallback to page attribute
+        // Fallback to page field
         if (Component.options[name] === undefined) {
-          Component.options[name] = page.attributes[name]
+          Component.options[name] = page[name]
         }
       })
 
-      Component.options.name = 'page-wrapper-' + page.attributes.slug.replace(/[^0-9a-z\\-]/i, '-')
+      Component.options.name = 'page-wrapper-' + page.slug.replace(/[^0-9a-z\\-]/i, '-')
       if (module.hot) {
         var Vue = require('vue').default
         Component.options._Ctor = Vue.extend(Component)
