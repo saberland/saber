@@ -6,7 +6,9 @@ module.exports = {
   },
   theme: './src',
   markdown: {
-    highlighter: 'prism',
+    headings: {
+      permalink: true
+    },
     plugins: [{ resolve: 'markdown-it-footnote' }]
   },
   build: { lazy: true },

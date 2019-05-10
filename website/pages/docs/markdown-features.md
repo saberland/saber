@@ -48,7 +48,7 @@ This is a wonderful world..
 Blah blah..
 ```
 
-Then `page.attributes.excerpt` will be `<p>This is a wonderful world..</p>`. If you only need plain text, you can strip HTML tags with a simple regular expression: `html.replace(/<(?:.|\n)*?>/gm, '')`.
+Then `page.excerpt` will be `<p>This is a wonderful world..</p>`. If you only need plain text, you can strip HTML tags with a simple regular expression: `html.replace(/<(?:.|\n)*?>/gm, '')`.
 
 If you're using `<!-- more -->` comment, please note that only block comment is supported for now, i.e. you can't use `<!-- more -->` inside a paragraqh:
 
@@ -64,6 +64,14 @@ Isn't it?
 <!-- more -->
 
 Blah blah..
+```
+
+To disable this, set `excerpt` to `false` in your page:
+
+```markdown
+---
+excerpt: false
+---
 ```
 
 
@@ -114,9 +122,47 @@ Output:
 | Header    | Title       |
 | Paragraph | Text        |
 
-### Table of Contents
+### Headings
 
-[TODO]
+Saber automatically injects all markdown headings as `page.markdownHeadings`, if you have a page:
+
+```markdown
+# A page
+
+## A section
+
+### Another section
+```
+
+The `page.markdownHeadings` will be:
+
+```js
+[
+  {
+    text: 'A page',
+    slug: 'a-page',
+    level: 1
+  },
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+  {
+    text: 'Another section',
+    slug: 'another-section',
+    level: 3
+  }
+]
+```
+
+You can use the frontmatter to disable it in this page:
+
+```yaml
+injectMarkdownHeadings: false
+```
+
+If you want to disable this globally, check out [markdown.headings](saber-config.md#headings) option.
 
 ### Code Highlighting
 
@@ -232,4 +278,4 @@ If you want to override the font size or font family, you need to add CSS for bo
 
 ## Configure markdown-it
 
-Check out [markdown.options](./saber-config.md#markdown.options) for setting markdown-it options and [markdown.plugins](./saber-config.md#markdown.plugins) for adding markdown-it plugins.
+Check out [markdown.options](./saber-config.md#options) for setting markdown-it options and [markdown.plugins](./saber-config.md#plugins-2) for adding markdown-it plugins.

@@ -1,5 +1,6 @@
 import 'nprogress/nprogress.css'
 import 'prismjs/themes/prism.css'
+import 'typeface-roboto/index.css'
 import '../../packages/saber-highlight-css/default.css'
 import './css/global.css'
 import './css/page.css'
@@ -30,13 +31,6 @@ export default ({ router, setHead }) => {
       {
         name: 'description',
         content: vm.$siteConfig.description
-      }
-    ],
-    link: [
-      {
-        href:
-          'https://fonts.googleapis.com/css?family=Roboto',
-        rel: 'stylesheet'
       }
     ]
   }))

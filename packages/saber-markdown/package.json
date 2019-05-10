@@ -1,6 +1,6 @@
 {
   "name": "saber-markdown",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "files": [
     "dist"
   ],
@@ -11,10 +11,10 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.2.2",
+    "@babel/core": "7.4.4",
     "builtin-modules": "3.1.0",
     "markdown-it": "8.4.2",
-    "rollup": "1.10.1",
+    "rollup": "1.11.3",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.3.4",
     "rollup-plugin-json": "4.0.0",

@@ -36,18 +36,7 @@ function transformMarkdown(api, page) {
     Token: require('saber-markdown').Token,
     filePath: page.internal.absolute,
     pagesDir: api.resolveCwd('pages'),
-    setAttribute(name, value) {
-      page.attributes[name] = value
-    },
-    getAttribute(name) {
-      return page.attributes[name]
-    },
-    setInternal(name, value) {
-      page.internal[name] = value
-    },
-    getInternal(name) {
-      return page.internal[name]
-    }
+    page
   }
 
   const chain = new MarkdownChain()
@@ -69,19 +58,22 @@ function transformMarkdown(api, page) {
       resolve: require.resolve('../markdown/hoist-tags-plugin')
     },
     {
-      name: 'anchor',
-      resolve: require.resolve('../markdown/anchor-plugin'),
-      options: markdown.slugify && {
-        slugify: require(resolvePackage(markdown.slugify, { cwd: configDir }))
-      }
-    },
-    {
       name: 'excerpt',
       resolve: require.resolve('../markdown/excerpt-plugin')
     },
     {
       name: 'escape-interpolations',
       resolve: require.resolve('../markdown/escape-interpolations-plugin')
+    },
+    {
+      name: 'headings',
+      resolve: require.resolve('../markdown/headings-plugin'),
+      options: {
+        ...(markdown.headings || {}),
+        slugify:
+          markdown.slugify &&
+          require(resolvePackage(markdown.slugify, { cwd: configDir }))
+      }
     },
     {
       name: 'highlight',

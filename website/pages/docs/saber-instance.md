@@ -39,19 +39,6 @@ Currently we only exclude `internal` and `content` properties.
 
 Remove pages that match the given `condition`.
 
-### `pages.extendPageProp(id, obj)`
-
-- Params:
-  - `id`: `string` Page ID.
-  - `obj`: `any` An object to be merged by the `page` prop.
-- Returns: `void`
-
-Extend the `page` prop on your layout/page component.
-
-By default `page` prop is just the PageInterface.
-
-It's not recommended to mutate `page` directly to add new properties.
-
 ### `pages.createRedirect(config)`
 
 - Params:
@@ -92,20 +79,151 @@ pages.getMatchedLocalePath('/cn/about')
 
 ## hooks
 
-Hooks are also known as the [Saber Nodes APIs](./node-apis.md), you can use hooks in a plugin like this:
+Hooks are called during Saber's build process. When developing a plugin for Saber, you might want to know where each hook is called. To learn this, search for `hooks.<hook name>.call` across the Saber source.
+
+The following lifecycle hooks are exposed by the `api` and can be accessed as such:
 
 ```js
-api.hooks.chainWebpack.tap('disable-sourcemap', config => {
-  config.devtool(false)
+api.hooks.someHook.tap('MyPlugin', (...params) => {
+  // Do something
 })
 ```
 
-This is equivalent to following code in `saber-node.js`:
+Depending on the hook type, `tapAsync` and `tapPromise` may also be available. Hooks are [Tapable](https://github.com/webpack/tapable) instances.
 
-```js
-exports.chainWebpack = config => {
-  config.devtool(false)
+### `filterPlugins`
+
+- Hook Type: `SyncWaterfallHook`
+- Params:
+  - `plugins`: `Plugin[]`
+
+Called to filter plugins.
+
+```ts
+interface Plugin {
+  name: string
+  apply: (api: SaberInstance, options?: any) => void
+  options?: any
 }
 ```
 
-Hooks are [Tapable](https://github.com/webpack/tapable) instances.
+### `afterPlugins`
+
+- Hook Type: `SyncHook`
+
+Called after the `apply` methods of all plugins are executed.
+
+### `initPages`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called before starting creating pages for the first time.
+
+### `onCreatePage`
+
+- Hook Type: `AsyncSeriesHook`
+- Params:
+  - `page`: `PageInterface`
+
+Called after creating a page.
+
+### `chainMarkdown`
+
+- Hook Type: `SyncHook`
+- Params:
+  - `config`: `MarkdownItChain`
+
+Called when creating a page to get the plugins and options for `markdown-it`.
+
+### `onCreatePages`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called after creating all pages.
+
+### `beforeRun`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called before emitting the routes file for the first time.
+
+### `emitRoutes`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called after emitting the routes file.
+
+### `chainWebpack`
+
+- Hook Type: `SyncHook`
+- Params:
+  - `config`: `WebpackChain`
+  - `opts`: `{ type: 'client' | 'server' }`
+
+Called to get the webpack config before creating webpack compiler.
+
+### `onCreateServer`
+
+- Hook Type: `SyncHook`
+- Params:
+  - `server`: `PolkaInstance`
+
+Called after creating the server.
+
+### `getDocumentData`
+
+- Hook Type: `SyncWaterfallHook`
+- Params:
+  - `documentData`: `DocumentData`
+  - `context`: SSR context.
+
+Called to get the document data.
+
+### `getDocument`
+
+- Hook Type: `SyncWaterfallHook`
+- Params:
+  - `document`: `string`
+  - `context`: SSR context.
+
+Called to get the document html.
+
+### `afterBuild`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called after running webpack (in production mode).
+
+### `beforeExportPage`
+
+- Hook Type: `AsyncSeriesHook`
+- Params:
+  - `context`: SSR context.
+  - `exportedPage`: `ExportedPage`
+
+Called before exporting a page to static HTML file.
+
+```ts
+interface ExportedPage {
+  // Output file content
+  content: string
+  // Output file path
+  path: string
+}
+```
+
+### `afterExportPage`
+
+- Hook Type: `AsyncSeriesHook`
+- Params:
+  - `context`: SSR context.
+  - `exportedPage`: `ExportedPage`
+
+Called after exporting a page to static HTML file.
+
+### `afterGenerate`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called after generating static HTML files (in production mode).
+

@@ -5,7 +5,7 @@
         <saber-link :to="post.attributes.permalink">{{ post.attributes.title }}</saber-link>
       </h2>
       <PostMeta :page="post" />
-      <div class="post-excerpt" v-html="post.attributes.excerpt"></div>
+      <div class="post-excerpt" v-html="post.excerpt"></div>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 {
   "name": "saber-utils",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "files": [
     "dist",
     "index.js",
@@ -13,7 +13,7 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@zeit/ncc": "0.18.2",
+    "@zeit/ncc": "0.18.3",
     "fast-glob": "2.2.6",
     "fs-extra": "7.0.1"
   },

@@ -51,6 +51,19 @@ You don't need to worry about other options in `manifest.json`, this plugin will
 
 Now run `saber build` and you will get a PWA-ready web app in `public` folder.
 
+### Configure the Text for the Update Notifier
+
+Use `siteConfig` in your Saber config file to configure the text:
+
+```yaml
+siteConfig:
+  # Default values:
+  pwaFirstTimeInstallMessage: Ready for offline use
+  pwaUpdateReadyMessage: A new version of this app is available
+  pwaUpdateButtonMessage: UPDATE
+  pwaDismissMessage: DISMISS
+```
+
 ## Options
 
 ### name
