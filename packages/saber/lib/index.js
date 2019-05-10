@@ -265,8 +265,12 @@ class Saber {
     // TODO: remove this error before v1.0
     const hasOldPublicFolder = await Promise.all([
       fs.pathExists(this.resolveCache('public')),
-      fs.pathExists(this.resolveCwd('public'))
-    ]).then(([hasOldOutDir, hasPublicDir]) => hasOldOutDir && hasPublicDir)
+      fs.pathExists(this.resolveCwd('public')),
+      fs.pathExists(this.resolveCwd('public/index.html'))
+    ]).then(
+      ([hasOldOutDir, hasPublicDir, hasNewPublicDir]) =>
+        hasOldOutDir && hasPublicDir && !hasNewPublicDir
+    )
     if (hasOldPublicFolder) {
       // Prevent from deleting public folder
       throw new Error(
