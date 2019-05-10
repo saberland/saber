@@ -1,15 +1,10 @@
-const serialize = require('serialize-javascript')
+const devalue = require('devalue')
 const { requireAssets } = require('../../lib/utils/assetsAttribute')
 
 module.exports = function(source, map) {
   const pageId = source.trim()
   const { api } = this.query
-  const page = requireAssets(
-    serialize(api.pages.getPageProp(pageId), {
-      isJSON: true,
-      space: process.env.NODE_ENV === 'production' ? 0 : 2
-    })
-  )
+  const page = requireAssets(devalue(api.pages.getPageProp(pageId)))
   this.callback(
     null,
     `
