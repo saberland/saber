@@ -22,7 +22,7 @@ interface Page {
     type: string
     /**
      * The page layout
-     * Defaults to the value of `attribtues.type`
+     * Defaults to the value of `attributes.type`
      * Fallback to `default` layout when the desired one is not found
      */
     layout?: string

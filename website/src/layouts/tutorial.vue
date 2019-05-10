@@ -31,7 +31,7 @@ export default {
 
   computed: {
     sidebar() {
-      const items = this.page.attributes.markdownHeadings
+      const items = this.page.markdownHeadings
         .filter(h => h.level === 2)
         .map(h => ({
           title: h.text,

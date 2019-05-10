@@ -15,10 +15,10 @@ const input = `
 
 test('inject markdown headings enabled by default', () => {
   const md = new Markdown()
-  const { env } = createEnv()
+  const { env, page } = createEnv()
   md.use(headingsPlugin)
   md.render(input, env)
-  expect(env.getAttribute('markdownHeadings')).toEqual([
+  expect(page.markdownHeadings).toEqual([
     {
       text: 'Heading',
       slug: 'heading',
@@ -49,9 +49,9 @@ test('inject markdown headings enabled by default', () => {
 
 test('inject markdown headings disabled', () => {
   const md = new Markdown()
-  const { env } = createEnv()
-  env.setAttribute('injectMarkdownHeadings', false)
+  const { env, page } = createEnv()
+  page.attributes.injectMarkdownHeadings = false
   md.use(headingsPlugin)
   md.render(input, env)
-  expect(env.getAttribute('markdownHeadings')).toEqual([])
+  expect(page.markdownHeadings).toEqual([])
 })

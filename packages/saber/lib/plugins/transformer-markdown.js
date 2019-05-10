@@ -36,18 +36,7 @@ function transformMarkdown(api, page) {
     Token: require('saber-markdown').Token,
     filePath: page.internal.absolute,
     pagesDir: api.resolveCwd('pages'),
-    setAttribute(name, value) {
-      page.attributes[name] = value
-    },
-    getAttribute(name) {
-      return page.attributes[name]
-    },
-    setInternal(name, value) {
-      page.internal[name] = value
-    },
-    getInternal(name) {
-      return page.internal[name]
-    }
+    page
   }
 
   const chain = new MarkdownChain()

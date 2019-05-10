@@ -70,7 +70,7 @@ module.exports = (md, options = {}) => {
     const headings = []
     const slugs = []
 
-    const injectMarkdownHeadings = env.getAttribute('injectMarkdownHeadings')
+    const { injectMarkdownHeadings } = env.page.attributes
 
     const anchorLevels = Array.isArray(options.levels)
       ? options.levels
@@ -120,6 +120,6 @@ module.exports = (md, options = {}) => {
       }
     }
 
-    state.env.setAttribute('markdownHeadings', headings)
+    state.env.page.markdownHeadings = headings
   })
 }
