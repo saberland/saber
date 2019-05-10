@@ -118,9 +118,7 @@ module.exports = class Pages extends Map {
       throw new Error(`Page must have an internal id.`)
     }
 
-    page.attributes.assets = page.attributes.assets
-      ? prefixAssets(page.attributes.assets)
-      : {}
+    page.attributes.assets = page.attributes.assets ? prefixAssets(page) : {}
 
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook

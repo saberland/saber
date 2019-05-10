@@ -1,5 +1,7 @@
 // @ts-check
 
+const { join } = require('path')
+
 /**
  * Check if it's external resource
  * @param {string} str
@@ -12,15 +14,16 @@ const MARK_GLOBAL_RE = new RegExp(`"${MARK}([^"]+)"`, 'g')
 
 /**
  * Prefix MARK to asset path
- * @param {{[key: string]: string}} assets
+ * @param {Object} page
  */
-const prefixAssets = assets => {
-  /** @type {{[key: string]: string}} */
+const prefixAssets = page => {
+  const { assets } = page.attributes
   const result = {}
   for (const key of Object.keys(assets)) {
     const value = assets[key]
     if (!isExternal(value) && !value.startsWith(MARK)) {
-      result[key] = `${MARK}${value}`
+      const path = '@/' + join('pages/', page.internal.relative, '../', value)
+      result[key] = `${MARK}${path}`
     } else {
       result[key] = value
     }
