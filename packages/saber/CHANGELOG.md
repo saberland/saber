@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.4](https://github.com/egoist/saber/compare/saber@0.5.3...saber@0.5.4) (2019-05-10)
+
+### Bug Fixes
+
+- don't emit error when using new public output folder ([39d5784](https://github.com/egoist/saber/commit/39d5784))
+
+### Features
+
+- handling assets attribute with webpack ([#165](https://github.com/egoist/saber/issues/165)) ([d35850c](https://github.com/egoist/saber/commit/d35850c))
+
 ## [0.5.3](https://github.com/egoist/saber/compare/saber@0.5.2...saber@0.5.3) (2019-05-08)
 
 ### Bug Fixes
