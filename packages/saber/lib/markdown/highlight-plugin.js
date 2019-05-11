@@ -28,7 +28,7 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
 
     const renderAttrs = attrs => self.renderAttrs({ attrs })
 
-    const langClass = langName ? `language-${langName}` : ''
+    const langClass = `language-${langName || 'text'}`
     const preAttrs = renderAttrs([
       ...(token.attrs || []),
       ['class', ['saber-highlight-code', langClass].filter(Boolean).join(' ')]
