@@ -2,6 +2,7 @@ const path = require('path')
 const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
+const { SyncWaterfallHook } = require('tapable')
 
 const ID = 'vue-renderer'
 
@@ -11,6 +12,10 @@ class VueRenderer {
     // In dev mode pages will be built when visited
     this.visitedRoutes = new Set()
     this.builtRoutes = new Set()
+
+    this.hooks = {
+      getVueLoaderOptions: new SyncWaterfallHook(['options'])
+    }
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
@@ -38,11 +43,12 @@ class VueRenderer {
       // Transform js files in ../app folder
       config.module.rule('js').include.add(path.join(__dirname, '../app'))
 
-      const vueLoaderOptions = {
+      const vueLoaderOptions = this.hooks.getVueLoaderOptions.call({
         compilerOptions: {
           modules: []
-        }
-      }
+        },
+        transformAssetUrls: {}
+      })
 
       // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
