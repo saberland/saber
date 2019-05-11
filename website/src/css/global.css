@@ -94,9 +94,17 @@ hr.footnotes-sep {
 
 .saber-highlight {
   font-size: .875rem;
-  background-color: white;
-  border: 1px solid #f0f0f0;
-  border-radius: 0;
+  background-color: #2d3748;
+  border-radius: 6px;
+
+  &:before {
+    color: #cecece;
+  }
+}
+
+.code-line.highlighted {
+  background: #2f4b79;
+  box-shadow: inset 2px 0 0 0 rgb(185, 142, 190);
 }
 
 table, td, th {

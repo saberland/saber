@@ -1,5 +1,5 @@
 import 'nprogress/nprogress.css'
-import 'prismjs/themes/prism.css'
+import 'prismjs/themes/prism-tomorrow.css'
 import 'typeface-open-sans/index.css'
 import '../../packages/saber-highlight-css/default.css'
 import './css/global.css'
