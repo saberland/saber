@@ -7,75 +7,97 @@ The `page` is the center of Saber's data & routing system.
 
 The basic `page` structure is as follows:
 
-```typescript
+```ts
 interface Page {
-  /**
-   * The attributes for this page
-   * If the page is loaded from file system
-   * We get `attributes` from front-matter or `export const attributes = {}`
-   */
-  attributes: {
-    /**
-     * The page type
-     * It's either `page` or `post`
-     */
-    type: string
-    /**
-     * The page layout
-     * Defaults to the value of `attribtues.type`
-     * Fallback to `default` layout when the desired one is not found
-     */
-    layout?: string
-    /**
-     * The creation time of this page
-     * If the page is loaded from file system
-     * It defaults to `attributes.date` || `birthtime` of the file
-     */
-    createdAt?: Date
-    /**
-     * The updated time of this page
-     * If the page is loaded from file system
-     * It defaults to `attributes.updated` || `mtime` of the file
-     */
-    updatedAt?: Date
-    /**
-     * The permalink to the page
-     * We infer it from `internal.relative` if it's loaded from file system
-     */
-    permalink: string
-    /**
-     * The value of `:slug` placeholder in the `permalinks` option
-     * It defaults to the filename (without extension) of `internal.relative`
-     */
-    slug: string
-    // ... And other custom fields like `title`
-  }
-  /**
-   * Internal object is not accessible at runtime
-   */
-  internal: {
-    /**
-     * The unique ID of the page
-     */
-    id: string
-    isFile?: boolean
-    /**
-     * If the page is loaded from file system
-     * It will have `absolute` which is the absolute path
-     * And `relative` which is the relative path to the `pages` directory
-     */
-    absolute?: string
-    relative?: string
-  }
-  /**
-   * The page content
-   */
+  attributes: Attributes
+  internal: Internal
+  /* The raw content of this page */
   content?: string
   /**
-   * The type of the page content
-   * By default we support `vue`, `js` and `markdown`
-   * You can use custom transformer to support other types
+   * The type of the content
+   * For pages loaded from file system
+   * `contentType` is the same as the file extension. 
    */
   contentType?: string
 }
 ```
+
+## Attributes
+
+### type
+
+- Type: `'page' | 'post'`
+- Default: `'page'`
+
+Page type.
+
+### layout
+
+- Type: `string`
+- Default: `undefined`
+
+The page layout.
+
+### createdAt
+
+- Type: `string`
+
+The creation time of this page.
+
+If the page is loaded from file system, it defaults to `attributes.date || file.birthtime`.
+
+### updatedAt
+
+- Type: `string`
+
+The updated time of this page.
+
+If the page is loaded from file system, it defaults to `attributes.updated || file.mtime`.
+
+### permalink
+
+- Type: `string`
+- Required: `true`
+
+The permalink to the page, we infer it from `internal.relative` if it's loaded from file system.
+
+### slug
+
+- Type: `string`
+- Required: `true`
+
+The value of `:slug` placeholder in the `permalinks` option, we infer it from the filename (without extension) of `internal.relative` if it's loaded from file system.
+
+### assets
+
+- Type: `{[k:string]: string}`
+- Default: `{}`
+
+Use this attribute to reference local resources and let webpack process them.
+
+## Internal
+
+### id
+
+- Type: `string`
+- Required: `true`
+
+Unique page ID.
+
+### relative
+
+- Type: `string`
+
+The relative path to this page, set when it's loaded from file system.
+
+### absolute
+
+- Type: `string`
+
+The absolute path to this page, set when it's loaded from file system.
+
+### isFile
+
+- Type: `boolean`
+
+Whether this page is loaded from file system.

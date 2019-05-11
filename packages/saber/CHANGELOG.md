@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/egoist/saber/compare/saber@0.5.4...saber@0.6.0) (2019-05-11)
+
+### Bug Fixes
+
+- frontmatter asset loading, fixes [#169](https://github.com/egoist/saber/issues/169) ([#170](https://github.com/egoist/saber/issues/170)) ([7ba1114](https://github.com/egoist/saber/commit/7ba1114))
+- never add new properties to page.attributes ([d0ddafe](https://github.com/egoist/saber/commit/d0ddafe))
+- remove pages.extendPageProp ([5cafde8](https://github.com/egoist/saber/commit/5cafde8))
+- switch back to devalue for cyclical references support ([02e976b](https://github.com/egoist/saber/commit/02e976b))
+
+### Features
+
+- prettify output page component ([992a6a3](https://github.com/egoist/saber/commit/992a6a3))
+- remove trailing slash in permalink ([405157f](https://github.com/egoist/saber/commit/405157f))
+
+### BREAKING CHANGES
+
+- `api.pages.extendPageProp` is removed, you should directly mutate `page` object instead
+
+## [0.5.4](https://github.com/egoist/saber/compare/saber@0.5.3...saber@0.5.4) (2019-05-10)
+
+### Bug Fixes
+
+- don't emit error when using new public output folder ([39d5784](https://github.com/egoist/saber/commit/39d5784))
+
+### Features
+
+- handling assets attribute with webpack ([#165](https://github.com/egoist/saber/issues/165)) ([d35850c](https://github.com/egoist/saber/commit/d35850c))
+
+## [0.5.3](https://github.com/egoist/saber/compare/saber@0.5.2...saber@0.5.3) (2019-05-08)
+
+### Bug Fixes
+
+- throw error when using old public folder in all commands ([b8d92f7](https://github.com/egoist/saber/commit/b8d92f7))
+
+## [0.5.2](https://github.com/egoist/saber/compare/saber@0.5.1...saber@0.5.2) (2019-05-08)
+
+### Bug Fixes
+
+- add missing file ([3b67bc0](https://github.com/egoist/saber/commit/3b67bc0))
+
+## [0.5.1](https://github.com/egoist/saber/compare/saber@0.5.0...saber@0.5.1) (2019-05-08)
+
+### Bug Fixes
+
+- **vue-renderer:** only add data-saber-ssr attribute in production mode ([09c8d34](https://github.com/egoist/saber/commit/09c8d34))
+
+# [0.5.0](https://github.com/egoist/saber/compare/saber@0.4.10...saber@0.5.0) (2019-05-08)
+
+### Bug Fixes
+
+- inject ssrContext to the params of getDocument, getDocumentData hooks ([0f6669e](https://github.com/egoist/saber/commit/0f6669e))
+- **deps:** update dependency webpack-chain to v6 ([#158](https://github.com/egoist/saber/issues/158)) ([3bfc1c7](https://github.com/egoist/saber/commit/3bfc1c7))
+
+### Features
+
+- add hooks.getDocumentData ([a9bb9b2](https://github.com/egoist/saber/commit/a9bb9b2))
+- add markdown-it plugin to collect headings ([#145](https://github.com/egoist/saber/issues/145)) ([4715558](https://github.com/egoist/saber/commit/4715558))
+- add saber-plugin-pwa ([#149](https://github.com/egoist/saber/issues/149)) ([7e5c298](https://github.com/egoist/saber/commit/7e5c298))
+- i18n support ([#137](https://github.com/egoist/saber/issues/137)) ([1613626](https://github.com/egoist/saber/commit/1613626))
+
 ## [0.4.10](https://github.com/egoist/saber/compare/saber@0.4.9...saber@0.4.10) (2019-05-03)
 
 ### Bug Fixes

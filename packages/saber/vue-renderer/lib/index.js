@@ -1,7 +1,7 @@
 const path = require('path')
 const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
-const { log, colors } = require('saber-log')
+const { log } = require('saber-log')
 const { SyncWaterfallHook } = require('tapable')
 
 const ID = 'vue-renderer'
@@ -249,34 +249,6 @@ class VueRenderer {
   }
 
   async generate() {
-    const hasOldPublicFolder = await Promise.all([
-      fs.pathExists(this.api.resolveCache('public')),
-      fs.pathExists(this.api.resolveCwd('public'))
-    ]).then(([hasOldOutDir, hasPublicDir]) => hasOldOutDir && hasPublicDir)
-    if (hasOldPublicFolder) {
-      // Prevent from deleting public folder
-      throw new Error(
-        [
-          `It seems you are using the ${colors.underline(
-            colors.cyan('public')
-          )} folder to store static files,`,
-          ` this behavior has changed and now we use ${colors.underline(
-            colors.cyan('static')
-          )} folder for static files`,
-          ` while ${colors.underline(
-            colors.cyan('public')
-          )} folder is used to output generated files,`,
-          ` to prevent from unexpectedly deleting your ${colors.underline(
-            colors.cyan('public')
-          )} folder, please rename it to ${colors.underline(
-            colors.cyan('static')
-          )} and delete ${colors.underline(
-            colors.cyan('.saber/public')
-          )} folder as well`
-        ].join('')
-      )
-    }
-
     const outDir = this.api.resolveOutDir()
 
     // Remove output directory
@@ -314,7 +286,14 @@ class VueRenderer {
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
             const markup = await renderer.renderToString(context)
-            const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+            let documentData = require('./get-initial-document-data')(context)
+            documentData = this.api.hooks.getDocumentData.call(
+              documentData,
+              context
+            )
+            let document = require('./get-initial-document')(documentData)
+            document = this.api.hooks.getDocument.call(document, context)
+            const html = `<!DOCTYPE html>${document}`
               .replace(/^\s+/gm, '')
               .replace(/\n+</g, '<')
               .replace('<div id="_saber"></div>', markup)
@@ -372,6 +351,8 @@ class VueRenderer {
     const webpack = require('webpack')
     const server = require('polka')()
 
+    this.api.hooks.onCreateServer.call(server)
+
     const clientConfig = this.api
       .createWebpackChain({ type: 'client' })
       .toConfig()
@@ -398,21 +379,22 @@ class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req, res) => {
-      log.info(`Navigating to ${req.query.route}`)
+      const pathname = removeTrailingSlash(decodeURI(req.query.route))
+      log.info(`Navigating to ${pathname}`)
       res.end()
 
-      if (this.builtRoutes.has(req.query.route)) {
-        hotMiddleware.publish({ action: 'router:push', route: req.query.route })
+      if (this.builtRoutes.has(pathname)) {
+        hotMiddleware.publish({ action: 'router:push', route: pathname })
       } else {
         event.once('done', error => {
-          this.builtRoutes.add(req.query.route)
+          this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
-            route: req.query.route,
+            route: pathname,
             error
           })
         })
-        this.visitedRoutes.add(req.query.route)
+        this.visitedRoutes.add(pathname)
         await this.writeRoutes()
       }
     })
@@ -431,18 +413,6 @@ class VueRenderer {
     server.use(devMiddleware)
     server.use(hotMiddleware)
 
-    const head = new Proxy(
-      {},
-      {
-        get() {
-          return ''
-        }
-      }
-    )
-    const noop = () => ''
-    const renderScripts = () =>
-      `<script src="/_saber/js/client.js" defer></script>`
-
     server.get('*', async (req, res) => {
       if (!req.headers.accept || !req.headers.accept.includes('text/html')) {
         res.statusCode = 404
@@ -451,13 +421,21 @@ class VueRenderer {
 
       const render = () => {
         const context = {
-          url: req.url,
-          head,
-          renderStyles: noop,
-          renderScripts,
-          renderState: noop
+          url: req.url
         }
-        const html = `<!DOCTYPE html>${this.api.getDocument(context)}`
+
+        const initialDocumentData = require('./get-initial-document-data')(
+          context
+        )
+        context.documentData = this.api.hooks.getDocumentData.call(
+          initialDocumentData
+        )
+        const initialDocument = require('./get-initial-document')(
+          context.documentData
+        )
+        const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
+          initialDocument
+        )}`
         res.setHeader('content-type', 'text/html')
         res.end(html)
       }
@@ -466,7 +444,7 @@ class VueRenderer {
         return render()
       }
 
-      const pathname = decodeURI(req.path)
+      const pathname = removeTrailingSlash(decodeURI(req.path))
 
       if (this.builtRoutes.has(pathname)) {
         render()
@@ -485,7 +463,6 @@ class VueRenderer {
 }
 
 VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
-VueRenderer.getDocument = require('./get-document')
 
 module.exports = VueRenderer
 
@@ -496,4 +473,12 @@ function runCompiler(compiler) {
       resolve(stats)
     })
   })
+}
+
+function removeTrailingSlash(input) {
+  if (input === '/') {
+    return input
+  }
+
+  return input.replace(/\/$/, '')
 }

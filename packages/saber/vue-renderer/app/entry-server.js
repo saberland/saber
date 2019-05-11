@@ -12,22 +12,7 @@ export default async context => {
     context.res.statusCode = 404
   }
 
-  let head
-  context.head = new Proxy(
-    {},
-    {
-      get(obj, prop) {
-        if (!head) {
-          head = app.$meta().inject()
-        }
-        if (prop === 'htmlAttrs') {
-          return ` data-saber-ssr ${head.htmlAttrs.text()}`
-        }
-        const text = prop in head ? head[prop].text() : ''
-        return text && prop.endsWith('Attrs') ? ` ${text}` : text
-      }
-    }
-  )
+  context.metaInfo = app.$meta()
 
   return app
 }

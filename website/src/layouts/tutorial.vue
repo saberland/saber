@@ -1,12 +1,12 @@
 <template>
   <div class="layout">
-    <Header :showToggle="true" />
-    <Sidebar :items="sidebar" />
+    <Header :showToggle="true"/>
+    <Sidebar :items="sidebar"/>
     <main class="main">
       <div class="content">
         <div class="page-title">{{ page.attributes.title }}</div>
         <div class="page-content">
-          <slot name="default" />
+          <slot name="default"/>
         </div>
       </div>
     </main>
@@ -29,25 +29,21 @@ export default {
     }
   },
 
-  data() {
-    return {
-      sidebar: []
+  computed: {
+    sidebar() {
+      const items = this.page.markdownHeadings
+        .filter(h => h.level === 2)
+        .map(h => ({
+          title: h.text,
+          link: `#${h.slug}`
+        }))
+      return [
+        {
+          title: 'Tutorial',
+          children: items
+        }
+      ]
     }
-  },
-
-  mounted() {
-    const items = Array.prototype.map.call(this.$el.querySelectorAll('.page-content > h2'), el => {
-      return {
-        title: el.textContent,
-        link: `#${el.getAttribute('id')}`
-      }
-    })
-    this.sidebar = [
-      {
-        title: 'Tutorial',
-        children: items
-      }
-    ]
   },
 
   components: {

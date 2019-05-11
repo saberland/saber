@@ -51,6 +51,20 @@
     & a {
       color: inherit;
     }
+
+    & a.header-anchor {
+      color: var(--theme-color);
+      font-size: .85em;
+      float: left;
+      margin-left: -.87em;
+      padding-right: .23em;
+      margin-top: .125em;
+      opacity: 0;
+    }
+
+    &:hover a.header-anchor {
+      opacity: 1;
+    }
   }
 
   & h2 {
@@ -75,6 +89,7 @@
   }
 
   & code {
+    font-size: .875rem;
     background: #f5f7fa;
     border-radius: 3px;
     padding: 3px 5px;

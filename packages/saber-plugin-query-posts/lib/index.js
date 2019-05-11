@@ -216,32 +216,22 @@ exports.apply = (api, options = {}) => {
                 permalink,
                 createdAt: page.attributes.createdAt || date,
                 updatedAt: page.attributes.updatedAt || date
-              })
+              }),
+              posts,
+              pagination: {
+                hasPrev: index !== totalPages - 1,
+                hasNext: index !== 0,
+                total: totalPages,
+                current: index + 1,
+                prevLink: getPaginationLink(
+                  index + 2,
+                  page.attributes.permalink
+                ),
+                nextLink: getPaginationLink(index, page.attributes.permalink)
+              }
             })
+            Object.assign(newPage, pageProp)
             api.pages.createPage(newPage)
-            api.pages.extendPageProp(
-              newPage.internal.id,
-              Object.assign(
-                {
-                  posts,
-                  pagination: {
-                    hasPrev: index !== totalPages - 1,
-                    hasNext: index !== 0,
-                    total: totalPages,
-                    current: index + 1,
-                    prevLink: getPaginationLink(
-                      index + 2,
-                      page.attributes.permalink
-                    ),
-                    nextLink: getPaginationLink(
-                      index,
-                      page.attributes.permalink
-                    )
-                  }
-                },
-                pageProp
-              )
-            )
           }
         }
       }

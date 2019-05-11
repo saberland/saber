@@ -11,13 +11,16 @@ module.exports = (code, lang) => {
     lang = 'html'
   }
 
-  loadLanguages(lang)
+  if (!Prism.languages[lang]) {
+    try {
+      loadLanguages(lang)
+    } catch (error) {
+      log.warn(error.message)
+      return Prism.highlight(code, {})
+    }
+  }
 
   const grammer = Prism.languages[lang]
 
-  if (!grammer) {
-    log.warn(`Prism doesn't support the language "${lang}"`)
-  }
-
-  return Prism.highlight(code, grammer || {}, lang)
+  return Prism.highlight(code, grammer, lang)
 }

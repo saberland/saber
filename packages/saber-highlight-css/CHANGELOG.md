@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.3](https://github.com/egoist/saber/compare/saber-highlight-css@0.0.2...saber-highlight-css@0.0.3) (2019-05-08)
+
+### Bug Fixes
+
+- **saber-highlight-css:** line highlighting ([9a05f5e](https://github.com/egoist/saber/commit/9a05f5e))
+
 ## [0.0.2](https://github.com/egoist/saber/compare/saber-highlight-css@0.0.1...saber-highlight-css@0.0.2) (2019-05-03)
 
 ### Bug Fixes

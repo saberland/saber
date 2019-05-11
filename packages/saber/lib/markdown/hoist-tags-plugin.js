@@ -3,10 +3,10 @@ module.exports = md => {
 
   md.renderer.rules.html_block = (tokens, idx, options, env) => {
     const { content } = tokens[idx]
-    const hoistedTags = env.getInternal('hoistedTags') || []
+    const hoistedTags = env.page.internal.hoistedTags || []
     if (RE.test(content.trim())) {
       hoistedTags.push(content)
-      env.setInternal('hoistedTags', hoistedTags)
+      env.page.internal.hoistedTags = hoistedTags
       return ''
     }
 

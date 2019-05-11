@@ -34,6 +34,7 @@ module.exports = (config, { dev }) => {
     {
       slugify: 'string?',
       options: 'object?',
+      headings: 'object?',
       highlighter: 'string?',
       // Same as the type of Saber plugins
       plugins

@@ -36,7 +36,8 @@ class Saber {
       afterBuild: new AsyncSeriesHook(),
       // Called after generate static HTML files
       afterGenerate: new AsyncSeriesHook(),
-      getDocument: new SyncWaterfallHook(['html', 'document']),
+      getDocumentData: new SyncWaterfallHook(['documentData', 'ssrContext']),
+      getDocument: new SyncWaterfallHook(['document', 'ssrContext']),
       defineVariables: new SyncWaterfallHook(['variables']),
       // Called before creating pages for the first time
       initPages: new AsyncSeriesHook(),
@@ -51,7 +52,9 @@ class Saber {
       // Called before exporting a page as static HTML file
       beforeExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
       // Called after exporting a page
-      afterExportPage: new AsyncSeriesHook(['context', 'exportedPage'])
+      afterExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
+      // Called after creating the server
+      onCreateServer: new SyncHook(['server'])
     }
 
     this.transformers = new Transformers()
@@ -257,6 +260,41 @@ class Saber {
   }
 
   async run() {
+    // Throw an error if both `public` and `.saber/public` exist
+    // Because they are replaced by `static` and `public`
+    // TODO: remove this error before v1.0
+    const hasOldPublicFolder = await Promise.all([
+      fs.pathExists(this.resolveCache('public')),
+      fs.pathExists(this.resolveCwd('public')),
+      fs.pathExists(this.resolveCwd('public/index.html'))
+    ]).then(
+      ([hasOldOutDir, hasPublicDir, hasNewPublicDir]) =>
+        hasOldOutDir && hasPublicDir && !hasNewPublicDir
+    )
+    if (hasOldPublicFolder) {
+      // Prevent from deleting public folder
+      throw new Error(
+        [
+          `It seems you are using the ${colors.underline(
+            colors.cyan('public')
+          )} folder to store static files,`,
+          ` this behavior has changed and now we use ${colors.underline(
+            colors.cyan('static')
+          )} folder for static files`,
+          ` while ${colors.underline(
+            colors.cyan('public')
+          )} folder is used to output generated files,`,
+          ` to prevent from unexpectedly deleting your ${colors.underline(
+            colors.cyan('public')
+          )} folder, please rename it to ${colors.underline(
+            colors.cyan('static')
+          )} and delete ${colors.underline(
+            colors.cyan('.saber/public')
+          )} folder as well`
+        ].join('')
+      )
+    }
+
     await this.hooks.beforeRun.promise()
 
     await this.hooks.emitRoutes.promise()
