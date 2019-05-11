@@ -87,6 +87,12 @@ The theme color for your PWA. You can also directly configure the `theme_color` 
 
 This option is used if you need to add a version to your `manifest.json`, against browser’s cache. This will append `?v=assetsVersion` to the URL of the manifest.
 
+### appleTouchIcon
+
+- Type: `string`
+
+The URL to the apple touch icon, for example `img/icons/apple-touch-icon-152x152.png`, used by iOS devices. When this is not set we automatically use `icons` from your `manifest.json`.
+
 ### notifyUpdates
 
 - Type: `boolean`

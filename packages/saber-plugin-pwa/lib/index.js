@@ -30,7 +30,7 @@ exports.apply = (
       ])
     })
 
-    const { name, themeColor, assetsVersion } = getAppConfig(
+    const { name, themeColor, assetsVersion, appleTouchIcon } = getAppConfig(
       Object.assign({ name: api.config.siteConfig.title }, appConfig)
     )
 
@@ -61,6 +61,9 @@ exports.apply = (
     const assetsVersionStr = assetsVersion ? `?v=${assetsVersion}` : ''
 
     api.hooks.getDocumentData.tap(ID, data => {
+      const appleTouchIcons = appleTouchIcon
+        ? [{ src: appleTouchIcon }]
+        : manifest.icons
       data.meta += [
         createElement('link', {
           rel: 'manifest',
@@ -72,11 +75,11 @@ exports.apply = (
         })
       ]
         .concat(
-          manifest.icons &&
-            manifest.icons.map(icon =>
+          appleTouchIcons &&
+            appleTouchIcons.map(icon =>
               createElement('link', {
                 rel: 'apple-touch-icon',
-                sizes: icon.sizes,
+                sizes: icon.sizes || false,
                 href: icon.src
               })
             )
