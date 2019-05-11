@@ -3,9 +3,7 @@
   "version": "0.0.2",
   "main": "lib/index.js",
   "files": [
-    "lib/index.js",
-    "lib/SaberImage.js",
-    "lib/saber-browser.js"
+    "lib"
   ],
   "license": "MIT",
   "dependencies": {
