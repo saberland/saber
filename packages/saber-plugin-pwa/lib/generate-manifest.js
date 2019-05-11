@@ -1,4 +1,4 @@
-module.exports = async (api, { name, themeColor, manifest, manifestPath }) => {
+module.exports = async (api, { name, themeColor, manifest }) => {
   const { log } = api
   const { fs } = api.utils
 
@@ -19,5 +19,5 @@ module.exports = async (api, { name, themeColor, manifest, manifestPath }) => {
   )
 
   log.info(`Generating manifest.json`)
-  await fs.outputFile(manifestPath, newManifest, 'utf8')
+  await fs.outputFile(api.resolveOutDir('manifest.json'), newManifest, 'utf8')
 }

@@ -34,7 +34,7 @@ exports.apply = (
       Object.assign({ name: api.config.siteConfig.title }, appConfig)
     )
 
-    const manifestPath = api.resolveOutDir('manifest.json')
+    const manifestPath = api.resolveCwd('static/manifest.json')
     const hasManifest = fs.existsSync(manifestPath)
     const manifest = hasManifest ? require(manifestPath) : {}
 
@@ -53,8 +53,7 @@ exports.apply = (
       await generateManifest(api, {
         name,
         themeColor,
-        manifest,
-        manifestPath
+        manifest
       })
     })
 
