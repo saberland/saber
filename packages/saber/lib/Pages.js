@@ -120,7 +120,7 @@ module.exports = class Pages extends Map {
 
     page.attributes.assets = page.attributes.assets
       ? prefixAssets(
-          page,
+          page.attributes.assets,
           page.internal.absolute
             ? path.dirname(page.internal.absolute)
             : api.opts.cwd
