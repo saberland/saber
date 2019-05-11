@@ -36,8 +36,8 @@ class Saber {
       afterBuild: new AsyncSeriesHook(),
       // Called after generate static HTML files
       afterGenerate: new AsyncSeriesHook(),
-      getDocumentData: new SyncWaterfallHook(['documentData', 'ssrContext']),
-      getDocument: new SyncWaterfallHook(['document', 'ssrContext']),
+      getDocumentData: new SyncWaterfallHook(['documentData']),
+      getDocument: new SyncWaterfallHook(['document']),
       defineVariables: new SyncWaterfallHook(['variables']),
       // Called before creating pages for the first time
       initPages: new AsyncSeriesHook(),
@@ -254,14 +254,12 @@ class Saber {
     return config
   }
 
-  getDocument(documentData, context) {
-    const document = this.RendererClass.getDocument(documentData)
-    return this.hooks.getDocument.call(document, context)
+  getDocument(documentData) {
+    return this.RendererClass.getDocument(documentData)
   }
 
   getDocumentData(context) {
-    const documentData = this.RendererClass.getDocumentData(context)
-    return this.hooks.getDocumentData.call(documentData, context)
+    return this.RendererClass.getDocumentData(context)
   }
 
   async run() {

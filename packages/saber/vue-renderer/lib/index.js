@@ -281,12 +281,9 @@ class VueRenderer {
           try {
             const markup = await renderer.renderToString(context)
             let documentData = require('./get-initial-document-data')(context)
-            documentData = this.api.hooks.getDocumentData.call(
-              documentData,
-              context
-            )
+            documentData = this.api.hooks.getDocumentData.call(documentData)
             let document = require('./get-initial-document')(documentData)
-            document = this.api.hooks.getDocument.call(document, context)
+            document = this.api.hooks.getDocument.call(document)
             const html = `<!DOCTYPE html>${document}`
               .replace(/^\s+/gm, '')
               .replace(/\n+</g, '<')
