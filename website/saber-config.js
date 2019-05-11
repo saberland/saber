@@ -18,7 +18,7 @@ module.exports = {
       {
         title: 'Basics',
         children: [
-          { title: 'Introduction', link: '/docs/' },
+          { title: 'Introduction', link: '/docs' },
           { title: 'Installation', link: '/docs/installation.html' },
           { title: 'Project Structure', link: '/docs/project-structure.html' },
           { title: 'Pages', link: '/docs/pages.html' },
