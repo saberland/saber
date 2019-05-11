@@ -18,6 +18,13 @@ exports.apply = (api, options = {}) => {
 
   api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
+  api.renderer.hooks.getVueLoaderOptions.tap(ID, options => {
+    options.transformAssetUrls = Object.assign({}, options.transformAssetUrls, {
+      'saber-image': ['src']
+    })
+    return options
+  })
+
   if (options.markdownImages) {
     api.hooks.chainMarkdown.tap(ID, config => {
       config.plugin(ID).use(md => {
@@ -66,18 +73,6 @@ exports.apply = (api, options = {}) => {
     ])
 
     config.module.rule('image').exclude.add(/\.(jpe?g|png)$/i)
-
-    config.module
-      .rule('js')
-      .oneOf('saber-page')
-      .use('vue-loader')
-      .tap(options =>
-        Object.assign(options, {
-          transformAssetUrls: Object.assign(options.transformAssetUrls || {}, {
-            'saber-image': ['src']
-          })
-        })
-      )
 
     config.module
       .rule(ID)
