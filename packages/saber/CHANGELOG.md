@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/egoist/saber/compare/saber@0.6.1...saber@0.6.2) (2019-05-11)
+
+### Bug Fixes
+
+- **markdown:** code blocks should alway have a class name ([53f9433](https://github.com/egoist/saber/commit/53f9433))
+- **webpack:** do not include path in output filename in production ([faff48a](https://github.com/egoist/saber/commit/faff48a))
+
 ## [0.6.1](https://github.com/egoist/saber/compare/saber@0.6.0...saber@0.6.1) (2019-05-11)
 
 ### Features
