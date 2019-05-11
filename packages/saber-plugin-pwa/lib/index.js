@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const generateManifest = require('./generate-manifest')
 const getAppConfig = require('./get-app-config')
 const createElement = require('./create-element')
@@ -33,6 +34,10 @@ exports.apply = (
       Object.assign({ name: api.config.siteConfig.title }, appConfig)
     )
 
+    const manifestPath = api.resolveOutDir('manifest.json')
+    const hasManifest = fs.existsSync(manifestPath)
+    const manifest = hasManifest ? require(manifestPath) : {}
+
     api.hooks.afterGenerate.tapPromise(ID, async () => {
       const { generateSW } = require('workbox-build')
       await generateSW({
@@ -47,7 +52,9 @@ exports.apply = (
 
       await generateManifest(api, {
         name,
-        themeColor
+        themeColor,
+        manifest,
+        manifestPath
       })
     })
 
@@ -65,6 +72,16 @@ exports.apply = (
           content: themeColor
         })
       ]
+        .concat(
+          manifest.icons &&
+            manifest.icons.map(icon =>
+              createElement('link', {
+                rel: 'apple-touch-icon',
+                sizes: icon.sizes,
+                href: icon.src
+              })
+            )
+        )
         .filter(Boolean)
         .join('')
       return data
