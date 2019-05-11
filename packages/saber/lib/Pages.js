@@ -118,7 +118,14 @@ module.exports = class Pages extends Map {
       throw new Error(`Page must have an internal id.`)
     }
 
-    page.attributes.assets = page.attributes.assets ? prefixAssets(page) : {}
+    page.attributes.assets = page.attributes.assets
+      ? prefixAssets(
+          page,
+          page.internal.absolute
+            ? path.dirname(page.internal.absolute)
+            : api.opts.cwd
+        )
+      : {}
 
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook

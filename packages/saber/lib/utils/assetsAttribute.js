@@ -1,6 +1,7 @@
 // @ts-check
 
 const { join } = require('path')
+const { slash } = require('saber-utils')
 
 /**
  * Check if it's external resource
@@ -14,15 +15,16 @@ const MARK_GLOBAL_RE = new RegExp(`"${MARK}([^"]+)"`, 'g')
 
 /**
  * Prefix MARK to asset path
- * @param {Object} page
+ * @param {{[key: string]: string}} assets
+ * @param {string} cwd
  */
-const prefixAssets = page => {
-  const { assets } = page.attributes
+const prefixAssets = (assets, cwd) => {
+  /** @type {{[key: string]: string}} */
   const result = {}
   for (const key of Object.keys(assets)) {
     const value = assets[key]
     if (!isExternal(value) && !value.startsWith(MARK)) {
-      const path = '@/' + join('pages/', page.internal.relative, '../', value)
+      const path = slash(join(cwd, value))
       result[key] = `${MARK}${path}`
     } else {
       result[key] = value
