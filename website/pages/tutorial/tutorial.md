@@ -385,7 +385,7 @@ exports.onCreatePages = function() {
     .sort((a, b) => {
       return a.attributes.createdAt > b.attributes.createdAt ? 1 : -1
     })
-  const selectFields = page => ({
+  const selectFields = page => (page && {
     title: page.attributes.title,
     permalink: page.attributes.permalink
   })
