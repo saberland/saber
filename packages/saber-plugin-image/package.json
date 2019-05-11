@@ -4,8 +4,8 @@
   "main": "lib/index.js",
   "files": [
     "lib/index.js",
-    "lib/SaberImage.js",
-    "lib/saber-browser.js"
+    "lib/saber-browser.js",
+    "lib/styles.module.css"
   ],
   "license": "MIT",
   "dependencies": {
