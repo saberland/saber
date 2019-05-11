@@ -5,9 +5,10 @@
         <div class="item-title">{{ item.title }}</div>
         <div class="item-children">
           <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
-            <saber-link :to="childItem.link" :class="{active: isActive(childItem.link)}">
-              {{ childItem.title }}
-            </saber-link>
+            <saber-link
+              :to="childItem.link"
+              :class="{active: isActive(childItem.link)}"
+            >{{ childItem.title }}</saber-link>
           </div>
         </div>
       </div>
@@ -16,7 +17,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     items: {
@@ -41,7 +41,9 @@ export default {
   methods: {
     isActive(link) {
       if (!link) return false
-      return link[0] === '#' ? link === this.$route.hash : link === this.$route.path
+      return link[0] === '#'
+        ? link === this.$route.hash
+        : link === this.$route.path
     }
   }
 }
@@ -69,6 +71,19 @@ export default {
       transform: translateX(0);
     }
   }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(216, 216, 216);
+  }
+
+  &:hover::-webkit-scrollbar  {
+    display: block;
+  }
 }
 
 .item {
@@ -85,7 +100,7 @@ export default {
 }
 
 .item-child {
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin: 10px 0;
 }
 
@@ -105,6 +120,6 @@ export default {
 
 .item-child a.active {
   color: var(--theme-color);
-  box-shadow: inset 2px 0 0 0 var(--theme-color);
+  box-shadow: inset 3px 0 0 0 var(--theme-color);
 }
 </style>

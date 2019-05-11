@@ -2,10 +2,11 @@
   --border-color: #edf2f6;
   --theme-color: #3880ff;
   --header-height: 60px;
+  --header-shadow: 0 1px 7px rgba(0,0,0,.05);
   --spinner-color: #3880ff;
   --sidebar-width: 270px;
   --header-bg: white;
-  --sidebar-bg: white;
+  --sidebar-bg: #f9f9f9;
   --gray: #666;
   --dark: #000;
   --text-color: #333;
