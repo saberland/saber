@@ -24,7 +24,7 @@ const prefixAssets = (assets, cwd) => {
   for (const key of Object.keys(assets)) {
     const value = assets[key]
     if (!isExternal(value) && !value.startsWith(MARK)) {
-      const path = slash(join(cwd, value))
+      const path = /^(@|module:)/.test(value) ? value : slash(join(cwd, value))
       result[key] = `${MARK}${path}`
     } else {
       result[key] = value
