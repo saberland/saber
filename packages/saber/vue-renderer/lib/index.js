@@ -373,21 +373,22 @@ class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req, res) => {
-      log.info(`Navigating to ${req.query.route}`)
+      const pathname = removeTrailingSlash(decodeURI(req.query.route))
+      log.info(`Navigating to ${pathname}`)
       res.end()
 
-      if (this.builtRoutes.has(req.query.route)) {
-        hotMiddleware.publish({ action: 'router:push', route: req.query.route })
+      if (this.builtRoutes.has(pathname)) {
+        hotMiddleware.publish({ action: 'router:push', route: pathname })
       } else {
         event.once('done', error => {
-          this.builtRoutes.add(req.query.route)
+          this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
-            route: req.query.route,
+            route: pathname,
             error
           })
         })
-        this.visitedRoutes.add(req.query.route)
+        this.visitedRoutes.add(pathname)
         await this.writeRoutes()
       }
     })
@@ -437,7 +438,7 @@ class VueRenderer {
         return render()
       }
 
-      const pathname = decodeURI(req.path)
+      const pathname = removeTrailingSlash(decodeURI(req.path))
 
       if (this.builtRoutes.has(pathname)) {
         render()
@@ -466,4 +467,12 @@ function runCompiler(compiler) {
       resolve(stats)
     })
   })
+}
+
+function removeTrailingSlash(input) {
+  if (input === '/') {
+    return input
+  }
+
+  return input.replace(/\/$/, '')
 }

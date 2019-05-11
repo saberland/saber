@@ -23,7 +23,7 @@
       </div>
       <ul class="menu">
         <li class="menu-item">
-          <saber-link to="/docs/">Guide</saber-link>
+          <saber-link to="/docs">Guide</saber-link>
         </li>
         <li class="menu-item">
           <saber-link to="/tutorial/tutorial.html">Tutorial</saber-link>
