@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/egoist/saber/compare/saber@0.5.4...saber@0.6.0) (2019-05-11)
+
+### Bug Fixes
+
+- frontmatter asset loading, fixes [#169](https://github.com/egoist/saber/issues/169) ([#170](https://github.com/egoist/saber/issues/170)) ([7ba1114](https://github.com/egoist/saber/commit/7ba1114))
+- never add new properties to page.attributes ([d0ddafe](https://github.com/egoist/saber/commit/d0ddafe))
+- remove pages.extendPageProp ([5cafde8](https://github.com/egoist/saber/commit/5cafde8))
+- switch back to devalue for cyclical references support ([02e976b](https://github.com/egoist/saber/commit/02e976b))
+
+### Features
+
+- prettify output page component ([992a6a3](https://github.com/egoist/saber/commit/992a6a3))
+- remove trailing slash in permalink ([405157f](https://github.com/egoist/saber/commit/405157f))
+
+### BREAKING CHANGES
+
+- `api.pages.extendPageProp` is removed, you should directly mutate `page` object instead
+
 ## [0.5.4](https://github.com/egoist/saber/compare/saber@0.5.3...saber@0.5.4) (2019-05-10)
 
 ### Bug Fixes

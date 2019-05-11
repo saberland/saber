@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.2.0...saber-plugin-query-posts@0.3.0) (2019-05-11)
+
+### Bug Fixes
+
+- remove pages.extendPageProp ([5cafde8](https://github.com/egoist/saber/commit/5cafde8))
+
+### BREAKING CHANGES
+
+- `api.pages.extendPageProp` is removed, you should directly mutate `page` object instead
+
 # [0.2.0](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.1.5...saber-plugin-query-posts@0.2.0) (2019-05-08)
 
 ### Features
