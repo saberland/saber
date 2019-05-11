@@ -20,7 +20,7 @@
 body {
   margin: 0;
   color: var(--text-color);
-  font: 16px/1.6 "Roboto", "Helvetica Neue", sans-serif;
+  font: 16px/1.6 "Open Sans","Segoe UI",sans-serif;
   text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
 }

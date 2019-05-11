@@ -550,10 +550,10 @@ tiny-emitter@^2.0.0:
   resolved "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
   integrity sha512-2NM0auVBGft5tee/OxP4PI3d8WItkDM+fPnaRAVo6xTDI2knbz9eC5ArWGqtGlYqiH3RU5yMpdyTTO7MguC4ow==
 
-typeface-roboto@0.0.54:
+typeface-open-sans@^0.0.54:
   version "0.0.54"
-  resolved "https://registry.npmjs.org/typeface-roboto/-/typeface-roboto-0.0.54.tgz#8f02c9a18d1cfa7f49381a6ff0d21ff061f38ad2"
-  integrity sha512-sOFA1FXgP0gOgBYlS6irwq6hHYA370KE3dPlgYEJHL3PJd5X8gQE0RmL79ONif6fL5JZuGDj+rtOrFeOqz5IZQ==
+  resolved "https://registry.npmjs.org/typeface-open-sans/-/typeface-open-sans-0.0.54.tgz#20f5b5ea5c7f95d89dc1f8b2d2b1457680129cee"
+  integrity sha512-w6wOd6EicZdZKf0jSU/K3EzEi3zFgvWQSN7NOpRIQI5KeMWmC5Pg/lqtBVJHB0pRChYRmLdhf4h8ROur0A3JZQ==
 
 uniq@^1.0.1:
   version "1.0.1"
