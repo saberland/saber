@@ -98,7 +98,7 @@ module.exports = (md, options = {}) => {
         if (slug && slugs.includes(slug)) {
           slug = uniqueSlug(slug, slugs)
         } else if (!slug) {
-          slug = uniqueSlug(slugify(text), slugs)
+          slug = uniqueSlug(slugify(md.utils.escapeHtml(text)), slugs)
         }
 
         headingOpen.attrSet('id', slug)
