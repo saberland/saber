@@ -20,6 +20,8 @@
         <h1 class="logo">
           <saber-link to="/">Saber</saber-link>
         </h1>
+      </div>
+      <div class="header-right">
         <ul class="menu">
           <li class="menu-item">
             <saber-link to="/docs">Guide</saber-link>
@@ -30,10 +32,6 @@
           <li class="menu-item">
             <saber-link to="/blog/">Blog</saber-link>
           </li>
-        </ul>
-      </div>
-      <div class="header-right">
-        <ul class="menu">
           <li class="menu-item">
             <a href="https://chat.saber.land" target="_blank" class="discord-link">
               <svg

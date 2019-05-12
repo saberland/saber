@@ -555,6 +555,11 @@ typeface-open-sans@0.0.54:
   resolved "https://registry.npmjs.org/typeface-open-sans/-/typeface-open-sans-0.0.54.tgz#20f5b5ea5c7f95d89dc1f8b2d2b1457680129cee"
   integrity sha512-w6wOd6EicZdZKf0jSU/K3EzEi3zFgvWQSN7NOpRIQI5KeMWmC5Pg/lqtBVJHB0pRChYRmLdhf4h8ROur0A3JZQ==
 
+typeface-source-sans-pro@^0.0.54:
+  version "0.0.54"
+  resolved "https://registry.npmjs.org/typeface-source-sans-pro/-/typeface-source-sans-pro-0.0.54.tgz#a570edf565d338b622487ec1ebe2389eb1eed62f"
+  integrity sha512-4nsvldyZsOBuvR4oEuUMTquJFVssP4iIVnMEIU4paCWo2940b6r/t95sk7KwDpCablS8DprM/YlhpgqnS7gpKg==
+
 uniq@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"

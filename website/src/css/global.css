@@ -6,10 +6,10 @@
   --spinner-color: #3880ff;
   --sidebar-width: 270px;
   --header-bg: white;
-  --sidebar-bg: #f9f9f9;
+  --sidebar-bg: transparent;
   --gray: #666;
-  --dark: #000;
-  --text-color: #333;
+  --dark: #343c5a;
+  --text-color: #747790;
   --text-light-color: #73849a;
 }
 
@@ -20,9 +20,7 @@
 body {
   margin: 0;
   color: var(--text-color);
-  font: 16px/1.6 "Open Sans","Segoe UI",sans-serif;
-  text-size-adjust: none;
-  -webkit-font-smoothing: antialiased;
+  font: 1.125rem/1.7 'Source Sans Pro','Helvetica',sans-serif;
 }
 
 .container {
@@ -93,18 +91,21 @@ hr.footnotes-sep {
 }
 
 .saber-highlight {
-  font-size: .875rem;
-  background-color: #2d3748;
-  border-radius: 6px;
+  border-radius: 4px;
+  background: #011627;
+}
 
-  &:before {
-    color: #cecece;
-  }
+.saber-highlight:before {
+  background: rgba(201, 167, 255, 0.2);
+  color: var(--text-color);
+  border-radius: 0 0 4px 4px;
+  top: 0;
+  padding: 0 10px;
 }
 
 .code-line.highlighted {
-  background: #2f4b79;
-  box-shadow: inset 2px 0 0 0 rgb(185, 142, 190);
+  background: rgba(201, 167, 255, 0.2);
+  box-shadow: inset 3px 0 0 0 rgb(201, 167, 255);
 }
 
 table, td, th {
@@ -126,4 +127,13 @@ table {
   margin: 2em 0;
   overflow-x: auto;
   width: 100%;
+}
+
+code {
+  font-size: .875rem;
+  background: #f5f7fa;
+  border-radius: 3px;
+  padding: 3px 5px;
+  text-shadow: none;
+  font-family: "SFMono-Regular", "Roboto Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
