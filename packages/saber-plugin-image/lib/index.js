@@ -80,8 +80,8 @@ exports.apply = (api, options = {}) => {
       .use('responsive-loader')
       .loader(require.resolve('responsive-loader'))
       .options({
-        ...options,
-        adapter: require('responsive-loader/sharp')
+        adapter: require('responsive-loader/sharp'),
+        ...options
       })
   })
 }
