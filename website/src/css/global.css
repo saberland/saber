@@ -5,8 +5,9 @@
   --header-shadow: 0 1px 1px rgba(0,0,0,.05);
   --spinner-color: #3880ff;
   --sidebar-width: 270px;
+  --body-bg: white;
   --header-bg: white;
-  --sidebar-bg: transparent;
+  --sidebar-bg: white;
   --gray: #666;
   --dark: #343c5a;
   --text-color: #747790;
@@ -19,6 +20,7 @@
 
 body {
   margin: 0;
+  background: var(--body-bg);
   color: var(--text-color);
   font: 1.125rem/1.7 'Source Sans Pro','Helvetica',sans-serif;
 }
