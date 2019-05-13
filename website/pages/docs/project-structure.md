@@ -19,7 +19,7 @@ Inside a Saber project, you may see some or all of the following folders and fil
 
 ## Folders:
 
-- `.saber`: Automatically generated. This files in this folder are used by Saber internally and they are not meant for modification. Should be added to the `.gitignore` file if not added already.
+- `.saber`: Automatically generated. The files in this folder are used by Saber internally and they are not meant for modification. Should be added to the `.gitignore` file if not added already.
 - `public`: Automatically generated. The output of the build process will be exposed inside this folder. Should be added to the `.gitignore` file if not added already.
 - `pages`: Components under this folder become pages automatically with paths based on their file name. Check out the pages docs for more detail.
 - `static`: If you put a file into the static folder, it will not be processed by Webpack. Instead it will be copied into the public folder untouched. Check out the [assets docs](static-folder.md) for more detail.
