@@ -24,6 +24,7 @@
         </div>
       </div>
     </main>
+    <Tocbar :items="markdownHeadings" />
   </div>
 </template>
 
@@ -31,6 +32,7 @@
 import format from 'date-fns/format'
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
+import Tocbar from '../components/Tocbar.vue'
 import DocMixin from '../mixins/doc'
 
 export default {
@@ -45,6 +47,17 @@ export default {
   },
 
   computed: {
+  	markdownHeadings() {
+        const items = this.page.markdownHeadings
+        .filter(h => this.$themeConfig.markdownHeadingsLevels ? this.$themeConfig.markdownHeadingsLevels.includes(h.level) : h.level === 2)
+        .map(h => ({
+          title: h.text,
+          link: `#${h.slug}`,
+          level: h.level
+        }))
+	  	return items
+    },
+
     flatSidebarItems() {
       return this.$themeConfig.sidebar.reduce((res, item) => {
         return res.concat(item.children)
@@ -74,7 +87,8 @@ export default {
 
   components: {
     Header,
-    Sidebar
+    Sidebar,
+    Tocbar
   }
 }
 </script>

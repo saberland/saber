@@ -1,12 +1,12 @@
 .main {
-  margin: 0 var(--sidebar-width);
+  padding: 0 var(--tocbar-width) 0 var(--sidebar-width);
 
-  @media (max-width: 1280px) {
-    margin-right: 0;
+  @media (max-width: 950px) {
+    padding: 0 0 0 var(--sidebar-width);
   }
 
   @media (max-width: 768px) {
-    margin: 0;
+    padding: 0;
   }
 }
 

@@ -14,6 +14,7 @@ module.exports = {
   build: { lazy: true },
   permalinks: { post: '/blog/:slug.html' },
   themeConfig: {
+    markdownHeadingsLevels: [2, 3],
     sidebar: [
       {
         title: 'Basics',
