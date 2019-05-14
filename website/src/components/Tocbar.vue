@@ -41,7 +41,6 @@ export default {
         : link === this.$route.path
     },
     handleScrolling() {
-      console.log('fffff')
       this.hTags.forEach(el => {
         const top = window.pageYOffset;
         const distance = top - el.offsetTop;
@@ -88,28 +87,16 @@ export default {
   @media (max-width: 950px) {
     transform: translateX(var(--tocbar-width));
   }
-}
 
-.item {
-  &:not(:first-child) {
-    margin-top: 30px;
+  @media (max-width: 768px) and (min-width: 650px) {
+    transform: translateX(0);
   }
-}
 
-.item-title {
-  font-size: 1rem;
-  margin-bottom: 10px;
-  padding: 0 20px;
-  color: var(--dark);
 }
 
 .item {
   font-size: 1.2rem;
   margin: 10px 0;
-}
-
-.item:not(:first-child) {
-  margin-top: 5px;
 }
 
 .item a {

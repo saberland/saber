@@ -6,6 +6,10 @@
   }
 
   @media (max-width: 768px) {
+    padding: 0 var(--tocbar-width) 0 0;
+  }
+
+  @media (max-width: 650px) {
     padding: 0;
   }
 }
