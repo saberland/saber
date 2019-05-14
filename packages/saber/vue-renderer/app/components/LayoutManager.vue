@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'layout-manager',
+  name: 'LayoutManager',
   functional: true,
   inject: ['layouts'],
   render(
