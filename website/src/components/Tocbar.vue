@@ -1,6 +1,6 @@
 <template>
   <aside class="tocbar">
-    <div class="items">
+    <div class="items" :key="currentHash">
       <div class="item" v-for="(item, i) in items" :style="{ paddingLeft: `${7 * item.level}px`, 'font-size': `${1 - 0.01 * item.level}rem` }" :key="i">
         <saber-link
           :to="item.link"
@@ -37,7 +37,7 @@ export default {
     isActive(link) {
       if (!link) return false
       return link[0] === '#'
-        ? link === this.$route.hash
+        ? link === this.currentHash
         : link === this.$route.path
     },
     handleScrolling() {
@@ -46,10 +46,23 @@ export default {
         const distance = top - el.offsetTop;
         const hash = el.getElementsByTagName('a')[0].hash;
         if (distance < 50 && distance > -50 && this.currentHash != hash) {
-            this.$router.push(hash);
+            //this.$router.push(hash);
+            history.pushState(null, null, hash)
             this.currentHash = hash;
         }
       })
+    }
+  },
+
+  watch: {
+    $route(to, from) {
+      this.currentHash = this.$route.hash
+    }
+  },
+
+  data() {
+    return {
+      currentHash: null
     }
   },
 
@@ -59,7 +72,6 @@ export default {
       return [...document.getElementsByTagName('h' + val)]
     }).flat()
     
-    this.currentHash = ''
     window.addEventListener('scroll', this.handleScrolling)
   },
 
