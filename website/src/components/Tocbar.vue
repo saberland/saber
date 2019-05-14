@@ -93,7 +93,7 @@ export default {
   overflow: auto;
   padding: 20px 0;
   background: var(--sidebar-bg);
-  z-index: 1000;
+  z-index: 50;
   transition: transform 200ms cubic-bezier(0.2, 1, 0.2, 1);
 
   @media (max-width: 950px) {
@@ -103,7 +103,19 @@ export default {
   @media (max-width: 768px) and (min-width: 650px) {
     transform: translateX(0);
   }
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+    display: none;
+  }
 
+  &::-webkit-scrollbar-thumb {
+    background: rgb(216, 216, 216);
+  }
+
+  &:hover::-webkit-scrollbar  {
+    display: block;
+  }
 }
 
 .item {
