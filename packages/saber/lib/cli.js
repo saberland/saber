@@ -19,9 +19,10 @@ cli
     // doing the following instead of deleting ignoreOptionDefaultValue: true
     host = host ? host : '0.0.0.0'
     // Use the user custom port value even if it's unavailable
-    port = port
-      ? port
-      : await getPort({ port: getPort.makeRange(3000, 4000), host })
+    if (!port) {
+      port = await getPort({ port: getPort.makeRange(3000, 4000), host })
+    }
+
     delete options.host
     delete options.port
     delete options.lazy
@@ -69,9 +70,10 @@ cli
     setNodeEnv('production')
 
     let { host, port } = options
-    port = port
-      ? port
-      : await getPort({ port: getPort.makeRange(3000, 4000), host })
+    if (!port) {
+      port = await getPort({ port: getPort.makeRange(3000, 4000), host })
+    }
+
     delete options.host
     delete options.port
     return require('..')(Object.assign({ cwd, dev: true }, options), {
