@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const cac = require('cac')
+const getPort = require('get-port')
 
 const cli = cac()
 
@@ -9,12 +10,18 @@ cli
   })
   .alias('dev')
   .option('--lazy', 'Enable lazy page compilation')
-  .option('--port <port>', 'Server port', { default: 3000 })
+  .option('--port <port>', 'Server port')
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
-  .action((cwd = '.', options) => {
+  .action(async (cwd = '.', options) => {
     setNodeEnv('development')
 
-    const { host, port, lazy } = options
+    let { host, port, lazy } = options
+    // doing the following instead of deleting ignoreOptionDefaultValue: true
+    host = host ? host : '0.0.0.0'
+    // Use the user custom port value even if it's unavailable
+    port = port
+      ? port
+      : await getPort({ port: getPort.makeRange(3000, 4000), host })
     delete options.host
     delete options.port
     delete options.lazy
@@ -57,11 +64,14 @@ cli
 cli
   .command('serve [app]', 'Serve the output directory')
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
-  .option('--port <host>', 'Server port', { default: 3000 })
-  .action((cwd = '.', options) => {
+  .option('--port <host>', 'Server port')
+  .action(async (cwd = '.', options) => {
     setNodeEnv('production')
 
-    const { host, port } = options
+    let { host, port } = options
+    port = port
+      ? port
+      : await getPort({ port: getPort.makeRange(3000, 4000), host })
     delete options.host
     delete options.port
     return require('..')(Object.assign({ cwd, dev: true }, options), {
