@@ -10,7 +10,7 @@ cli
   })
   .alias('dev')
   .option('--lazy', 'Enable lazy page compilation')
-  .option('--port <port>', 'Server port')
+  .option('--port <port>', 'Server port', { default: 3000 })
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
   .action(async (cwd = '.', options) => {
     setNodeEnv('development')
