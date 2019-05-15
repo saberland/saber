@@ -16,9 +16,7 @@ cli
     setNodeEnv('development')
 
     let { host, port, lazy } = options
-    // doing the following instead of deleting ignoreOptionDefaultValue: true
     host = host ? host : '0.0.0.0'
-    // Use the user custom port value even if it's unavailable
     if (!port) {
       port = await getPort({ port: getPort.makeRange(3000, 4000), host })
     }
