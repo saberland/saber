@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@zeit/ncc": "0.18.5",
-    "fast-glob": "2.2.6",
+    "fast-glob": "2.2.7",
     "fs-extra": "7.0.1"
   },
   "license": "MIT"
