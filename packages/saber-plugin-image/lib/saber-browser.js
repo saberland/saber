@@ -52,7 +52,7 @@ export default ({ Vue }) => {
         return h('img', {
           attrs: {
             ...$attrs,
-            'data-srcset': srcset,
+            srcset,
             width,
             height
           },
