@@ -2,12 +2,8 @@
 // Google analytics integration for Vue.js renderer
 export default function (ctx) {
   var router = ctx.router
-  if (process.browser &&
-    process.env.NODE_ENV === 'production' &&
-    __GA_TRACK_ID__ &&
-    !(navigator.msDoNotTrack || // IE 9/10
-      window.doNotTrack || // IE 11
-      navigator.doNotTrack)
+  if (process.browser && process.env.NODE_ENV === 'production' && __GA_TRACK_ID__ &&
+    (!respectDoNotTrack || !(navigator.msDoNotTrack || window.doNotTrack || navigator.doNotTrack))
   ) {
     (function (i, s, o, g, r, a, m) {
       i.GoogleAnalyticsObject = r
