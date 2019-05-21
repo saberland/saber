@@ -5,6 +5,7 @@ const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const merge = require('lodash.merge')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
+const getPort = require('get-port')
 const Pages = require('./Pages')
 const BrowserApi = require('./BrowserApi')
 const Transformers = require('./Transformers')
@@ -157,7 +158,7 @@ class Saber {
     this.hooks.afterPlugins.call()
   }
 
-  setConfig(config, configPath = this.configPath) {
+  async setConfig(config, configPath = this.configPath) {
     this.configPath = configPath
     if (configPath) {
       this.configDir = path.dirname(configPath)
@@ -170,6 +171,13 @@ class Saber {
     this.config = require('./utils/validateConfig')(this.config, {
       dev: this.dev
     })
+    // Use an available port only if the default one was being used
+    if (this.config.server.port === 3000) {
+      this.config.server.port = await getPort({
+        port: getPort.makeRange(3000, 4000),
+        host: this.config.server.host
+      })
+    }
   }
 
   applyPlugin(plugin) {

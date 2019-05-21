@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const cac = require('cac')
-const getPort = require('get-port')
 
 const cli = cac()
 
@@ -15,11 +14,7 @@ cli
   .action(async (cwd = '.', options) => {
     setNodeEnv('development')
 
-    let { host, port, lazy } = options
-    host = host ? host : '0.0.0.0'
-    if (!port) {
-      port = await getPort({ port: getPort.makeRange(3000, 4000), host })
-    }
+    const { host, port, lazy } = options
 
     delete options.host
     delete options.port
@@ -63,14 +58,11 @@ cli
 cli
   .command('serve [app]', 'Serve the output directory')
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
-  .option('--port <host>', 'Server port')
+  .option('--port <port>', 'Server port', { default: 3000 })
   .action(async (cwd = '.', options) => {
     setNodeEnv('production')
 
-    let { host, port } = options
-    if (!port) {
-      port = await getPort({ port: getPort.makeRange(3000, 4000), host })
-    }
+    const { host, port } = options
 
     delete options.host
     delete options.port
