@@ -11,7 +11,7 @@ cli
   .option('--lazy', 'Enable lazy page compilation')
   .option('--port <port>', 'Server port', { default: 3000 })
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
-  .action(async (cwd = '.', options) => {
+  .action((cwd = '.', options) => {
     setNodeEnv('development')
 
     const { host, port, lazy } = options
@@ -59,7 +59,7 @@ cli
   .command('serve [app]', 'Serve the output directory')
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
   .option('--port <port>', 'Server port', { default: 3000 })
-  .action(async (cwd = '.', options) => {
+  .action((cwd = '.', options) => {
     setNodeEnv('production')
 
     const { host, port } = options
