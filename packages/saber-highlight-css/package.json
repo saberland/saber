@@ -7,6 +7,6 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "saber": "^0.4.9"
+    "saber": "^0.6.2"
   }
 }

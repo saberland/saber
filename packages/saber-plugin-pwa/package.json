@@ -9,7 +9,7 @@
   ],
   "xo": false,
   "peerDependencies": {
-    "saber": "^0.4.10"
+    "saber": "^0.6.2"
   },
   "dependencies": {
     "@egoist/snackbar": "^1.1.0",
