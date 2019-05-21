@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.3](https://github.com/egoist/saber/compare/saber@0.6.2...saber@0.6.3) (2019-05-21)
+
+### Bug Fixes
+
+- **markdown:** escape html in heading slug ([777ed4a](https://github.com/egoist/saber/commit/777ed4a))
+
+### Features
+
+- add component ClientOnly ([391183c](https://github.com/egoist/saber/commit/391183c))
+
 ## [0.6.2](https://github.com/egoist/saber/compare/saber@0.6.1...saber@0.6.2) (2019-05-11)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-git-modification-time",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Use the author time of the last commit as page.attributes.updatedAt",
   "license": "MIT",
   "main": "lib/index.js",
