@@ -15,7 +15,6 @@ cli
     setNodeEnv('development')
 
     const { host, port, lazy } = options
-
     delete options.host
     delete options.port
     delete options.lazy
@@ -63,7 +62,6 @@ cli
     setNodeEnv('production')
 
     const { host, port } = options
-
     delete options.host
     delete options.port
     return require('..')(Object.assign({ cwd, dev: true }, options), {

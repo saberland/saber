@@ -171,7 +171,7 @@ class Saber {
     this.config = require('./utils/validateConfig')(this.config, {
       dev: this.dev
     })
-    // Use an available port only if the default one was being used
+    // Use an available port only if the default one is unavailable
     if (this.config.server.port === 3000) {
       this.config.server.port = await getPort({
         port: getPort.makeRange(3000, 4000),
