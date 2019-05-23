@@ -1,16 +1,13 @@
 module.exports = function({ template, types: t }) {
   return {
     visitor: {
-      ImportDeclaration(nodePath, { opts }) {
+      ImportDeclaration(nodePath) {
         const specifiers = nodePath.get('specifiers')
         if (specifiers && specifiers.length > 0) {
           specifiers.forEach((spec, index) => {
             const importedModule = spec.parent.source.value
             const varName = spec.node.local.name
-            if (
-              translate(opts.modules, importedModule) &&
-              importedModule === 'saber/data'
-            ) {
+            if (importedModule === 'saber/data') {
               const buildRequire = template(`import IMPORT_NAME from 'SOURCE'`)
               const newNode = buildRequire({
                 IMPORT_NAME: t.identifier(varName),
@@ -30,14 +27,5 @@ module.exports = function({ template, types: t }) {
         }
       }
     }
-  }
-
-  function translate(modules, name) {
-    modules = typeof modules === 'string' ? [modules] : modules
-    if (Array.isArray(modules)) {
-      return modules.includes(name)
-    }
-
-    return true
   }
 }
