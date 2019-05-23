@@ -12,6 +12,12 @@ exports.apply = api => {
       .loader('graphql-tag/loader')
 
     config.module
+      .rule('query-data')
+      .test(/data\.js$/)
+      .use('data-loader')
+      .loader(require.resolve('../webpack/data-loader'))
+
+    config.module
       .rule('toml')
       .merge({
         type: 'json'
