@@ -1,12 +1,12 @@
 {
   "name": "saber-plugin-google-analytics",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "index.js",
   "files": [
     "index.js",
     "saber-browser.js"
   ],
   "peerDependencies": {
-    "saber": "^0.4.9"
+    "saber": "^0.6.2"
   }
 }
