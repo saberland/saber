@@ -14,6 +14,7 @@
   "author": "egoist<0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/webpack": "^4.4.32",
     "commitizen": "3.1.1",
     "conf": "4.0.2",
     "cz-conventional-changelog": "2.1.0",

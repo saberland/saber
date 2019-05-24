@@ -1,0 +1,63 @@
+export const chars: {
+  error: string;
+  info: string;
+  success: string;
+  warning: string;
+};
+export namespace colors {
+  function bgBlack(s: any): void;
+  function bgBlackBright(s: any): void;
+  function bgBlue(s: any): void;
+  function bgBlueBright(s: any): void;
+  function bgCyan(s: any): void;
+  function bgCyanBright(s: any): void;
+  function bgGreen(s: any): void;
+  function bgGreenBright(s: any): void;
+  function bgMagenta(s: any): void;
+  function bgMagentaBright(s: any): void;
+  function bgRed(s: any): void;
+  function bgRedBright(s: any): void;
+  function bgWhite(s: any): void;
+  function bgWhiteBright(s: any): void;
+  function bgYellow(s: any): void;
+  function bgYellowBright(s: any): void;
+  function black(s: any): void;
+  function blackBright(s: any): void;
+  function blue(s: any): void;
+  function blueBright(s: any): void;
+  function bold(s: any): void;
+  function cyan(s: any): void;
+  function cyanBright(s: any): void;
+  function dim(s: any): void;
+  function gray(s: any): void;
+  function green(s: any): void;
+  function greenBright(s: any): void;
+  function hidden(s: any): void;
+  function inverse(s: any): void;
+  function italic(s: any): void;
+  function magenta(s: any): void;
+  function magentaBright(s: any): void;
+  const options: {
+    enabled: any;
+  };
+  function red(s: any): void;
+  function redBright(s: any): void;
+  function reset(s: any): void;
+  function strikethrough(s: any): void;
+  function underline(s: any): void;
+  function white(s: any): void;
+  function whiteBright(s: any): void;
+  function yellow(s: any): void;
+  function yellowBright(s: any): void;
+}
+export const log: {
+  error: Function;
+  info: Function;
+  log: Function;
+  logLevel: any;
+  options: {};
+  setOptions: Function;
+  success: Function;
+  verbose: Function;
+  warn: Function;
+};

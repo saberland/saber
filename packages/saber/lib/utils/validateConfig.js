@@ -8,15 +8,18 @@ const { struct } = require('superstruct')
  * @param {boolean} options.dev
  */
 module.exports = (config, { dev }) => {
+  // @ts-ignore
   const siteConfig = struct.interface(
     {
       title: 'string?',
       description: 'string?'
     },
+    // @ts-ignore
     {}
   )
 
   // Type of Saber plugins
+  // @ts-ignore
   const plugins = struct.union(
     [
       ['string'],
@@ -27,6 +30,7 @@ module.exports = (config, { dev }) => {
         }
       ]
     ],
+    // @ts-ignore
     []
   )
 
@@ -44,8 +48,10 @@ module.exports = (config, { dev }) => {
     }
   )
 
+  // @ts-ignore
   const themeConfig = struct.interface({}, {})
 
+  // @ts-ignore
   const permalinks = struct.union(['object', 'function'], {})
 
   const server = struct(
@@ -78,6 +84,7 @@ module.exports = (config, { dev }) => {
     }
   )
 
+  // @ts-ignore
   const locales = struct('object?')
 
   const schema = struct({

@@ -1,5 +1,10 @@
+// @ts-check
 const slugify = require('slugo')
 
+/**
+ * @param {Array<any>} arr
+ * @param {{ perPage: number; }} options
+ */
 function paginate(arr, options) {
   options = Object.assign({ perPage: 30 }, options)
   const totalPages = Math.ceil(arr.length / options.perPage)
@@ -11,6 +16,10 @@ function paginate(arr, options) {
   return result
 }
 
+/**
+ * @param {{ [x: string]: any; }} map
+ * @param {string} name
+ */
 function getIdFromMap(map, name) {
   let id
   if (map[name]) {
@@ -23,6 +32,10 @@ function getIdFromMap(map, name) {
   return id
 }
 
+/**
+ * @param {{ [key: string]: any; }} map
+ * @param {any} id
+ */
 function getNameFromMap(map, id) {
   for (const name of Object.keys(map)) {
     if (map[name] === id) {

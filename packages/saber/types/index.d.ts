@@ -91,3 +91,7 @@ declare module 'saber' {
 
   export { Config, Permalinks }
 }
+
+declare module 'slugo';
+
+declare module 'vue-loader/lib/plugin';

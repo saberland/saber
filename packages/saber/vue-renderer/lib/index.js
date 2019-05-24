@@ -1,3 +1,4 @@
+// @ts-check
 const path = require('path')
 const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
@@ -7,7 +8,9 @@ const { SyncWaterfallHook } = require('tapable')
 const ID = 'vue-renderer'
 
 class VueRenderer {
+  // @ts-ignore
   constructor(api) {
+    // Saber
     this.api = api
     // In dev mode pages will be built when visited
     this.visitedRoutes = new Set()
@@ -17,6 +20,7 @@ class VueRenderer {
       getVueLoaderOptions: new SyncWaterfallHook(['options'])
     }
 
+    // @ts-ignore
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
 
@@ -56,7 +60,10 @@ class VueRenderer {
         .rule('js')
         .oneOf('saber-page')
           .before('normal')
-          .resourceQuery(query => {
+          .resourceQuery(
+            /**
+            * @param {string} query
+            */ query => {
             return /saberPage/.test(query) && !/type=script/.test(query)
           })
           .use('vue-loader')
@@ -89,16 +96,28 @@ class VueRenderer {
       // Excluding .vue and .js pages because we handled them in their own rules
       const { supportedExtensions } = api.transformers
       const pageExtensions = supportedExtensions
-        .map(ext => new RegExp(`\\.${ext}$`))
-        .filter(re => !re.test('.js') && !re.test('.vue'))
+        .map(
+          /**
+           * @param {any} ext
+           */ ext => new RegExp(`\\.${ext}$`)
+        )
+        .filter(
+          /**
+           * @param {RegExp} re
+           */ re => !re.test('.js') && !re.test('.vue')
+        )
         .concat(/\.saberpage$/)
 
       config.module
         .rule('saber-page')
         .test(pageExtensions)
-        .resourceQuery(query => {
-          return /saberPage/.test(query)
-        })
+        .resourceQuery(
+          /**
+           * @param {string} query
+           */ query => {
+            return /saberPage/.test(query)
+          }
+        )
         .use('vue-loader')
         .loader('vue-loader')
         .options(vueLoaderOptions)
@@ -222,6 +241,7 @@ class VueRenderer {
     ]`
 
     if (routes !== this.prevRoutes) {
+      // @ts-ignore
       this.prevRoutes = routes
       await fs.outputFile(this.api.resolveCache('routes.js'), routes, 'utf8')
     }
@@ -267,6 +287,9 @@ class VueRenderer {
       }
     )
 
+    /**
+     * @param {string} permalink
+     */
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
         ? permalink
@@ -335,6 +358,9 @@ class VueRenderer {
     )
 
     // Copy static files to outDir
+    /**
+     * @param {string} dir
+     */
     const copyStaticFiles = async dir => {
       if (await fs.pathExists(dir)) {
         await fs.copy(dir, outDir)
@@ -366,6 +392,7 @@ class VueRenderer {
       publicPath: clientConfig.output.publicPath
     })
 
+    // @ts-ignore
     const hotMiddleware = require('webpack-hot-middleware')(clientCompiler, {
       log: false
     })
@@ -374,30 +401,42 @@ class VueRenderer {
     clientCompiler.hooks.watchRun.tap('saber-serve', () => {
       event.emit('rebuild')
     })
-    clientCompiler.hooks.done.tap('saber-serve', stats => {
-      event.emit('done', stats.hasErrors())
-    })
-
-    server.get('/_saber/visit-page', async (req, res) => {
-      const pathname = removeTrailingSlash(decodeURI(req.query.route))
-      log.info(`Navigating to ${pathname}`)
-      res.end()
-
-      if (this.builtRoutes.has(pathname)) {
-        hotMiddleware.publish({ action: 'router:push', route: pathname })
-      } else {
-        event.once('done', error => {
-          this.builtRoutes.add(pathname)
-          hotMiddleware.publish({
-            action: 'router:push',
-            route: pathname,
-            error
-          })
-        })
-        this.visitedRoutes.add(pathname)
-        await this.writeRoutes()
+    clientCompiler.hooks.done.tap(
+      'saber-serve',
+      /**
+       * @param {webpack.Stats} stats
+       */
+      stats => {
+        event.emit('done', stats.hasErrors())
       }
-    })
+    )
+
+    server.get(
+      '/_saber/visit-page',
+      /**
+       * @param {{ query: { route: string; }; }} req
+       * @param {{ end: () => void; }} res
+       */ async (req, res) => {
+        const pathname = removeTrailingSlash(decodeURI(req.query.route))
+        log.info(`Navigating to ${pathname}`)
+        res.end()
+
+        if (this.builtRoutes.has(pathname)) {
+          hotMiddleware.publish({ action: 'router:push', route: pathname })
+        } else {
+          event.once('done', error => {
+            this.builtRoutes.add(pathname)
+            hotMiddleware.publish({
+              action: 'router:push',
+              route: pathname,
+              error
+            })
+          })
+          this.visitedRoutes.add(pathname)
+          await this.writeRoutes()
+        }
+      }
+    )
 
     server.use(
       require('serve-static')(this.api.resolveCwd('static'), {
@@ -413,50 +452,58 @@ class VueRenderer {
     server.use(devMiddleware)
     server.use(hotMiddleware)
 
-    server.get('*', async (req, res) => {
-      if (!req.headers.accept || !req.headers.accept.includes('text/html')) {
-        res.statusCode = 404
-        return res.end('404')
-      }
-
-      const render = () => {
-        const context = {
-          url: req.url
+    server.get(
+      '*',
+      /**
+       * @param {{ headers: { accept: array }; url: any; path: string; }} req
+       * @param {any} res
+       */ async (req, res) => {
+        if (!req.headers.accept || !req.headers.accept.includes('text/html')) {
+          res.statusCode = 404
+          return res.end('404')
         }
 
-        const initialDocumentData = require('./get-initial-document-data')(
-          context
-        )
-        context.documentData = this.api.hooks.getDocumentData.call(
-          initialDocumentData
-        )
-        const initialDocument = require('./get-initial-document')(
-          context.documentData
-        )
-        const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
-          initialDocument
-        )}`
-        res.setHeader('content-type', 'text/html')
-        res.end(html)
-      }
+        const render = () => {
+          const context = {
+            url: req.url
+          }
 
-      if (!this.api.lazy) {
-        return render()
-      }
+          const initialDocumentData = require('./get-initial-document-data')(
+            context
+          )
+          // @ts-ignore
+          context.documentData = this.api.hooks.getDocumentData.call(
+            initialDocumentData
+          )
+          const initialDocument = require('./get-initial-document')(
+            // @ts-ignore
+            context.documentData
+          )
+          const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
+            initialDocument
+          )}`
+          res.setHeader('content-type', 'text/html')
+          res.end(html)
+        }
 
-      const pathname = removeTrailingSlash(decodeURI(req.path))
+        if (!this.api.lazy) {
+          return render()
+        }
 
-      if (this.builtRoutes.has(pathname)) {
-        render()
-      } else {
-        event.once('done', () => {
-          this.builtRoutes.add(pathname)
+        const pathname = removeTrailingSlash(decodeURI(req.path))
+
+        if (this.builtRoutes.has(pathname)) {
           render()
-        })
-        this.visitedRoutes.add(pathname)
-        await this.writeRoutes()
+        } else {
+          event.once('done', () => {
+            this.builtRoutes.add(pathname)
+            render()
+          })
+          this.visitedRoutes.add(pathname)
+          await this.writeRoutes()
+        }
       }
-    })
+    )
 
     return server.handler
   }
@@ -466,8 +513,10 @@ VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
 
 module.exports = VueRenderer
 
+// @ts-ignore
 function runCompiler(compiler) {
   return new Promise((resolve, reject) => {
+    // @ts-ignore
     compiler.run((err, stats) => {
       if (err) return reject(err)
       resolve(stats)
@@ -475,6 +524,9 @@ function runCompiler(compiler) {
   })
 }
 
+/**
+ * @param {string} input
+ */
 function removeTrailingSlash(input) {
   if (input === '/') {
     return input

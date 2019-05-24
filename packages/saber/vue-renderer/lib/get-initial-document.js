@@ -1,8 +1,20 @@
+// @ts-check
 const { prefixSpace } = require('./utils')
 
 /**
  * Get the initial HTML sent from server-side
- * @param {any} documentData
+ * @param {{
+ *    title: string;
+ *    meta: string,
+ *    link: string,
+ *    style: string,
+ *    headScript: string,
+ *    bodyScript: string,
+ *    noscript: string,
+ *    bodyAttrs: any,
+ *    headAttrs: any,
+ *    htmlAttrs: any
+ *  }} documentData
  */
 module.exports = ({
   title,

@@ -6,5 +6,6 @@ declare module 'saber-utils' {
 
   const slash: Slash
 
+  //@ts-ignore
   export { fs, glob, slash }
 }

@@ -666,6 +666,7 @@ var compile_1 = compile;
 var tokensToFunction_1 = tokensToFunction;
 var tokensToRegExp_1 = tokensToRegExp;
 
+// @ts-check
 /**
  * The main path matching regexp utility.
  *

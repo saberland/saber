@@ -63,10 +63,15 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
-    "@types/fs-extra": "5.1.0",
-    "@types/resolve-from": "4.0.0",
-    "@types/superstruct": "0.5.0",
-    "@types/webpack": "4.4.31",
+    "@types/fs-extra": "^7.0.0",
+    "@types/resolve-from": "5.0.1",
+    "@types/serve-static": "^1.13.2",
+    "@types/superstruct": "^0.5.0",
+    "@types/tapable": "^1.0.4",
+    "@types/webpack": "4.4.32",
+    "@types/webpack-dev-middleware": "^2.0.2",
+    "@types/webpack-hot-middleware": "^2.16.5",
+    "@types/webpack-node-externals": "^1.6.3",
     "jest": "24.8.0",
     "markdown-it-footnote": "3.0.1",
     "typescript": "3.4.5"

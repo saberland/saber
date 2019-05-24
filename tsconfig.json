@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
     "strict": true,
     "allowJs": true,
     "noEmit": true,
-    "lib": ["es2017"],
+    "lib": ["es2018", "dom"],
     "module": "commonjs",
     "target": "es2015",
     "esModuleInterop": true,
