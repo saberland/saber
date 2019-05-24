@@ -4,7 +4,8 @@ module.exports = function({ template, types: t }) {
       ImportDeclaration(nodePath) {
         const specifiers = nodePath.get('specifiers')
         if (specifiers && specifiers.length > 0) {
-          specifiers.forEach((spec, index) => {
+          const newNodes = []
+          specifiers.forEach(spec => {
             const importedModule = spec.parent.source.value
             const varName = spec.node.local.name
             if (importedModule === 'saber/data') {
@@ -17,13 +18,12 @@ module.exports = function({ template, types: t }) {
                     varName
                 )
               })
-              if (index) {
-                nodePath.insertAfter(newNode)
-              } else {
-                nodePath.replaceWith(newNode)
-              }
+              newNodes.push(newNode)
             }
           })
+          if (newNodes.length > 0) {
+            nodePath.replaceWithMultiple(newNodes)
+          }
         }
       }
     }
