@@ -1,6 +1,5 @@
 // @ts-check
 const slugify = require('slugo')
-
 /**
  * @param {Array<any>} arr
  * @param {{ perPage: number; }} options
