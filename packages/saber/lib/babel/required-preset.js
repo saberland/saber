@@ -1,5 +1,5 @@
 module.exports = () => {
   return {
-    plugins: [require('./transorme-query-data')]
+    plugins: [require('./plugins/transorme-query-data')]
   }
 }
