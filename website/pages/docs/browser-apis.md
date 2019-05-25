@@ -37,7 +37,27 @@ Set the `head` option for root Vue instance.
 - Params:
   - `component`: `VueComponentOptions`, a Vue component
 
-Wrap your whole app in a Vue component
+Wrap your whole app in a Vue component, for example:
+
+`saber-browser.js`:
+
+```js
+import RootComponent from './RootComponent.vue'
+
+context.setRootComponent(RootComponent)
+```
+
+`RootComponent.vue`:
+
+```vue
+<template>
+  <div>
+    <h1>The title will appear on every page</h1>
+    <!-- The page is available as default slot -->
+    <slot />
+  </div>
+</template>
+```
 
 ### context.rootOptions
 
