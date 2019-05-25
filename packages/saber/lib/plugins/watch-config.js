@@ -53,7 +53,7 @@ exports.apply = api => {
         })
 
         const prevConfig = api.config
-        api.setConfig(data, configPath)
+        await api.setConfig(data, configPath)
         checkIfConfigChanged(api.config, prevConfig)
 
         await emit(api.config)

@@ -5,6 +5,7 @@ const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const merge = require('lodash.merge')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
+const getPort = require('get-port')
 const Pages = require('./Pages')
 const BrowserApi = require('./BrowserApi')
 const Transformers = require('./Transformers')
@@ -82,8 +83,6 @@ class Saber {
     if (opts.verbose) {
       process.env.SABER_LOG_LEVEL = 4
     }
-
-    this.prepare()
   }
 
   get dev() {
@@ -94,7 +93,7 @@ class Saber {
     return this.dev && this.config.build.lazy
   }
 
-  prepare() {
+  async prepare() {
     // Load package.json data
     this.pkg = configLoader.load({
       files: ['package.json'],
@@ -108,7 +107,7 @@ class Saber {
       cwd: this.opts.cwd
     })
 
-    this.setConfig(config, configPath)
+    await this.setConfig(config, configPath)
 
     if (this.configPath) {
       log.info(
@@ -157,7 +156,7 @@ class Saber {
     this.hooks.afterPlugins.call()
   }
 
-  setConfig(config, configPath = this.configPath) {
+  async setConfig(config, configPath = this.configPath) {
     this.configPath = configPath
     if (configPath) {
       this.configDir = path.dirname(configPath)
@@ -169,6 +168,13 @@ class Saber {
     // Validate config, apply default values, normalize some values
     this.config = require('./utils/validateConfig')(this.config, {
       dev: this.dev
+    })
+    // Make sure the port is available
+    const { port } = this.config.server
+    this.config.server._originalPort = port
+    this.config.server.port = await getPort({
+      port: getPort.makeRange(port, port + 1000),
+      host: this.config.server.host
     })
   }
 
@@ -302,6 +308,7 @@ class Saber {
 
   // Build app in production mode
   async build({ skipCompilation }) {
+    await this.prepare()
     await this.run()
     if (!skipCompilation) {
       await this.renderer.build()
@@ -313,6 +320,7 @@ class Saber {
   }
 
   async serve() {
+    await this.prepare()
     await this.run()
 
     const server = http.createServer(this.renderer.getRequestHandler())
@@ -321,6 +329,7 @@ class Saber {
   }
 
   async serveOutDir() {
+    await this.prepare()
     return require('./utils/serveDir')({
       dir: this.resolveOutDir(),
       host: this.config.server.host,
