@@ -98,7 +98,7 @@ module.exports = class PrintStatusPlugin {
               : this.api.config.server.host
           const { port, _originalPort } = this.api.config.server
           if (port !== _originalPort) {
-            log.warn(`Port ${_originalPort} is in use`)
+            log.warn(`Port ${_originalPort} is in use, switched to a new port`)
           }
 
           log.info(
