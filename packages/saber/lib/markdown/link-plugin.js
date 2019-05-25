@@ -30,7 +30,7 @@ module.exports = function(md) {
             path.dirname(env.filePath),
             matched[1]
           )
-          if (absolutePath.includes(env.pagesDir)) {
+          if (absolutePath.startsWith(env.pagesDir)) {
             link[0] = ':to'
             link[1] = `$saber.getPageLink("${matched[1]}", "${matched[2] ||
               ''}")`
