@@ -96,6 +96,11 @@ module.exports = class PrintStatusPlugin {
             this.api.config.server.host === '0.0.0.0'
               ? 'localhost'
               : this.api.config.server.host
+          const { port, _originalPort } = this.api.config.server
+          if (port !== _originalPort) {
+            log.warn(`Port ${_originalPort} is in use`)
+          }
+
           log.info(
             `Available at ${colors.underline(
               `http://${host}:${this.api.config.server.port}`
