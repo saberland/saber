@@ -24,17 +24,17 @@ class Saber {
     this.colors = colors
     this.utils = require('saber-utils')
     this.hooks = {
+      // Before all user plugins have been applied
+      beforePlugins: new AsyncSeriesHook(),
+      filterPlugins: new SyncWaterfallHook(['plugins']),
+      // After all user plugins have been applied
+      afterPlugins: new AsyncSeriesHook(),
+      // Before running the build process
+      beforeRun: new AsyncSeriesHook(),
       // Extend webpack config
       chainWebpack: new SyncHook(['config', 'opts']),
       // Extend markdown-it config
       chainMarkdown: new SyncHook(['config']),
-      // Before running the build process
-      beforeRun: new AsyncSeriesHook(),
-      filterPlugins: new SyncWaterfallHook(['plugins']),
-      // Before all user plugins have been applied
-      beforePlugins: new AsyncSeriesHook(),
-      // After all user plugins have been applied
-      afterPlugins: new AsyncSeriesHook(),
       emitRoutes: new AsyncSeriesHook(),
       // Called after running webpack
       afterBuild: new AsyncSeriesHook(),
