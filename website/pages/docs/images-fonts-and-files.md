@@ -3,6 +3,8 @@ title: Images, Fonts and Files
 layout: docs
 ---
 
+## Using `import` or `require`
+
 With Webpack, using static assets like images and fonts works similarly to CSS.
 
 You can __`import` or `require` a file right in a JavaScript module or Vue component__. This tells Webpack to include that file in the bundle. Unlike CSS imports, importing a file gives you a string value. This value is the final path you can reference in your code, e.g. as the `src` attribute of an image or the `href` of a link to a PDF.
@@ -34,3 +36,25 @@ Since markdown pages are also compiled to Vue components, asset URLs will also b
 ```
 
 Note that we only convert __relative URLs__, like `image.png`, `../image.png` but not `/image.png` or `https://example.com/image.png`.
+
+## Using front matter
+
+In markdown documents, you can simply use the `assets` front matter to import static assets.
+
+```markdown
+---
+assets:
+  cover: ./cover.png
+---
+```
+
+Then use them in your template:
+
+```vue
+<template>
+	<div>
+        <!-- page.attributes.assets.cover will be an absolute url -->
+		<img :src="page.attributes.assets.cover" alt="cover">
+	</div>
+</template>
+```
