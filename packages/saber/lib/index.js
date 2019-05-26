@@ -186,7 +186,7 @@ class Saber {
     const builtinPlugins = [
       { resolve: require.resolve('./plugins/source-pages') },
       { resolve: require.resolve('./plugins/extend-browser-api') },
-      { resolve: require.resolve('./plugins/extend-data-api') },
+      { resolve: require.resolve('./plugins/data-api') },
       { resolve: require.resolve('./plugins/extend-node-api') },
       { resolve: require.resolve('./plugins/transformer-markdown') },
       { resolve: require.resolve('./plugins/transformer-default') },
