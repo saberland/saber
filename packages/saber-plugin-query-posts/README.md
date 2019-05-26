@@ -170,6 +170,26 @@ Category pages will use the `category` layout or fallback to `default` layout.
 
 You can access the category name in the layout component via `this.page.category`.
 
+### Pagination
+
+By default we show at most 30 posts per page, but you can configure this globally using `perPage` option in `saber-config.yml`:
+
+```yaml
+plugins:
+  - resolve: saber-plugin-query-posts
+    options:
+      perPage: 6
+```
+
+It's also possible to configure this behavior for each page separately, in a page like `pages/index.md`:
+
+```markdown
+---
+injectAllPosts:
+  perPage: 20
+---
+```
+
 ## Options
 
 ### perPage
