@@ -91,6 +91,20 @@ api.hooks.someHook.tap('MyPlugin', (...params) => {
 
 Depending on the hook type, `tapAsync` and `tapPromise` may also be available. Hooks are [Tapable](https://github.com/webpack/tapable) instances.
 
+### `getConfig`
+
+- Hook Type: `AsyncSeriesWaterfallHook`
+- Params:
+  - `config`: `object`
+
+Call to get Saber config, e.g.
+
+```js
+api.hooks.getConfig.tap('MyPlugin', config => {
+  config.
+})
+```
+
 ### `filterPlugins`
 
 - Hook Type: `SyncWaterfallHook`
@@ -107,11 +121,17 @@ interface Plugin {
 }
 ```
 
+### `beforePlugins`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called before loading user plugins.
+
 ### `afterPlugins`
 
-- Hook Type: `SyncHook`
+- Hook Type: `AsyncSeriesHook`
 
-Called after the `apply` methods of all plugins are executed.
+Called after the `apply` methods of all user plugins are executed.
 
 ### `initPages`
 
