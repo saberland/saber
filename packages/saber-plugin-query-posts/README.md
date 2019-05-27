@@ -199,6 +199,13 @@ injectAllPosts:
 
 The limit of posts to show per page.
 
+### firstPageOnly
+
+- Type: `boolean`
+- Default: `false`
+
+Only generate the first page of posts.
+
 ### tagsMap
 
 - Type: `{ [name: string]: string }`
