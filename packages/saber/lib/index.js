@@ -188,12 +188,16 @@ class Saber {
       dev: this.dev
     })
     // Make sure the port is available
-    const { port } = this.config.server
-    this.config.server._originalPort = port
-    this.config.server.port = await getPort({
-      port: getPort.makeRange(port, port + 1000),
-      host: this.config.server.host
-    })
+    const { port, _originalPort } = this.config.server
+    // `setConfig` might be called multiple times
+    // So we only check port for the first time
+    if (!_originalPort) {
+      this.config.server._originalPort = port
+      this.config.server.port = await getPort({
+        port: getPort.makeRange(port, port + 1000),
+        host: this.config.server.host
+      })
+    }
   }
 
   applyPlugin(plugin, options, pluginLocation) {
