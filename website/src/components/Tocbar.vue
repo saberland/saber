@@ -121,12 +121,12 @@ export default {
 .item {
   font-size: 1.2rem;
   margin: 10px 0;
+  max-width: 197px;
 }
 
 .item a {
   display: block;
   color: var(--text-light-color);
-  padding: 0 20px;
 }
 
 .item a:hover:not(.active) {
