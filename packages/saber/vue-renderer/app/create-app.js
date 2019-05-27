@@ -87,10 +87,10 @@ export default context => {
           delete transition[key]
         }
       })
-      const beforeEnter = listeners['before-enter']
-      listeners['before-enter'] = el => {
+      const afterEnter = listeners['after-enter']
+      listeners['after-enter'] = el => {
         this.$emit('trigger-scroll')
-        beforeEnter && beforeEnter(el)
+        afterEnter && afterEnter(el)
       }
       const children = [
         h(
