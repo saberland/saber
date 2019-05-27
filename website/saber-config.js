@@ -56,6 +56,7 @@ module.exports = {
         title: 'References',
         children: [
           { title: 'Saber Config', link: '/docs/saber-config.html' },
+          { title: 'Built-in Components', link: '/docs/components.html' },
           { title: 'Plugin API', link: '/docs/plugin-api.html' },
           { title: 'Saber Instance', link: '/docs/saber-instance.html' },
           { title: 'Saber Browser APIs', link: '/docs/browser-apis.html' },

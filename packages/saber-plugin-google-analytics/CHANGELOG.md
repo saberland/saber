@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.6](https://github.com/egoist/saber/compare/saber-plugin-google-analytics@0.0.5...saber-plugin-google-analytics@0.0.6) (2019-05-21)
+
+### Bug Fixes
+
+- **deps:** update peerDependencies in plugins ([e1345c5](https://github.com/egoist/saber/commit/e1345c5))
+
+### Features
+
+- **saber-plugin-google-analytics:** respect user's tracking preference ([#198](https://github.com/egoist/saber/issues/198)) ([9b5e9b5](https://github.com/egoist/saber/commit/9b5e9b5))
+
 ## [0.0.5](https://github.com/egoist/saber/compare/saber-plugin-google-analytics@0.0.4...saber-plugin-google-analytics@0.0.5) (2019-05-08)
 
 ### Bug Fixes

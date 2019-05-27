@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/egoist/saber/compare/saber-plugin-transformer-pug@0.0.4...saber-plugin-transformer-pug@0.0.5) (2019-05-21)
+
+### Bug Fixes
+
+- **deps:** update peerDependencies in plugins ([e1345c5](https://github.com/egoist/saber/commit/e1345c5))
+
 ## [0.0.4](https://github.com/egoist/saber/compare/saber-plugin-transformer-pug@0.0.3...saber-plugin-transformer-pug@0.0.4) (2019-05-03)
 
 ### Bug Fixes

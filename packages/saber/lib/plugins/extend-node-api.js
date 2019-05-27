@@ -23,29 +23,40 @@ exports.apply = api => {
 
     const getHookHandler = hookName => nodeApi[hookName] || __noopHandler__
 
+    api.hooks.beforePlugins.tapPromise(nodeApiId, () => {
+      const hookHandler = getHookHandler('beforePlugins')
+      if (hookHandler.name !== '__noopHandler__') {
+        log.verbose(() => `beforePlugins ${colors.dim(`(${nodeApiId})`)}`)
+      }
+
+      return Promise.resolve(hookHandler.call(api))
+    })
+
     api.hooks.afterPlugins.tap(nodeApiId, () => {
-      api.hooks.initPages.tap(nodeApiId, () => {
-        for (const hookName of Object.keys(api.hooks)) {
-          const hook = api.hooks[hookName]
-          if (hook) {
-            const tapType = hook.call ? 'tap' : 'tapPromise'
-            hook[tapType](nodeApiId, (...args) => {
-              const hookHandler = getHookHandler(hookName)
-              const result = hookHandler.call(api, ...args)
-
-              if (hookHandler.name !== '__noopHandler__') {
-                log.verbose(() => `${hookName} ${colors.dim(`(${nodeApiId})`)}`)
-              }
-
-              if (tapType === 'tapPromise') {
-                return Promise.resolve(result)
-              }
-
-              return result
-            })
-          }
+      for (const hookName of Object.keys(api.hooks)) {
+        if (hookName === 'beforePlugins') {
+          continue
         }
-      })
+
+        const hook = api.hooks[hookName]
+        if (hook) {
+          const tapType = hook.call ? 'tap' : 'tapPromise'
+          hook[tapType](nodeApiId, (...args) => {
+            const hookHandler = getHookHandler(hookName)
+            const result = hookHandler.call(api, ...args)
+
+            if (hookHandler.name !== '__noopHandler__') {
+              log.verbose(() => `${hookName} ${colors.dim(`(${nodeApiId})`)}`)
+            }
+
+            if (tapType === 'tapPromise') {
+              return Promise.resolve(result)
+            }
+
+            return result
+          })
+        }
+      }
     })
 
     if (api.dev && !/node_modules/.test(nodeApiFile)) {

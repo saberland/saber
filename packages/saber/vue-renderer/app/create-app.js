@@ -5,13 +5,15 @@ import Vue from 'vue'
 import layouts from '#cache/layouts'
 import createRouter from './router'
 import Meta from './vendor/vue-meta'
-import Layout from './LayoutManager.vue'
+import Layout from './components/LayoutManager.vue'
+import ClientOnly from './components/ClientOnly'
 import extendBrowserApi from '#cache/extend-browser-api'
 import injectConfig from './helpers/inject-config'
 import setTransition from './helpers/set-transition'
 
 Vue.config.productionTip = false
 
+Vue.component(ClientOnly.name, ClientOnly)
 Vue.component(Layout.name, Layout)
 
 Vue.use(Meta, {
