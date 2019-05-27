@@ -21,7 +21,8 @@ exports.apply = (api, options = {}) => {
         tagsMap: options.tagsMap,
         categoriesMap: options.categoriesMap,
         paginationOptions: {
-          perPage: options.perPage || 30
+          perPage: options.perPage || 30,
+          firstPageOnly: options.firstPageOnly
         },
         permalinks: Object.assign(
           {
