@@ -31,6 +31,7 @@ class Saber {
       afterPlugins: new AsyncSeriesHook(),
       // Before running the build process
       beforeRun: new AsyncSeriesHook(),
+      onUpdateConfigFile: new AsyncSeriesHook(),
       // Extend webpack config
       chainWebpack: new SyncHook(['config', 'opts']),
       // Extend markdown-it config

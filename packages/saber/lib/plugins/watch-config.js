@@ -55,7 +55,7 @@ exports.apply = api => {
         const prevConfig = api.config
         await api.setConfig(data, configPath)
         checkIfConfigChanged(api.config, prevConfig)
-
+        await api.hooks.onUpdateConfigFile.promise()
         await emit(api.config)
       })
     }
