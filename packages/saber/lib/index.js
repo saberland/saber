@@ -182,18 +182,22 @@ class Saber {
       this.configDir = null
     }
 
+    const initialRun = !this.config
     this.config = merge({}, config, this.initialConfig)
     // Validate config, apply default values, normalize some values
     this.config = require('./utils/validateConfig')(this.config, {
       dev: this.dev
     })
+
     // Make sure the port is available
     const { port } = this.config.server
     this.config.server._originalPort = port
-    this.config.server.port = await getPort({
-      port: getPort.makeRange(port, port + 1000),
-      host: this.config.server.host
-    })
+    if (initialRun) {
+      this.config.server.port = await getPort({
+        port: getPort.makeRange(port, port + 1000),
+        host: this.config.server.host
+      })
+    }
   }
 
   applyPlugin(plugin, options, pluginLocation) {
