@@ -182,17 +182,17 @@ class Saber {
       this.configDir = null
     }
 
+    const initialRun = !this.config
     this.config = merge({}, config, this.initialConfig)
     // Validate config, apply default values, normalize some values
     this.config = require('./utils/validateConfig')(this.config, {
       dev: this.dev
     })
+
     // Make sure the port is available
-    const { port, _originalPort } = this.config.server
-    // `setConfig` might be called multiple times
-    // So we only check port for the first time
-    if (!_originalPort) {
-      this.config.server._originalPort = port
+    const { port } = this.config.server
+    this.config.server._originalPort = port
+    if (initialRun) {
       this.config.server.port = await getPort({
         port: getPort.makeRange(port, port + 1000),
         host: this.config.server.host
