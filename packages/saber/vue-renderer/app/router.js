@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from './vendor/vue-router'
 import RoutePrefetch from './vendor/vue-router-prefetch'
-import cssEscape from 'css.escape'
 import routes from '#cache/routes'
 
 Vue.use(Router)
@@ -63,9 +62,7 @@ export default () => {
             // coords will be used if no selector is provided,
             // or if the selector didn't match any element.
             if (to.hash) {
-              const selector = `#${cssEscape(to.hash.substr(1))}`
-
-              if (document.querySelector(selector)) {
+              if (document.getElementById(to.hash.substr(1))) {
                 // scroll to anchor by returning the selector
                 position = { selector: to.hash }
               } else {
