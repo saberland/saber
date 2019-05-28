@@ -60,10 +60,9 @@ export default () => {
       if (savedPosition) {
         position = savedPosition
       }
-
+      
       return new Promise(resolve => {
-        // wait for the out transition to complete (if necessary)
-        router.app.$once('trigger-scroll', () => {
+        const fulfill = () => {
           // coords will be used if no selector is provided,
           // or if the selector didn't match any element.
           if (to.hash) {
@@ -71,11 +70,22 @@ export default () => {
             
             if (document.querySelector(selector)) {
               // scroll to anchor by returning the selector
-              position = { selector }
+              position = { selector: to.hash }
+            } else {
+              // scroll to top if anchor does not exist and position is not already set
+              position = position || { x: 0, y: 0 }
             }
           }
           resolve(position)
-        })
+        }
+
+        // wait for the out transition to complete (if necessary)
+        if (to.path === from.path) {
+          fulfill();
+        }
+        else {
+          router.app.$once('trigger-scroll', fulfill)
+        }
       })
     }
   })

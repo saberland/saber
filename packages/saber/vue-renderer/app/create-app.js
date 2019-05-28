@@ -89,7 +89,9 @@ export default context => {
       })
       const afterEnter = listeners['after-enter']
       listeners['after-enter'] = el => {
-        this.$emit('trigger-scroll')
+        this.$nextTick(() => {
+          this.$emit('trigger-scroll')
+        })
         afterEnter && afterEnter(el)
       }
       const children = [
