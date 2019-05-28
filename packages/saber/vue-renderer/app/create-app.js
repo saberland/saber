@@ -10,6 +10,7 @@ import ClientOnly from './components/ClientOnly'
 import extendBrowserApi from '#cache/extend-browser-api'
 import injectConfig from './helpers/inject-config'
 import setTransition from './helpers/set-transition'
+import scrollHandler from './helpers/scroll-handler'
 
 Vue.config.productionTip = false
 
@@ -74,6 +75,15 @@ export default context => {
         transition: null
       }
     },
+    mounted() {
+      this.$router.app.$nextTick(() =>
+        scrollHandler(
+          this.$router,
+          this.$router.currentRoute,
+          this.$router.currentRoute
+        )
+      )
+    },
     render(h) {
       const transition = Object.assign({}, this.transition)
       const listeners = {}
@@ -87,12 +97,12 @@ export default context => {
           delete transition[key]
         }
       })
-      const afterEnter = listeners['after-enter']
-      listeners['after-enter'] = el => {
+      const beforeEnter = listeners['before-enter']
+      listeners['before-enter'] = el => {
         this.$nextTick(() => {
           this.$emit('trigger-scroll')
         })
-        afterEnter && afterEnter(el)
+        beforeEnter && beforeEnter(el)
       }
       const children = [
         h(
