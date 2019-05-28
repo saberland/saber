@@ -37,9 +37,9 @@ Since markdown pages are also compiled to Vue components, asset URLs will also b
 
 Note that we only convert __relative URLs__, like `image.png`, `../image.png` but not `/image.png` or `https://example.com/image.png`.
 
-## Using front matter
+## Using Page Attributes
 
-In markdown documents, you can simply use the `assets` front matter to import static assets.
+In pages, you can use the `assets` attribute to import static assets.
 
 ```markdown
 ---
@@ -48,7 +48,7 @@ assets:
 ---
 ```
 
-Then use them in your template:
+Then use them in your layout component:
 
 ```vue
 <template>
@@ -57,4 +57,10 @@ Then use them in your template:
 		<img :src="page.attributes.assets.cover" alt="cover">
 	</div>
 </template>
+
+<script>
+export default {
+  props: ['page']
+}
+</script>
 ```
