@@ -52,10 +52,10 @@ Then use them in your layout component:
 
 ```vue
 <template>
-	<div>
+  <div>
     <!-- page.attributes.assets.cover will be an absolute url -->
-		<img :src="page.attributes.assets.cover" alt="cover">
-	</div>
+    <img :src="page.attributes.assets.cover" alt="cover">
+  </div>
 </template>
 
 <script>
