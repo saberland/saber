@@ -107,11 +107,17 @@ interface Plugin {
 }
 ```
 
+### `beforePlugins`
+
+- Hook Type: `AsyncSeriesHook`
+
+Called before loading user plugins.
+
 ### `afterPlugins`
 
-- Hook Type: `SyncHook`
+- Hook Type: `AsyncSeriesHook`
 
-Called after the `apply` methods of all plugins are executed.
+Called after the `apply` methods of all user plugins are executed.
 
 ### `initPages`
 

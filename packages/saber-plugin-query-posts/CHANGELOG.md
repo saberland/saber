@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/saberland/saber/compare/saber-plugin-query-posts@0.3.1...saber-plugin-query-posts@0.3.2) (2019-05-28)
+
+### Features
+
+- **saber-plugin-query-posts:** add firstPageOnly option ([995711c](https://github.com/saberland/saber/commit/995711c))
+- **saber-plugin-query-posts:** allow to configure pagination for each page separately ([fba8833](https://github.com/saberland/saber/commit/fba8833))
+
 ## [0.3.1](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.3.0...saber-plugin-query-posts@0.3.1) (2019-05-21)
 
 ### Bug Fixes

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.5](https://github.com/saberland/saber/compare/saber@0.6.4...saber@0.6.5) (2019-05-28)
+
+### Bug Fixes
+
+- **vue-renderer:** default slot might not exist ([91132a2](https://github.com/saberland/saber/commit/91132a2))
+- check for port only in initial setConfig run ([#215](https://github.com/saberland/saber/issues/215)) ([d778282](https://github.com/saberland/saber/commit/d778282))
+- only check port once ([0b861c4](https://github.com/saberland/saber/commit/0b861c4))
+- support beforePlugins hook in saber-node.js ([9b12cd2](https://github.com/saberland/saber/commit/9b12cd2))
+
+### Features
+
+- add beforePlugins hook ([dd018d5](https://github.com/saberland/saber/commit/dd018d5))
+- add onUpdateConfigFile hook ([de8574f](https://github.com/saberland/saber/commit/de8574f))
+
+## [0.6.4](https://github.com/saberland/saber/compare/saber@0.6.3...saber@0.6.4) (2019-05-25)
+
+### Bug Fixes
+
+- **link-plugin:** remove redundant slash ([#211](https://github.com/saberland/saber/issues/211)) ([3be3592](https://github.com/saberland/saber/commit/3be3592)), closes [#205](https://github.com/saberland/saber/issues/205)
+
+### Features
+
+- run saber server on 3001 port if 3000 is unavailable ([#184](https://github.com/saberland/saber/issues/184)) ([d5d5632](https://github.com/saberland/saber/commit/d5d5632)), closes [#182](https://github.com/saberland/saber/issues/182)
+
 ## [0.6.3](https://github.com/egoist/saber/compare/saber@0.6.2...saber@0.6.3) (2019-05-21)
 
 ### Bug Fixes

@@ -7,7 +7,7 @@ module.exports = async (api, { name, themeColor, manifest }) => {
       {
         short_name: name,
         name,
-        start_url: '/index.html',
+        start_url: './',
         display: 'standalone',
         theme_color: themeColor,
         background_color: '#ffffff'

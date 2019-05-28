@@ -21,7 +21,8 @@ exports.apply = (api, options = {}) => {
         tagsMap: options.tagsMap,
         categoriesMap: options.categoriesMap,
         paginationOptions: {
-          perPage: options.perPage || 30
+          perPage: options.perPage || 30,
+          firstPageOnly: options.firstPageOnly
         },
         permalinks: Object.assign(
           {
@@ -185,18 +186,20 @@ exports.apply = (api, options = {}) => {
 
     function injectToPages(pages, posts, pageProp) {
       if (pages.size > 0) {
-        const paginatedPosts = paginate(
-          [...posts].sort((a, b) => {
-            const aDate = new Date(a.attributes.date || a.attributes.createdAt)
-            const bDate = new Date(b.attributes.date || b.attributes.createdAt)
-            return aDate > bDate ? -1 : 1
-          }),
-          paginationOptions
-        )
-        const totalPages = paginatedPosts.length
         const date = new Date()
+        const sortedPosts = [...posts].sort((a, b) => {
+          const aDate = new Date(a.attributes.date || a.attributes.createdAt)
+          const bDate = new Date(b.attributes.date || b.attributes.createdAt)
+          return aDate > bDate ? -1 : 1
+        })
 
         for (const page of pages) {
+          const paginatedPosts = paginate(
+            sortedPosts,
+            Object.assign({}, paginationOptions, page.attributes.injectAllPosts)
+          )
+          const totalPages = paginatedPosts.length
+
           for (const [index, posts] of paginatedPosts.entries()) {
             const permalink =
               index === 0

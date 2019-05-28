@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-pwa",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "Add PWA support for your Saber app.",
   "license": "MIT",
   "main": "lib/index.js",
@@ -12,7 +12,7 @@
     "saber": "^0.6.2"
   },
   "dependencies": {
-    "@egoist/snackbar": "^1.1.0",
+    "@egoist/snackbar": "^1.2.1",
     "stringify-attributes": "^2.0.0",
     "workbox-build": "^4.3.1",
     "workbox-window": "^4.3.1"
