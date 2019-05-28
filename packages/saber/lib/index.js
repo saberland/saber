@@ -200,26 +200,6 @@ class Saber {
     }
   }
 
-<<<<<<< HEAD
-  getPlugins() {
-    const builtinPlugins = [
-      { resolve: require.resolve('./plugins/source-pages') },
-      { resolve: require.resolve('./plugins/extend-browser-api') },
-      { resolve: require.resolve('./plugins/data-api') },
-      { resolve: require.resolve('./plugins/extend-node-api') },
-      { resolve: require.resolve('./plugins/transformer-markdown') },
-      { resolve: require.resolve('./plugins/transformer-default') },
-      { resolve: require.resolve('./plugins/transformer-components') },
-      { resolve: require.resolve('./plugins/config-css') },
-      { resolve: require.resolve('./plugins/config-image') },
-      { resolve: require.resolve('./plugins/config-font') },
-      { resolve: require.resolve('./plugins/config-other-loaders') },
-      { resolve: require.resolve('./plugins/watch-config') },
-      { resolve: require.resolve('./plugins/layouts') },
-      { resolve: require.resolve('./plugins/emit-saber-variables') },
-      { resolve: require.resolve('./plugins/emit-runtime-polyfills') }
-    ]
-=======
   applyPlugin(plugin, options, pluginLocation) {
     plugin.apply(this)
     if (!plugin.name.startsWith('builtin:')) {
@@ -231,7 +211,6 @@ class Saber {
       )
     }
   }
->>>>>>> master
 
   getUserPlugins() {
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
