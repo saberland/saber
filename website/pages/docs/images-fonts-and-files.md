@@ -37,7 +37,7 @@ Since markdown pages are also compiled to Vue components, asset URLs will also b
 
 Note that we only convert __relative URLs__, like `image.png`, `../image.png` but not `/image.png` or `https://example.com/image.png`.
 
-## Using Page Attributes
+## Using the `assets` page attribute
 
 In pages, you can use the `assets` attribute to import static assets.
 
@@ -53,7 +53,7 @@ Then use them in your layout component:
 ```vue
 <template>
 	<div>
-        <!-- page.attributes.assets.cover will be an absolute url -->
+    <!-- page.attributes.assets.cover will be an absolute url -->
 		<img :src="page.attributes.assets.cover" alt="cover">
 	</div>
 </template>
