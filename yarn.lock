@@ -767,10 +767,10 @@
     postcss-load-config "^2.0.0"
     schema-utils "^1.0.0"
 
-"@egoist/snackbar@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@egoist/snackbar/-/snackbar-1.1.0.tgz#338d3bae9e96c20b37ce98e29b1710e7b30094fb"
-  integrity sha512-iNTXCXb6ypuDY2fXBBPsVbLyh97hAy83iaNNdlpt1paimloXiw6MfoYyHP7eV/l+QL8vPB2A8Kokjqt9CmU9wQ==
+"@egoist/snackbar@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/@egoist/snackbar/-/snackbar-1.2.1.tgz#1dc9f4227addb038d2dbeb0b08da8a0ca756cdc5"
+  integrity sha512-s0JpojDd/YlzgppQrQW44d10uijrdU929BfF4Vg8tg1O1wZ2+SgXaCS/lB9U8cClHc0tiSnI0KUD0SVdeoDGbQ==
 
 "@hapi/address@2.x.x":
   version "2.0.0"
