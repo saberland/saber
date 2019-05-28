@@ -48,6 +48,8 @@ assets:
 ---
 ```
 
+You can use any relative path here, like `./cover.png`, `../images/photo.jpg`. `@` (alias to project root) is also supported, for example: `@/images/cover.png`.
+
 Then use them in your layout component:
 
 ```vue
