@@ -11,11 +11,12 @@
   position: absolute;
   right: 10px;
   top: 5px;
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: #bdc5d1;
 }
 
-.saber-highlight-mask, .saber-highlight-code {
+.saber-highlight-mask,
+.saber-highlight-code {
   line-height: 1.5;
   background-color: transparent !important;
   text-shadow: none !important;
@@ -52,15 +53,49 @@
 
 .saber-highlight-code code,
 .saber-highlight-mask {
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 
 .code-line.highlighted {
   background: rgba(3, 169, 244, 0.121);
 }
 
+/* Line numbers */
+.saber-highlight.has-line-numbers .saber-highlight-mask,
+.saber-highlight.has-line-numbers .saber-highlight-code {
+  padding-left: 3.8rem !important;
+}
+
+.saber-highlight.has-line-numbers .saber-highlight-code code {
+  position: relative;
+}
+
 .saber-highlight-line-numbers {
-  float: left;
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8rem;
+  width: 3rem;
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+  user-select: none;
   text-align: right;
-  margin-right: 5px;
+  padding-right: 0.8rem;
+  counter-reset: linenumber;
+}
+
+.saber-highlight-line-numbers > span {
+  counter-increment: linenumber;
+  display: block;
+}
+
+.saber-highlight-line-numbers > span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
+}
+
+.saber-highlight.has-line-numbers .code-line.highlighted {
+  margin-left: -3.8rem;
 }

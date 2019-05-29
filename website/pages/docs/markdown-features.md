@@ -276,12 +276,12 @@ If you want to override the font size or font family, you need to add CSS for bo
 }
 ```
 
-### Line Number in Code Blocks
+### Line Numbers in Code Blocks
 
 Input:
 
 ````markdown
-```js {lineNumbers:true}
+```js {lineNumbers:true,highlightLines:['2-5']}
 [
   {
     text: 'A page',
@@ -304,7 +304,7 @@ Input:
 
 Output:
 
-```js {lineNumbers:true}
+```js {lineNumbers:true,highlightLines:['2-5']}
 [
   {
     text: 'A page',
