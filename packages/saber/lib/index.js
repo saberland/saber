@@ -222,9 +222,9 @@ class Saber {
             }
 
             const location = resolveFrom(this.configDir, p.resolve)
-            plugin.location = location
 
             const plugin = require(location)
+            plugin.location = location
             plugin.options = p.option
 
             return plugin
