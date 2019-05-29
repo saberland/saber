@@ -79,7 +79,7 @@ function scrollToPosition(shouldScroll) {
   let position
   const isObject = typeof shouldScroll === 'object'
   if (isObject && typeof shouldScroll.selector === 'string') {
-    const el = document.querySelector(shouldScroll.selector)
+    const el = document.getElementById(shouldScroll.selector.substr(1))
     if (el) {
       let offset =
         shouldScroll.offset && typeof shouldScroll.offset === 'object'
