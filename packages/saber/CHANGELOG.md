@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.7](https://github.com/saberland/saber/compare/saber@0.6.6...saber@0.6.7) (2019-05-29)
+
+### Bug Fixes
+
+- decode route hash before scrolling ([b496a00](https://github.com/saberland/saber/commit/b496a00))
+- regression in applyPlugin ([9d01d65](https://github.com/saberland/saber/commit/9d01d65))
+
 ## [0.6.6](https://github.com/saberland/saber/compare/saber@0.6.5...saber@0.6.6) (2019-05-29)
 
 ### Bug Fixes
