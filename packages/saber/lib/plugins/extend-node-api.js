@@ -22,40 +22,39 @@ exports.apply = api => {
     updateNodeApi()
 
     const getHookHandler = hookName => nodeApi[hookName] || __noopHandler__
+    const addHook = hookName => {
+      const hook = api.hooks[hookName]
+      if (hook) {
+        const tapType = hook.call ? 'tap' : 'tapPromise'
+        hook[tapType](nodeApiId, (...args) => {
+          const hookHandler = getHookHandler(hookName)
+          if (hookHandler.name !== '__noopHandler__') {
+            log.verbose(() => `${hookName} ${colors.dim(`(${nodeApiId})`)}`)
+          }
 
-    api.hooks.beforePlugins.tapPromise(nodeApiId, () => {
-      const hookHandler = getHookHandler('beforePlugins')
-      if (hookHandler.name !== '__noopHandler__') {
-        log.verbose(() => `beforePlugins ${colors.dim(`(${nodeApiId})`)}`)
+          if (tapType === 'tap') {
+            return hookHandler.call(api, ...args)
+          }
+
+          return Promise.resolve(hookHandler.call(api, ...args))
+        })
       }
+    }
 
-      return Promise.resolve(hookHandler.call(api))
-    })
+    // Hooks that should be added before `afterPlugins` hook
+    const preHooks = ['beforePlugins', 'filterPlugins']
+
+    for (const preHook of preHooks) {
+      addHook(preHook)
+    }
 
     api.hooks.afterPlugins.tap(nodeApiId, () => {
       for (const hookName of Object.keys(api.hooks)) {
-        if (hookName === 'beforePlugins') {
+        if (preHooks.includes(hookName)) {
           continue
         }
 
-        const hook = api.hooks[hookName]
-        if (hook) {
-          const tapType = hook.call ? 'tap' : 'tapPromise'
-          hook[tapType](nodeApiId, (...args) => {
-            const hookHandler = getHookHandler(hookName)
-            const result = hookHandler.call(api, ...args)
-
-            if (hookHandler.name !== '__noopHandler__') {
-              log.verbose(() => `${hookName} ${colors.dim(`(${nodeApiId})`)}`)
-            }
-
-            if (tapType === 'tapPromise') {
-              return Promise.resolve(result)
-            }
-
-            return result
-          })
-        }
+        addHook(hookName)
       }
     })
 
