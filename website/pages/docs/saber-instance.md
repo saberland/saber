@@ -118,6 +118,8 @@ interface Plugin {
 
 - Hook Type: `AsyncSeriesHook`
 
+This hook is __only__ available `saber-node.js`.
+
 Called before loading user plugins.
 
 ### `afterPlugins`
