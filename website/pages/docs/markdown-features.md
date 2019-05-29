@@ -170,7 +170,7 @@ To highlight code blocks, you need to use a highlighter plugin, [Prism.js](https
 
 ```bash
 # In your project
-yarn add saber-plugin-prismjs
+yarn add saber-plugin-prismjs prismjs
 ```
 
 Then add this plugin in your `saber-config.yml`:
