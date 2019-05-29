@@ -62,9 +62,10 @@ export default () => {
             // coords will be used if no selector is provided,
             // or if the selector didn't match any element.
             if (to.hash) {
-              if (document.getElementById(to.hash.substr(1))) {
+              const hash = decodeURIComponent(to.hash)
+              if (document.getElementById(hash.substr(1))) {
                 // scroll to anchor by returning the selector
-                position = { selector: to.hash }
+                position = { selector: hash }
               } else {
                 // scroll to top if anchor does not exist and position is not already set
                 position = position || { x: 0, y: 0 }
