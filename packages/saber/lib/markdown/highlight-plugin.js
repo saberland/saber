@@ -6,15 +6,28 @@ const parseOptions = str => {
   return fn()
 }
 
-module.exports = (md, { highlightedLineBackground } = {}) => {
-  const renderPreWrapper = (
+const generateLineNumbers = code =>
+  '<code class="saber-highlight-line-numbers">' +
+  code
+    .trim()
+    .split('\n')
+    .map((lineHtml, i) => `<span class="token">${i + 1}</span>`)
+    .join('\n') +
+  '</code>'
+
+module.exports = (
+  md,
+  { highlightedLineBackground, lineNumbers = false } = {}
+) => {
+  const renderPreWrapper = ({
     preWrapperAttrs,
     preAttrs,
     codeAttrs,
     code,
-    codeMask = ''
-  ) =>
-    `<div${preWrapperAttrs}>${codeMask}<pre${preAttrs}><code${codeAttrs}>${code.trim()}</code></pre></div>`
+    codeMask = '',
+    lines = ''
+  }) =>
+    `<div${preWrapperAttrs}>${codeMask}<pre${preAttrs}>${lines}<code${codeAttrs}>${code.trim()}</code></pre></div>`
 
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx, options, env, self] = args
@@ -44,50 +57,74 @@ module.exports = (md, { highlightedLineBackground } = {}) => {
     ])
 
     if (!token.info || !RE.test(token.info)) {
-      return renderPreWrapper(preWrapperAttrs, preAttrs, codeAttrs, code)
+      // Generate lines if global markdown.lineNumbers is true
+      const lines = lineNumbers ? generateLineNumbers(code) : ''
+
+      return renderPreWrapper({
+        preWrapperAttrs,
+        preAttrs,
+        codeAttrs,
+        code,
+        lines
+      })
     }
 
     const fenceOptions = parseOptions(token.info)
-    const highlightLines =
-      fenceOptions.highlightLines &&
-      fenceOptions.highlightLines.map(v =>
-        `${v}`.split('-').map(v => parseInt(v, 10))
-      )
+    const highlightLines = fenceOptions.highlightLines
+      ? fenceOptions.highlightLines.map(v =>
+          `${v}`.split('-').map(v => parseInt(v, 10))
+        )
+      : []
+
     token.info = langName
 
+    const shouldGenerateLineNumbers =
+      // It might be false so check for undefined
+      fenceOptions.lineNumbers === undefined
+        ? // Defaults to global config
+          lineNumbers
+        : // If it's set to false, even if the global config says true, ignore
+          fenceOptions.lineNumbers
+    const lines = shouldGenerateLineNumbers ? generateLineNumbers(code) : ''
+
     const codeMask =
-      `<div class="saber-highlight-mask${langClass ? ` ${langClass}` : ''}">` +
-      md.utils
-        .escapeHtml(token.content)
-        .split('\n')
-        .map((split, index) => {
-          split = split || '&#8203;'
-          const lineNumber = index + 1
-          const inRange = highlightLines.some(([start, end]) => {
-            if (start && end) {
-              return lineNumber >= start && lineNumber <= end
-            }
+      highlightLines.length === 0
+        ? ''
+        : `<div class="saber-highlight-mask${
+            langClass ? ` ${langClass}` : ''
+          }">` +
+          md.utils
+            .escapeHtml(token.content)
+            .split('\n')
+            .map((split, index) => {
+              split = split || '&#8203;'
+              const lineNumber = index + 1
+              const inRange = highlightLines.some(([start, end]) => {
+                if (start && end) {
+                  return lineNumber >= start && lineNumber <= end
+                }
 
-            return lineNumber === start
-          })
-          if (inRange) {
-            const style = highlightedLineBackground
-              ? ` style="background-color: ${highlightedLineBackground}"`
-              : ''
-            return `<div class="code-line highlighted"${style}>${split}</div>`
-          }
+                return lineNumber === start
+              })
+              if (inRange) {
+                const style = highlightedLineBackground
+                  ? ` style="background-color: ${highlightedLineBackground}"`
+                  : ''
+                return `<div class="code-line highlighted"${style}>${split}</div>`
+              }
 
-          return `<div class="code-line">${split}</div>`
-        })
-        .join('') +
-      '</div>'
+              return `<div class="code-line">${split}</div>`
+            })
+            .join('') +
+          '</div>'
 
-    return renderPreWrapper(
+    return renderPreWrapper({
       preWrapperAttrs,
       preAttrs,
       codeAttrs,
       code,
-      codeMask
-    )
+      codeMask,
+      lines
+    })
   }
 }

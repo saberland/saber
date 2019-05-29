@@ -77,7 +77,10 @@ function transformMarkdown(api, page) {
     },
     {
       name: 'highlight',
-      resolve: require.resolve('../markdown/highlight-plugin')
+      resolve: require.resolve('../markdown/highlight-plugin'),
+      options: {
+        lineNumbers: markdown.lineNumbers
+      }
     },
     {
       name: 'link',

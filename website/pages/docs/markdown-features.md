@@ -276,6 +276,54 @@ If you want to override the font size or font family, you need to add CSS for bo
 }
 ```
 
+### Line Number in Code Blocks
+
+Input:
+
+````markdown
+```js {lineNumbers:true}
+[
+  {
+    text: 'A page',
+    slug: 'a-page',
+    level: 1
+  },
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+  {
+    text: 'Another section',
+    slug: 'another-section',
+    level: 3
+  }
+]
+```
+````
+
+Output:
+
+```js {lineNumbers:true}
+[
+  {
+    text: 'A page',
+    slug: 'a-page',
+    level: 1
+  },
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+  {
+    text: 'Another section',
+    slug: 'another-section',
+    level: 3
+  }
+]
+```
+
 ## Configure markdown-it
 
 Check out [markdown.options](./saber-config.md#options) for setting markdown-it options and [markdown.plugins](./saber-config.md#plugins-2) for adding markdown-it plugins.

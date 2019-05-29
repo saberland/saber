@@ -57,5 +57,10 @@
 
 .code-line.highlighted {
   background: rgba(3, 169, 244, 0.121);
-  box-shadow: inset 2px 0 0 0 rgba(3, 169, 244, 0.278)
+}
+
+.saber-highlight-line-numbers {
+  float: left;
+  text-align: right;
+  margin-right: 5px;
 }

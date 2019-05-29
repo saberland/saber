@@ -36,6 +36,7 @@ module.exports = (config, { dev }) => {
       options: 'object?',
       headings: 'object?',
       highlighter: 'string?',
+      lineNumbers: 'boolean?',
       // Same as the type of Saber plugins
       plugins
     },

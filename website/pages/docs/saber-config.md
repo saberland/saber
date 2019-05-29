@@ -167,6 +167,13 @@ interface MarkdownPlugin {
 }
 ```
 
+### lineNumbers
+
+- Type: `boolean`
+- Default: `false`
+
+Always show line numbers in code blocks.
+
 ## permalinks
 
 - Type: `Permalinks` `(page: Page) => Permalinks`
