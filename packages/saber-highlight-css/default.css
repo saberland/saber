@@ -11,11 +11,12 @@
   position: absolute;
   right: 10px;
   top: 5px;
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: #bdc5d1;
 }
 
-.saber-highlight-mask, .saber-highlight-code {
+.saber-highlight-mask,
+.saber-highlight-code {
   line-height: 1.5;
   background-color: transparent !important;
   text-shadow: none !important;
@@ -52,10 +53,34 @@
 
 .saber-highlight-code code,
 .saber-highlight-mask {
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 
 .code-line.highlighted {
   background: rgba(3, 169, 244, 0.121);
-  box-shadow: inset 2px 0 0 0 rgba(3, 169, 244, 0.278)
+}
+
+/* Line numbers */
+.saber-highlight-line-numbers {
+  pointer-events: none;
+  font-size: 100%;
+  float: left;
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+  user-select: none;
+  text-align: right;
+  padding-right: 0.8rem;
+  margin-right: .8rem;
+  counter-reset: linenumber;
+}
+
+.saber-highlight-line-numbers > span {
+  counter-increment: linenumber;
+  display: block;
+}
+
+.saber-highlight-line-numbers > span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
 }
