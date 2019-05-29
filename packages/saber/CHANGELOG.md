@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.6](https://github.com/saberland/saber/compare/saber@0.6.5...saber@0.6.6) (2019-05-29)
+
+### Bug Fixes
+
+- make filterPlugins work in saber-node.js ([#221](https://github.com/saberland/saber/issues/221)) ([f3ec588](https://github.com/saberland/saber/commit/f3ec588))
+- Scroll to anchor not working [#213](https://github.com/saberland/saber/issues/213) ([#214](https://github.com/saberland/saber/issues/214)) ([2286ecd](https://github.com/saberland/saber/commit/2286ecd))
+
+### Features
+
+- add support to line numbers in markdown ([#217](https://github.com/saberland/saber/issues/217)) ([1561c61](https://github.com/saberland/saber/commit/1561c61)), closes [#178](https://github.com/saberland/saber/issues/178) [#178](https://github.com/saberland/saber/issues/178)
+
 ## [0.6.5](https://github.com/saberland/saber/compare/saber@0.6.4...saber@0.6.5) (2019-05-28)
 
 ### Bug Fixes

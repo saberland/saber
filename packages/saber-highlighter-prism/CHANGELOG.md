@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/saberland/saber/compare/saber-highlighter-prism@0.3.0...saber-highlighter-prism@0.3.1) (2019-05-29)
+
+### Bug Fixes
+
+- **saber-highlighter-prism:** add aliases for some languages ([#220](https://github.com/saberland/saber/issues/220)) ([efd0256](https://github.com/saberland/saber/commit/efd0256))
+
 # [0.3.0](https://github.com/egoist/saber/compare/saber-highlighter-prism@0.2.2...saber-highlighter-prism@0.3.0) (2019-05-08)
 
 ### Features

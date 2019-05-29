@@ -1,6 +1,6 @@
 {
   "name": "saber-highlight-css",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Default CSS for code highlighting in Saber",
   "files": [
     "*.css"
