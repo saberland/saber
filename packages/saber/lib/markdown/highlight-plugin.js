@@ -31,7 +31,7 @@ module.exports = (
     codeMask = '',
     lines = ''
   }) =>
-    `<div${preWrapperAttrs}>${codeMask}<pre${preAttrs}><code${codeAttrs}>${code.trim()}${lines}</code></pre></div>`
+    `<div${preWrapperAttrs}>${codeMask}<pre${preAttrs}><code${codeAttrs}>${lines}${code.trim()}</code></pre></div>`
 
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx, options, env, self] = args

@@ -61,27 +61,16 @@
 }
 
 /* Line numbers */
-.saber-highlight.has-line-numbers .saber-highlight-mask,
-.saber-highlight.has-line-numbers .saber-highlight-code {
-  padding-left: 3.8rem !important;
-}
-
-.saber-highlight.has-line-numbers .saber-highlight-code code {
-  position: relative;
-}
-
 .saber-highlight-line-numbers {
-  position: absolute;
   pointer-events: none;
-  top: 0;
   font-size: 100%;
-  left: -3.8rem;
-  width: 3rem;
+  float: left;
   letter-spacing: -1px;
   border-right: 1px solid #999;
   user-select: none;
   text-align: right;
   padding-right: 0.8rem;
+  margin-right: .8rem;
   counter-reset: linenumber;
 }
 
@@ -94,8 +83,4 @@
   content: counter(linenumber);
   color: #999;
   display: block;
-}
-
-.saber-highlight.has-line-numbers .code-line.highlighted {
-  margin-left: -3.8rem;
 }
