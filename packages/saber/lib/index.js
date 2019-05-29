@@ -201,7 +201,7 @@ class Saber {
   }
 
   applyPlugin(plugin, options, pluginLocation) {
-    plugin.apply(this)
+    plugin.apply(this, options)
     if (!plugin.name.startsWith('builtin:')) {
       log.verbose(
         () =>
@@ -225,7 +225,7 @@ class Saber {
 
             const plugin = require(location)
             plugin.location = location
-            plugin.options = p.option
+            plugin.options = p.options
 
             return plugin
           })
