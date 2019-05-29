@@ -172,7 +172,7 @@ interface MarkdownPlugin {
 - Type: `boolean`
 - Default: `false`
 
-Always show line numbers in code blocks.
+Show line numbers in code blocks.
 
 ## permalinks
 
