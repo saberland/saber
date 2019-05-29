@@ -3,9 +3,9 @@ const { log } = require('saber-log')
 const loadLanguages = require('./loadLanguages')
 
 const languageAlias = {
-  'vue': 'html',
-  'sh': 'bash',
-  'styl': 'stylus',
+  vue: 'html',
+  sh: 'bash',
+  styl: 'stylus'
 }
 
 module.exports = (code, lang) => {
