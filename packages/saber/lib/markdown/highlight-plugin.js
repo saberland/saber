@@ -11,7 +11,7 @@ const parseOptions = str => {
 }
 
 const generateLineNumbers = code =>
-  '<span aria-label="hidden" class="saber-highlight-line-numbers">' +
+  '<span aria-hidden="true" class="saber-highlight-line-numbers">' +
   code
     .trim()
     .split('\n')
