@@ -76,12 +76,10 @@ export default context => {
       }
     },
     mounted() {
-      this.$router.app.$nextTick(() =>
-        scrollHandler(
-          this.$router,
-          this.$router.currentRoute,
-          this.$router.currentRoute
-        )
+      scrollHandler(
+        this.$router,
+        this.$router.currentRoute,
+        this.$router.currentRoute
       )
     },
     render(h) {
