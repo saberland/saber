@@ -106,7 +106,6 @@ interface Plugin {
   /* Plugin name */
   name: string
   apply: (api: SaberInstance, options?: any) => void
-  filterPlugins: FilterPlugins
   /* Plugin options */
   options?: any
   /* The path to the plugin, only used in logs */
