@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`code block markdown.lineNumbers = true 1`] = `"<div class=\\"saber-highlight has-line-numbers\\" v-pre=\\"\\" data-lang=\\"js\\"><pre class=\\"saber-highlight-code language-js\\"><code class=\\"language-js\\">const cry = Array(3).fill('ora').join(' ')<span aria-label=\\"hidden\\" class=\\"saber-highlight-line-numbers\\"><span></span></span></code></pre></div>"`;
+exports[`code block markdown.lineNumbers = true 1`] = `"<div class=\\"saber-highlight has-line-numbers\\" v-pre=\\"\\" data-lang=\\"js\\"><pre class=\\"saber-highlight-code language-js\\"><code class=\\"language-js\\">const cry = Array(3).fill('ora').join(' ')<span aria-hidden=\\"true\\" class=\\"saber-highlight-line-numbers\\"><span></span></span></code></pre></div>"`;
 
-exports[`code block with {lineNumbers:true} 1`] = `"<div class=\\"saber-highlight has-line-numbers\\" v-pre=\\"\\" data-lang=\\"js\\"><pre class=\\"saber-highlight-code language-js\\"><code class=\\"language-js\\">const cry = Array(3).fill('ora').join(' ')<span aria-label=\\"hidden\\" class=\\"saber-highlight-line-numbers\\"><span></span></span></code></pre></div>"`;
+exports[`code block with {lineNumbers:true} 1`] = `"<div class=\\"saber-highlight has-line-numbers\\" v-pre=\\"\\" data-lang=\\"js\\"><pre class=\\"saber-highlight-code language-js\\"><code class=\\"language-js\\">const cry = Array(3).fill('ora').join(' ')<span aria-hidden=\\"true\\" class=\\"saber-highlight-line-numbers\\"><span></span></span></code></pre></div>"`;
 
 exports[`main 1`] = `"<div class=\\"saber-highlight\\" v-pre=\\"\\" data-lang=\\"vue\\"><pre class=\\"saber-highlight-code language-vue\\"><code class=\\"language-vue\\">&lt;div&gt;hehe&lt;/div&gt;</code></pre></div>"`;
