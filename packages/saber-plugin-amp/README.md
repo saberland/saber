@@ -1,6 +1,6 @@
 # saber-plugin-amp
 
-Automatically generate AMP pages.
+Generate AMP-only pages and Hybrid pages.
 
 ## Install
 
@@ -17,7 +17,7 @@ plugins:
   - resolve: saber-plugin-amp
 ```
 
-Then you can set `amp: true` in your page attributes to generate an AMP version of the mentioned page.
+In page attributes set `amp: true` to generate an optimized AMP page or `amp: 'hybrid'` to generate an invalid optimized AMP page with client-side Saber runtime and a valid optimized AMP page
 
 ## License
 

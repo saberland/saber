@@ -4,7 +4,7 @@
 
 <script>
 export const attributes = {
-  amp: true
+  amp: 'hybrid'
 }
 
 export default {}

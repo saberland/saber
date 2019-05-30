@@ -48,6 +48,7 @@ exports.apply = api => {
             ? context.url.replace('/', '/index.amp')
             : context.url.replace('.html', '.amp/index.html')
         }">`
+
         const htmlWithScript = `<!DOCTYPE html>${api.getDocument(
           context.documentData
         )}`
