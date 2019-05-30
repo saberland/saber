@@ -41,7 +41,7 @@ exports.apply = api => {
 
       let outputFilePath = exportedPage.path
 
-      if (context.amp !== 'hybrid') {
+      if (context.amp === 'hybrid') {
         // output Hybrid page
         context.documentData.link += `<link rel="amphtml" href="${
           context.url.endsWith('/')
