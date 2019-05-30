@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'layout-manager',
+  name: 'LayoutManager',
   functional: true,
   inject: ['layouts'],
   render(
@@ -21,7 +21,7 @@ export default {
       return componentSlot ? componentSlot(attrs.props) : h('div', {
         ...attrs,
         class: '_saber-page'
-      }, defaultSlot())
+      }, defaultSlot ? defaultSlot() : undefined)
     }
 
     const LayoutComponent = layouts[layout] || layouts.default

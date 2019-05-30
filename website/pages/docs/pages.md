@@ -16,9 +16,9 @@ And run `saber` in your project:
 ![page preview](@/images/simple-index-md-page.png)
 
 
-- `./pages/index.md` maps to `/index.html`
+- `./pages/index.md` maps to `/`
 - `./pages/about.md` maps to `/about.html`
-- `./pages/docs/index.md` maps to `/docs/index.html`
+- `./pages/docs/index.md` maps to `/docs`
 - and so on..
 
 <small><i>Note: If you don't like the `.html` suffix, feel free to customize the [permalinks](./permalinks.md).</i></small>

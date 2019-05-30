@@ -6,5 +6,5 @@ plugins:
       jsonFeed: blog/feed.json
 
 siteConfig:
-  url: https://exampe.com
+  url: https://example.com
   author: Your Name

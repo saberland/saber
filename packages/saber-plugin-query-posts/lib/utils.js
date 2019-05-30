@@ -2,6 +2,11 @@ const slugify = require('slugo')
 
 function paginate(arr, options) {
   options = Object.assign({ perPage: 30 }, options)
+
+  if (options.firstPageOnly) {
+    return [arr.slice(0, options.perPage)]
+  }
+
   const totalPages = Math.ceil(arr.length / options.perPage)
   const result = []
   for (let i = 0; i < totalPages; i++) {

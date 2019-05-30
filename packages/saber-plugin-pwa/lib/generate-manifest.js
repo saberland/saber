@@ -1,27 +1,23 @@
-module.exports = async (api, { name, themeColor }) => {
+module.exports = async (api, { name, themeColor, manifest }) => {
   const { log } = api
   const { fs } = api.utils
-
-  const manifestPath = api.resolveOutDir('manifest.json')
-  const hasManifest = await fs.pathExists(manifestPath)
-  const existingManifest = hasManifest ? require(manifestPath) : {}
 
   const newManifest = JSON.stringify(
     Object.assign(
       {
         short_name: name,
         name,
-        start_url: '/index.html',
+        start_url: './',
         display: 'standalone',
         theme_color: themeColor,
         background_color: '#ffffff'
       },
-      existingManifest
+      manifest
     ),
     null,
     2
   )
 
   log.info(`Generating manifest.json`)
-  await fs.outputFile(manifestPath, newManifest, 'utf8')
+  await fs.outputFile(api.resolveOutDir('manifest.json'), newManifest, 'utf8')
 }

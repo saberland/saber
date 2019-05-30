@@ -45,8 +45,8 @@ module.exports = (localeNames, attributes, permalinks) => {
     .replace(/:i_month/, () => `${date.getMonth() + 1}`)
     .replace(/:day/, () => `${padZero(date.getDate())}`)
     .replace(/:i_day/, () => `${date.getDate()}`)
-    .replace(/^\/index.html$/, '/')
-    .replace(/\/index\.html$/, '/')
+    .replace(/^\/index\.html$/, '/')
+    .replace(/\/index\.html$/, '')
 }
 
 /**

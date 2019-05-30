@@ -5,11 +5,13 @@ const { log, colors } = require('saber-log')
 const resolveFrom = require('resolve-from')
 const merge = require('lodash.merge')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
+const getPort = require('get-port')
 const Pages = require('./Pages')
 const BrowserApi = require('./BrowserApi')
 const Transformers = require('./Transformers')
 const configLoader = require('./utils/configLoader')
 const resolvePackage = require('./utils/resolvePackage')
+const builtinPlugins = require('./plugins')
 
 class Saber {
   constructor(opts = {}, config = {}) {
@@ -22,15 +24,18 @@ class Saber {
     this.colors = colors
     this.utils = require('saber-utils')
     this.hooks = {
+      // Before all user plugins have been applied
+      beforePlugins: new AsyncSeriesHook(),
+      filterPlugins: new SyncWaterfallHook(['plugins']),
+      // After all user plugins have been applied
+      afterPlugins: new AsyncSeriesHook(),
+      // Before running the build process
+      beforeRun: new AsyncSeriesHook(),
+      onUpdateConfigFile: new AsyncSeriesHook(),
       // Extend webpack config
       chainWebpack: new SyncHook(['config', 'opts']),
       // Extend markdown-it config
       chainMarkdown: new SyncHook(['config']),
-      // Before running the build process
-      beforeRun: new AsyncSeriesHook(),
-      filterPlugins: new SyncWaterfallHook(['plugins']),
-      // After all plugins have been applied
-      afterPlugins: new SyncHook(),
       emitRoutes: new AsyncSeriesHook(),
       // Called after running webpack
       afterBuild: new AsyncSeriesHook(),
@@ -82,8 +87,6 @@ class Saber {
     if (opts.verbose) {
       process.env.SABER_LOG_LEVEL = 4
     }
-
-    this.prepare()
   }
 
   get dev() {
@@ -94,7 +97,7 @@ class Saber {
     return this.dev && this.config.build.lazy
   }
 
-  prepare() {
+  async prepare() {
     // Load package.json data
     this.pkg = configLoader.load({
       files: ['package.json'],
@@ -108,7 +111,7 @@ class Saber {
       cwd: this.opts.cwd
     })
 
-    this.setConfig(config, configPath)
+    await this.setConfig(config, configPath)
 
     if (this.configPath) {
       log.info(
@@ -147,17 +150,31 @@ class Saber {
       this.theme = this.RendererClass.defaultTheme
     }
 
-    // Load plugins
-    const plugins = this.getPlugins()
-    log.info(`Using ${plugins.length} plugins`)
-    for (const plugin of plugins) {
-      this.applyPlugin(plugin)
+    // Load built-in plugins
+    for (const plugin of builtinPlugins) {
+      this.applyPlugin(require(plugin.resolve), plugin.options)
     }
 
-    this.hooks.afterPlugins.call()
+    // Load user plugins
+    await this.hooks.beforePlugins.promise()
+
+    const userPlugins = this.getUserPlugins()
+    if (userPlugins.length > 0) {
+      log.info(
+        `Using ${userPlugins.length} plugin${
+          userPlugins.length > 1 ? 's' : ''
+        } from config file`
+      )
+    }
+
+    for (const plugin of userPlugins) {
+      this.applyPlugin(plugin, plugin.options, plugin.location)
+    }
+
+    await this.hooks.afterPlugins.promise()
   }
 
-  setConfig(config, configPath = this.configPath) {
+  async setConfig(config, configPath = this.configPath) {
     this.configPath = configPath
     if (configPath) {
       this.configDir = path.dirname(configPath)
@@ -165,70 +182,78 @@ class Saber {
       this.configDir = null
     }
 
+    const initialRun = !this.config
     this.config = merge({}, config, this.initialConfig)
     // Validate config, apply default values, normalize some values
     this.config = require('./utils/validateConfig')(this.config, {
       dev: this.dev
     })
+
+    // Make sure the port is available
+    const { port } = this.config.server
+    this.config.server._originalPort = port
+    if (initialRun) {
+      this.config.server.port = await getPort({
+        port: getPort.makeRange(port, port + 1000),
+        host: this.config.server.host
+      })
+    }
   }
 
-  applyPlugin(plugin) {
-    plugin.apply(this, plugin.options)
-    log.verbose(
-      () =>
-        `Using plugin "${colors.bold(plugin.name)}" ${
-          plugin.__path ? colors.dim(plugin.__path) : ''
-        }`
-    )
+  applyPlugin(plugin, options, pluginLocation) {
+    plugin.apply(this, options)
+    if (!plugin.name.startsWith('builtin:')) {
+      log.verbose(
+        () =>
+          `Using plugin "${colors.bold(plugin.name)}" ${
+            pluginLocation ? colors.dim(pluginLocation) : ''
+          }`
+      )
+    }
   }
 
-  getPlugins() {
-    const builtinPlugins = [
-      { resolve: require.resolve('./plugins/source-pages') },
-      { resolve: require.resolve('./plugins/extend-browser-api') },
-      { resolve: require.resolve('./plugins/extend-node-api') },
-      { resolve: require.resolve('./plugins/transformer-markdown') },
-      { resolve: require.resolve('./plugins/transformer-default') },
-      { resolve: require.resolve('./plugins/transformer-components') },
-      { resolve: require.resolve('./plugins/config-css') },
-      { resolve: require.resolve('./plugins/config-image') },
-      { resolve: require.resolve('./plugins/config-font') },
-      { resolve: require.resolve('./plugins/config-other-loaders') },
-      { resolve: require.resolve('./plugins/watch-config') },
-      { resolve: require.resolve('./plugins/layouts') },
-      { resolve: require.resolve('./plugins/emit-saber-variables') },
-      { resolve: require.resolve('./plugins/emit-runtime-polyfills') }
-    ]
-
+  getUserPlugins() {
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
-    const configPlugins =
+    const plugins =
       this.configDir && this.config.plugins
         ? this.config.plugins.map(p => {
             if (typeof p === 'string') {
               p = { resolve: p }
             }
 
-            p.resolve = resolveFrom(this.configDir, p.resolve)
-            return p
+            const location = resolveFrom(this.configDir, p.resolve)
+
+            const plugin = require(location)
+            plugin.location = location
+            plugin.options = p.options
+
+            return plugin
           })
         : []
 
-    const plugins = [...builtinPlugins, ...configPlugins].map(
-      ({ resolve, options }) => {
-        const plugin = require(resolve)
-        plugin.__path = resolve
-        plugin.options = options
-        if (plugin.filterPlugins) {
-          this.hooks.filterPlugins.tap(plugin.name, plugins =>
-            plugin.filterPlugins(plugins, options)
-          )
+    const applyFilterPlugins = plugins => {
+      const handlers = new Set()
+
+      for (const plugin of plugins) {
+        const { filterPlugins, options } = plugin
+        if (filterPlugins) {
+          delete plugin.filterPlugins
+          handlers.add(plugins => filterPlugins(plugins, options))
+        }
+      }
+
+      if (handlers.size > 0) {
+        for (const handler of handlers) {
+          plugins = handler(plugins)
         }
 
-        return plugin
+        return applyFilterPlugins(plugins)
       }
-    )
 
-    return this.hooks.filterPlugins.call(plugins)
+      return plugins
+    }
+
+    return applyFilterPlugins(this.hooks.filterPlugins.call(plugins))
   }
 
   resolveCache(...args) {
@@ -305,6 +330,7 @@ class Saber {
 
   // Build app in production mode
   async build({ skipCompilation }) {
+    await this.prepare()
     await this.run()
     if (!skipCompilation) {
       await this.renderer.build()
@@ -316,6 +342,7 @@ class Saber {
   }
 
   async serve() {
+    await this.prepare()
     await this.run()
 
     const server = http.createServer(this.renderer.getRequestHandler())
@@ -324,6 +351,7 @@ class Saber {
   }
 
   async serveOutDir() {
+    await this.prepare()
     return require('./utils/serveDir')({
       dir: this.resolveOutDir(),
       host: this.config.server.host,

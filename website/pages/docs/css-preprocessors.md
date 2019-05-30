@@ -29,3 +29,30 @@ yarn add less-loader less --dev
 ```bash
 yarn add stylus-loader stylus --dev
 ```
+
+## Passing Options to Pre-Processor Loaders
+
+Sometimes you may want to pass options to the pre-processor's webpack loader. You can do that using the `build.loaderOptions` option in `saber-config.js`. For example, to pass some shared global variables to all your Sass/Less styles:
+
+```js
+module.exports = {
+  build: {
+    loaderOptions: {
+      // pass options to sass-loader
+      sass: {
+        // @/ is an alias to your project root
+        // so this assumes you have a file named `scss/variables.scss`
+        data: `@import "@/scss/variables.scss";`
+      },
+      // pass Less.js Options to less-loader
+      less:{
+        // http://lesscss.org/usage/#less-options-strict-units `Global Variables`
+        // `primary` is global variables fields name
+        globalVars: {
+          primary: '#fff'
+        }
+      }
+    }
+  }
+}
+```

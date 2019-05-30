@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/saberland/saber/compare/saber-plugin-query-posts@0.3.1...saber-plugin-query-posts@0.3.2) (2019-05-28)
+
+### Features
+
+- **saber-plugin-query-posts:** add firstPageOnly option ([995711c](https://github.com/saberland/saber/commit/995711c))
+- **saber-plugin-query-posts:** allow to configure pagination for each page separately ([fba8833](https://github.com/saberland/saber/commit/fba8833))
+
+## [0.3.1](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.3.0...saber-plugin-query-posts@0.3.1) (2019-05-21)
+
+### Bug Fixes
+
+- **deps:** update peerDependencies in plugins ([e1345c5](https://github.com/egoist/saber/commit/e1345c5))
+
+# [0.3.0](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.2.0...saber-plugin-query-posts@0.3.0) (2019-05-11)
+
+### Bug Fixes
+
+- remove pages.extendPageProp ([5cafde8](https://github.com/egoist/saber/commit/5cafde8))
+
+### BREAKING CHANGES
+
+- `api.pages.extendPageProp` is removed, you should directly mutate `page` object instead
+
 # [0.2.0](https://github.com/egoist/saber/compare/saber-plugin-query-posts@0.1.5...saber-plugin-query-posts@0.2.0) (2019-05-08)
 
 ### Features

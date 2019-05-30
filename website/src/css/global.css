@@ -2,13 +2,15 @@
   --border-color: #edf2f6;
   --theme-color: #3880ff;
   --header-height: 60px;
+  --header-shadow: 0 1px 1px rgba(0,0,0,.05);
   --spinner-color: #3880ff;
   --sidebar-width: 270px;
+  --body-bg: white;
   --header-bg: white;
   --sidebar-bg: white;
   --gray: #666;
-  --dark: #000;
-  --text-color: #333;
+  --dark: #343c5a;
+  --text-color: #747790;
   --text-light-color: #73849a;
 }
 
@@ -18,10 +20,9 @@
 
 body {
   margin: 0;
+  background: var(--body-bg);
   color: var(--text-color);
-  font: 16px/1.6 "Roboto", "Helvetica Neue", sans-serif;
-  text-size-adjust: none;
-  -webkit-font-smoothing: antialiased;
+  font: 1.125rem/1.7 'Source Sans Pro','Helvetica',sans-serif;
 }
 
 .container {
@@ -92,10 +93,21 @@ hr.footnotes-sep {
 }
 
 .saber-highlight {
-  font-size: .875rem;
-  background-color: white;
-  border: 1px solid #f0f0f0;
-  border-radius: 0;
+  border-radius: 4px;
+  background: #011627;
+}
+
+.saber-highlight:before {
+  background: rgba(201, 167, 255, 0.2);
+  color: var(--text-color);
+  border-radius: 0 0 4px 4px;
+  top: 0;
+  padding: 0 10px;
+}
+
+.code-line.highlighted {
+  background: rgba(201, 167, 255, 0.2);
+  box-shadow: inset 3px 0 0 0 rgb(201, 167, 255);
 }
 
 table, td, th {
@@ -117,4 +129,13 @@ table {
   margin: 2em 0;
   overflow-x: auto;
   width: 100%;
+}
+
+code {
+  font-size: .875rem;
+  background: #f5f7fa;
+  border-radius: 3px;
+  padding: 3px 5px;
+  text-shadow: none;
+  font-family: "SFMono-Regular", "Roboto Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }

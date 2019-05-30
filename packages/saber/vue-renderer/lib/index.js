@@ -2,6 +2,7 @@ const path = require('path')
 const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
+const { SyncWaterfallHook } = require('tapable')
 
 const ID = 'vue-renderer'
 
@@ -11,6 +12,10 @@ class VueRenderer {
     // In dev mode pages will be built when visited
     this.visitedRoutes = new Set()
     this.builtRoutes = new Set()
+
+    this.hooks = {
+      getVueLoaderOptions: new SyncWaterfallHook(['options'])
+    }
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
@@ -38,11 +43,12 @@ class VueRenderer {
       // Transform js files in ../app folder
       config.module.rule('js').include.add(path.join(__dirname, '../app'))
 
-      const vueLoaderOptions = {
+      const vueLoaderOptions = this.hooks.getVueLoaderOptions.call({
         compilerOptions: {
           modules: []
-        }
-      }
+        },
+        transformAssetUrls: {}
+      })
 
       // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
@@ -371,21 +377,22 @@ class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req, res) => {
-      log.info(`Navigating to ${req.query.route}`)
+      const pathname = removeTrailingSlash(decodeURI(req.query.route))
+      log.info(`Navigating to ${pathname}`)
       res.end()
 
-      if (this.builtRoutes.has(req.query.route)) {
-        hotMiddleware.publish({ action: 'router:push', route: req.query.route })
+      if (this.builtRoutes.has(pathname)) {
+        hotMiddleware.publish({ action: 'router:push', route: pathname })
       } else {
         event.once('done', error => {
-          this.builtRoutes.add(req.query.route)
+          this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
-            route: req.query.route,
+            route: pathname,
             error
           })
         })
-        this.visitedRoutes.add(req.query.route)
+        this.visitedRoutes.add(pathname)
         await this.writeRoutes()
       }
     })
@@ -435,7 +442,7 @@ class VueRenderer {
         return render()
       }
 
-      const pathname = decodeURI(req.path)
+      const pathname = removeTrailingSlash(decodeURI(req.path))
 
       if (this.builtRoutes.has(pathname)) {
         render()
@@ -466,4 +473,12 @@ function runCompiler(compiler) {
       resolve(stats)
     })
   })
+}
+
+function removeTrailingSlash(input) {
+  if (input === '/') {
+    return input
+  }
+
+  return input.replace(/\/$/, '')
 }

@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const generateManifest = require('./generate-manifest')
 const getAppConfig = require('./get-app-config')
 const createElement = require('./create-element')
@@ -29,9 +30,13 @@ exports.apply = (
       ])
     })
 
-    const { name, themeColor, assetsVersion } = getAppConfig(
+    const { name, themeColor, assetsVersion, appleTouchIcon } = getAppConfig(
       Object.assign({ name: api.config.siteConfig.title }, appConfig)
     )
+
+    const manifestPath = api.resolveCwd('static/manifest.json')
+    const hasManifest = fs.existsSync(manifestPath)
+    const manifest = hasManifest ? require(manifestPath) : {}
 
     api.hooks.afterGenerate.tapPromise(ID, async () => {
       const { generateSW } = require('workbox-build')
@@ -47,7 +52,8 @@ exports.apply = (
 
       await generateManifest(api, {
         name,
-        themeColor
+        themeColor,
+        manifest
       })
     })
 
@@ -55,6 +61,9 @@ exports.apply = (
     const assetsVersionStr = assetsVersion ? `?v=${assetsVersion}` : ''
 
     api.hooks.getDocumentData.tap(ID, data => {
+      const appleTouchIcons = appleTouchIcon
+        ? [{ src: appleTouchIcon }]
+        : manifest.icons
       data.meta += [
         createElement('link', {
           rel: 'manifest',
@@ -65,6 +74,16 @@ exports.apply = (
           content: themeColor
         })
       ]
+        .concat(
+          appleTouchIcons &&
+            appleTouchIcons.map(icon =>
+              createElement('link', {
+                rel: 'apple-touch-icon',
+                sizes: icon.sizes || false,
+                href: icon.src
+              })
+            )
+        )
         .filter(Boolean)
         .join('')
       return data

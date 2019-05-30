@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "saber-monorepo",
+  "name": "saber",
   "scripts": {
     "test": "npm run lint && lerna run test",
     "lint": "xo",

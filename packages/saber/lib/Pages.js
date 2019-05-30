@@ -119,7 +119,12 @@ module.exports = class Pages extends Map {
     }
 
     page.attributes.assets = page.attributes.assets
-      ? prefixAssets(page.attributes.assets)
+      ? prefixAssets(
+          page.attributes.assets,
+          page.internal.absolute
+            ? path.dirname(page.internal.absolute)
+            : api.opts.cwd
+        )
       : {}
 
     // Ensure this page is not saved
