@@ -12,5 +12,7 @@
     "lib"
   ],
   "xo": false,
-  "dependencies": {}
+  "dependencies": {
+    "amp-toolbox-optimizer": "^1.2.0-alpha.1"
+  }
 }
