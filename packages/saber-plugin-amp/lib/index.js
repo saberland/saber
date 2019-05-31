@@ -6,7 +6,7 @@ exports.name = ID
 
 exports.apply = api => {
   api.hooks.afterExportPage.tapPromise(ID, async (context, exportedPage) => {
-    if (context.amp) {
+    if (context.amp || api.config.themeConfig.amp) {
       const { log } = api
       const { fs } = api.utils
       const outputDir = api.resolveCache('public')
@@ -41,7 +41,7 @@ exports.apply = api => {
 
       let outputFilePath = exportedPage.path
 
-      if (context.amp === 'hybrid') {
+      if (context.amp === 'hybrid' || api.config.themeConfig.amp === 'hybrid') {
         // output Hybrid page
         context.documentData.link += `<link rel="amphtml" href="${
           context.url.endsWith('/')
