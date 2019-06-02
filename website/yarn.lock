@@ -545,11 +545,6 @@ tiny-emitter@^2.0.0:
   resolved "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
   integrity sha512-2NM0auVBGft5tee/OxP4PI3d8WItkDM+fPnaRAVo6xTDI2knbz9eC5ArWGqtGlYqiH3RU5yMpdyTTO7MguC4ow==
 
-typeface-source-sans-pro@0.0.54:
-  version "0.0.54"
-  resolved "https://registry.npmjs.org/typeface-source-sans-pro/-/typeface-source-sans-pro-0.0.54.tgz#a570edf565d338b622487ec1ebe2389eb1eed62f"
-  integrity sha512-4nsvldyZsOBuvR4oEuUMTquJFVssP4iIVnMEIU4paCWo2940b6r/t95sk7KwDpCablS8DprM/YlhpgqnS7gpKg==
-
 uniq@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"

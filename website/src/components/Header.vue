@@ -3,11 +3,10 @@
     <div class="container">
       <div class="header-left">
         <div
-          v-if="showToggle"
           class="toggle"
-          @click="toggleSidebar"
+          @click="toggleLeftbar"
           role="button"
-          aria-label="Toggle Sidebar"
+          aria-label="Toggle Leftbar"
           tabindex="0"
         >
           <svg viewBox="0 0 512 512">
@@ -78,19 +77,12 @@
 
 <script>
 export default {
-  props: {
-    showToggle: {
-      type: Boolean,
-      default: false
-    }
-  },
-
   methods: {
-    toggleSidebar() {
-      if (document.body.classList.contains('show-sidebar')) {
-        document.body.classList.remove('show-sidebar')
+    toggleLeftbar() {
+      if (document.body.classList.contains('show-leftbar')) {
+        document.body.classList.remove('show-leftbar')
       } else {
-        document.body.classList.add('show-sidebar')
+        document.body.classList.add('show-leftbar')
       }
     }
   }
@@ -100,7 +92,6 @@ export default {
 
 <style scoped>
 .header {
-  box-shadow: var(--header-shadow);
   height: var(--header-height);
   position: fixed;
   top: 0;
@@ -108,6 +99,7 @@ export default {
   right: 0;
   z-index: 1001;
   background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
 
   & a {
     color: #000;
@@ -131,7 +123,7 @@ export default {
   height: 40px;
   width: 40px;
   padding: 8px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   border-radius: 940922px;
@@ -151,8 +143,8 @@ export default {
     height: 100%;
   }
 
-  @media (min-width: 768px) {
-    display: none;
+  @media (max-width: 768px) {
+    display: flex;
   }
 }
 

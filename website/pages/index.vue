@@ -1,5 +1,5 @@
 <template>
-  <div class="page-index">
+  <div class="page-index small-container">
     <div class="slogan">
       <span class="logo"></span>
       <div class="slogan-content">
@@ -43,7 +43,7 @@ export default {}
 
 <style scoped>
 .page-index {
-  color: var(--dark);
+  color: var(--text-dark-color);
   margin-top: 20px;
   margin-bottom: 50px;
 }
@@ -126,7 +126,6 @@ section {
 .features {
   font-size: 1.3rem;
   margin-top: 60px;
-  max-width: 600px;
 }
 
 .feature {
