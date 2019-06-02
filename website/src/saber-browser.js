@@ -1,5 +1,4 @@
 import 'nprogress/nprogress.css'
-import 'typeface-source-sans-pro/index.css'
 import '../../packages/saber-highlight-css/default.css'
 import './css/global.css'
 import './css/prism.css'

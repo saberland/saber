@@ -3,11 +3,10 @@
     <div class="container">
       <div class="header-left">
         <div
-          v-if="showToggle"
           class="toggle"
-          @click="toggleSidebar"
+          @click="toggleLeftbar"
           role="button"
-          aria-label="Toggle Sidebar"
+          aria-label="Toggle Leftbar"
           tabindex="0"
         >
           <svg viewBox="0 0 512 512">
@@ -78,20 +77,32 @@
 
 <script>
 export default {
-  props: {
-    showToggle: {
-      type: Boolean,
-      default: false
+  methods: {
+    toggleLeftbar() {
+      if (document.body.classList.contains('show-leftbar')) {
+        document.body.classList.remove('show-leftbar')
+      } else {
+        document.body.classList.add('show-leftbar')
+      }
     }
   },
 
-  methods: {
-    toggleSidebar() {
-      if (document.body.classList.contains('show-sidebar')) {
-        document.body.classList.remove('show-sidebar')
-      } else {
-        document.body.classList.add('show-sidebar')
+  mounted() {
+    const Headroom = require('headroom.js')
+    this.headroom = new Headroom(this.$el, {
+      onPin() {
+        document.body.classList.add('header-pinned')
+      },
+      onUnpin() {
+        document.body.classList.remove('header-pinned')
       }
+    })
+    this.headroom.init()
+  },
+
+  beforeDestroy() {
+    if (this.headroom) {
+      this.headroom.destroy()
     }
   }
 }
@@ -100,17 +111,23 @@ export default {
 
 <style scoped>
 .header {
-  box-shadow: var(--header-shadow);
   height: var(--header-height);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1001;
-  background: var(--header-bg);
+  transform: translateY(0);
+  transition: transform 0.3s ease;
 
   & a {
     color: #000;
+  }
+
+  &.headroom--unpinned {
+    transform: translateY(-100%);
   }
 }
 
@@ -131,7 +148,7 @@ export default {
   height: 40px;
   width: 40px;
   padding: 8px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   border-radius: 940922px;
@@ -151,8 +168,8 @@ export default {
     height: 100%;
   }
 
-  @media (min-width: 768px) {
-    display: none;
+  @media (max-width: 768px) {
+    display: flex;
   }
 }
 
