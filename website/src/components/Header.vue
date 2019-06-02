@@ -76,6 +76,8 @@
 </template>
 
 <script>
+import Headroom from 'headroom.js'
+
 export default {
   methods: {
     toggleLeftbar() {
@@ -85,6 +87,24 @@ export default {
         document.body.classList.add('show-leftbar')
       }
     }
+  },
+
+  mounted() {
+    this.headroom = new Headroom(this.$el, {
+      onPin() {
+        document.body.classList.add('header-pinned')
+      },
+      onUnpin() {
+        document.body.classList.remove('header-pinned')
+      }
+    })
+    this.headroom.init()
+  },
+
+  beforeDestroy() {
+    if (this.headroom) {
+      this.headroom.destroy()
+    }
   }
 }
 </script>
@@ -93,16 +113,22 @@ export default {
 <style scoped>
 .header {
   height: var(--header-height);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1001;
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--border-color);
+  transform: translateY(0);
+  transition: transform .3s ease;
 
   & a {
     color: #000;
+  }
+
+  &.headroom--unpinned {
+    transform: translateY(-100%);
   }
 }
 

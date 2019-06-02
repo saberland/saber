@@ -53,6 +53,10 @@ a {
 
 .sticky {
   position: sticky;
+  top: 20px;
+}
+
+.header-pinned .sticky {
   top: calc(var(--header-height) + 20px);
 }
 
