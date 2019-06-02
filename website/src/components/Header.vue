@@ -76,8 +76,6 @@
 </template>
 
 <script>
-import Headroom from 'headroom.js'
-
 export default {
   methods: {
     toggleLeftbar() {
@@ -90,6 +88,7 @@ export default {
   },
 
   mounted() {
+    const Headroom = require('headroom.js')
     this.headroom = new Headroom(this.$el, {
       onPin() {
         document.body.classList.add('header-pinned')
@@ -121,7 +120,7 @@ export default {
   right: 0;
   z-index: 1001;
   transform: translateY(0);
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 
   & a {
     color: #000;
