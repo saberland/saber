@@ -2,9 +2,13 @@
   <div class="toc">
     <div class="toc-title">Contents</div>
     <div class="toc-headings">
-      <saber-link class="toc-heading" v-for="heading in headings" :key="heading.slug" :to="{hash: heading.slug}">
-        {{ heading.text }}
-      </saber-link>
+      <saber-link
+        :data-level="heading.level"
+        class="toc-heading"
+        v-for="heading in filteredHeadings"
+        :key="heading.slug"
+        :to="{hash: heading.slug}"
+      >{{ heading.text }}</saber-link>
     </div>
   </div>
 </template>
@@ -15,6 +19,12 @@ export default {
     headings: {
       type: Array,
       required: true
+    }
+  },
+
+  computed: {
+    filteredHeadings() {
+      return this.headings.filter(heading => heading.level < 4)
     }
   }
 }
@@ -33,7 +43,7 @@ export default {
   display: block;
   margin-bottom: 5px;
   color: var(--text-light-color);
-  font-size: .875rem;
+  font-size: 0.875rem;
 
   &:hover {
     color: var(--text-color);
@@ -41,6 +51,10 @@ export default {
 
   &.router-link-exact-active {
     color: var(--text-dark-color);
+  }
+
+  &[data-level="3"] {
+    padding-left: 10px;
   }
 }
 </style>
