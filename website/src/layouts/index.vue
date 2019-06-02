@@ -13,6 +13,12 @@ export default {
     Wrap
   },
 
-  props: ['page']
+  props: ['page'],
+
+  head() {
+    return {
+      title: this.$siteConfig.title
+    }
+  }
 }
 </script>
