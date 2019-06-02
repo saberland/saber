@@ -68,7 +68,7 @@ export default {
     },
 
     toggleOpenLink(link) {
-      if (this.openLink) {
+      if (this.openLink === link) {
         this.openLink = null
       } else {
         this.openLink = link
