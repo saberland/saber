@@ -1,5 +1,5 @@
 ---
 injectAllPosts: true
-layout: index
+layout: blog
 title: Blog
 ---

@@ -14,7 +14,7 @@ module.exports = {
   build: { lazy: true },
   permalinks: { post: '/blog/:slug.html' },
   themeConfig: {
-    sidebar: [
+    sidebarMenu: [
       {
         title: 'Basics',
         children: [

@@ -99,17 +99,26 @@ Depending on the hook type, `tapAsync` and `tapPromise` may also be available. H
 
 Called to filter plugins.
 
+This hook is __only__ available `saber-node.js`.
+
 ```ts
 interface Plugin {
+  /* Plugin name */
   name: string
   apply: (api: SaberInstance, options?: any) => void
+  /* Plugin options */
   options?: any
+  /* The path to the plugin, only used in logs */
+  location?: string
 }
 ```
+
 
 ### `beforePlugins`
 
 - Hook Type: `AsyncSeriesHook`
+
+This hook is __only__ available `saber-node.js`.
 
 Called before loading user plugins.
 

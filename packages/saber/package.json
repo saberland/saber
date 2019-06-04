@@ -1,6 +1,6 @@
 {
   "name": "saber",
-  "version": "0.6.5",
+  "version": "0.6.7",
   "files": [
     "bin",
     "lib",
@@ -65,9 +65,9 @@
   },
   "devDependencies": {
     "@types/fs-extra": "5.1.0",
-    "@types/resolve-from": "4.0.0",
+    "@types/resolve-from": "5.0.1",
     "@types/superstruct": "0.5.0",
-    "@types/webpack": "4.4.31",
+    "@types/webpack": "4.4.32",
     "jest": "24.8.0",
     "markdown-it-footnote": "3.0.1",
     "typescript": "3.4.5"

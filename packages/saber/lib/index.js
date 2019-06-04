@@ -168,7 +168,7 @@ class Saber {
     }
 
     for (const plugin of userPlugins) {
-      this.applyPlugin(plugin, plugin.options, plugin.__path)
+      this.applyPlugin(plugin, plugin.options, plugin.location)
     }
 
     await this.hooks.afterPlugins.promise()
@@ -201,7 +201,7 @@ class Saber {
   }
 
   applyPlugin(plugin, options, pluginLocation) {
-    plugin.apply(this)
+    plugin.apply(this, options)
     if (!plugin.name.startsWith('builtin:')) {
       log.verbose(
         () =>
@@ -214,32 +214,46 @@ class Saber {
 
   getUserPlugins() {
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
-    let plugins =
+    const plugins =
       this.configDir && this.config.plugins
         ? this.config.plugins.map(p => {
             if (typeof p === 'string') {
               p = { resolve: p }
             }
 
-            p.resolve = resolveFrom(this.configDir, p.resolve)
-            return p
+            const location = resolveFrom(this.configDir, p.resolve)
+
+            const plugin = require(location)
+            plugin.location = location
+            plugin.options = p.options
+
+            return plugin
           })
         : []
 
-    plugins = plugins.map(({ resolve, options }) => {
-      const plugin = require(resolve)
-      plugin.__path = resolve
-      plugin.options = options
-      if (plugin.filterPlugins) {
-        this.hooks.filterPlugins.tap(plugin.name, plugins =>
-          plugin.filterPlugins(plugins, options)
-        )
+    const applyFilterPlugins = plugins => {
+      const handlers = new Set()
+
+      for (const plugin of plugins) {
+        const { filterPlugins, options } = plugin
+        if (filterPlugins) {
+          delete plugin.filterPlugins
+          handlers.add(plugins => filterPlugins(plugins, options))
+        }
       }
 
-      return plugin
-    })
+      if (handlers.size > 0) {
+        for (const handler of handlers) {
+          plugins = handler(plugins)
+        }
 
-    return this.hooks.filterPlugins.call(plugins)
+        return applyFilterPlugins(plugins)
+      }
+
+      return plugins
+    }
+
+    return applyFilterPlugins(this.hooks.filterPlugins.call(plugins))
   }
 
   resolveCache(...args) {

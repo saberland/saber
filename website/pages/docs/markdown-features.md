@@ -170,7 +170,7 @@ To highlight code blocks, you need to use a highlighter plugin, [Prism.js](https
 
 ```bash
 # In your project
-yarn add saber-plugin-prismjs
+yarn add saber-plugin-prismjs prismjs
 ```
 
 Then add this plugin in your `saber-config.yml`:
@@ -274,6 +274,54 @@ If you want to override the font size or font family, you need to add CSS for bo
   /* Default: */
   font-size: .875rem;
 }
+```
+
+### Line Numbers in Code Blocks
+
+Input:
+
+````markdown
+```js {lineNumbers:true,highlightLines:['2-5']}
+[
+  {
+    text: 'A page',
+    slug: 'a-page',
+    level: 1
+  },
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+  {
+    text: 'Another section',
+    slug: 'another-section',
+    level: 3
+  }
+]
+```
+````
+
+Output:
+
+```js {lineNumbers:true,highlightLines:['2-5']}
+[
+  {
+    text: 'A page',
+    slug: 'a-page',
+    level: 1
+  },
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+  {
+    text: 'Another section',
+    slug: 'another-section',
+    level: 3
+  }
+]
 ```
 
 ## Configure markdown-it

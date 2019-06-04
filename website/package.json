@@ -7,11 +7,10 @@
   },
   "dependencies": {
     "date-fns": "1.30.1",
-    "jump.js": "1.0.2",
+    "headroom.js": "^0.9.4",
     "markdown-it-footnote": "3.0.1",
     "nprogress": "0.2.0",
-    "prismjs": "1.16.0",
-    "typeface-source-sans-pro": "0.0.54"
+    "prismjs": "1.16.0"
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"
