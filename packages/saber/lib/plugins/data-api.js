@@ -6,7 +6,7 @@ const ID = 'builtin:data-api'
 exports.name = ID
 
 exports.apply = api => {
-  api.hooks.beforeRun.tapPromise(ID, async () => {
+  const outputDataFile = async () => {
     const content = `
       const saberData = Object.assign(
         ${
@@ -26,5 +26,21 @@ exports.apply = api => {
       }
     `
     await fs.outputFile(api.resolveCache('data.js'), content, 'utf8')
+  }
+
+  api.hooks.beforeRun.tapPromise(ID, async () => {
+    outputDataFile()
+    const dataApiFiles = [
+      path.join(api.theme, 'saber-data.js'),
+      api.resolveCwd('saber-data.js')
+    ]
+    require('chokidar')
+      .watch(dataApiFiles, {
+        ignoreInitial: true
+      })
+      .on('all', async (action, pathname) => {
+        delete require.cache[pathname]
+        outputDataFile()
+      })
   })
 }

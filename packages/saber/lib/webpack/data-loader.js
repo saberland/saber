@@ -6,7 +6,7 @@ module.exports = async function(source) {
   this.addDependency(this.resourcePath)
   const sandbox = {
     require,
-    module
+    module: {}
   }
   vm.createContext(sandbox)
   const mod = vm.runInContext(source, sandbox)

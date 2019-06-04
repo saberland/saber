@@ -2,6 +2,7 @@ module.exports = [
   { resolve: require.resolve('./source-pages') },
   { resolve: require.resolve('./extend-browser-api') },
   { resolve: require.resolve('./extend-node-api') },
+  { resolve: require.resolve('./data-api') },
   { resolve: require.resolve('./transformer-markdown') },
   { resolve: require.resolve('./transformer-default') },
   { resolve: require.resolve('./transformer-components') },
