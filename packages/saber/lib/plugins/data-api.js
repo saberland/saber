@@ -30,17 +30,19 @@ exports.apply = api => {
 
   api.hooks.beforeRun.tapPromise(ID, async () => {
     outputDataFile()
-    const dataApiFiles = [
-      path.join(api.theme, 'saber-data.js'),
-      api.resolveCwd('saber-data.js')
-    ]
-    require('chokidar')
-      .watch(dataApiFiles, {
-        ignoreInitial: true
-      })
-      .on('all', async (action, pathname) => {
-        delete require.cache[pathname]
-        outputDataFile()
-      })
+    if (api.dev) {
+      const dataApiFiles = [
+        path.join(api.theme, 'saber-data.js'),
+        api.resolveCwd('saber-data.js')
+      ]
+      require('chokidar')
+        .watch(dataApiFiles, {
+          ignoreInitial: true
+        })
+        .on('all', async (action, pathname) => {
+          delete require.cache[pathname]
+          outputDataFile()
+        })
+    }
   })
 }
