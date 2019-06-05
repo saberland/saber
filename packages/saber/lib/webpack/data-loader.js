@@ -3,7 +3,6 @@ const devalue = require('devalue')
 
 module.exports = async function(source) {
   const callback = this.async()
-  this.addDependency(this.resourcePath)
   const sandbox = {
     require,
     module: {}
