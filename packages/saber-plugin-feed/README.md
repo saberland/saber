@@ -83,7 +83,7 @@ The maximum amount of posts to include in the feed.
 - Type: `string`
 - Default: `All rights reserved`
 
-The copyright info `<rights>` in the feed.
+The copyright info in the feed.
 
 ## License
 
