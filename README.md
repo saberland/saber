@@ -21,7 +21,7 @@ Issues on Saber can be funded by anyone and the money will be distributed to con
 
 📝 **https://saber.land**
 
-The source code of the docs can be founded [here](./website/pages).
+The source code of the docs can be found [here](./website/pages).
 
 ## Community
 
