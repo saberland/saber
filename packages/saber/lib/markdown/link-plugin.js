@@ -12,7 +12,7 @@ module.exports = function(md) {
         if (/^https?:/.test(link[1])) {
           // External link
           if (!token.attrGet('target')) {
-            token.attrJoin('target', '_blank')
+            token.attrSet('target', '_blank')
           }
 
           token.attrJoin('rel', 'noopener noreferrer')
