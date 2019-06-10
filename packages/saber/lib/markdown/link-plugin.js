@@ -11,10 +11,7 @@ module.exports = function(md) {
       if (/^[^:]+:\/\//.test(link[1])) {
         if (/^https?:/.test(link[1])) {
           // External link
-          if (!token.attrGet('target')) {
-            token.attrSet('target', '_blank')
-          }
-
+          token.attrJoin('target', '_blank')
           token.attrJoin('rel', 'noopener noreferrer')
         }
       } else if (link[1]) {
