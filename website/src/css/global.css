@@ -75,6 +75,7 @@ a {
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
+  overflow: auto;
 
   @media (max-width: 768px) {
     padding-left: 0;
@@ -86,8 +87,9 @@ a {
 .rightbar {
   width: var(--rightbar-width);
   font-size: 14px;
+  word-break: break-word;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 }
