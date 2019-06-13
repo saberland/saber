@@ -18,7 +18,8 @@ exports.apply = api => {
         JSON.stringify({
           siteConfig: config.siteConfig || {},
           themeConfig: config.themeConfig || {},
-          locales: config.locales || {}
+          locales: config.locales || {},
+          publicUrl: (config.build && config.build.publicUrl) || undefined
         }),
         'utf8'
       )
@@ -28,7 +29,8 @@ exports.apply = api => {
         Object.assign({}, config, {
           siteConfig: undefined,
           themeConfig: undefined,
-          locales: undefined
+          locales: undefined,
+          publicUrl: undefined
         })
       if (!deepEqual(dropUnnecessary(newConfig), dropUnnecessary(prevConfig))) {
         log.warn(

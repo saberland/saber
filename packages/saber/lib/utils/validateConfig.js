@@ -103,8 +103,10 @@ module.exports = (config, { dev }) => {
     // Always use  / in dev mode
     result.build.publicUrl = '/'
   } else {
-    // Ensure that build.publicUrl ends with slash
-    result.build.publicUrl = result.build.publicUrl.replace(/\/?$/, '/')
+    // Ensure that build.publicUrl ends and starts with slash
+    result.build.publicUrl = result.build.publicUrl
+      .replace(/^\/?/, '/') // starting slash
+      .replace(/\/?$/, '/') // ending slash
   }
 
   return result

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from './vendor/vue-router'
 import RoutePrefetch from './vendor/vue-router-prefetch'
 import routes from '#cache/routes'
+import { publicUrl } from 'saber/config'
 
 Vue.use(Router)
 
@@ -35,6 +36,7 @@ export default () => {
     new Router({
       mode: 'history',
       routes,
+      base: publicUrl,
       scrollBehavior(to, from, savedPosition) {
         // if the returned position is falsy or an empty object,
         // will retain current scroll position.
