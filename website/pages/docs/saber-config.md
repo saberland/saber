@@ -140,7 +140,7 @@ Options for the internal markdown-it plugin for generating markdown headings and
 
 |Property|Type|Default|Description|
 |---|---|---|---|
-|`injectMarkdownHeadings`|`boolean`|`true`|Inject markdown headings as `page.attributes.markdownHeadings`|
+|`injectMarkdownHeadings`|`boolean`|`true`|Inject markdown headings as `page.markdownHeadings`|
 |`permalink`|`boolean`|`false`|Generating permalinks.|
 |`permalinkComponent`|`string`|`saber-link`||
 |`permalinkBefore`|`bolean`|`true`|Inject permalink before heading text.|
