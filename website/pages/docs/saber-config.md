@@ -60,7 +60,7 @@ The directory to output HTML files and other static assets.
 - Type: `string`
 - Default: `/`
 
-The base URL your application will be deployed at. If your website is located at a sub directory, e.g. `https://example.com/blog`, you should set this option to `/blog/` (leading slash is required). It needs to be either an absolute path (like `/blog`) or an absolute URL (like `https://example.com/blog`).
+The base URL your application will be deployed at. If your website is located at a sub directory, e.g. `https://example.com/blog`, you should set this option to either an absolute path (like `/blog`, leading slash is required) or an absolute URL (like `https://example.com/blog`).
 
 ### extractCSS
 
