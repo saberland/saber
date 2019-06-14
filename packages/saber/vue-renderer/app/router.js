@@ -35,6 +35,7 @@ export default () => {
     new Router({
       mode: 'history',
       routes,
+      base: __PUBLIC_URL__,
       scrollBehavior(to, from, savedPosition) {
         // if the returned position is falsy or an empty object,
         // will retain current scroll position.
