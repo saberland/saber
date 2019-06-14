@@ -103,7 +103,7 @@ Finally, make sure GitHub Pages option in your GitHub project settings is set to
 
 ### Step 5: Optionally, configure the domain
 
-You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `public/` folder.
+You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `static/` folder.
 
 Your `CNAME` file should look like this:
 
