@@ -93,6 +93,10 @@ You can configure a custom domain with GitHub Pages by adding a `CNAME` file to 
 
 Your `CNAME` file should look like this:
 
+```
+mywebsite.com
+```
+
 ### Step 4: Deploy the site by running `npm run deploy`
 
 Then run:
@@ -106,11 +110,6 @@ npm run deploy
 Finally, make sure GitHub Pages option in your GitHub project settings is set to use the `gh-pages` branch:
 
 ![gh-pages-setting](@/images/gh-pages-setting.png)
-
-
-```
-mywebsite.com
-```
 
 ## [ZEIT Now](https://zeit.co/now)
 
