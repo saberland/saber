@@ -1,6 +1,6 @@
 {
   "name": "saber",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "files": [
     "bin",
     "lib",
@@ -45,7 +45,7 @@
     "pretty-ms": "^5.0.0",
     "resolve-from": "^5.0.0",
     "saber-log": "^0.2.0",
-    "saber-markdown": "^0.0.7",
+    "saber-markdown": "^0.0.8",
     "saber-utils": "^0.1.4",
     "serve-static": "^1.13.2",
     "slugo": "^0.2.3",

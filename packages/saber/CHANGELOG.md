@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.8](https://github.com/saberland/saber/compare/saber@0.6.7...saber@0.6.8) (2019-06-15)
+
+### Bug Fixes
+
+- publicUrl behaviour [#261](https://github.com/saberland/saber/issues/261) ([#263](https://github.com/saberland/saber/issues/263)) ([1bcfd21](https://github.com/saberland/saber/commit/1bcfd21))
+
 ## [0.6.7](https://github.com/saberland/saber/compare/saber@0.6.6...saber@0.6.7) (2019-05-29)
 
 ### Bug Fixes
