@@ -78,7 +78,7 @@ Add the following `scripts` in your `package.json`:
 ```diff
   "scripts": {
 +   "predeploy": "npm run build",
-+   "deploy": "gh-pages -d public",
++   "deploy": "gh-pages -d public -t",
     "dev": "saber",
     "build": "saber build",
 ```
@@ -87,21 +87,7 @@ Add the following `scripts` in your `package.json`:
 
 Adding a file `.nojekyll` (with empty content) to the `static/` folder to [turn off Jekyll integration of GitHub Pages](https://help.github.com/en/articles/files-that-start-with-an-underscore-are-missing).
 
-### Step 3: Deploy the site by running `npm run deploy`
-
-Then run:
-
-```bash
-npm run deploy
-```
-
-### Step 4: For a project page, ensure your project’s settings use `gh-pages`
-
-Finally, make sure GitHub Pages option in your GitHub project settings is set to use the `gh-pages` branch:
-
-![gh-pages-setting](@/images/gh-pages-setting.png)
-
-### Step 5: Optionally, configure the domain
+### Step 3: Optionally, configure the domain
 
 You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `static/` folder.
 
@@ -110,6 +96,20 @@ Your `CNAME` file should look like this:
 ```
 mywebsite.com
 ```
+
+### Step 4: Deploy the site by running `npm run deploy`
+
+Then run:
+
+```bash
+npm run deploy
+```
+
+### Step 5: For a project page, ensure your project’s settings use `gh-pages`
+
+Finally, make sure GitHub Pages option in your GitHub project settings is set to use the `gh-pages` branch:
+
+![gh-pages-setting](@/images/gh-pages-setting.png)
 
 ## [ZEIT Now](https://zeit.co/now)
 
