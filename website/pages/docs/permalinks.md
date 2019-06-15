@@ -11,7 +11,7 @@ By default we infer permalink from filename.
 
 The simplest way to change a permalink is using the page attribute `permalink`.
 
-For example, you might have a Makrkdown page on your site located at `./pages/sub_folder/hello.md` and you want the output url to be `/about` In the front matter of the page you would set:
+For example, you might have a Markdown page on your site located at `./pages/sub_folder/hello.md` and you want the output url to be `/about` In the front matter of the page you would set:
 
 ```markdown
 ---
