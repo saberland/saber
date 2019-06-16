@@ -70,7 +70,8 @@ exports.apply = (api, options = {}) => {
           id: page.attributes.permalink,
           link: resolveURL(siteConfig.url, page.attributes.permalink),
           // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
-          description: page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
+          description:
+            page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
           content,
           date: page.attributes.updatedAt,
           published: page.attributes.createdAt
