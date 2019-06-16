@@ -60,13 +60,12 @@ exports.apply = (api, options = {}) => {
         continue
       }
 
-      const { excerpt } = page.attributes
       posts.push({
         title: page.attributes.title,
         id: page.attributes.permalink,
         link: resolveURL(siteConfig.url, page.attributes.permalink),
         // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
-        description: excerpt && excerpt.replace(/<(?:.|\n)*?>/gm, ''),
+        description: page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
         content: page.content,
         date: page.attributes.updatedAt,
         published: page.attributes.createdAt
