@@ -248,24 +248,48 @@ class VueRenderer {
     ])
   }
 
+  initRenderer() {
+    const { createBundleRenderer } = require('vue-server-renderer')
+    const renderer =
+      this.renderer ||
+      createBundleRenderer(
+        require(this.api.resolveCache('bundle-manifest/server.json')),
+        {
+          clientManifest: require(this.api.resolveCache(
+            'bundle-manifest/client.json'
+          )),
+          runInNewContext: false,
+          inject: false,
+          basedir: this.api.resolveCache('dist-server')
+        }
+      )
+    this.renderer = renderer
+    return renderer
+  }
+
+  async renderPageContent(url) {
+    const random = 'asdhkBJKAbjkf@3^1_a=--+'
+    const startingMark = `__mark_page_content_start__${random}`
+    const endingMark = `__mark_page_content_stop__${random}`
+    const context = {
+      url,
+      markPageContent: [startingMark, endingMark]
+    }
+    const html = await this.renderer.renderToString(context)
+    const content = html.slice(
+      html.indexOf(startingMark) + startingMark.length,
+      html.indexOf(endingMark)
+    )
+    return content
+  }
+
   async generate() {
     const outDir = this.api.resolveOutDir()
 
     // Remove output directory
     await fs.remove(outDir)
 
-    const { createBundleRenderer } = require('vue-server-renderer')
-    const renderer = createBundleRenderer(
-      require(this.api.resolveCache('bundle-manifest/server.json')),
-      {
-        clientManifest: require(this.api.resolveCache(
-          'bundle-manifest/client.json'
-        )),
-        runInNewContext: false,
-        inject: false,
-        basedir: this.api.resolveCache('dist-server')
-      }
-    )
+    const renderer = this.initRenderer()
 
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
