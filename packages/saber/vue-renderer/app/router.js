@@ -97,7 +97,7 @@ export default () => {
       next(false)
 
       visitedRoutes[to.path] = true
-      fetch('/_saber/visit-page?route=' + to.path)
+      fetch('/_saber/visit-page?route=' + encodeURIComponent(to.fullPath))
     })
 
     router.afterEach(() => {

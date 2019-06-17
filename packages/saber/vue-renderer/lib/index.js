@@ -403,18 +403,18 @@ class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req, res) => {
-      const pathname = removeTrailingSlash(decodeURI(req.query.route))
+      const pathname = normalizeRoutePath(req.query.route)
       log.info(`Navigating to ${pathname}`)
       res.end()
 
       if (this.builtRoutes.has(pathname)) {
-        hotMiddleware.publish({ action: 'router:push', route: pathname })
+        hotMiddleware.publish({ action: 'router:push', route: req.query.route })
       } else {
         event.once('done', error => {
           this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
-            route: pathname,
+            route: req.query.route,
             error
           })
         })
@@ -499,10 +499,24 @@ function runCompiler(compiler) {
   })
 }
 
+function normalizeRoutePath(path) {
+  return removeFragmentIdentifiers(
+    removeTrailingSlash(decodeURIComponent(path))
+  )
+}
+
 function removeTrailingSlash(input) {
   if (input === '/') {
     return input
   }
 
   return input.replace(/\/$/, '')
+}
+
+function removeFragmentIdentifiers(input) {
+  if (!input.includes('#')) {
+    return input
+  }
+
+  return input.replace(/#.*/, '')
 }
