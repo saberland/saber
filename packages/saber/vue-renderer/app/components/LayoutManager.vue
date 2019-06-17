@@ -17,11 +17,26 @@ export default {
 
     const attrs = { props: { page } }
 
+    const wrapSlot = slot => {
+      const { markPageContent } = parent.$ssrContext || {}
+      if (markPageContent) {
+        const result = h('div', null, [markPageContent[0]].concat(slot, markPageContent[1]))
+        return Array.isArray(slot)? [result] : result
+      }
+      return slot
+    }
+
     if (typeof layout !== 'string') {
-      return componentSlot ? componentSlot(attrs.props) : h('div', {
-        ...attrs,
-        class: '_saber-page'
-      }, defaultSlot ? defaultSlot() : undefined)
+      return componentSlot
+        ? wrapSlot(componentSlot(attrs.props))
+        : h(
+            'div',
+            {
+              ...attrs,
+              class: '_saber-page'
+            },
+            wrapSlot(defaultSlot ? defaultSlot() : undefined)
+          )
     }
 
     const LayoutComponent = layouts[layout] || layouts.default
@@ -30,7 +45,17 @@ export default {
       console.error(`Cannot find layout component "${layout}" in `, layouts)
     }
 
-    return h(LayoutComponent, attrs, componentSlot ? componentSlot(attrs.props) : defaultSlot ? defaultSlot() : undefined)
+    return h(
+      LayoutComponent,
+      attrs,
+      wrapSlot(
+        componentSlot
+          ? componentSlot(attrs.props)
+          : defaultSlot
+          ? defaultSlot()
+          : undefined
+      )
+    )
   }
 }
 </script>

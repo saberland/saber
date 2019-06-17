@@ -48,29 +48,36 @@ exports.apply = (api, options = {}) => {
   async function generateFeed(localePath) {
     // Prepare posts
     const posts = []
-    for (const page of api.pages.values()) {
-      if (page.attributes.type !== 'post' || page.attributes.draft) {
-        continue
-      }
 
-      const matchedLocalePath = api.pages.getMatchedLocalePath(
-        page.attributes.permalink
-      )
-      if (localePath !== matchedLocalePath) {
-        continue
-      }
+    await Promise.all(
+      [...api.pages.values()].map(async page => {
+        if (page.attributes.type !== 'post' || page.attributes.draft) {
+          return
+        }
 
-      posts.push({
-        title: page.attributes.title,
-        id: page.attributes.permalink,
-        link: resolveURL(siteConfig.url, page.attributes.permalink),
-        // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
-        description: page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
-        content: page.content,
-        date: page.attributes.updatedAt,
-        published: page.attributes.createdAt
+        const matchedLocalePath = api.pages.getMatchedLocalePath(
+          page.attributes.permalink
+        )
+        if (localePath !== matchedLocalePath) {
+          return
+        }
+
+        const content = await api.renderer.renderPageContent(
+          page.attributes.permalink
+        )
+        posts.push({
+          title: page.attributes.title,
+          id: page.attributes.permalink,
+          link: resolveURL(siteConfig.url, page.attributes.permalink),
+          // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
+          description:
+            page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
+          content,
+          date: page.attributes.updatedAt,
+          published: page.attributes.createdAt
+        })
       })
-    }
+    )
 
     // Order by published
     const items = posts
