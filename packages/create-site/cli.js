@@ -3,18 +3,32 @@ const path = require('path')
 const { spawnSync } = require('child_process')
 const { promisify } = require('util')
 const colors = require('kleur')
+const downloadGitRepo = require('download-git-repo')
+const yargs = require('yargs')
+const { ncp } = require('ncp')
 
-const args = process.argv.slice(2)
+const usage = `create-site v${require('./package').version}
 
-if (args.length === 0 || args.includes('--help')) {
-  console.log(
-    `create-site v${require('./package').version}
+Usage: create-site <dir> [options]
+`.trim()
 
-Usage: create-site <dir>
-  `.trim()
+const { argv } = yargs
+  .usage(usage)
+  .scriptName('create-site')
+  .alias('t', 'template')
+  .nargs('t', 1)
+  .describe('t', 'Use a repository as template')
+  .help('h')
+  .alias('h', 'help')
+  .example(
+    'create-site my-site',
+    'Use default template and install on `my-site` folder'
   )
-  process.exit(1)
-}
+  .example(
+    'create-site my-site -t user/repo',
+    'Use user/repo template and install on `my-site` folder'
+  )
+  .demandCommand()
 
 if (parseInt(process.versions.node, 10) < 8) {
   console.log(
@@ -25,11 +39,9 @@ if (parseInt(process.versions.node, 10) < 8) {
   process.exit(1)
 }
 
-const dir = path.resolve(args[0])
+const dir = path.resolve(argv._[0])
 
 console.log(`Creating a new site...`)
-
-const { ncp } = require('ncp')
 
 let hasYarn = false
 try {
@@ -37,7 +49,9 @@ try {
   hasYarn = true
 } catch (error) {}
 
-promisify(ncp)(path.join(__dirname, 'template'), dir)
+const action = argv.template ? useRepositoryTemplate : useLocalTemplate
+
+action()
   .then(() => {
     console.log(
       colors.green(`Successfully created at ${colors.underline(dir)}`)
@@ -55,3 +69,11 @@ promisify(ncp)(path.join(__dirname, 'template'), dir)
     console.log(colors.dim(`For more details, please check out the README.md`))
   })
   .catch(console.error)
+
+function useRepositoryTemplate() {
+  return promisify(downloadGitRepo)(argv.template, dir, { clone: false })
+}
+
+function useLocalTemplate() {
+  return promisify(ncp)(path.join(__dirname, 'template'), dir)
+}

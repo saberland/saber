@@ -8,8 +8,10 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "download-git-repo": "^2.0.0",
     "kleur": "3.0.3",
-    "ncp": "2.0.0"
+    "ncp": "2.0.0",
+    "yargs": "^13.2.4"
   },
   "author": {
     "name": "EGOIST",
