@@ -404,17 +404,18 @@ class VueRenderer {
 
     server.get('/_saber/visit-page', async (req, res) => {
       const pathname = normalizeRoutePath(req.query.route)
+      const fullPath = removeTrailingHash(req.query.route)
       log.info(`Navigating to ${pathname}`)
       res.end()
 
       if (this.builtRoutes.has(pathname)) {
-        hotMiddleware.publish({ action: 'router:push', route: req.query.route })
+        hotMiddleware.publish({ action: 'router:push', route: fullPath })
       } else {
         event.once('done', error => {
           this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
-            route: req.query.route,
+            route: fullPath,
             error
           })
         })
@@ -511,6 +512,10 @@ function removeTrailingSlash(input) {
   }
 
   return input.replace(/\/$/, '')
+}
+
+function removeTrailingHash(input) {
+  return input.replace(/#$/, '')
 }
 
 function removeFragmentIdentifiers(input) {
