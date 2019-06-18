@@ -23,7 +23,7 @@
     "husky": "2.2.0",
     "lerna": "3.14.1",
     "lint-staged": "8.1.6",
-    "prettier": "1.17.0",
+    "prettier": "1.18.2",
     "xo": "0.24.0"
   },
   "xo": {
