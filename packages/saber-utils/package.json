@@ -17,5 +17,6 @@
     "fast-glob": "3.0.1",
     "fs-extra": "7.0.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "xo": false
 }
