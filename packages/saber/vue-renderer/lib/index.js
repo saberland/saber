@@ -401,18 +401,21 @@ class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req, res) => {
-      const pathname = removeTrailingSlash(decodeURI(req.query.route))
-      log.info(`Navigating to ${pathname}`)
+      let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
+      pathname = removeTrailingSlash(pathname)
+      const fullPath = pathname + (hash || '')
+
+      log.info(`Navigating to ${fullPath}`)
       res.end()
 
       if (this.builtRoutes.has(pathname)) {
-        hotMiddleware.publish({ action: 'router:push', route: pathname })
+        hotMiddleware.publish({ action: 'router:push', route: fullPath })
       } else {
         event.once('done', error => {
           this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
-            route: pathname,
+            route: fullPath,
             error
           })
         })
