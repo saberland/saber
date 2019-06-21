@@ -70,7 +70,7 @@
     "@types/webpack": "4.4.32",
     "jest": "24.8.0",
     "markdown-it-footnote": "3.0.1",
-    "typescript": "3.4.5"
+    "typescript": "3.5.2"
   },
   "xo": false,
   "engines": {
