@@ -184,9 +184,7 @@ class VueRenderer {
           // Always give the path a resource query
           const componentPath = page.internal.isFile
             ? `${absolutePath}?saberPage=${page.internal.id}`
-            : `#cache/pages/${page.internal.id}.saberpage?saberPage=${
-                page.internal.id
-              }`
+            : `#cache/pages/${page.internal.id}.saberpage?saberPage=${page.internal.id}`
           return `{
               path: ${JSON.stringify(page.attributes.permalink)},
               meta: {
