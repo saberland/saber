@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.4](https://github.com/saberland/saber/compare/saber-plugin-feed@0.3.3...saber-plugin-feed@0.3.4) (2019-06-21)
+
+### Bug Fixes
+
+- **saber-plugin-feed:** use page.excerpt ([d586c51](https://github.com/saberland/saber/commit/d586c51))
+
+### Features
+
+- adding API for rendering page content ([#268](https://github.com/saberland/saber/issues/268)) ([ad8e76d](https://github.com/saberland/saber/commit/ad8e76d))
+
 ## [0.3.3](https://github.com/saberland/saber/compare/saber-plugin-feed@0.3.2...saber-plugin-feed@0.3.3) (2019-06-15)
 
 **Note:** Version bump only for package saber-plugin-feed
