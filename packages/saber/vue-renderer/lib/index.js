@@ -403,9 +403,11 @@ class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req, res) => {
-      const pathname = normalizeRoutePath(req.query.route)
-      const fullPath = removeTrailingHash(req.query.route)
-      log.info(`Navigating to ${pathname}`)
+      let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
+      pathname = removeTrailingSlash(pathname)
+      const fullPath = pathname + (hash || '')
+
+      log.info(`Navigating to ${fullPath}`)
       res.end()
 
       if (this.builtRoutes.has(pathname)) {
@@ -500,28 +502,10 @@ function runCompiler(compiler) {
   })
 }
 
-function normalizeRoutePath(path) {
-  return removeFragmentIdentifiers(
-    removeTrailingSlash(decodeURIComponent(path))
-  )
-}
-
 function removeTrailingSlash(input) {
   if (input === '/') {
     return input
   }
 
   return input.replace(/\/$/, '')
-}
-
-function removeTrailingHash(input) {
-  return input.replace(/#$/, '')
-}
-
-function removeFragmentIdentifiers(input) {
-  if (!input.includes('#')) {
-    return input
-  }
-
-  return input.replace(/#.*/, '')
 }
