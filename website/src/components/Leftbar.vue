@@ -83,6 +83,7 @@ export default {
 .leftbar {
   width: var(--leftbar-width);
   background: var(--sidebar-bg);
+  padding-right: 30px;
   transition: transform 200ms cubic-bezier(0.2, 1, 0.2, 1);
 
   &.is-hidden {
