@@ -30,6 +30,7 @@ module.exports = {
             title: 'Using Vue in Markdown',
             link: '/docs/using-vue-in-markdown.html'
           },
+          { title: 'Manipulating <head>', link: '/docs/manipulating-head.html' },
           { title: 'Page Transition', link: '/docs/page-transition.html' },
           { title: 'Internationalization', link: '/docs/i18n.html' },
           { title: 'Deployment', link: '/docs/deployment.html' }
