@@ -78,6 +78,13 @@ The output path of the JSON feed, when `true` it outputs to `feed.json`.
 
 The maximum amount of posts to include in the feed.
 
+### copyright
+
+- Type: `string`
+- Default: `All rights reserved`
+
+The copyright info in the feed.
+
 ## License
 
 MIT.

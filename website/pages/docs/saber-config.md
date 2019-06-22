@@ -60,7 +60,7 @@ The directory to output HTML files and other static assets.
 - Type: `string`
 - Default: `/`
 
-The base URL your application will be deployed at. If your website is located at a sub directory, e.g. `https://example.com/blog`, you should set this option to `/blog/` (trailing slash is optional).
+The base URL your application will be deployed at. If your website is located at a sub directory, e.g. `https://example.com/blog`, you should set this option to either an absolute path (like `/blog`, leading slash is required) or an absolute URL (like `https://example.com/blog`).
 
 ### extractCSS
 
@@ -138,13 +138,13 @@ You can use the [limax](https://github.com/lovell/limax) which provides CJK supp
 
 Options for the internal markdown-it plugin for generating markdown headings and heading anchors.
 
-|Property|Type|Default|Description|
-|---|---|---|---|
-|`injectMarkdownHeadings`|`boolean`|`true`|Inject markdown headings as `page.attributes.markdownHeadings`|
-|`permalink`|`boolean`|`false`|Generating permalinks.|
-|`permalinkComponent`|`string`|`saber-link`||
-|`permalinkBefore`|`bolean`|`true`|Inject permalink before heading text.|
-|`permalinkSymbol`|`string`|`#`|The permalink symbol.|
+| Property                 | Type      | Default      | Description                                         |
+| ------------------------ | --------- | ------------ | --------------------------------------------------- |
+| `injectMarkdownHeadings` | `boolean` | `true`       | Inject markdown headings as `page.markdownHeadings` |
+| `permalink`              | `boolean` | `false`      | Generating permalinks.                              |
+| `permalinkComponent`     | `string`  | `saber-link` |                                                     |
+| `permalinkBefore`        | `bolean`  | `true`       | Inject permalink before heading text.               |
+| `permalinkSymbol`        | `string`  | `#`          | The permalink symbol.                               |
 
 ### options
 

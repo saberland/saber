@@ -1,6 +1,6 @@
 {
   "name": "saber-utils",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "files": [
     "dist",
     "index.js",
@@ -15,7 +15,7 @@
   "devDependencies": {
     "@zeit/ncc": "0.18.5",
     "fast-glob": "2.2.6",
-    "fs-extra": "7.0.1"
+    "fs-extra": "8.0.1"
   },
   "license": "MIT"
 }

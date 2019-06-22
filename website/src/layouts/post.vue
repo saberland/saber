@@ -1,23 +1,23 @@
 <template>
-  <div class="layout">
-    <Header :showToggle="true"/>
-    <Sidebar class="home-sidebar" :items="$themeConfig.sidebar"/>
-    <div class="content">
-      <h1 class="page-title">{{ page.attributes.title }}</h1>
-      <PostMeta :page="page"/>
-      <div class="page-content">
-        <slot name="default"/>
-      </div>
+  <Wrap :page="page" :showLeftbar="false">
+    <h1 class="page-title">{{ page.attributes.title }}</h1>
+    <PostMeta :page="page"/>
+    <div class="page-content">
+      <slot name="default"/>
     </div>
-  </div>
+  </Wrap>
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import Sidebar from '../components/Sidebar.vue'
+import Wrap from '../components/Wrap.vue'
 import PostMeta from '../components/PostMeta.vue'
 
 export default {
+  components: {
+    Wrap,
+    PostMeta
+  },
+
   props: ['page'],
 
   head() {
@@ -42,26 +42,6 @@ export default {
         }
       ]
     }
-  },
-
-  components: {
-    Header,
-    Sidebar,
-    PostMeta
   }
 }
 </script>
-
-<style scoped>
-.home-sidebar {
-  display: none;
-  @media (max-width: 768px) {
-    display: block;
-  }
-}
-
-.page-title {
-  font-size: 3rem;
-  margin: 0 0 20px 0;
-}
-</style>

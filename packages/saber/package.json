@@ -1,6 +1,6 @@
 {
   "name": "saber",
-  "version": "0.6.7",
+  "version": "0.6.10",
   "files": [
     "bin",
     "lib",
@@ -45,8 +45,8 @@
     "pretty-ms": "^5.0.0",
     "resolve-from": "^5.0.0",
     "saber-log": "^0.2.0",
-    "saber-markdown": "^0.0.7",
-    "saber-utils": "^0.1.4",
+    "saber-markdown": "^0.0.9",
+    "saber-utils": "^0.1.5",
     "serve-static": "^1.13.2",
     "slugo": "^0.2.3",
     "superstruct": "^0.6.0",
@@ -65,12 +65,12 @@
   },
   "devDependencies": {
     "@types/fs-extra": "5.1.0",
-    "@types/resolve-from": "4.0.0",
+    "@types/resolve-from": "5.0.1",
     "@types/superstruct": "0.5.0",
-    "@types/webpack": "4.4.31",
+    "@types/webpack": "4.4.32",
     "jest": "24.8.0",
     "markdown-it-footnote": "3.0.1",
-    "typescript": "3.4.5"
+    "typescript": "3.5.2"
   },
   "xo": false,
   "engines": {

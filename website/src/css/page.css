@@ -1,30 +1,9 @@
-.main {
-  margin: 0 var(--sidebar-width);
-
-  @media (max-width: 1280px) {
-    margin-right: 0;
-  }
-
-  @media (max-width: 768px) {
-    margin: 0;
-  }
-}
-
-.content {
-  padding: 20px 2.5rem;
-  max-width: 770px;
-  margin: var(--header-height) auto;
-
-  @media (max-width: 768px) {
-    padding: 20px;
-  }
-}
-
 .page-title {
-  font-size: 3rem;
+  font-size: 2.3rem;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--text-dark-color);
   line-height: 1.2;
+  margin: 0;
 }
 
 .page-content {
@@ -39,7 +18,7 @@
   & h3,
   & h4,
   & h5 {
-    color: var(--dark);
+    color: var(--text-dark-color);
     font-weight: 500;
 
     & code {
@@ -69,13 +48,18 @@
   }
 
   & h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-top: 80px;
     font-weight: 500;
   }
 
   & h3 {
+    font-size: 1.3rem;
     margin-top: 40px;
+  }
+
+  & h4 {
+    font-size: 1rem;
   }
 
   & p {

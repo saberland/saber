@@ -17,13 +17,13 @@
     "commitizen": "3.1.1",
     "conf": "4.0.2",
     "cz-conventional-changelog": "2.1.0",
-    "eslint-config-prettier": "4.2.0",
+    "eslint-config-prettier": "4.3.0",
     "eslint-config-rem": "4.0.0",
-    "eslint-plugin-prettier": "3.0.1",
+    "eslint-plugin-prettier": "3.1.0",
     "husky": "2.2.0",
-    "lerna": "3.13.4",
+    "lerna": "3.14.1",
     "lint-staged": "8.1.6",
-    "prettier": "1.17.0",
+    "prettier": "1.18.2",
     "xo": "0.24.0"
   },
   "xo": {
