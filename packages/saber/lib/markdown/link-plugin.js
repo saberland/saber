@@ -46,7 +46,7 @@ module.exports = function(md) {
   }
 
   md.renderer.rules.link_close = (tokens, idx, options, env, self) => {
-    const openToken = tokens[idx - 2]
+    const openToken = tokens.find(token => token.type === 'link_open')
     const token = tokens[idx]
     const prefix = ''
     if (openToken) {
