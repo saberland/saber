@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.10](https://github.com/saberland/saber/compare/saber@0.6.9...saber@0.6.10) (2019-06-22)
+
+### Bug Fixes
+
+- **markdown:** Don't assume link_open relative position ([#278](https://github.com/saberland/saber/issues/278)) ([4e8e079](https://github.com/saberland/saber/commit/4e8e079)), closes [#277](https://github.com/saberland/saber/issues/277) [#277](https://github.com/saberland/saber/issues/277)
+
 ## [0.6.9](https://github.com/saberland/saber/compare/saber@0.6.8...saber@0.6.9) (2019-06-21)
 
 ### Bug Fixes
