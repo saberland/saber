@@ -48,7 +48,7 @@ module.exports = function(md) {
   md.renderer.rules.link_close = (tokens, idx, options, env, self) => {
     // Find the closest `link_open` token
     let openToken
-    for (let i = idx - 1; i--; i > 0) {
+    for (let i = idx - 1; ; i--) {
       if (tokens[i].type === 'link_open') {
         openToken = tokens[i]
         break
