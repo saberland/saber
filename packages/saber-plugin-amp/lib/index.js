@@ -65,9 +65,9 @@ exports.apply = api => {
           path.relative(outputDir, outputFilePath)
         )
         await fs.outputFile(outputFilePath, hybridTransformedHtml, 'utf8')
-      }
 
-      outputFilePath = exportedPage.path.replace('.html', '.amp/index.html')
+        outputFilePath = exportedPage.path.replace('.html', '.amp/index.html')
+      }
 
       context.documentData.link += `<link rel="canonical" href="${context.url}">`
       context.documentData.bodyScript = ``
