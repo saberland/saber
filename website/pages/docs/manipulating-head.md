@@ -41,7 +41,7 @@ You can use `this` to access the component instance.
 
 ## Set default values
 
-In `saber-browsers.js`, you can use [`setHead`](browser-apis.md#context-sethead) to set the `head` option for the root Vue instance. For example, you can use it to load Google Fonts that you want to apply in every page.
+In `saber-browser.js`, you can use [`setHead`](browser-apis.md#context-sethead) to set the `head` option for the root Vue instance. For example, you can use it to load Google Fonts that you want to apply in every page.
 
 ```js
 export default ({ setHead }) => {
