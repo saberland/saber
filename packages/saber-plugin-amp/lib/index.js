@@ -69,9 +69,7 @@ exports.apply = api => {
 
       outputFilePath = exportedPage.path.replace('.html', '.amp/index.html')
 
-      context.documentData.link += `<link rel="canonical" href="${
-        context.url
-      }">`
+      context.documentData.link += `<link rel="canonical" href="${context.url}">`
       context.documentData.bodyScript = ``
 
       const html = `<!DOCTYPE html>${api.getDocument(context.documentData)}`
