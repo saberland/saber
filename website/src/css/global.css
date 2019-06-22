@@ -77,9 +77,9 @@ a {
   margin: 0 auto;
 
   @media (max-width: 768px) {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
   }
 }
 
