@@ -41,7 +41,7 @@ Then in the layout component `layouts/index.vue`, `page.posts` and `page.paginat
           {{ post.attributes.title }}
         </saber-link>
       </li>
-    </li>
+    </ul>
 
     <saber-link :to="page.pagination.prevLink" v-if="page.pagination.hasPrev">
       ← Prev Page
