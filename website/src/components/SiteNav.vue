@@ -55,7 +55,6 @@
   list-style: none;
   margin: 0;
   font-size: 1rem;
-  display: flex;
   height: 100%;
   padding-left: 0;
 

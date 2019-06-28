@@ -196,3 +196,19 @@ code {
   text-shadow: none;
   font-family: "SFMono-Regular", "Roboto Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
+
+.show-on-mobile {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.hide-on-mobile {
+  display: flex;
+
+ @media (max-width: 768px) {
+    display: none;
+  }
+}

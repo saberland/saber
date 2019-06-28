@@ -21,8 +21,8 @@
         </h1>
       </div>
       <div class="header-right">
-        <Search />
-        <SiteNav />
+        <search />
+        <SiteNav class="hide-on-mobile" />
       </div>
     </div>
   </header>
@@ -144,12 +144,5 @@ export default {
   display: flex;
   align-items: center;
   height: 100%;
-}
-
-@media (max-width: 768px) {
-  /* Hide nav on mobile because we will display it in sidebar */
-  /deep/ .nav {
-    display: none;
-  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="leftbar" :class="{'is-hidden': hide}">
     <div class="sticky">
-      <SiteNav />
+      <SiteNav class="show-on-mobile" />
 
       <div class="items">
         <div class="item" v-for="(item, i) in items" :key="i">
@@ -162,12 +162,5 @@ export default {
 
 .item-child a.active {
   color: var(--theme-color);
-}
-
-/* Display nav on mobile devices */
-@media (min-width: 768px) {
-  /deep/ .nav {
-    display: none;
-  }
 }
 </style>
