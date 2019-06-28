@@ -21,6 +21,7 @@
         </h1>
       </div>
       <div class="header-right">
+        <Search />
         <ul class="menu">
           <li class="menu-item">
             <saber-link to="/docs">Guide</saber-link>
@@ -76,7 +77,13 @@
 </template>
 
 <script>
+import Search from './Search.vue'
+
 export default {
+  components: {
+    Search
+  },
+
   methods: {
     toggleLeftbar() {
       if (document.body.classList.contains('show-leftbar')) {
@@ -185,6 +192,7 @@ export default {
   font-size: 1rem;
   display: flex;
   height: 100%;
+  padding-left: 0;
 
   & a {
     color: var(--text-light-color);
@@ -221,5 +229,11 @@ export default {
       color: #6c83d4;
     }
   }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 </style>

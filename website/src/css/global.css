@@ -1,5 +1,6 @@
 :root {
   --border-color: #edf2f6;
+  --border-dark-color: #ccc;
   --theme-color: #3880ff;
   --header-height: 60px;
   --header-shadow: 0 1px 1px rgba(0,0,0,.05);
