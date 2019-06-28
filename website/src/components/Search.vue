@@ -13,7 +13,13 @@
         ></path>
       </svg>
     </div>
-    <input type="text" class="search--input" ref="input" @focus="handleFocus(true)" @blur="handleFocus(false)">
+    <input
+      type="text"
+      class="search--input"
+      ref="input"
+      @focus="handleFocus(true)"
+      @blur="handleFocus(false)"
+    >
   </div>
 </template>
 
@@ -31,10 +37,13 @@ export default {
       apiKey: '226f92e3cf36f89eda7c402258e73cb2',
       indexName: 'saber',
       inputSelector: '.search--input',
+      autocompleteOptions: {
+        openOnFocus: true
+      },
       handleSelected: (input, event, suggestion) => {
         this.$router.push(suggestion.url.replace(/^https:\/\/saber\.land/, ''))
       },
-      debug: process.env.NODE_ENV === 'development' // Set debug to true if you want to inspect the dropdown
+      debug: 'debugSearch' in this.$route.query
     })
   },
 
