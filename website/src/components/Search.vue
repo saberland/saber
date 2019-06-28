@@ -32,7 +32,7 @@ export default {
   },
 
   async mounted() {
-    const docsearch = await import('docsearch.js')
+    const docsearch = await import(/* webpackChunkName: "docsearch" */ 'docsearch.js')
     docsearch.default({
       apiKey: '226f92e3cf36f89eda7c402258e73cb2',
       indexName: 'saber',
