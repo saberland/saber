@@ -1,6 +1,6 @@
 <template>
   <div class="search" :class="{'is-focused': focused}">
-    <div class="search--icon">
+    <div class="search--icon" @click="handleFocus(true)">
       <svg
         width="13"
         height="13"
@@ -13,7 +13,7 @@
         ></path>
       </svg>
     </div>
-    <input type="text" class="search--input" @focus="handleFocus(true)" @blur="handleFocus(false)">
+    <input type="text" class="search--input" ref="input" @focus="handleFocus(true)" @blur="handleFocus(false)">
   </div>
 </template>
 
@@ -39,8 +39,12 @@ export default {
   },
 
   methods: {
-    handleFocus(focused) {
+    async handleFocus(focused) {
       this.focused = focused
+      if (focused) {
+        await this.$nextTick()
+        this.$refs.input.focus()
+      }
     }
   }
 }
@@ -48,33 +52,74 @@ export default {
 
 <style src="docsearch.js/dist/cdn/docsearch.min.css"></style>
 
+<style>
+/* Override docsearch */
+.algolia-autocomplete .ds-dropdown-menu {
+  @media (max-width: 768px) {
+    min-width: 300px;
+  }
+}
+</style>
+
 <style scoped>
 .search {
+  --search-height: calc(var(--header-height) * 0.5);
+  --icon-width: 30px;
+  --search-width: 240px;
+
   display: flex;
   margin-right: 20px;
   align-items: center;
-  border: 1px solid var(--border-color);
-  border-radius: 3px;
-  height: 50%;
+  box-shadow: 0 0 0 1px #ddd;
+  border-radius: 33px;
+  height: var(--search-height);
+  position: relative;
+  width: var(--search-width);
 
   &.is-focused {
-    border-color: var(--border-dark-color);
+    box-shadow: 0 0 0 1px var(--theme-color);
+  }
+
+  @media (max-width: 768px) {
+    --search-width: 140px;
+    width: var(--icon-width);
+    margin-right: 0;
+
+    &.is-focused {
+      width: var(--search-width);
+    }
+
+    &.is-focused .search--input {
+      display: block;
+    }
   }
 }
 
 .search--input {
   border: none;
   outline: none;
-  height: 100%;
+  height: var(--search-height);
   display: block;
-  width: 240px;
-  padding-right: 10px;
+  width: var(--search-width);
+  padding-left: 30px;
+  padding-right: 15px;
+  border-radius: 33px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .search--icon {
-  width: 30px;
+  height: 100%;
+  width: var(--icon-width);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
 }
 </style>
