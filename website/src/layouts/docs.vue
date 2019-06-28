@@ -36,10 +36,6 @@ export default {
     }
   },
 
-  mounted() {
-    document.body.classList.remove('show-leftbar')
-  },
-
   computed: {
     flatSidebarItems() {
       return this.$themeConfig.sidebarMenu.reduce((res, item) => {

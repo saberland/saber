@@ -22,6 +22,8 @@ export default ({ router, setHead }) => {
     router.afterEach(to => {
       loaded[to.path] = true
       nprogress.done()
+
+      document.body.classList.remove('show-leftbar')
     })
   }
 

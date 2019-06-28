@@ -1,6 +1,8 @@
 <template>
   <div class="leftbar" :class="{'is-hidden': hide}">
     <div class="sticky">
+      <SiteNav />
+
       <div class="items">
         <div class="item" v-for="(item, i) in items" :key="i">
           <div class="item-title" @click="toggleOpenLink(item.children[0].link)">{{ item.title }}</div>
@@ -19,7 +21,13 @@
 </template>
 
 <script>
+import SiteNav from './SiteNav.vue'
+
 export default {
+  components: {
+    SiteNav
+  },
+
   props: {
     items: {
       type: Array,
@@ -154,5 +162,12 @@ export default {
 
 .item-child a.active {
   color: var(--theme-color);
+}
+
+/* Display nav on mobile devices */
+@media (min-width: 768px) {
+  /deep/ .nav {
+    display: none;
+  }
 }
 </style>

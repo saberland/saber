@@ -95,4 +95,27 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+
+    & a {
+      &.router-link-exact-active {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .nav-item {
+    height: 30px;
+  }
+
+  .nav-item:not(:first-child) {
+    margin-left: 0;
+  }
+}
 </style>
