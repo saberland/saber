@@ -33,7 +33,7 @@ You can use [webpack-chain](https://github.com/neutrinojs/webpack-chain) to twea
 Using the [chainWebpack](saber-instance.md#chainwebpack) hook in [`saber-node.js`](node-apis.md) to access the webpack-chain instance:
 
 ```js
-exports.chainWebpack = chain => {
+exports.chainWebpack = function(chain) {
   // e.g. Resolve .css files
   chain.resolve.extensions.add('.css')
 }
