@@ -371,9 +371,7 @@ class VueRenderer {
 
     this.api.hooks.onCreateServer.call(server)
 
-    const clientConfig = this.api
-      .createWebpackChain({ type: 'client' })
-      .toConfig()
+    const clientConfig = this.api.getWebpackConfig({ type: 'client' })
 
     clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
