@@ -9039,9 +9039,9 @@ pn@^1.1.0:
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
 polka@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.npmjs.org/polka/-/polka-0.5.1.tgz#989a45b89a2ab9e3618f54b5720f37946a923891"
-  integrity sha512-de0VgqoAgGIJoa4mTj+e9KKIt5uRJOGyE37TbsoYEuDzI+cbJZ8nKBRCmiwv9DUMKrYhAMHW/di7/6/65zgZZQ==
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/polka/-/polka-0.5.2.tgz#588bee0c5806dbc6c64958de3a1251860e9f2e26"
+  integrity sha512-FVg3vDmCqP80tOrs+OeNlgXYmFppTXdjD5E7I4ET1NjvtNmQrb1/mJibybKkb/d4NA7YWAr1ojxuhpL3FHqdlw==
   dependencies:
     "@polka/url" "^0.5.0"
     trouter "^2.0.1"
