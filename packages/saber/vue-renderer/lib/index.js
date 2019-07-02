@@ -475,7 +475,7 @@ class VueRenderer {
       }
 
       if (!this.renderer) {
-        return res.end(`Please waiting for compilation..`)
+        return res.end(`Please wait for compilation..`)
       }
 
       const render = async () => {
