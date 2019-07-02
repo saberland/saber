@@ -52,7 +52,8 @@ module.exports = (config, { dev }) => {
   const server = struct(
     {
       host: 'string?',
-      port: 'number?'
+      port: 'number?',
+      ssr: 'boolean?'
     },
     {
       host: '0.0.0.0',

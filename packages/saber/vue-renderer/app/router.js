@@ -1,10 +1,9 @@
 import Vue from 'vue'
-import Router from './vendor/vue-router'
-import RoutePrefetch from './vendor/vue-router-prefetch'
+import Router from 'vue-router'
+import RoutePrefetch from 'vue-router-prefetch'
 import routes from '#cache/routes'
 
 Vue.use(Router)
-
 // Make `<RouterLink>` prefetch-able
 Vue.use(RoutePrefetch, {
   componentName: 'SaberLink',

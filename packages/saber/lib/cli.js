@@ -11,18 +11,21 @@ cli
   .option('--lazy', 'Enable lazy page compilation')
   .option('--port <port>', 'Server port', { default: 3000 })
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
+  .option('--ssr', 'Enable server-side rendering')
   .option('--inspect-webpack', 'Inspect webpack config in your editor')
   .action((cwd = '.', options) => {
     setNodeEnv('development')
 
-    const { host, port, lazy } = options
+    const { host, port, lazy, ssr } = options
     delete options.host
     delete options.port
     delete options.lazy
+    delete options.ssr
     return require('..')(Object.assign({ cwd, dev: true }, options), {
       server: {
         host,
-        port
+        port,
+        ssr
       },
       build: {
         lazy
