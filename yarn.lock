@@ -3971,6 +3971,11 @@ deepmerge@^1.5.2:
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-1.5.2.tgz#10499d868844cdad4fee0842df8c7f6f0c95a753"
   integrity sha512-95k0GDqvBjZavkuvzx/YqVLv/6YYa17fz6ILMSf7neqQITCPbnfEnQvEgMPNjH4kgobe7+WIL0yJEHku+H3qtQ==
 
+deepmerge@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.3.0.tgz#d3c47fd6f3a93d517b14426b0628a17b0125f5f7"
+  integrity sha512-GRQOafGHwMHpjPx9iCvTgpu9NojZ49q794EEL94JVEw6VaeA8XTUyBKvAkOOjBX9oJNiV6G3P+T+tihFjo2TqA==
+
 defaults@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/defaults/-/defaults-1.0.3.tgz#c656051e9817d9ff08ed881477f3fe4019f3ef7d"
@@ -11987,6 +11992,23 @@ vue-loader@^15.5.1:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-meta@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/vue-meta/-/vue-meta-2.0.4.tgz#dcd6ab7f2ad16a8c6bf1ced5ae1e3e3402af0459"
+  integrity sha512-lPAuYblOHbsnwmwrm1C8UQxtFfABgfndK6Sej3VUzYbtTYLYak0TIDMB2KfFKFfdCFhzmfnR+dU+4xfYyVf+Iw==
+  dependencies:
+    deepmerge "^3.3.0"
+
+vue-router-prefetch@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/vue-router-prefetch/-/vue-router-prefetch-1.6.0.tgz#ef34228d6e122b4f6959da52c8dd448fe2a0057d"
+  integrity sha512-mLoh5on0GlO3ag0GWt+J8FkcalSAZJGJ/dNpA8PQ8X7pAoFht683FOJZlqdV7vXwKH7BjP+UfKcK09tHtNeDbw==
+
+vue-router@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.6.tgz#2e4f0f9cbb0b96d0205ab2690cfe588935136ac3"
+  integrity sha512-Ox0ciFLswtSGRTHYhGvx2L44sVbTPNS+uD2kRISuo8B39Y79rOo0Kw0hzupTmiVtftQYCZl87mwldhh2L9Aquw==
 
 vue-server-renderer@^2.6.10:
   version "2.6.10"

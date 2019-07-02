@@ -3,6 +3,7 @@ const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
 const { SyncWaterfallHook } = require('tapable')
+const { readJSON } = require('./utils')
 
 const ID = 'vue-renderer'
 
@@ -242,23 +243,20 @@ class VueRenderer {
     ])
   }
 
-  initRenderer() {
+  initRenderer({ clientManifest, serverBundle } = {}) {
     const { createBundleRenderer } = require('vue-server-renderer')
-    const renderer =
-      this.renderer ||
-      createBundleRenderer(
-        require(this.api.resolveCache('bundle-manifest/server.json')),
-        {
-          clientManifest: require(this.api.resolveCache(
-            'bundle-manifest/client.json'
-          )),
-          runInNewContext: false,
-          inject: false,
-          basedir: this.api.resolveCache('dist-server')
-        }
-      )
-    this.renderer = renderer
-    return renderer
+
+    if (serverBundle && clientManifest) {
+      log.verbose(`Creating server renderer`)
+      this.renderer = createBundleRenderer(serverBundle, {
+        clientManifest,
+        runInNewContext: false,
+        inject: false,
+        basedir: this.api.resolveCache('dist-server')
+      })
+    }
+
+    return this.renderer
   }
 
   async renderPageContent(url) {
@@ -283,7 +281,13 @@ class VueRenderer {
     // Remove output directory
     await fs.remove(outDir)
 
-    const renderer = this.initRenderer()
+    const serverBundle = readJSON(
+      this.api.resolveCache('bundle-manifest/server.json')
+    )
+    const clientManifest = readJSON(
+      this.api.resolveCache('bundle-manifest/client.json')
+    )
+    const renderer = this.initRenderer({ serverBundle, clientManifest })
 
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
@@ -394,6 +398,38 @@ class VueRenderer {
       event.emit('done', stats.hasErrors())
     })
 
+    if (this.api.config.server.ssr) {
+      const serverConfig = this.api.getWebpackConfig({ type: 'server' })
+      const serverCompiler = webpack(serverConfig)
+      const mfs = new webpack.MemoryOutputFileSystem()
+      serverCompiler.outputFileSystem = mfs
+
+      let serverBundle
+      let clientManifest
+
+      serverCompiler.hooks.done.tap('init-renderer', stats => {
+        if (!stats.hasErrors()) {
+          serverBundle = readJSON(
+            this.api.resolveCache('bundle-manifest/server.json'),
+            mfs.readFileSync.bind(mfs)
+          )
+          this.initRenderer({ serverBundle, clientManifest })
+        }
+      })
+      clientCompiler.hooks.done.tap('init-renderer', stats => {
+        if (!stats.hasErrors()) {
+          clientManifest = readJSON(
+            this.api.resolveCache('bundle-manifest/client.json'),
+            clientCompiler.outputFileSystem.readFileSync.bind(
+              clientCompiler.outputFileSystem
+            )
+          )
+          this.initRenderer({ serverBundle, clientManifest })
+        }
+      })
+      serverCompiler.watch({}, () => {})
+    }
+
     server.get('/_saber/visit-page', async (req, res) => {
       let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
       pathname = removeTrailingSlash(pathname)
@@ -438,11 +474,16 @@ class VueRenderer {
         return res.end('404')
       }
 
-      const render = () => {
+      if (!this.renderer) {
+        return res.end(`Please waiting for compilation..`)
+      }
+
+      const render = async () => {
+        log.verbose(`Rendering page ${req.url}`)
         const context = {
           url: req.url
         }
-
+        const markup = await this.renderer.renderToString(context)
         const initialDocumentData = require('./get-initial-document-data')(
           context
         )
@@ -454,7 +495,7 @@ class VueRenderer {
         )
         const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
           initialDocument
-        )}`
+        )}`.replace('<div id="_saber"></div>', markup)
         res.setHeader('content-type', 'text/html')
         res.end(html)
       }
