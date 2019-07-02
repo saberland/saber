@@ -228,12 +228,8 @@ class VueRenderer {
   }
 
   async build() {
-    const clientConfig = this.api
-      .createWebpackChain({ type: 'client' })
-      .toConfig()
-    const serverConfig = this.api
-      .createWebpackChain({ type: 'server' })
-      .toConfig()
+    const clientConfig = this.api.getWebpackConfig({ type: 'client' })
+    const serverConfig = this.api.getWebpackConfig({ type: 'server' })
 
     // Remove dist-client
     await fs.remove(this.api.resolveCache('dist-client'))
@@ -375,9 +371,7 @@ class VueRenderer {
 
     this.api.hooks.onCreateServer.call(server)
 
-    const clientConfig = this.api
-      .createWebpackChain({ type: 'client' })
-      .toConfig()
+    const clientConfig = this.api.getWebpackConfig({ type: 'client' })
 
     clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 

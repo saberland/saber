@@ -172,10 +172,19 @@ Called after emitting the routes file.
 
 - Hook Type: `SyncHook`
 - Params:
-  - `config`: `WebpackChain`
+  - `webpackChain`: `WebpackChain`
   - `opts`: `{ type: 'client' | 'server' }`
 
-Called to get the webpack config before creating webpack compiler.
+Called with the `webpack-chain` instance before creating webpack compiler.
+
+### `getWebpackConfig`
+
+- Hook Type: `SyncWaterfallHook`
+- Params:
+  - `config`: `WebpackConfig`
+  - `opts`: `{ type: 'client' | 'server' }`
+
+Called to get the webpack config before creating webpack compiler. You should return the webpack config object in this hook.
 
 ### `onCreateServer`
 
