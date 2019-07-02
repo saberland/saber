@@ -68,7 +68,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
-    "@types/fs-extra": "5.1.0",
+    "@types/fs-extra": "8.0.0",
     "@types/resolve-from": "5.0.1",
     "@types/superstruct": "0.5.0",
     "@types/webpack": "4.4.34",
