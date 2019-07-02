@@ -278,6 +278,11 @@ class Saber {
     const chain = require('./webpack/webpack.config')(this, opts)
     this.hooks.chainWebpack.call(chain, opts)
     const config = this.hooks.getWebpackConfig.call(chain.toConfig(), opts)
+
+    if (this.opts.inspectWebpack) {
+      require('./utils/inspectWebpack')(config, opts.type)
+    }
+
     return config
   }
 
