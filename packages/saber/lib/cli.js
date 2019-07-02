@@ -12,6 +12,7 @@ cli
   .option('--port <port>', 'Server port', { default: 3000 })
   .option('--host <host>', 'Server host', { default: '0.0.0.0' })
   .option('--ssr', 'Enable server-side rendering')
+  .option('--inspect-webpack', 'Inspect webpack config in your editor')
   .action((cwd = '.', options) => {
     setNodeEnv('development')
 
@@ -41,6 +42,7 @@ cli
   )
   .alias('generate')
   .option('--skip-compilation', 'Skip the webpack compilation process')
+  .option('--inspect-webpack', 'Inspect webpack config in your editor')
   .action((cwd = '.', options) => {
     setNodeEnv('production')
 
