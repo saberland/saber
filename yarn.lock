@@ -702,9 +702,9 @@
     schema-utils "^1.0.0"
 
 "@egoist/snackbar@^1.2.1":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@egoist/snackbar/-/snackbar-1.2.2.tgz#ad0ecb9f49bdd179fe36a3fa87173fec9b8d6a74"
-  integrity sha512-03fLZubSswI90cNqDdszWhYJqrJeNtN9qNOWBwJdKDMvjdnATejGusvnt+J30kG7ZfjMD6/BxXW0f6hPEIsMzg==
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@egoist/snackbar/-/snackbar-1.4.0.tgz#072a5202e5f1c26532356eaf53c89f3d765fb343"
+  integrity sha512-PPvpdXAQ7He+mTQJ/KptG+BdahRbcO0jt8klCbGljVbFuaxnPtz4T8Qx9rQycxPHpwRBWPgTaYFcIENOq9nEJA==
 
 "@evocateur/libnpmaccess@^3.1.0":
   version "3.1.0"
