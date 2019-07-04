@@ -53,7 +53,7 @@
     "superstruct": "^0.6.0",
     "tapable": "^1.1.1",
     "time-fix-plugin": "^2.0.5",
-    "url-loader": "^1.1.2",
+    "url-loader": "^2.0.1",
     "vue": "^2.6.10",
     "vue-loader": "^15.5.1",
     "vue-meta": "^2.0.4",
