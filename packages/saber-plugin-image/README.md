@@ -16,7 +16,6 @@ In your `saber-config.yml`:
 plugins:
   - resolve: saber-plugin-image
     options:
-      # Set to `false` to disable `srcset` attribute
       sizes:
         - 1000
         - 800
