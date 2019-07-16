@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 
 export default ({ Vue }) => {
   const options = Object.assign(
-    (process.browser && __SABER_IMAGE_OPTIONS__) || {}, // eslint-disable-line no-undef
+    __SABER_IMAGE_OPTIONS__ || {}, // eslint-disable-line no-undef
     { lazyComponent: true }
   )
 
@@ -40,7 +40,7 @@ export default ({ Vue }) => {
           })
         }
 
-        const { width, height, src, srcSet: srcset, placeholder } = this.src
+        const { width, height, src, srcSet, placeholder } = this.src
 
         const loading =
           (getOption('placeholder') && placeholder) ||
@@ -52,7 +52,7 @@ export default ({ Vue }) => {
         return h('img', {
           attrs: {
             ...$attrs,
-            srcset,
+            'data-srcset': srcSet,
             width,
             height
           },
