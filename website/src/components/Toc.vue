@@ -4,7 +4,7 @@
     <div class="toc-headings">
       <saber-link
         :data-level="heading.level"
-        class="toc-heading"
+        :class="{'toc-heading': true, 'router-link-exact-active': `#${heading.slug}` === currentHash }"
         v-for="heading in filteredHeadings"
         :key="heading.slug"
         :to="{hash: heading.slug}"
@@ -26,6 +26,39 @@ export default {
     filteredHeadings() {
       return this.headings.filter(heading => heading.level < 4)
     }
+  },
+
+  data() {
+    return {
+      currentHash: null
+    }
+  },
+
+  methods: {
+    handleScrolling() {
+      this.hTags.forEach(el => {
+        const top = window.pageYOffset
+        const distance = top - el.offsetTop
+        const hash = el.getElementsByTagName('a')[0].hash
+        if (distance < 50 && distance > -50 && this.currentHash != hash) {
+            history.pushState(null, null, hash)
+            this.currentHash = hash
+        }
+      })
+    }
+  },
+
+  mounted() {
+  	this.currentHash = window.location.hash
+    const hLevels = [2, 3]
+    this.hTags = hLevels.map(val => {
+      return [...document.getElementsByTagName('h' + val)]
+    }).flat()
+    window.addEventListener('scroll', this.handleScrolling)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScrolling)
   }
 }
 </script>
