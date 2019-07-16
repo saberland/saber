@@ -474,8 +474,8 @@ class VueRenderer {
         return res.end('404')
       }
 
-      if (!this.renderer) {
-        return res.end(`Please wait for compilation..`)
+      if (this.api.config.server.ssr && !this.renderer) {
+        return res.end(`Please wait for compilation and refresh..`)
       }
 
       const render = async () => {
@@ -483,7 +483,9 @@ class VueRenderer {
         const context = {
           url: req.url
         }
-        const markup = await this.renderer.renderToString(context)
+        const markup = this.renderer
+          ? await this.renderer.renderToString(context)
+          : '$&'
         const initialDocumentData = require('./get-initial-document-data')(
           context
         )
