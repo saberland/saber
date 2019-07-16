@@ -28,7 +28,7 @@
     "babel-loader": "^8.0.6",
     "cac": "^6.5.1",
     "chokidar": "^3.0.0",
-    "css-loader": "^2.1.0",
+    "css-loader": "^3.0.0",
     "cssnano": "^4.1.8",
     "devalue": "^2.0.0",
     "fast-deep-equal": "^2.0.1",
