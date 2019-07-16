@@ -4,7 +4,7 @@
     <div class="toc-headings">
       <saber-link
         :data-level="heading.level"
-        :class="{'toc-heading': true, 'router-link-exact-active': `#${heading.slug}` === currentHash }"
+        :class="{'toc-heading': true, 'active-hash': `#${heading.slug}` === currentHash }"
         v-for="heading in filteredHeadings"
         :key="heading.slug"
         :to="{hash: heading.slug}"
@@ -49,7 +49,6 @@ export default {
   },
 
   mounted() {
-  	this.currentHash = window.location.hash
     const hLevels = [2, 3]
     this.hTags = hLevels.map(val => {
       return [...document.getElementsByTagName('h' + val)]
@@ -82,7 +81,7 @@ export default {
     color: var(--text-color);
   }
 
-  &.router-link-exact-active {
+  &.active-hash {
     color: var(--text-dark-color);
   }
 
