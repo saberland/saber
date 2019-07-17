@@ -30,34 +30,37 @@ export default {
 
   data() {
     return {
-      currentHash: null
+      currentHash: null,
+      observer: null
     }
   },
 
   methods: {
-    handleScrolling() {
-      this.hTags.forEach(el => {
-        const top = window.pageYOffset
-        const distance = top - el.offsetTop
-        const hash = el.getElementsByTagName('a')[0].hash
-        if (distance < 50 && distance > -50 && this.currentHash != hash) {
-            history.pushState(null, null, hash)
-            this.currentHash = hash
-        }
-      })
-    }
+  	handleHash: function({target}) {
+  	  this.currentHash = `#${target.href.split('#')[1]}`
+  	}
   },
 
   mounted() {
+  	this.observer = new IntersectionObserver((entries) => {
+      let hash = entries.length === 1 ? `#${entries[0].target.id}` : null
+      history.pushState(null, null, hash)
+      this.currentHash = hash
+    }, {rootMargin: `-100px 0px ${100 - window.innerHeight}px 0px`})
+
     const hLevels = [2, 3]
-    this.hTags = hLevels.map(val => {
-      return [...document.getElementsByTagName('h' + val)]
-    }).flat()
-    window.addEventListener('scroll', this.handleScrolling)
+    hLevels.forEach(hLevel => document.querySelectorAll(`h${hLevel}`).forEach(el => this.observer.observe(el)))
+
+    document.querySelectorAll('.toc-heading').forEach(el => {
+      el.addEventListener('click', this.handleHash)
+    })
   },
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScrolling)
+	this.observer.disconnect()
+	document.querySelectorAll('.toc-heading').forEach(el => {
+      el.removeEventListener('click', this.handleHash)
+    })
   }
 }
 </script>
