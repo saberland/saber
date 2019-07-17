@@ -46,7 +46,7 @@ export default {
       let hash = entries.length === 1 ? `#${entries[0].target.id}` : null
       history.pushState(null, null, hash)
       this.currentHash = hash
-    }, {rootMargin: `-100px 0px ${100 - window.innerHeight}px 0px`})
+    }, {rootMargin: `-50px 0px ${50 - window.innerHeight}px 0px`})
 
     const hLevels = [2, 3]
     hLevels.forEach(hLevel => document.querySelectorAll(`h${hLevel}`).forEach(el => this.observer.observe(el)))
