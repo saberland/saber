@@ -28,39 +28,39 @@ export default {
     }
   },
 
-  data() {
-    return {
-      currentHash: null,
-      observer: null
+  watch: {
+    $route() {
+      this.isRoute = true
+      this.currentHash = this.$route.hash
     }
   },
 
-  methods: {
-  	handleHash: function({target}) {
-  	  this.currentHash = `#${target.href.split('#')[1]}`
-  	}
+  data() {
+    return {
+      currentHash: null,
+      observer: null,
+      isRoute: false,
+      justMounted: true
+    }
   },
-
+  
   mounted() {
-  	this.observer = new IntersectionObserver((entries) => {
-      let hash = entries.length === 1 ? `#${entries[0].target.id}` : null
-      history.pushState(null, null, hash)
-      this.currentHash = hash
-    }, {rootMargin: `-50px 0px ${50 - window.innerHeight}px 0px`})
-
-    const hLevels = [2, 3]
-    hLevels.forEach(hLevel => document.querySelectorAll(`h${hLevel}`).forEach(el => this.observer.observe(el)))
-
-    document.querySelectorAll('.toc-heading').forEach(el => {
-      el.addEventListener('click', this.handleHash)
+    this.observer = new IntersectionObserver(([firstEntry]) => {
+      if (this.isRoute || this.justMounted) {
+      	this.isRoute = false
+      	this.justMounted = false
+      } else if (firstEntry.boundingClientRect.bottom <= firstEntry.intersectionRect.bottom) {
+        const hash = `#${firstEntry.target.id}`
+        history.pushState(null, null, hash)
+        this.currentHash = hash
+      }
     })
+
+    this.filteredHeadings.forEach(heading => this.observer.observe(document.querySelector(`#${heading.slug}`)))
   },
 
   beforeDestroy() {
-	this.observer.disconnect()
-	document.querySelectorAll('.toc-heading').forEach(el => {
-      el.removeEventListener('click', this.handleHash)
-    })
+    this.observer.disconnect()
   }
 }
 </script>
