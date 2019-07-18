@@ -9,7 +9,7 @@
   ],
   "xo": false,
   "dependencies": {
-    "execa": "^1.0.0"
+    "execa": "^2.0.3"
   },
   "peerDependencies": {
     "saber": "^0.6.2"
