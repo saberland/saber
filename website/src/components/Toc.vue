@@ -4,7 +4,7 @@
     <div class="toc-headings">
       <saber-link
         :data-level="heading.level"
-        :class="{'toc-heading': true, 'active-hash': `#${heading.slug}` === currentHash }"
+        :class="{'toc-heading': true, 'active-hash': `#${heading.slug}` === currentHash}"
         v-for="heading in filteredHeadings"
         :key="heading.slug"
         :to="{hash: heading.slug}"
@@ -64,7 +64,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 .toc-title {
