@@ -50,9 +50,7 @@ export default {
       	this.isRoute = false
       	this.justMounted = false
       } else if (firstEntry.boundingClientRect.bottom <= firstEntry.intersectionRect.bottom) {
-        const hash = `#${firstEntry.target.id}`
-        history.pushState(null, null, hash)
-        this.currentHash = hash
+        this.currentHash = `#${firstEntry.target.id}`
       }
     })
 
