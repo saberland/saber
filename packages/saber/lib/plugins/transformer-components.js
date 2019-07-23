@@ -31,7 +31,7 @@ exports.apply = api => {
           sfc.script.content,
           page.internal.absolute
         )
-        Object.assign(page.attributes, attributes)
+        Object.assign(page, attributes)
       }
     },
     getPageComponent
@@ -44,7 +44,7 @@ exports.apply = api => {
         page.content,
         page.internal.absolute
       )
-      Object.assign(page.attributes, attributes)
+      Object.assign(page, attributes)
     },
     getPageComponent
   })

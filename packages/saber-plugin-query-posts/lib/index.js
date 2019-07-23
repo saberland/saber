@@ -51,33 +51,31 @@ exports.apply = (api, options = {}) => {
     categoriesMap = Object.assign({}, categoriesMap)
 
     for (const page of api.pages.values()) {
-      if (page.attributes.draft) {
+      if (page.draft) {
         continue
       }
 
-      const matchedLocalePath = api.pages.getMatchedLocalePath(
-        page.attributes.permalink
-      )
+      const matchedLocalePath = api.pages.getMatchedLocalePath(page.permalink)
       if (matchedLocalePath !== currentLocalePath) {
         continue
       }
 
-      if (page.attributes.injectAllPosts) {
+      if (page.injectAllPosts) {
         injectPostsToPages.add(page)
         continue
       }
 
-      if (page.attributes.type === 'post') {
+      if (page.type === 'post') {
         const pagePublicFields = api.pages.getPagePublicFields(page)
         allPosts.add(pagePublicFields)
 
         // Group posts for tag pages
-        const tags = [].concat(page.attributes.tags || [])
+        const tags = [].concat(page.tags || [])
         if (tags.length > 0) {
-          page.tags = []
+          page.tagsInfo = []
           for (const tag of tags) {
             const tagSlug = getIdFromMap(tagsMap, tag)
-            page.tags.push({
+            page.tagsInfo.push({
               name: tag,
               permalink: renderPermalink(permalinks.tag, {
                 name: tagSlug,
@@ -92,18 +90,18 @@ exports.apply = (api, options = {}) => {
 
         // Group posts for category pages
         const categories = []
-          .concat(page.attributes.categories || [])
+          .concat(page.categories || [])
           .map(v => (Array.isArray(v) ? v : v.split('/')))
 
         if (categories.length > 0) {
-          page.categories = []
+          page.categoriesInfo = []
           for (const category of categories) {
             for (const index of category.keys()) {
               const categorySlug = category
                 .slice(0, index + 1)
                 .map(name => getIdFromMap(categoriesMap, name))
                 .join('/')
-              page.categories.push({
+              page.categoriesInfo.push({
                 // The base name of the category
                 name: category[index],
                 permalink: renderPermalink(permalinks.category, {
@@ -130,15 +128,13 @@ exports.apply = (api, options = {}) => {
       injectToPages(
         new Set([
           {
-            attributes: {
-              isTagPage: true,
-              layout: 'tag',
-              permalink: renderPermalink(permalinks.tag, {
-                name: tag,
-                slug: tag
-              }),
+            isTagPage: true,
+            layout: 'tag',
+            permalink: renderPermalink(permalinks.tag, {
+              name: tag,
               slug: tag
-            },
+            }),
+            slug: tag,
             internal: {
               id: `internal_blog__tag__${tag}`,
               // So that this page will be removed before next `onCreatePages` hook in watch mode
@@ -158,15 +154,13 @@ exports.apply = (api, options = {}) => {
       injectToPages(
         new Set([
           {
-            attributes: {
-              isCategoryPage: true,
-              layout: 'category',
-              permalink: renderPermalink(permalinks.category, {
-                name: category,
-                slug: category
-              }),
+            isCategoryPage: true,
+            layout: 'category',
+            permalink: renderPermalink(permalinks.category, {
+              name: category,
               slug: category
-            },
+            }),
+            slug: category,
             internal: {
               id: `internal_blog__category__${category}`,
               // So that this page will be removed before next `onCreatePages` hook in watch mode
@@ -188,23 +182,23 @@ exports.apply = (api, options = {}) => {
       if (pages.size > 0) {
         const date = new Date()
         const sortedPosts = [...posts].sort((a, b) => {
-          const aDate = new Date(a.attributes.date || a.attributes.createdAt)
-          const bDate = new Date(b.attributes.date || b.attributes.createdAt)
+          const aDate = new Date(a.createdAt)
+          const bDate = new Date(b.createdAt)
           return aDate > bDate ? -1 : 1
         })
 
         for (const page of pages) {
           const paginatedPosts = paginate(
             sortedPosts,
-            Object.assign({}, paginationOptions, page.attributes.injectAllPosts)
+            Object.assign({}, paginationOptions, page.injectAllPosts)
           )
           const totalPages = paginatedPosts.length
 
           for (const [index, posts] of paginatedPosts.entries()) {
             const permalink =
               index === 0
-                ? page.attributes.permalink
-                : urlJoin(page.attributes.permalink, `page/${index + 1}`)
+                ? page.permalink
+                : urlJoin(page.permalink, `page/${index + 1}`)
             const newPage = Object.assign({}, page, {
               internal: Object.assign({}, page.internal, {
                 id:
@@ -215,22 +209,17 @@ exports.apply = (api, options = {}) => {
                   page.internal.parent ||
                   (index === 0 ? undefined : page.internal.id)
               }),
-              attributes: Object.assign({}, page.attributes, {
-                permalink,
-                createdAt: page.attributes.createdAt || date,
-                updatedAt: page.attributes.updatedAt || date
-              }),
+              permalink,
+              createdAt: page.createdAt || date,
+              updatedAt: page.updatedAt || date,
               posts,
               pagination: {
                 hasPrev: index !== totalPages - 1,
                 hasNext: index !== 0,
                 total: totalPages,
                 current: index + 1,
-                prevLink: getPaginationLink(
-                  index + 2,
-                  page.attributes.permalink
-                ),
-                nextLink: getPaginationLink(index, page.attributes.permalink)
+                prevLink: getPaginationLink(index + 2, page.permalink),
+                nextLink: getPaginationLink(index, page.permalink)
               }
             })
             Object.assign(newPage, pageProp)

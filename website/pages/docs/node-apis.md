@@ -13,7 +13,7 @@ For example:
 
 ```js
 exports.onCreatePage = function (page) {
-  page.attributes.foo = true
+  page.foo = true
 }
 ```
 

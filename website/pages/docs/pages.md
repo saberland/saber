@@ -53,10 +53,10 @@ export const attributes = {
 </script>
 ```
 
-Note that the value of `attributes` must be a literal.
+Note that the value of `attributes` must be an object literal.
 
 ## Posts
 
-Posts live inside `./pages/_posts`, they are just a special kind of pages. The default value of `page.attributes.type` will be `post` instead of `page`.
+Posts live inside `./pages/_posts`, they are just a special kind of pages. The default value of `page.type` will be `post` instead of `page`.
 
 Check out [Page Interface](./page-interface.md) for more details.

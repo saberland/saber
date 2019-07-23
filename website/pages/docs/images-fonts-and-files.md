@@ -55,8 +55,8 @@ Then use them in your layout component:
 ```vue
 <template>
   <div>
-    <!-- page.attributes.assets.cover will be an absolute url -->
-    <img :src="page.attributes.assets.cover" alt="cover">
+    <!-- page.assets.cover will be an absolute url -->
+    <img :src="page.assets.cover" alt="cover">
   </div>
 </template>
 

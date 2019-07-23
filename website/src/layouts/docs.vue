@@ -1,6 +1,6 @@
 <template>
   <Wrap :page="page">
-    <div class="page-title">{{ page.attributes.title }}</div>
+    <div class="page-title">{{ page.title }}</div>
     <div class="page-content">
       <slot name="default"/>
     </div>
@@ -32,7 +32,7 @@ export default {
 
   head() {
     return {
-      title: `${this.page.attributes.title} - Saber`
+      title: `${this.page.title} - Saber`
     }
   },
 

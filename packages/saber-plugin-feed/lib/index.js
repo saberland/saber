@@ -51,30 +51,26 @@ exports.apply = (api, options = {}) => {
 
     await Promise.all(
       [...api.pages.values()].map(async page => {
-        if (page.attributes.type !== 'post' || page.attributes.draft) {
+        if (page.type !== 'post' || page.draft) {
           return
         }
 
-        const matchedLocalePath = api.pages.getMatchedLocalePath(
-          page.attributes.permalink
-        )
+        const matchedLocalePath = api.pages.getMatchedLocalePath(page.permalink)
         if (localePath !== matchedLocalePath) {
           return
         }
 
-        const content = await api.renderer.renderPageContent(
-          page.attributes.permalink
-        )
+        const content = await api.renderer.renderPageContent(page.permalink)
         posts.push({
-          title: page.attributes.title,
-          id: page.attributes.permalink,
-          link: resolveURL(siteConfig.url, page.attributes.permalink),
+          title: page.title,
+          id: page.permalink,
+          link: resolveURL(siteConfig.url, page.permalink),
           // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
           description:
             page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
           content,
-          date: page.attributes.updatedAt,
-          published: page.attributes.createdAt
+          date: page.updatedAt,
+          published: page.createdAt
         })
       })
     )

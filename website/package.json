@@ -2,8 +2,8 @@
   "private": true,
   "name": "saber-website",
   "scripts": {
-    "dev": "saber",
-    "generate": "saber generate"
+    "dev": "node ../packages/saber/lib/cli.js",
+    "generate": "node ../packages/saber/lib/cli.js generate"
   },
   "dependencies": {
     "date-fns": "1.30.1",

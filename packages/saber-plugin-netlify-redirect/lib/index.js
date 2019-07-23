@@ -38,9 +38,7 @@ exports.apply = api => {
       }
     }
 
-    const allPermalinks = [...api.pages.values()].map(
-      page => page.attributes.permalink
-    )
+    const allPermalinks = [...api.pages.values()].map(page => page.permalink)
     for (const permalink of allPermalinks) {
       if (permalink.endsWith('.html')) {
         const fromPath = permalink.replace(/\.html$/, '')

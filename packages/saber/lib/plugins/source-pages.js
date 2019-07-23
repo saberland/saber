@@ -64,10 +64,7 @@ exports.apply = api => {
         pages.map(async page => {
           if (page.internal.saved) return
 
-          const newContentHash = hash({
-            page,
-            prop: api.pages.pageProps.get(page.internal.id)
-          })
+          const newContentHash = hash(page)
           const outPath = api.resolveCache(
             'pages',
             `${page.internal.id}.saberpage`

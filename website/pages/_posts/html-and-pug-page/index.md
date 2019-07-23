@@ -181,8 +181,8 @@ exports.apply = api => {
       page.content = pageContent
       page.internal.hoistedTags = blocks
 
-      // Merge front matter with page attributes
-      Object.assign(page.attributes, frontmatter)
+      // Merge front matter with page object
+      Object.assign(page, frontmatter)
     },
     // Transform the page content to vue component
     getPageComponent(page) {

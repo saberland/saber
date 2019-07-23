@@ -4,7 +4,7 @@
 
 Why? See [#9785](https://github.com/gatsbyjs/gatsby/issues/9785).
 
-**tl;dr** `page.attributes.updatedAt` defaults to `file.mtime` which will change on platforms like Netlify. We restore the value to author time of the last commit instead.
+**tl;dr** `page.updatedAt` defaults to `file.mtime` which will change on platforms like Netlify. We restore the value to author time of the last commit instead.
 
 ## Install
 

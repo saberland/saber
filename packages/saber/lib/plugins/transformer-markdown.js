@@ -11,7 +11,7 @@ exports.apply = api => {
         page.content,
         page.internal.absolute
       )
-      Object.assign(page.attributes, frontmatter)
+      Object.assign(page, frontmatter)
       page.content = body
     },
     transform(page) {

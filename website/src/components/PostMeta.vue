@@ -1,7 +1,7 @@
 <template>
   <div class="page-meta">
     <span class="page-date">
-      {{ format(new Date(page.attributes.createdAt), 'MMM DD, YYYY') }}
+      {{ format(new Date(page.createdAt), 'MMM DD, YYYY') }}
     </span>
   </div>
 </template>
