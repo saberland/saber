@@ -120,6 +120,11 @@ module.exports = class Pages extends Map {
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
+
+    // Backward compatible
+    // TODO: remove in 1.0
+    page.attributes = page
+
     return page
   }
 
@@ -146,7 +151,13 @@ module.exports = class Pages extends Map {
       return page
     }
 
-    return Object.assign({}, page, { content: undefined, internal: undefined })
+    const res = Object.assign({}, page, {
+      content: undefined,
+      internal: undefined
+    })
+    // TODO: remove in 1.0
+    res.attributes = res
+    return res
   }
 
   createRedirect(_configs) {
