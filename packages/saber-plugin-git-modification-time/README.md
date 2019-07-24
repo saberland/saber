@@ -1,6 +1,6 @@
 # saber-plugin-git-modification-time
 
-> Use the author time of the last commit as page.attributes.updatedAt
+> Use the author time of the last commit as `page.updatedAt`
 
 Why? See [#9785](https://github.com/gatsbyjs/gatsby/issues/9785).
 
