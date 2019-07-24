@@ -23,9 +23,9 @@ And run `saber` in your project:
 
 <small><i>Note: If you don't like the `.html` suffix, feel free to customize the [permalinks](./permalinks.md).</i></small>
 
-A page is made of two parts, the page data (optional) and the page content. __Page data is a mechanism for the page component to communicate with its layout component.__
+A page is made of two parts, the attributes (optional) and the content. __The `attributes` is a mechanism for the page component to communicate with its layout component.__
 
-In a markdown page you can set page data with front matter:
+To define attributes for Markdown page you can use the front matter:
 
 ```markdown
 ---
@@ -36,9 +36,9 @@ layout: page
 This is a page.
 ```
 
-Then this page will use the `page` layout from your `layouts` directory or pre-configured theme directory. The page data will be available in the layout component as `page` prop, e.g. in the layout component you can access the `title` via `page.title`. The page content will be available as the default slot, you can use it like this: `<slot name="default"></slot>`. Check out [Layouts](./layouts.md) for more details.
+Then this page will use the `page` layout from your `layouts` directory or pre-configured theme directory. The page data will be available in the layout component as `page` prop, you can access the attributes via `page.attributes`. The page content will be available as the default slot, you can use it like this: `<slot name="default"></slot>`. Check out [Layouts](./layouts.md) for more details.
 
-In a `.vue` or `.js` page, you can't use front matter to set page data, instead you can use ES `export` keyword:
+In a `.vue` or `.js` page, you can't use front matter, instead you can use ES `export` keyword to export the attributes:
 
 ```vue
 <template>
@@ -46,14 +46,14 @@ In a `.vue` or `.js` page, you can't use front matter to set page data, instead 
 </template>
 
 <script>
-export const data = {
+export const attributes = {
   title: 'Hello World',
   layout: 'page'
 }
 </script>
 ```
 
-Note that the value of `data` must be an object literal.
+Note that the value of `attributes` must be an object literal.
 
 ## Posts
 
