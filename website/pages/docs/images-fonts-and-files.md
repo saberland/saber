@@ -37,9 +37,9 @@ Since markdown pages are also compiled to Vue components, asset URLs will also b
 
 Note that we only convert __relative URLs__, like `image.png`, `../image.png` but not `/image.png` or `https://example.com/image.png`.
 
-## Using the `assets` page attribute
+## Using the front matter `assets`
 
-In pages, you can use the `assets` attribute to import static assets.
+In pages, you can use the front matter `assets` to import static assets.
 
 ```markdown
 ---
@@ -66,3 +66,5 @@ export default {
 }
 </script>
 ```
+
+The files referenced here will be processed by webpack.
