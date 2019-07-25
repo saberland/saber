@@ -159,7 +159,7 @@ The `page.markdownHeadings` will be:
 You can use the frontmatter to disable it in this page:
 
 ```yaml
-injectMarkdownHeadings: false
+markdownHeadings: false
 ```
 
 If you want to disable this globally, check out [markdown.headings](saber-config.md#headings) option.

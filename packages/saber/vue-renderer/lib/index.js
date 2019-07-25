@@ -187,15 +187,14 @@ class VueRenderer {
             ? `${absolutePath}?saberPage=${page.internal.id}`
             : `#cache/pages/${page.internal.id}.saberpage?saberPage=${page.internal.id}`
           return `{
-              path: ${JSON.stringify(page.attributes.permalink)},
+              path: ${JSON.stringify(page.permalink)},
               meta: {
                 __relative: '${relativePath}',
                 __pageId: '${page.internal.id}'
               },
               component: function() {
                 ${
-                  this.api.lazy &&
-                  !this.visitedRoutes.has(page.attributes.permalink)
+                  this.api.lazy && !this.visitedRoutes.has(page.permalink)
                     ? 'return Promise.resolve({render: function(){}})'
                     : `
                 return import(${chunkNameComment}${JSON.stringify(
@@ -337,16 +336,12 @@ class VueRenderer {
       [
         ...this.api.pages.values(),
         {
-          attributes: {
-            permalink: '/__never_existed__.html',
-            outputFilePath: '404.html'
-          }
+          permalink: '/__never_existed__.html',
+          outputFilePath: '404.html'
         }
       ].map(page => ({
-        permalink: page.attributes.permalink,
-        outputFilePath: getOutputFilePath(
-          page.attributes.outputFilePath || page.attributes.permalink
-        )
+        permalink: page.permalink,
+        outputFilePath: getOutputFilePath(page.outputFilePath || page.permalink)
       }))
     )
 

@@ -5,7 +5,7 @@ const { requireAssets } = require('../../lib/utils/assetsAttribute')
 module.exports = function(source, map) {
   const pageId = source.trim()
   const { api } = this.query
-  const page = requireAssets(devalue(api.pages.getPageProp(pageId)))
+  const page = requireAssets(devalue(api.pages.getPagePublicFields(pageId)))
   let result = `
   export default function(Component) {
     var page = ${page}
@@ -27,11 +27,11 @@ module.exports = function(source, map) {
 
       // Fallback to page attribute
       if (Component.options[name] === undefined) {
-        Component.options[name] = page.attributes[name]
+        Component.options[name] = page[name]
       }
     })
 
-    Component.options.name = 'page-wrapper-' + page.attributes.slug.replace(/[^0-9a-z\\-]/i, '-')
+    Component.options.name = 'page-wrapper-' + page.slug.replace(/[^0-9a-z\\-]/i, '-')
     if (module.hot) {
       var Vue = require('vue').default
       Component.options._Ctor = Vue.extend(Component)

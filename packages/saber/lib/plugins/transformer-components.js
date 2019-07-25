@@ -27,11 +27,11 @@ exports.apply = api => {
     parse(page) {
       const sfc = require('vue-template-compiler').parseComponent(page.content)
       if (sfc.script) {
-        const { attributes } = require('../utils/parseAttributes')(
+        const { data } = require('../utils/parseAttributes')(
           sfc.script.content,
           page.internal.absolute
         )
-        Object.assign(page.attributes, attributes)
+        Object.assign(page, data)
       }
     },
     getPageComponent
@@ -40,11 +40,11 @@ exports.apply = api => {
   api.transformers.add('js', {
     extensions: ['js'],
     transform(page) {
-      const { attributes } = require('../utils/parseAttributes')(
+      const { data } = require('../utils/parseAttributes')(
         page.content,
         page.internal.absolute
       )
-      Object.assign(page.attributes, attributes)
+      Object.assign(page, data)
     },
     getPageComponent
   })

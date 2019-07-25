@@ -15,7 +15,7 @@ exports.apply = api => {
         page.internal.absolute
       ])
       if (stdout) {
-        page.attributes.updatedAt = new Date(stdout)
+        page.updatedAt = new Date(stdout)
       }
     }
   })

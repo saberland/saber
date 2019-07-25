@@ -53,15 +53,12 @@ declare module 'saber' {
   }
 
   interface Page {
-    attributes: {
-      type: string
-      layout?: string
-      createdAt: Date
-      updatedAt: Date
-      permalink: string
-      slug: string
-      [k: string]: any
-    }
+    type: string
+    layout?: string
+    createdAt: Date
+    updatedAt: Date
+    permalink: string
+    slug: string
     internal: {
       id: string
       isFile?: boolean
@@ -71,6 +68,7 @@ declare module 'saber' {
     }
     content?: string
     contentType?: string
+    [k: string]: any
   }
 
   type Plugin =

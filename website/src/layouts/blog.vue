@@ -17,7 +17,7 @@ export default {
   props: ['page'],
 
   head() {
-    const { title } = this.page.attributes
+    const { title } = this.page
     return {
       title: title
         ? `${title} - ${this.$siteConfig.title}`

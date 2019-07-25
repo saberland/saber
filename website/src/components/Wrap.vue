@@ -55,11 +55,11 @@ export default {
 
   computed: {
     updatedDate() {
-      return format(this.page.attributes.updatedAt, 'MMMM DD, YYYY')
+      return format(this.page.updatedAt, 'MMMM DD, YYYY')
     },
 
     editLink() {
-      const { slug, type } = this.page.attributes
+      const { slug, type } = this.page
       return `https://github.com/egoist/saber/blob/master/website/pages/${
         type === 'post' ? '_posts/' : ''
       }${slug}.md`

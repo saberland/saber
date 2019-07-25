@@ -272,9 +272,9 @@ Awesome, now let's update the `./layouts/page.vue` to show recent posts:
       <ul>
         <li v-for="post in page.posts" :key="post.permalink">
           <h2>
-            {{ formatDate(post.attributes.createdAt) }} -
-            <saber-link :to="post.attributes.permalink">{{
-              post.attributes.title
+            {{ formatDate(post.createdAt) }} -
+            <saber-link :to="post.permalink">{{
+              post.title
             }}</saber-link>
           </h2>
         </li>
@@ -332,7 +332,7 @@ export default {
   // ..omitted
   props: ['page'],
   head() {
-    const pageTitle = this.page.attributes.title
+    const pageTitle = this.page.title
     return {
       title: pageTitle ?
         `${pageTitle} - ${this.$siteConfig.title}` :
@@ -381,13 +381,13 @@ exports.onCreatePages = function() {
   // Pages are read into the `this.pages` Map
   // Sort posts by createdAt (date) from new to old
   const posts = [...this.pages.values()]
-    .filter(page => page.attributes.type === 'post' && !page.attributes.draft)
+    .filter(page => page.type === 'post' && !page.draft)
     .sort((a, b) => {
-      return a.attributes.createdAt > b.attributes.createdAt ? 1 : -1
+      return a.createdAt > b.createdAt ? 1 : -1
     })
   const selectFields = page => (page && {
-    title: page.attributes.title,
-    permalink: page.attributes.permalink
+    title: page.title,
+    permalink: page.permalink
   })
   for (const [index, post] of posts.entries()) {
     post.prevPost = selectFields(posts[index - 1])

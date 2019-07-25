@@ -11,7 +11,6 @@ module.exports = class Pages extends Map {
   constructor(api) {
     super()
     this.api = api
-    this.pageProps = new Map()
     this.redirectRoutes = new Map()
   }
 
@@ -20,7 +19,6 @@ module.exports = class Pages extends Map {
 
     page = merge(
       {
-        attributes: {},
         internal: {},
         contentType: 'default'
       },
@@ -42,9 +40,7 @@ module.exports = class Pages extends Map {
       )
       const slug = parsedFileName[16]
       page = merge({}, page, {
-        attributes: {
-          slug
-        },
+        slug,
         internal: {
           id: hash(file.absolute),
           absolute: absolutePath,
@@ -75,40 +71,34 @@ module.exports = class Pages extends Map {
       transformer.transform(page)
     }
 
-    // These attributes depend on other attributes
-    // And transformers can update the attributes
-    // So we set them after the transformers
+    // These fields are computed from other fields
+    // And transformers can update the `page`
+    // So we set them after applying the transformer
 
     if (file && parsedFileName) {
       // Read createdAt from page attribute
-      // Or fallback to `page.attributes.date` (Hexo compatibility)
+      // Or fallback to `page.date` (Hexo compatibility)
       // Or fallback to the date in fileName
       // Or fallback to the `file.birthtime`
-      page.attributes.createdAt = new Date(
-        page.attributes.createdAt ||
-          page.attributes.date ||
-          parsedFileName[2] ||
-          file.birthtime
+      page.createdAt = new Date(
+        page.createdAt || page.date || parsedFileName[2] || file.birthtime
       )
 
       // Read updatedAt from page attribute
-      // Or fallback to `page.attributes.updated` (Hexo compatibility)
+      // Or fallback to `page.updated` (Hexo compatibility)
       // Or fallback to `file.mtime`
-      page.attributes.updatedAt = new Date(
-        page.attributes.updatedAt || page.attributes.updated || file.mtime
-      )
+      page.updatedAt = new Date(page.updatedAt || page.updated || file.mtime)
 
-      page.attributes.type =
-        page.attributes.type || getPageType(slash(file.relative))
+      page.type = page.type || getPageType(slash(file.relative))
     }
 
-    page.attributes.permalink =
-      page.attributes.permalink ||
+    page.permalink =
+      page.permalink ||
       getPermalink(
         Object.keys(api.config.locales || {})
           .map(p => p.slice(1))
           .filter(Boolean),
-        page.attributes,
+        page,
         typeof api.config.permalinks === 'function'
           ? api.config.permalinks(page)
           : api.config.permalinks
@@ -118,9 +108,9 @@ module.exports = class Pages extends Map {
       throw new Error(`Page must have an internal id.`)
     }
 
-    page.attributes.assets = page.attributes.assets
+    page.assets = page.assets
       ? prefixAssets(
-          page.attributes.assets,
+          page.assets,
           page.internal.absolute
             ? path.dirname(page.internal.absolute)
             : api.opts.cwd
@@ -130,6 +120,11 @@ module.exports = class Pages extends Map {
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
+
+    // Backward compatible
+    // TODO: remove in 1.0
+    page.attributes = page
+
     return page
   }
 
@@ -138,7 +133,6 @@ module.exports = class Pages extends Map {
       page = this.normalizePage(page, file)
     }
 
-    this.pageProps.set(page.internal.id, {})
     this.set(page.internal.id, page)
   }
 
@@ -147,17 +141,8 @@ module.exports = class Pages extends Map {
       const condition = getCondition(page)
       if (condition) {
         this.delete(page.internal.id)
-        this.pageProps.delete(page.internal.id)
       }
     }
-  }
-
-  getPageProp(id) {
-    return Object.assign(
-      {},
-      this.pageProps.get(id),
-      this.getPagePublicFields(id)
-    )
   }
 
   getPagePublicFields(page) {
@@ -166,7 +151,13 @@ module.exports = class Pages extends Map {
       return page
     }
 
-    return Object.assign({}, page, { content: undefined, internal: undefined })
+    const res = Object.assign({}, page, {
+      content: undefined,
+      internal: undefined
+    })
+    // TODO: remove in 1.0
+    res.attributes = res
+    return res
   }
 
   createRedirect(_configs) {

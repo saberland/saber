@@ -1,5 +1,5 @@
 exports.onCreatePage = function(page) {
-  if (page.attributes.permalink === '/') {
-    page.attributes.foo = 'ass'
+  if (page.permalink === '/') {
+    page.foo = 'ass'
   }
 }
