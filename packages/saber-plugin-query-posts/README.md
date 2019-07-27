@@ -77,7 +77,7 @@ hello
 
 ### Data Injected in Post Pages
 
-You can access the detailed info of the tags of a post page via `this.page.tags`, for instance:
+You can access the detailed info of the tags of a post page via `this.page.tagsInfo`, for instance:
 
 ```yaml
 tags:
@@ -125,7 +125,7 @@ Then there will be a `/categories/sports` page，`categories` is an array, so yo
 
 ### Data Injected in Post Pages
 
-You can access the detailed info of the categories of a post page via `this.page.categories`, for instance:
+You can access the detailed info of the categories of a post page via `this.page.categoriesInfo`, for instance:
 
 ```yaml
 categories:
