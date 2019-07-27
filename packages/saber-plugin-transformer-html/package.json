@@ -16,6 +16,6 @@
     "extract-sfc-blocks": "^0.0.2"
   },
   "peerDependencies": {
-    "saber": "^0.6.2"
+    "saber": ">=0.7.0"
   }
 }
