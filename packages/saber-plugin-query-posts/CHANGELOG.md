@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/saberland/saber/compare/saber-plugin-query-posts@0.3.2...saber-plugin-query-posts@0.4.0) (2019-07-27)
+
+### Features
+
+- refactor page interface ([#345](https://github.com/saberland/saber/issues/345)) ([629c4a6](https://github.com/saberland/saber/commit/629c4a6))
+
 ## [0.3.2](https://github.com/saberland/saber/compare/saber-plugin-query-posts@0.3.1...saber-plugin-query-posts@0.3.2) (2019-05-28)
 
 ### Features

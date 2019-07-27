@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/saberland/saber/compare/saber@0.6.10...saber@0.7.0) (2019-07-27)
+
+### Bug Fixes
+
+- **regression:** only use server renderer in --ssr mode ([fc2a632](https://github.com/saberland/saber/commit/fc2a632))
+
+### Features
+
+- **cli:** Add --inspect-webpack flag ([#300](https://github.com/saberland/saber/issues/300)) ([6dd6832](https://github.com/saberland/saber/commit/6dd6832))
+- **webpack:** add getWebpackConfig hook ([#297](https://github.com/saberland/saber/issues/297)) ([625c42a](https://github.com/saberland/saber/commit/625c42a))
+- refactor page interface ([#345](https://github.com/saberland/saber/issues/345)) ([629c4a6](https://github.com/saberland/saber/commit/629c4a6))
+- support --ssr flag in dev mode ([#302](https://github.com/saberland/saber/issues/302)) ([6605d53](https://github.com/saberland/saber/commit/6605d53))
+
 ## [0.6.10](https://github.com/saberland/saber/compare/saber@0.6.9...saber@0.6.10) (2019-06-22)
 
 ### Bug Fixes
