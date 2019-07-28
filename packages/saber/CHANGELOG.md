@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/saberland/saber/compare/saber@0.6.10...saber@0.7.0) (2019-07-27)
+
+### Bug Fixes
+
+- **regression:** only use server renderer in --ssr mode ([fc2a632](https://github.com/saberland/saber/commit/fc2a632))
+
+### Features
+
+- **cli:** Add --inspect-webpack flag ([#300](https://github.com/saberland/saber/issues/300)) ([6dd6832](https://github.com/saberland/saber/commit/6dd6832))
+- **webpack:** add getWebpackConfig hook ([#297](https://github.com/saberland/saber/issues/297)) ([625c42a](https://github.com/saberland/saber/commit/625c42a))
+- refactor page interface ([#345](https://github.com/saberland/saber/issues/345)) ([629c4a6](https://github.com/saberland/saber/commit/629c4a6))
+- support --ssr flag in dev mode ([#302](https://github.com/saberland/saber/issues/302)) ([6605d53](https://github.com/saberland/saber/commit/6605d53))
+
+## [0.6.10](https://github.com/saberland/saber/compare/saber@0.6.9...saber@0.6.10) (2019-06-22)
+
+### Bug Fixes
+
+- **markdown:** Don't assume link_open relative position ([#278](https://github.com/saberland/saber/issues/278)) ([4e8e079](https://github.com/saberland/saber/commit/4e8e079)), closes [#277](https://github.com/saberland/saber/issues/277) [#277](https://github.com/saberland/saber/issues/277)
+
+## [0.6.9](https://github.com/saberland/saber/compare/saber@0.6.8...saber@0.6.9) (2019-06-21)
+
+### Bug Fixes
+
+- Hash in links in --lazy mode ([#270](https://github.com/saberland/saber/issues/270)) ([bbe44b1](https://github.com/saberland/saber/commit/bbe44b1)), closes [#249](https://github.com/saberland/saber/issues/249)
+
+### Features
+
+- adding API for rendering page content ([#268](https://github.com/saberland/saber/issues/268)) ([ad8e76d](https://github.com/saberland/saber/commit/ad8e76d))
+
+## [0.6.8](https://github.com/saberland/saber/compare/saber@0.6.7...saber@0.6.8) (2019-06-15)
+
+### Bug Fixes
+
+- publicUrl behaviour [#261](https://github.com/saberland/saber/issues/261) ([#263](https://github.com/saberland/saber/issues/263)) ([1bcfd21](https://github.com/saberland/saber/commit/1bcfd21))
+
 ## [0.6.7](https://github.com/saberland/saber/compare/saber@0.6.6...saber@0.6.7) (2019-05-29)
 
 ### Bug Fixes

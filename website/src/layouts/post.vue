@@ -1,6 +1,6 @@
 <template>
   <Wrap :page="page" :showLeftbar="false">
-    <h1 class="page-title">{{ page.attributes.title }}</h1>
+    <h1 class="page-title">{{ page.title }}</h1>
     <PostMeta :page="page"/>
     <div class="page-content">
       <slot name="default"/>
@@ -22,7 +22,7 @@ export default {
 
   head() {
     return {
-      title: `${this.page.attributes.title} - ${this.$siteConfig.title}`,
+      title: `${this.page.title} - ${this.$siteConfig.title}`,
       meta: [
         {
           name: 'twitter:card',
@@ -34,11 +34,11 @@ export default {
         },
         {
           name: 'twitter:title',
-          content: this.page.attributes.title
+          content: this.page.title
         },
         {
           name: 'twitter:description',
-          content: this.page.attributes.subtitle
+          content: this.page.subtitle
         }
       ]
     }

@@ -57,7 +57,7 @@ const defaultOptions = {
   permalinkComponent: 'saber-link',
   permalinkRenderer,
   permalinkHref: slug => `#${slug}`,
-  injectMarkdownHeadings: true,
+  markdownHeadings: true,
   slugify: slugo
 }
 
@@ -70,7 +70,7 @@ module.exports = (md, options = {}) => {
     const headings = []
     const slugs = []
 
-    const { injectMarkdownHeadings } = env.page.attributes
+    const { markdownHeadings } = env.page
 
     const anchorLevels = Array.isArray(options.levels)
       ? options.levels
@@ -108,8 +108,8 @@ module.exports = (md, options = {}) => {
         }
 
         if (
-          injectMarkdownHeadings ||
-          (injectMarkdownHeadings !== false && options.injectMarkdownHeadings)
+          markdownHeadings ||
+          (markdownHeadings !== false && options.markdownHeadings)
         ) {
           headings.push({
             text,

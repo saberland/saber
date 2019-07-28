@@ -1,5 +1,5 @@
 module.exports = () => {
-  const page = { attributes: {}, internal: {} }
+  const page = { internal: {} }
   return {
     page,
     env: {

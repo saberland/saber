@@ -33,7 +33,8 @@ class Saber {
       beforeRun: new AsyncSeriesHook(),
       onUpdateConfigFile: new AsyncSeriesHook(),
       // Extend webpack config
-      chainWebpack: new SyncHook(['config', 'opts']),
+      chainWebpack: new SyncHook(['webpackChain', 'opts']),
+      getWebpackConfig: new SyncWaterfallHook(['config', 'opts']),
       // Extend markdown-it config
       chainMarkdown: new SyncHook(['config']),
       emitRoutes: new AsyncSeriesHook(),
@@ -272,10 +273,16 @@ class Saber {
     return this.resolveCwd(this.config.build.outDir, ...args)
   }
 
-  createWebpackChain(opts) {
+  getWebpackConfig(opts) {
     opts = Object.assign({ type: 'client' }, opts)
-    const config = require('./webpack/webpack.config')(this, opts)
-    this.hooks.chainWebpack.call(config, opts)
+    const chain = require('./webpack/webpack.config')(this, opts)
+    this.hooks.chainWebpack.call(chain, opts)
+    const config = this.hooks.getWebpackConfig.call(chain.toConfig(), opts)
+
+    if (this.opts.inspectWebpack) {
+      require('./utils/inspectWebpack')(config, opts.type)
+    }
+
     return config
   }
 

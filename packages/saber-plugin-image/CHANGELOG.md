@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/saberland/saber/compare/saber-plugin-image@0.0.4...saber-plugin-image@0.1.0) (2019-07-27)
+
+### Bug Fixes
+
+- **saber-plugin-image:** fix lazy load for images with `srcset` ([#264](https://github.com/saberland/saber/issues/264)) ([0cd1201](https://github.com/saberland/saber/commit/0cd1201))
+
 ## [0.0.4](https://github.com/egoist/saber/compare/saber-plugin-image@0.0.3...saber-plugin-image@0.0.4) (2019-05-21)
 
 ### Bug Fixes

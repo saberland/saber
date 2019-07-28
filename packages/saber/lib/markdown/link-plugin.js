@@ -11,8 +11,11 @@ module.exports = function(md) {
       if (/^[^:]+:\/\//.test(link[1])) {
         if (/^https?:/.test(link[1])) {
           // External link
-          token.attrSet('target', '_blank')
-          token.attrSet('rel', 'noopener noreferrer')
+          if (!token.attrGet('target')) {
+            token.attrSet('target', '_blank')
+          }
+
+          token.attrJoin('rel', 'noopener noreferrer')
         }
       } else if (link[1]) {
         // Internal link
@@ -43,7 +46,15 @@ module.exports = function(md) {
   }
 
   md.renderer.rules.link_close = (tokens, idx, options, env, self) => {
-    const openToken = tokens[idx - 2]
+    // Find the closest `link_open` token
+    let openToken
+    for (let i = idx - 1; ; i--) {
+      if (tokens[i].type === 'link_open') {
+        openToken = tokens[i]
+        break
+      }
+    }
+
     const token = tokens[idx]
     const prefix = ''
     if (openToken) {

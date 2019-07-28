@@ -55,11 +55,11 @@ export default {
 
   computed: {
     updatedDate() {
-      return format(this.page.attributes.updatedAt, 'MMMM DD, YYYY')
+      return format(this.page.updatedAt, 'MMMM DD, YYYY')
     },
 
     editLink() {
-      const { slug, type } = this.page.attributes
+      const { slug, type } = this.page
       return `https://github.com/egoist/saber/blob/master/website/pages/${
         type === 'post' ? '_posts/' : ''
       }${slug}.md`
@@ -71,16 +71,20 @@ export default {
 <style scoped>
 .content.no-leftbar {
   padding-left: 0;
-  margin-left: 0;
+  width: calc(var(--leftbar-width) + var(--content-width));
 }
 
 .content.no-rightbar {
   padding-right: 0;
-  margin-right: 0;
+  width: calc(var(--rightbar-width) + var(--content-width));
 }
 
 .content.no-leftbar.no-rightbar {
-  max-width: 100%;
+  width: var(--content-width);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .edit-info {
@@ -91,5 +95,11 @@ export default {
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
+}
+
+.rightbar {
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 </style>

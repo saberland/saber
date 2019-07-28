@@ -1,12 +1,12 @@
 {
   "name": "saber-highlight-css",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Default CSS for code highlighting in Saber",
   "files": [
     "*.css"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "saber": "^0.6.2"
+    "saber": ">=0.7.0"
   }
 }

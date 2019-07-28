@@ -18,7 +18,7 @@ hello
 test('disable excerpt', () => {
   const md = new Markdown()
   const { env, page } = createEnv()
-  page.attributes.excerpt = false
+  page.excerpt = false
   md.use(excerptPlugin)
   md.render(
     `
@@ -26,7 +26,7 @@ hello
   `,
     env
   )
-  expect(page.excerpt).toBe(undefined)
+  expect(page.excerpt).toBe(false)
 })
 
 test('<!-- more --> mark', () => {

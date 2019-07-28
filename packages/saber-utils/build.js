@@ -4,7 +4,10 @@ const glob = require('fast-glob')
 
 const files = glob.sync('*.js', { cwd: './src', absolute: true })
 
-main()
+main().catch(error => {
+  console.error(error)
+  process.exitCode = 1
+})
 
 async function main() {
   for (const file of files) {

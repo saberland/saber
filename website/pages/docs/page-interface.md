@@ -22,7 +22,7 @@ interface Page {
 }
 ```
 
-## Attributes
+## Properties
 
 ### type
 
@@ -44,7 +44,7 @@ The page layout.
 
 The creation time of this page.
 
-If the page is loaded from file system, it defaults to `attributes.date || file.birthtime`.
+If the page is loaded from file system, it defaults to `page.date || file.birthtime`.
 
 ### updatedAt
 
@@ -52,21 +52,21 @@ If the page is loaded from file system, it defaults to `attributes.date || file.
 
 The updated time of this page.
 
-If the page is loaded from file system, it defaults to `attributes.updated || file.mtime`.
+If the page is loaded from file system, it defaults to `page.updated || file.mtime`.
 
 ### permalink
 
 - Type: `string`
 - Required: `true`
 
-The permalink to the page, we infer it from `internal.relative` if it's loaded from file system.
+The permalink to the page, we infer it from `page.internal.relative` if it's loaded from file system.
 
 ### slug
 
 - Type: `string`
 - Required: `true`
 
-The value of `:slug` placeholder in the `permalinks` option, we infer it from the filename (without extension) of `internal.relative` if it's loaded from file system.
+The value of `:slug` placeholder in the `permalinks` option, we infer it from the filename (without extension) of `page.internal.relative` if it's loaded from file system.
 
 ### assets
 
@@ -75,29 +75,28 @@ The value of `:slug` placeholder in the `permalinks` option, we infer it from th
 
 Use this attribute to reference local resources and let webpack process them.
 
-## Internal
-
-### id
+### internal.id
 
 - Type: `string`
 - Required: `true`
 
 Unique page ID.
 
-### relative
+### internal.relative
 
 - Type: `string`
 
 The relative path to this page, set when it's loaded from file system.
 
-### absolute
+### internal.absolute
 
 - Type: `string`
 
 The absolute path to this page, set when it's loaded from file system.
 
-### isFile
+### internal.isFile
 
 - Type: `boolean`
 
 Whether this page is loaded from file system.
+  

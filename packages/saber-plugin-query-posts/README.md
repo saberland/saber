@@ -36,12 +36,12 @@ Then in the layout component `layouts/index.vue`, `page.posts` and `page.paginat
     <slot name="default" />
 
     <ul>
-      <li v-for="post in page.posts" :key="post.attributes.permalink">
-        <saber-link :to="post.attributes.permalink">
-          {{ post.attributes.title }}
+      <li v-for="post in page.posts" :key="post.permalink">
+        <saber-link :to="post.permalink">
+          {{ post.title }}
         </saber-link>
       </li>
-    </li>
+    </ul>
 
     <saber-link :to="page.pagination.prevLink" v-if="page.pagination.hasPrev">
       ← Prev Page
@@ -49,7 +49,6 @@ Then in the layout component `layouts/index.vue`, `page.posts` and `page.paginat
     <saber-link :to="page.pagination.nextLink" v-if="page.pagination.hasNext">
       Next Page →
     </saber-link>
-
   </div>
 </template>
 
@@ -62,7 +61,7 @@ export default {
 
 ## Tags
 
-This plugin will automatically generate tag pages at `/tags/:tag` when you're using `tags` in page attributes, e.g. in a Markdown post:
+This plugin will automatically generate tag pages at `/tags/:tag` when you're using `tags` in page data, e.g. in a Markdown post:
 
 ```markdown
 ---
@@ -78,7 +77,7 @@ hello
 
 ### Data Injected in Post Pages
 
-You can access the detailed info of the tags of a post page via `this.page.tags`, for instance:
+You can access the detailed info of the tags of a post page via `this.page.tagsInfo`, for instance:
 
 ```yaml
 tags:
@@ -109,7 +108,7 @@ You can access the tag name in the layout component via `this.page.tag`.
 
 ## Categories
 
-This plugin will automatically generate category pages at `/categories/:tag` when you're using `categories` in page attributes, e.g. in a Markdown post:
+This plugin will automatically generate category pages at `/categories/:tag` when you're using `categories` in page data, e.g. in a Markdown post:
 
 ```markdown
 ---
@@ -126,7 +125,7 @@ Then there will be a `/categories/sports` page，`categories` is an array, so yo
 
 ### Data Injected in Post Pages
 
-You can access the detailed info of the categories of a post page via `this.page.categories`, for instance:
+You can access the detailed info of the categories of a post page via `this.page.categoriesInfo`, for instance:
 
 ```yaml
 categories:

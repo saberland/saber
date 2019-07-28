@@ -1,11 +1,12 @@
 :root {
-  --border-color: #edf2f6;
+  --border-color: #eaeaea;
   --theme-color: #3880ff;
   --header-height: 60px;
   --header-shadow: 0 1px 1px rgba(0,0,0,.05);
   --spinner-color: #3880ff;
-  --leftbar-width: 240px;
-  --rightbar-width: 180px;
+  --content-width: 60%;
+  --leftbar-width: 20%;
+  --rightbar-width: 20%;
   --body-bg: white;
   --header-bg: white;
   --sidebar-bg: white;
@@ -70,23 +71,22 @@ a {
 }
 
 .content {
-  flex: 1 1 0%;
-  padding-left: 60px;
-  padding-right: 60px;
-  width: 100%;
-  max-width: 760px;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: var(--content-width);
   margin: 0 auto;
 
   @media (max-width: 768px) {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
   }
 }
 
 .rightbar {
   width: var(--rightbar-width);
   font-size: 14px;
+  padding-left: 30px;
 
   @media (max-width: 768px) {
     display: none;
@@ -195,4 +195,20 @@ code {
   padding: 3px 5px;
   text-shadow: none;
   font-family: "SFMono-Regular", "Roboto Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.show-on-mobile {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.hide-on-mobile {
+  display: flex;
+
+ @media (max-width: 768px) {
+    display: none;
+  }
 }

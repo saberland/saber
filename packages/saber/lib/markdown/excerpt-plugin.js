@@ -10,12 +10,7 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
       return token.type === 'html_block' && hasExcerptMark(token.content)
     })
 
-    if (
-      autoExcerpt &&
-      !__excerpted &&
-      !page.excerpt &&
-      page.attributes.excerpt !== false
-    ) {
+    if (autoExcerpt && !__excerpted && page.excerpt !== false) {
       env.__excerpted = true
       let startIndex = 0
       if (paragraphOnly) {
@@ -48,8 +43,7 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
     if (
       hasExcerptMark(token.content) &&
       !__excerpted &&
-      !page.excerpt &&
-      page.attributes.excerpt !== false
+      page.excerpt !== false
     ) {
       page.excerpt = self.render(tokens.slice(0, idx), options, env)
       env.__excerpted = true

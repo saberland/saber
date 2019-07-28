@@ -18,9 +18,7 @@ Usage: create-site <dir>
 
 if (parseInt(process.versions.node, 10) < 8) {
   console.log(
-    `Node.js ${
-      process.versions.node
-    } isn't supported, you need Node.js 8 or above.`
+    `Node.js ${process.versions.node} isn't supported, you need Node.js 8 or above.`
   )
   process.exit(1)
 }

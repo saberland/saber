@@ -10,9 +10,9 @@ exports.apply = api => {
         page.content
       )
       const { html, blocks } = extractSFCBlocks(body)
+      Object.assign(page, frontmatter)
       page.content = html
       page.internal.hoistedTags = blocks
-      Object.assign(page.attributes, frontmatter)
     },
     getPageComponent(page) {
       return `<template>

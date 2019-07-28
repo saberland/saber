@@ -1,10 +1,9 @@
 import Vue from 'vue'
-import Router from './vendor/vue-router'
-import RoutePrefetch from './vendor/vue-router-prefetch'
+import Router from 'vue-router'
+import RoutePrefetch from 'vue-router-prefetch'
 import routes from '#cache/routes'
 
 Vue.use(Router)
-
 // Make `<RouterLink>` prefetch-able
 Vue.use(RoutePrefetch, {
   componentName: 'SaberLink',
@@ -35,6 +34,7 @@ export default () => {
     new Router({
       mode: 'history',
       routes,
+      base: __PUBLIC_URL__,
       scrollBehavior(to, from, savedPosition) {
         // if the returned position is falsy or an empty object,
         // will retain current scroll position.
@@ -96,7 +96,7 @@ export default () => {
       next(false)
 
       visitedRoutes[to.path] = true
-      fetch('/_saber/visit-page?route=' + to.path)
+      fetch('/_saber/visit-page?route=' + encodeURIComponent(to.fullPath))
     })
 
     router.afterEach(() => {

@@ -4,7 +4,7 @@
     <div class="toc-headings">
       <saber-link
         :data-level="heading.level"
-        class="toc-heading"
+        :class="{'toc-heading': true, 'active-hash': `#${heading.slug}` === currentHash}"
         v-for="heading in filteredHeadings"
         :key="heading.slug"
         :to="{hash: heading.slug}"
@@ -26,10 +26,44 @@ export default {
     filteredHeadings() {
       return this.headings.filter(heading => heading.level < 4)
     }
+  },
+
+  watch: {
+    $route() {
+      this.isRoute = true
+      this.currentHash = this.$route.hash
+    }
+  },
+
+  data() {
+    return {
+      currentHash: null,
+      observer: null,
+      isRoute: false,
+      justMounted: true
+    }
+  },
+  
+  mounted() {
+    this.observer = new IntersectionObserver(([firstEntry]) => {
+      if (this.isRoute || this.justMounted) {
+      	this.isRoute = false
+      	this.justMounted = false
+      } else if (firstEntry.boundingClientRect.bottom <= firstEntry.intersectionRect.bottom) {
+        const hash = `#${firstEntry.target.id}`
+        history.replaceState(null, null, hash)
+        this.currentHash = hash
+      }
+    })
+
+    this.filteredHeadings.forEach(heading => this.observer.observe(document.querySelector(`#${heading.slug}`)))
+  },
+
+  beforeDestroy() {
+    this.observer.disconnect()
   }
 }
 </script>
-
 
 <style scoped>
 .toc-title {
@@ -49,7 +83,7 @@ export default {
     color: var(--text-color);
   }
 
-  &.router-link-exact-active {
+  &.active-hash {
     color: var(--text-dark-color);
   }
 

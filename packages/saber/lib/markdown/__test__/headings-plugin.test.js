@@ -50,7 +50,7 @@ test('inject markdown headings enabled by default', () => {
 test('inject markdown headings disabled', () => {
   const md = new Markdown()
   const { env, page } = createEnv()
-  page.attributes.injectMarkdownHeadings = false
+  page.markdownHeadings = false
   md.use(headingsPlugin)
   md.render(input, env)
   expect(page.markdownHeadings).toEqual([])

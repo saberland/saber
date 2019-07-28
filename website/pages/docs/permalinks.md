@@ -7,11 +7,11 @@ Permalinks are the output path for your pages and posts. They allow you to struc
 
 By default we infer permalink from filename.
 
-## Page Attribute
+## Front Matter
 
-The simplest way to change a permalink is using the page attribute `permalink`.
+The simplest way to change a permalink is using the front matter `permalink`.
 
-For example, you might have a Makrkdown page on your site located at `./pages/sub_folder/hello.md` and you want the output url to be `/about` In the front matter of the page you would set:
+For example, you might have a Markdown page on your site located at `./pages/sub_folder/hello.md` and you want the output url to be `/about` In the front matter of the page you should set:
 
 ```markdown
 ---
@@ -21,7 +21,7 @@ permalink: /about
 
 ## Global
 
-Setting a permalink using the `permalink` attribute for every page on your site is no fun. Luckily, Saber lets you set the permalink structure globally in your config file.
+Setting a permalink using the front matter `permalink` for every page on your site is no fun. Luckily, Saber lets you set the permalink structure globally in your config file.
 
 To set a global permalink, you use the permalink variable in `saber-config.yml`. You can use placeholders to modify the output. For example:
 

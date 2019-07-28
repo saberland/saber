@@ -1,8 +1,8 @@
 <template>
   <div class="posts">
-    <div class="post" v-for="post in posts" :key="post.attributes.permalink">
+    <div class="post" v-for="post in posts" :key="post.permalink">
       <h2 class="post-title">
-        <saber-link :to="post.attributes.permalink">{{ post.attributes.title }}</saber-link>
+        <saber-link :to="post.permalink">{{ post.title }}</saber-link>
       </h2>
       <PostMeta :page="post" />
       <div class="post-excerpt" v-html="post.excerpt"></div>

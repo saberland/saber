@@ -6,7 +6,7 @@ layout: docs
 You can define `transition` in three ways to apply transition on page navigation:
 
 1. Page component option: `transition`
-2. Page attribute: `tranition`
+2. Page attribute: `transition`
 3. Layout component option: `transition`
 
 Priority: 1 > 2 > 3.

@@ -29,7 +29,7 @@ and with the layout component `layouts/page.vue`:
 ```vue
 <template>
   <div>
-    <h2 class="page-title">{{ page.attributes.title }}</h2>
+    <h2 class="page-title">{{ page.title }}</h2>
     <div class="page-content"><slot name="default" /></div>
   </div>
 </template>
