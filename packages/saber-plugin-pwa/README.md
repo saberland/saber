@@ -64,6 +64,36 @@ siteConfig:
   pwaDismissMessage: DISMISS
 ```
 
+### Remove Service Worker
+
+If you no longer need this plugin in your website, you should first uninstall this plugin and remove it from your `saber-config.yml`:
+
+```diff
+plugins:
+-  - resolve: saber-plugin-pwa
+```
+
+Then populate a `static/service-worker.js` file as follows:
+
+```js
+self.addEventListener('install', function(e) {
+  self.skipWaiting()
+})
+
+self.addEventListener('activate', function(e) {
+  self.registration
+    .unregister()
+    .then(function() {
+      return self.clients.matchAll()
+    })
+    .then(function(clients) {
+      clients.forEach(client => client.navigate(client.url))
+    })
+})
+```
+
+The snippet tells your browser to remove previsously installed service worker and refresh.
+
 ## Options
 
 ### name
