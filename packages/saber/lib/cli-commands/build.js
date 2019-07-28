@@ -8,6 +8,7 @@ module.exports = function(cli) {
     )
     .alias('generate')
     .option('--skip-compilation', 'Skip the webpack compilation process')
+    .option('--inspect-webpack', 'Inspect webpack config in your editor')
     .action((cwd = '.', options) => {
       setNodeEnv('production')
 
