@@ -31,6 +31,7 @@
     "css-loader": "^2.1.0",
     "cssnano": "^4.1.8",
     "devalue": "^1.1.0",
+    "download-git-repo": "^2.0.0",
     "fast-deep-equal": "^2.0.1",
     "file-loader": "^3.0.1",
     "get-port": "^5.0.0",
