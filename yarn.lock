@@ -722,9 +722,9 @@
     schema-utils "^1.0.0"
 
 "@egoist/snackbar@^1.2.1":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@egoist/snackbar/-/snackbar-1.4.0.tgz#072a5202e5f1c26532356eaf53c89f3d765fb343"
-  integrity sha512-PPvpdXAQ7He+mTQJ/KptG+BdahRbcO0jt8klCbGljVbFuaxnPtz4T8Qx9rQycxPHpwRBWPgTaYFcIENOq9nEJA==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@egoist/snackbar/-/snackbar-1.5.0.tgz#518ccff69414970d441369a754e3a360b99cde88"
+  integrity sha512-L5DD2sFLw7dqPQww3rrZ7KlZx0EKaOhDdlnzGwrh/zIKHfKjsZhjx1gdG82yipMuxiB4u/jbLYozJc0ilUYAgQ==
 
 "@evocateur/libnpmaccess@^3.1.0":
   version "3.1.0"
@@ -7910,10 +7910,10 @@ mimic-response@^1.0.0:
   resolved "https://registry.npmjs.org/mimic-response/-/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
 
-mini-css-extract-plugin@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-0.7.0.tgz#5ba8290fbb4179a43dd27cca444ba150bee743a0"
-  integrity sha512-RQIw6+7utTYn8DBGsf/LpRgZCJMpZt+kuawJ/fju0KiOL6nAaTBNmCJwS7HtwSCXfS47gCkmtBFS7HdsquhdxQ==
+mini-css-extract-plugin@>=0.7.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-0.8.0.tgz#81d41ec4fe58c713a96ad7c723cdb2d0bd4d70e1"
+  integrity sha512-MNpRGbNA52q6U92i0qbVpQNsgk7LExy41MdAlG84FeytfDOtRIf/mCHdEgG8rpTKOaNKiqUnZdlptF469hxqOw==
   dependencies:
     loader-utils "^1.1.0"
     normalize-url "1.9.1"
