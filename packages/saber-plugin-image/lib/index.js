@@ -79,9 +79,6 @@ exports.apply = (api, options = {}) => {
       .test(/\.(jpe?g|png)$/i)
       .use('responsive-loader')
       .loader(require.resolve('responsive-loader'))
-      .options({
-        adapter: require('responsive-loader/sharp'),
-        ...options
-      })
+      .options(options)
   })
 }
