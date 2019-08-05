@@ -8,13 +8,17 @@ export default ({ Vue }) => {
   Vue.component('saber-image', {
     props: ['src', 'lazy'],
     mounted() {
-      lozad(this.$el, {
-        loaded(el) {
-          el.onload = function() {
-            el.dataset.lazyLoaded = true
+      const { $el } = this
+
+      if ($el.dataset.src || $el.dataset.srcset) {
+        lozad($el, {
+          loaded(el) {
+            el.onload = function() {
+              el.dataset.lazyLoaded = true
+            }
           }
-        }
-      }).observe()
+        }).observe()
+      }
     },
     render(h) {
       const lazy = Object.assign(

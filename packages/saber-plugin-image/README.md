@@ -59,9 +59,15 @@ img {
   transition: opacity 0.5s;
 }
 
-img:not([data-lazy-loaded]) {
+img[data-src],
+img[data-srcset] {
   opacity: 0;
 }
+
+img[data-lazy-loaded] {
+  opacity: 1;
+}
+
 ```
 
 ## License
