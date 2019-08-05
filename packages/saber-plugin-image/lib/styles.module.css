@@ -8,10 +8,6 @@
   opacity: 0;
 }
 
-.blendIn[lazy='loading'] {
+.blendIn:not([data-lazy-loaded]) {
   filter: blur(5px);
-}
-
-.blendIn[lazy='loaded'] {
-  filter: blur(0px);
 }

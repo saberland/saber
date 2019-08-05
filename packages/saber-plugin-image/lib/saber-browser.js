@@ -1,16 +1,21 @@
-import VueLazyload from 'vue-lazyload'
+import lozad from 'lozad'
 import styles from './styles.module.css'
 
 export default ({ Vue }) => {
-  const options = Object.assign(
-    __SABER_IMAGE_OPTIONS__ || {}, // eslint-disable-line no-undef
-    { lazyComponent: true }
-  )
-
-  Vue.use(VueLazyload, options)
+  const options = __SABER_IMAGE_OPTIONS__
+  const blank = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
 
   Vue.component('saber-image', {
     props: ['src', 'lazy'],
+    mounted() {
+      lozad(this.$el, {
+        loaded(el) {
+          el.onload = function() {
+            el.dataset.lazyLoaded = true
+          }
+        }
+      }).observe()
+    },
     render(h) {
       const lazy = Object.assign(
         options,
@@ -28,51 +33,35 @@ export default ({ Vue }) => {
           const { src } = this
 
           return h('img', {
-            attrs: $attrs,
-            directives: [
-              {
-                name: 'lazy',
-                value: {
-                  src
-                }
-              }
-            ]
+            attrs: {
+              ...$attrs,
+              src,
+              srcset: blank,
+              'data-srcset': src
+            }
           })
         }
 
-        const { width, height, src, srcSet, placeholder } = this.src
+        const { width, src, srcSet, placeholder } = this.src
 
-        const loading =
-          (getOption('placeholder') && placeholder) ||
-          lazy.placeholder ||
-          options.placeholder
+        const loading = getOption('placeholder') ? placeholder : blank
 
         const blendIn = getOption('blendIn')
 
         return h('img', {
           attrs: {
             ...$attrs,
+            src,
+            srcset: loading,
             'data-srcset': srcSet,
-            width,
-            height
+            width
           },
           class: { [styles.blendIn]: blendIn },
           style: {
-            transition: `filter ${
-              blendIn
-                ? (typeof blendIn === 'number' && blendIn / 1000) || 0.5
-                : 0
-            }s`
-          },
-          directives: [
-            {
-              name: 'lazy',
-              value: {
-                src,
-                loading
-              }
-            }
-          ]
+            transition: blendIn
+              ? `filter ${typeof blendIn === 'number' ? blendIn / 1000 : 0.5}s`
+              : null
+          }
         })
       }
 

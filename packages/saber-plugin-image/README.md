@@ -46,7 +46,7 @@ These options can be passed either in the Saber configuration or to each `<saber
 | Key              | Description                                                                                                                                                            | Default                | Type                |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------- |
 | `lazyLoad`       | Turn lazy loading off or on.                                                                                                                                           | `true`                 | `Boolean`           |
-| `placeholder`    | Display a generated placeholder while the image is loading.                                                                                                            | `true`                 | `Boolean`           |
+| `placeholder`    | Requires `lazyLoad` to be enabled. Display a generated placeholder while the image is loading.                                                                                                            | `true`                 | `Boolean`           |
 | `blendIn`        | Requires `placeholder` to be enabled. Smoothly blends in the loaded image once loaded. You can also pass the transition duration in milliseconds instead of a boolean. |                        | `Boolean | Integer` |
 | `markdownImages` | Transforms `![Markdown](./images.png)` into `<saber-image>`. You can pass options via the query-string, e. g. `image.png?blendIn=true&sizes[]=100,sizes[]=200`         | `true`                 | `Boolean`           |
 | `quality`        | JPEG compression quality.                                                                                                                                              | `85`                   | `Integer`           |
@@ -59,12 +59,8 @@ img {
   transition: opacity 0.5s;
 }
 
-img[lazy='loading'] {
+img:not([data-lazy-loaded]) {
   opacity: 0;
-}
-
-img[lazy='loaded'] {
-  opacity: 1;
 }
 ```
 
