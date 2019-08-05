@@ -67,7 +67,6 @@ img[data-srcset] {
 img[data-lazy-loaded] {
   opacity: 1;
 }
-
 ```
 
 ## License
