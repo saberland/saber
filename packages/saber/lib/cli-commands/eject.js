@@ -41,9 +41,7 @@ module.exports = function(cli) {
       const relativeDest = path.relative(cwd, destPath)
       if (await fs.pathExists(destPath)) {
         handleError(
-          `The path ${
-            options.path
-          } already exists. Please specify a different one using "--path".`
+          `The path ${options.path} already exists. Please specify a different one using "--path".`
         )
       }
 
