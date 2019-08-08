@@ -2,10 +2,14 @@ const path = require('path')
 const { spawnSync } = require('child_process')
 const { fs } = require('saber-utils')
 const { log } = require('saber-log')
-const downloadRepo = require('download-git-repo')
+const normalizeRepo = require('normalize-repo')
+const downloadGitRepo = require('download-git-repo')
 const configLoader = require('../utils/configLoader')
 const resolvePackage = require('../utils/resolvePackage')
 const { handleError, spawn } = require('./utils')
+
+const downloadRepo = (url, dest, opts) =>
+  new Promise(resolve => downloadGitRepo(url, dest, opts, resolve))
 
 module.exports = function(cli) {
   cli
@@ -62,15 +66,17 @@ module.exports = function(cli) {
 
       if (git) {
         const repo = themePackage.repository
-        if (repo && repo.url) {
+
+        if (repo && (!repo.type || repo.type === 'git')) {
           const tmp = path.join(cwd, '.saber', 'theme-tmp')
 
-          const dl = await new Promise(resolve =>
-            downloadRepo(repo.url, tmp, {}, resolve)
-          )
+          const { shortcut, url } = normalizeRepo(themePackage.repository)
+          const downloadError = await downloadRepo(shortcut || url, tmp, {
+            clone: Boolean(shortcut)
+          })
 
-          if (dl) {
-            handleError(dl)
+          if (downloadError) {
+            handleError(downloadError)
           }
 
           try {
