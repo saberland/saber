@@ -3,7 +3,8 @@ import styles from './styles.module.css'
 
 export default ({ Vue }) => {
   const options = __SABER_IMAGE_OPTIONS__
-  const blank = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
+  const blank =
+    'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
 
   Vue.component('saber-image', {
     props: ['src', 'lazy'],
@@ -13,9 +14,11 @@ export default ({ Vue }) => {
       if ($el.dataset.src || $el.dataset.srcset) {
         lozad($el, {
           loaded(el) {
-            el.onload = function() {
-              el.dataset.lazyLoaded = true
-            }
+            el.addEventListener(
+              'load',
+              () => el.setAttribute('data-lazy-loaded', ''),
+              { once: true }
+            )
           }
         }).observe()
       }
