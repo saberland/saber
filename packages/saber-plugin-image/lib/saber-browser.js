@@ -60,12 +60,7 @@ export default ({ Vue }) => {
             'data-srcset': srcSet,
             width
           },
-          class: { [styles.blendIn]: blendIn },
-          style: {
-            transition: blendIn
-              ? `filter ${typeof blendIn === 'number' ? blendIn / 1000 : 0.5}s`
-              : null
-          }
+          class: { [styles.blendIn]: blendIn }
         })
       }
 

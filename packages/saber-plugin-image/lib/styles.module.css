@@ -10,6 +10,7 @@
 
 .blendIn[data-src],
 .blendIn[data-srcset] {
+  transition: filter 0.5s;
   filter: blur(5px);
 }
 
