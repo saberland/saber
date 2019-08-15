@@ -84,6 +84,14 @@ exports.apply = (api, options = {}) => {
 
     const feedLinks = {}
 
+    if (jsonFeedPath) {
+      feedLinks.json = resolveURL(siteConfig.url, jsonFeedPath)
+    }
+
+    if (atomFeedPath) {
+      feedLinks.atom = resolveURL(siteConfig.url, atomFeedPath)
+    }
+
     // Feed instance
     const feed = new Feed({
       title: siteConfig.title,
