@@ -5,12 +5,13 @@ const resolveFrom = require('resolve-from')
 const LOCAL_PATH_RE = /^[./]|(^[a-zA-Z]:)/
 
 /**
- *
+ * Add prefix to package name
  * @param {string} input
  * @param {string=} prefix
  */
 const addPrefix = (input, prefix) => {
   if (!prefix) return input
+
   if (input.startsWith('@')) {
     return input.replace(new RegExp(`^@(\\w+)/(${prefix})?`), `@$1/${prefix}`)
   }
