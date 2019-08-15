@@ -15,12 +15,11 @@ module.exports = (input, { cwd = process.cwd(), prefix } = {}) => {
     return path.resolve(cwd, input)
   }
 
-  return path.dirname(
-    resolveFrom(
-      cwd,
-      `${
-        !prefix || input.startsWith(prefix) ? input : `${prefix}${input}`
-      }/package.json`
-    )
-  )
+  const packageName = input.startsWith('@')
+    ? input
+    : !prefix || input.startsWith(prefix)
+    ? input
+    : `${prefix}${input}`
+
+  return path.dirname(resolveFrom(cwd, `${packageName}/package.json`))
 }
