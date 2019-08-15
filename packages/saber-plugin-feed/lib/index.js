@@ -63,7 +63,7 @@ exports.apply = (api, options = {}) => {
         const content = await api.renderer.renderPageContent(page.permalink)
         posts.push({
           title: page.title,
-          id: page.permalink,
+          id: resolveURL(siteConfig.url, page.permalink),
           link: resolveURL(siteConfig.url, page.permalink),
           // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
           description:
@@ -88,7 +88,7 @@ exports.apply = (api, options = {}) => {
     const feed = new Feed({
       title: siteConfig.title,
       description: siteConfig.description,
-      id: siteConfig.url,
+      id: siteConfig.url.replace(/\/?$/, '/'), // Ensure that the id ends with a slash
       link: siteConfig.url,
       copyright: options.copyright,
       generator: options.generator,
