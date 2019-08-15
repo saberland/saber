@@ -5,22 +5,35 @@ const resolveFrom = require('resolve-from')
 const LOCAL_PATH_RE = /^[./]|(^[a-zA-Z]:)/
 
 /**
+ *
+ * @param {string} input
+ * @param {string=} prefix
+ */
+const addPrefix = (input, prefix) => {
+  if (!prefix) return input
+  if (input.startsWith('@')) {
+    return input.replace(new RegExp(`^@(\\w+)/(${prefix})?`), `@$1/${prefix}`)
+  }
+
+  return input.startsWith(prefix) ? input : `${prefix}${input}`
+}
+
+/**
  * @param {string} input
  * @param {Object} options
- * @param {string} [options.cwd=process.cwd()]
+ * @param {string|false} [options.cwd=process.cwd()]
  * @param {string=} options.prefix
  */
 module.exports = (input, { cwd = process.cwd(), prefix } = {}) => {
   if (LOCAL_PATH_RE.test(input)) {
-    return path.resolve(cwd, input)
+    return cwd === false ? input : path.resolve(cwd, input)
   }
 
-  return path.dirname(
-    resolveFrom(
-      cwd,
-      `${
-        !prefix || input.startsWith(prefix) ? input : `${prefix}${input}`
-      }/package.json`
-    )
-  )
+  input = addPrefix(input, prefix)
+
+  if (cwd === false) {
+    return input
+  }
+
+  return path.dirname(resolveFrom(cwd, `${input}/package.json`))
 }
