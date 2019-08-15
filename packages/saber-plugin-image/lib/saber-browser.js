@@ -2,7 +2,7 @@ import lozad from 'lozad'
 import styles from './styles.module.css'
 
 export default ({ Vue }) => {
-  const options = __SABER_IMAGE_OPTIONS__
+  const options = __SABER_IMAGE_OPTIONS__ // eslint-disable-line no-undef
   const blank =
     'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
 
