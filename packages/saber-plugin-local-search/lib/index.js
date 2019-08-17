@@ -21,7 +21,7 @@ exports.apply = (api, options) => {
 
     await Promise.all(
       [...api.pages.values()].map(async page => {
-        if (page.draft) {
+        if (page.draft || !page.type) {
           return
         }
 
