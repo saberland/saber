@@ -13,11 +13,15 @@ export default ({ Vue }) => {
 
 async function performSearch(query) {
   if (!searchData) {
-    let publicUrl = __PUBLIC_URL__
+    let publicUrl = __PUBLIC_URL__ // eslint-disable-line no-undef
     publicUrl += publicUrl.endsWith('/') ? '' : '/'
     const locale = this.$localePath === '/' ? 'default' : this.$localePath
-    const request = await fetch(`${publicUrl}_saber/search/${locale}.json`) // eslint-disable-line no-undef
-    const data = await request.json()
+
+    // eslint-disable-next-line no-undef
+    const data = await fetch(`${publicUrl}_saber/search/${locale}.json`).then(
+      res => res.json()
+    )
+
     const indexes = []
     searchData = data
       .map(item => {
