@@ -2,7 +2,7 @@ const { setNodeEnv, handleError } = require('./utils')
 
 module.exports = function(cli) {
   cli
-    .command('[app]', 'Run the application in dev mode', {
+    .command('[app-path]', 'Run the application in dev mode', {
       ignoreOptionDefaultValue: true
     })
     .alias('dev')

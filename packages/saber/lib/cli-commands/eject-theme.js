@@ -14,7 +14,7 @@ const downloadRepo = (url, dest, opts) =>
 module.exports = function(cli) {
   cli
     .command(
-      'eject [app]',
+      'eject-theme [app-path]',
       `Copy the currently used theme's source code to a local folder.`
     )
     .option(

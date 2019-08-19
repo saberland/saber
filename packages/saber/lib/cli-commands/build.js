@@ -3,7 +3,7 @@ const { setNodeEnv, handleError } = require('./utils')
 module.exports = function(cli) {
   cli
     .command(
-      'build [app]',
+      'build [app-path]',
       'Compile the application and generate static HTML files'
     )
     .alias('generate')
