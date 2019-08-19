@@ -31,3 +31,13 @@ There are already a number of themes available for you to play with. If you deci
 - [Ume](https://github.com/iCyris/Ume) - An elegant blog theme by [iCyris](https://github.com/iCyris).
 
 We are also working on adding a page on this site to showcase all the themes.
+
+## Ejecting
+
+If you are using a theme from npm and wish to modify it to better suit your needs, you might want to eject it. This will copy over its source code to `./theme`, allowing you to edit it.
+
+```bash
+saber eject-theme
+```
+
+The above command will use the files from `node_modules`, but if you want the source code from the repository instead, add the `--git` flag. This will clone the theme's Git repository as a submodule, which adds the benefits of easier upgradability, contribution to the upstream code and better version control management.
