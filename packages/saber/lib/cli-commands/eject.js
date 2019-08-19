@@ -31,7 +31,7 @@ module.exports = function(cli) {
       default: './theme'
     })
     .action(async (cwd = '.', options) => {
-      cwd = path.join(process.cwd(), cwd)
+      cwd = path.resolve(cwd)
       const { git } = options
       const mergeDependencies = options['merge-dependencies']
 
