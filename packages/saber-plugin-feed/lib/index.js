@@ -82,16 +82,6 @@ exports.apply = (api, options = {}) => {
       })
       .slice(0, options.limit)
 
-    const feedLinks = {}
-
-    if (jsonFeedPath) {
-      feedLinks.json = resolveURL(siteConfig.url, jsonFeedPath)
-    }
-
-    if (atomFeedPath) {
-      feedLinks.atom = resolveURL(siteConfig.url, atomFeedPath)
-    }
-
     // Feed instance
     const feed = new Feed({
       title: siteConfig.title,
@@ -105,7 +95,10 @@ exports.apply = (api, options = {}) => {
         email: siteConfig.email,
         link: siteConfig.url
       },
-      feedLinks
+      feedLinks: {
+        json: jsonFeedPath && resolveURL(siteConfig.url, jsonFeedPath),
+        atom: atomFeedPath && resolveURL(siteConfig.url, atomFeedPath)
+      }
     })
 
     // Add posts to feed
