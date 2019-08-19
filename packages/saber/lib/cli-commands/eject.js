@@ -136,11 +136,11 @@ module.exports = function(cli) {
             { spaces: 2 }
           )
 
-          try {
-            spawnSync('yarn', ['--version']) // test if yarn is present before allowing it to use the same stdio
-            await spawn('yarn', [], { stdio: 'inherit' })
-          } catch (error) {
-            await spawn('npm i', [], { stdio: 'inherit' })
+          const { status } = spawnSync('yarnpkg', ['--version']) // test if yarn is present before allowing it to use the same stdio
+          if (status === 0) {
+            await spawn('yarn', ['install'], { stdio: 'inherit' })
+          } else {
+            await spawn('npm', ['install'], { stdio: 'inherit' })
           }
 
           log.success('Merged theme dependencies.')
