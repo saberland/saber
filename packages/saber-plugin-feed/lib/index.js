@@ -63,7 +63,7 @@ exports.apply = (api, options = {}) => {
         const content = await api.renderer.renderPageContent(page.permalink)
         posts.push({
           title: page.title,
-          id: page.permalink,
+          id: resolveURL(siteConfig.url, page.permalink),
           link: resolveURL(siteConfig.url, page.permalink),
           // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
           description:
@@ -82,13 +82,11 @@ exports.apply = (api, options = {}) => {
       })
       .slice(0, options.limit)
 
-    const feedLinks = {}
-
     // Feed instance
     const feed = new Feed({
       title: siteConfig.title,
       description: siteConfig.description,
-      id: siteConfig.url,
+      id: siteConfig.url.replace(/\/?$/, '/'), // Ensure that the id ends with a slash
       link: siteConfig.url,
       copyright: options.copyright,
       generator: options.generator,
@@ -97,7 +95,10 @@ exports.apply = (api, options = {}) => {
         email: siteConfig.email,
         link: siteConfig.url
       },
-      feedLinks
+      feedLinks: {
+        json: jsonFeedPath && resolveURL(siteConfig.url, jsonFeedPath),
+        atom: atomFeedPath && resolveURL(siteConfig.url, atomFeedPath)
+      }
     })
 
     // Add posts to feed
