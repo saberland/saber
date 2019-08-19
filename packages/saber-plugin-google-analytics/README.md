@@ -16,12 +16,12 @@ In your `saber-config.yml`:
 plugins:
   - resolve: saber-plugin-google-analytics
     options:
-      trackID: UA-XXX-XX # Google Analytics Track ID
+      trackId: UA-XXX-XX # Google Analytics Track ID
 ```
 
 ## Plugin Options
 
-### trackID
+### trackId
 
 - Type: `string`
 - Required: `true`
