@@ -137,7 +137,10 @@ module.exports = function(cli) {
           )
 
           const { status } = spawnSync('yarnpkg', ['--version']) // test if yarn is present before allowing it to use the same stdio
-          if (status === 0) {
+          const hasNpmLock = await fs.pathExists(
+            path.join(cwd, 'package-lock.json')
+          )
+          if (status === 0 && !hasNpmLock) {
             await spawn('yarn', ['install'], { stdio: 'inherit' })
           } else {
             await spawn('npm', ['install'], { stdio: 'inherit' })
