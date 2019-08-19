@@ -13,7 +13,7 @@ export default ({ Vue }) => {
 
 async function performSearch(query) {
   if (!searchData) {
-    let publicUrl = this.$siteConfig.publicUrl || '/'
+    let publicUrl = __PUBLIC_URL__
     publicUrl += publicUrl.endsWith('/') ? '' : '/'
     const locale = this.$localePath === '/' ? 'default' : this.$localePath
     const request = await fetch(`${publicUrl}_saber/search/${locale}.json`) // eslint-disable-line no-undef
