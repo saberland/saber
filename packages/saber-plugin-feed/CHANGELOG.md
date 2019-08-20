@@ -3,12 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.4.1](https://github.com/saberland/saber/compare/saber-plugin-feed@0.4.0...saber-plugin-feed@0.4.1) (2019-08-20)
-
-### Bug Fixes
-
-- Correct the attributes in saber-plugin-feed ([#364](https://github.com/saberland/saber/issues/364)) ([5091335](https://github.com/saberland/saber/commit/5091335))
-
 # [0.4.0](https://github.com/saberland/saber/compare/saber-plugin-feed@0.3.4...saber-plugin-feed@0.4.0) (2019-07-27)
 
 ### Features

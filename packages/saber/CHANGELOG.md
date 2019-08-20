@@ -3,16 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [0.8.0](https://github.com/saberland/saber/compare/saber@0.7.0...saber@0.8.0) (2019-08-20)
-
-### Bug Fixes
-
-- fix scoped package support ([#362](https://github.com/saberland/saber/issues/362)) ([4250842](https://github.com/saberland/saber/commit/4250842))
-
-### Features
-
-- Add saber eject-theme command ([#259](https://github.com/saberland/saber/issues/259)) ([b45908f](https://github.com/saberland/saber/commit/b45908f))
-
 # [0.7.0](https://github.com/saberland/saber/compare/saber@0.6.10...saber@0.7.0) (2019-07-27)
 
 ### Bug Fixes

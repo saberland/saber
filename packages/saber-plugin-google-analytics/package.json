@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-google-analytics",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "main": "index.js",
   "files": [
     "index.js",
