@@ -7,7 +7,7 @@ layout: docs
 
 In Saber, client-side transitions between routes can be enabled via a `<saber-link>` component. It's quite similar to Vue Router's `<router-link>` component but with more features like page prefetching.
 
-Basic example, `./pages/index.md`:
+Basic example, `./pages/index.vue`:
 
 ```vue
 <template>
