@@ -5,8 +5,9 @@
 
       <div class="items">
         <div class="item" v-for="(item, i) in items" :key="i">
-          <div class="item-title" @click="toggleOpenLink(item.children[0].link)">{{ item.title }}</div>
-          <div class="item-children" :class="{'is-expanded': isExpanded(item.children)}">
+          <div class="item-title" @click="toggleOpenLink(item.children)">{{ item.title }}</div>
+          <transition name="fade">
+            <div class="item-children" v-if="isExpanded(item.children)">
             <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
               <saber-link
                 :to="childItem.link"
@@ -14,6 +15,7 @@
               >{{ childItem.title }}</saber-link>
             </div>
           </div>
+          </transition>
         </div>
       </div>
     </div>
@@ -22,6 +24,14 @@
 
 <script>
 import SiteNav from './SiteNav.vue'
+
+const addOrRemove = (arr, value) => {
+        const index = arr.indexOf(value)
+      if (index === -1) {
+        return [...arr, value]
+      }
+      return arr.filter((_, i) => i !== index)
+}
 
 export default {
   components: {
@@ -72,12 +82,20 @@ export default {
       })
     },
 
-    toggleOpenLink(link) {
-      const index = this.openLinks.indexOf(link)
-      if (index === -1) {
-        this.openLinks.push(link)
-      } else {
-        this.openLinks.splice(index, 1)
+    toggleOpenLink(children) {
+      let closed = false
+
+      for (const openLink of this.openLinks) {
+        const isChildLinkActive = children.some(child => child.link === openLink)
+        if (isChildLinkActive) {
+          this.openLinks = this.openLinks.filter(link => link !== openLink)
+          closed = true
+          break
+        }
+      }
+
+      if (!closed) {
+        this.openLinks.push(children[0].link)
       }
     }
   }
@@ -137,12 +155,7 @@ export default {
 }
 
 .item-children {
-  display: none;
   margin-top: 10px;
-
-  &.is-expanded {
-    display: block;
-  }
 }
 
 .item-child {
