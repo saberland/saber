@@ -8,13 +8,13 @@
           <div class="item-title" @click="toggleOpenLink(item.children)">{{ item.title }}</div>
           <transition name="fade">
             <div class="item-children" v-if="isExpanded(item.children)">
-            <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
-              <saber-link
-                :to="childItem.link"
-                :class="{active: isActive(childItem.link)}"
-              >{{ childItem.title }}</saber-link>
+              <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
+                <saber-link
+                  :to="childItem.link"
+                  :class="{active: isActive(childItem.link)}"
+                >{{ childItem.title }}</saber-link>
+              </div>
             </div>
-          </div>
           </transition>
         </div>
       </div>
@@ -26,11 +26,11 @@
 import SiteNav from './SiteNav.vue'
 
 const addOrRemove = (arr, value) => {
-        const index = arr.indexOf(value)
-      if (index === -1) {
-        return [...arr, value]
-      }
-      return arr.filter((_, i) => i !== index)
+  const index = arr.indexOf(value)
+  if (index === -1) {
+    return [...arr, value]
+  }
+  return arr.filter((_, i) => i !== index)
 }
 
 export default {
@@ -86,7 +86,9 @@ export default {
       let closed = false
 
       for (const openLink of this.openLinks) {
-        const isChildLinkActive = children.some(child => child.link === openLink)
+        const isChildLinkActive = children.some(
+          child => child.link === openLink
+        )
         if (isChildLinkActive) {
           this.openLinks = this.openLinks.filter(link => link !== openLink)
           closed = true
@@ -104,6 +106,14 @@ export default {
 
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 .leftbar {
   width: var(--leftbar-width);
   background: var(--sidebar-bg);
