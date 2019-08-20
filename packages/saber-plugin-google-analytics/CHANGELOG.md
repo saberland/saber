@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/saberland/saber/compare/saber-plugin-google-analytics@0.1.0...saber-plugin-google-analytics@0.2.0) (2019-08-20)
+
+### Features
+
+- Add anonymizeIp option to saber-plugin-google-analytics ([#363](https://github.com/saberland/saber/issues/363)) ([a498aa1](https://github.com/saberland/saber/commit/a498aa1))
+
 # [0.1.0](https://github.com/saberland/saber/compare/saber-plugin-google-analytics@0.0.6...saber-plugin-google-analytics@0.1.0) (2019-07-27)
 
 **Note:** Version bump only for package saber-plugin-google-analytics
