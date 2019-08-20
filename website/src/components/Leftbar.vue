@@ -41,7 +41,7 @@ export default {
 
   data() {
     return {
-      openLink: null
+      openLinks: [this.$route.path]
     }
   },
 
@@ -68,18 +68,16 @@ export default {
 
     isExpanded(items) {
       return items.some(item => {
-        if (this.openLink) {
-          return item.link === this.openLink
-        }
-        return item.link === this.$route.path
+        return this.openLinks.indexOf(item.link) > -1
       })
     },
 
     toggleOpenLink(link) {
-      if (this.openLink === link) {
-        this.openLink = null
+      const index = this.openLinks.indexOf(link)
+      if (index === -1) {
+        this.openLinks.push(link)
       } else {
-        this.openLink = link
+        this.openLinks.splice(index, 1)
       }
     }
   }
@@ -135,6 +133,7 @@ export default {
   color: var(--text-dark-color);
   font-weight: 500;
   text-transform: uppercase;
+  user-select: none;
 }
 
 .item-children {
