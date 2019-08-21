@@ -121,9 +121,7 @@ Now is optimized for Saber, so the only thing you need to do is to install Now. 
 npm i -g now
 ```
 
-Then run the command `now` in your project, you will be given a now.sh URL as a response as your build is deployed, similar to the following: https://my-saber-app-dxcikdrgk.now.sh/
-
-Click or paste the deployment URL into your browser when the build is complete and you will see your deployed app.
+Then run the command `now` in your project, you will be given a `now.sh` URL as a response as your build is deployed, similar to the following: https://my-saber-app-dxcikdrgk.now.sh/. Click or paste the deployment URL into your browser and you will see your deployed app.
 
 Check out [Now for GitHub](https://zeit.co/docs/v2/integrations/now-for-github) and [Now for GitLab](https://zeit.co/docs/v2/integrations/now-for-gitlab/) for continuous intergration.
 
