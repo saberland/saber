@@ -17,7 +17,7 @@ You can create a folder named `static` at the root of your project or your theme
 
 ### Adding Favicon to your Saber site
 
-The static folder can also contain your site's `favicon.ico`. When your site is rendered, like all assets inside the `static` folder, it will also be copied to the `public/` folder. The favicon can also be manipulated per component by [setting it in the `head` property](https://saber.land/docs/manipulating-head.html#customize-ltheadgt-per-component) on a given page.
+The static folder can also contain your site's `favicon.ico`. When your site is rendered, like all assets inside the `static` folder, it will also be copied to the `public/` folder. The favicon can also be manipulated per component by [setting it in the `head` property](./manipulating-head.md#customize-ltheadgt-per-component) on a given page.
 
 ### Referencing your static asset
 
