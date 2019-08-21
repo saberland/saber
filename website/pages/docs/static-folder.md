@@ -15,6 +15,10 @@ However, there is an **escape hatch** that you can use to add an asset outside o
 
 You can create a folder named `static` at the root of your project or your theme directory. Every file you put into that folder will be copied into the `public` folder. E.g. if you add a file named `sun.jpg` to the static folder, it’ll be copied to `public/sun.jpg`
 
+### Adding Favicon to your Saber site
+
+The static folder can also contain your site's `favicon.ico`. When your site is rendered, like all assets inside the `static` folder, it will also be copied to the `public/` folder. The favicon can also be manipulated per component by [setting it in the `head` property](https://saber.land/docs/manipulating-head.html#customize-ltheadgt-per-component) on a given page.
+
 ### Referencing your static asset
 
 You can reference assets from the `static` folder in your code with absolute path, i.e. starting with a slash `/`.
