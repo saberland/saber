@@ -1,7 +1,7 @@
 {
-  "name": "saber-plugin-local-search",
+  "name": "saber-plugin-search",
   "version": "0.0.1",
-  "description": "Add a fast, local search to your app.",
+  "description": "Add a fast search to your app.",
   "license": "MIT",
   "main": "lib/index.js",
   "files": [
@@ -11,6 +11,7 @@
     "saber": ">=0.7.0"
   },
   "dependencies": {
+    "algoliasearch": "^3.33.0",
     "fuzzy-search": "^3.0.1",
     "lodash.debounce": "^4.0.8"
   }
