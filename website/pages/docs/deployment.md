@@ -115,7 +115,7 @@ Finally, make sure GitHub Pages option in your GitHub project settings is set to
 
 [Now](https://zeit.co/docs) offers a simple, single-command deployment. You can use now to deploy your app for free.
 
-Now is optimized for Saber, so the only thing you need to do is to install Now. You can do this by installing [the Now Desktop app](https://zeit.co/download), which also installs Now CLI and keeps it up-to-date, or by installing [Now CLI](https://zeit.co/download#now-cli) directly with npm:
+Now has been optimized for Saber, so the only thing you need to do is to install Now. You can do this by installing [the Now Desktop app](https://zeit.co/download), which also installs Now CLI and keeps it up-to-date, or by installing [Now CLI](https://zeit.co/download#now-cli) directly with npm:
 
 ```bash
 npm i -g now
