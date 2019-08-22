@@ -15,56 +15,69 @@ In your `saber-config.yml`:
 ```yml
 plugins:
   - resolve: saber-plugin-search
-    options:
-      adapter: local
-      index:
-        - title
-        - excerpt
-        - permalink
 ```
 
-This plugin comes with its own search adapter, which uses [Fuzzy Search](https://www.npmjs.com/package/fuzzy-search) - if you feel uncontent with that, you can also choose between `algolia` (please then also provide `algoliaId`, `algoliaSearchKey` and `algoliaAdminKey` with the options) or even implement your own search adapter:
+Then in your Vue components, you can call `this.$fetchSearchDatabase()` to get the database that you can query from, this method returns a Promise which resolves an array of `Page` objects:
 
-```ts
-type adapterFunction = (searchData: searchData[], query: string) => searchData[]
-
-interface searchData {
-  [index: string]: string
-}
-```
-
-You can index any stringable value from `page` or `page.attributes`. Then, create a search component:
-
-```html
-<template>
-  <div>
-    <input type="search" v-model="searchTerm" />
-
-    <ul>
-      <li v-for="result in searchResults" :key="result.permalink">
-        <saber-link :to="result.permalink">{{ result.title }}</saber-link>
-      </li>
-    </ul>
-  </div>
-</template>
-
-<!-- ... -->
-
-<script>
-  export default {
-    data() {
-      return {
-        searchTerm: '',
-        searchResults: []
-      }
-    },
-    watch: {
-      async searchTerm(query) {
-        this.searchResults = await this.$searchPages(query)
-      }
-    }
+```js
+;[
+  {
+    type: 'page',
+    title: 'About this site',
+    excerpt: '...',
+    permalink: '/about.html'
+  },
+  {
+    type: 'post',
+    title: 'Hello World',
+    excerpt: '...',
+    permalink: '/posts/hello-world.html'
   }
-</script>
+]
 ```
 
-Pretty simple, right?
+Now you can query a keyword like this:
+
+```js
+const database = await this.$fetchSearchDatabase()
+// Typically you need to get the keyword from an `input` element
+// We hardcoded it for convenience
+const keyword = 'hello'
+const matchedResults = database.filter(page => {
+  return page.title.includes(keyword) || page.excerpt.includes(keyword)
+})
+```
+
+The above example simply uses `Array.prototype.includes` to check if the page matches the keyword, however you can use a more powerful library like [Fuse.js](https://fusejs.io/) if you want more accurate result:
+
+```js
+import Fuse from 'fuse.js'
+
+const options = {
+  keys: [
+    {
+      name: 'title',
+      weight: 0.6
+    },
+    {
+      name: 'excerpt',
+      weight: 0.4
+    }
+  ]
+}
+const fuse = new Fuse(database, options)
+const matchedResults = fuse.search(keyword)
+```
+
+## Plugin Options
+
+### index
+
+- Type: `string[]`
+- Default: `['type', 'title', 'excerpt', 'permalink']`
+
+Only specified page properties will be included in the generated database.
+
+## License
+
+MIT.

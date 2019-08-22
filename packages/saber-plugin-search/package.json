@@ -9,10 +9,5 @@
   ],
   "peerDependencies": {
     "saber": ">=0.7.0"
-  },
-  "dependencies": {
-    "algoliasearch": "^3.33.0",
-    "fuzzy-search": "^3.0.1",
-    "lodash.debounce": "^4.0.8"
   }
 }

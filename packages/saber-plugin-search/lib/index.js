@@ -1,7 +1,6 @@
 const { join } = require('path')
-const algoliasearch = require('algoliasearch')
 
-const ID = 'local-search'
+const ID = 'search'
 
 exports.name = ID
 
@@ -12,17 +11,13 @@ function getLocale(locale) {
 }
 
 exports.apply = (api, options) => {
-  api.browserApi.add(join(__dirname, 'saber-browser.js'))
-
-  options = Object.assign(
+  const { index } = Object.assign(
     {
-      index: ['title', 'excerpt', 'permalink'],
-      adapter: 'local'
+      index: ['type', 'title', 'excerpt', 'permalink']
     },
     options
   )
 
-  const { index, adapter } = options
   const { fs } = api.utils
 
   async function generateLocale(localePath) {
@@ -65,60 +60,47 @@ exports.apply = (api, options) => {
 
     const localDb = {}
     results.forEach((result, i) => {
-      const locale = allLocalePaths[i] === '/' ? 'default' : allLocalePaths[i]
+      const locale = allLocalePaths[i].slice(1) || 'default'
       localDb[locale] = result
     })
 
     return localDb
   }
 
+  api.browserApi.add(join(__dirname, 'saber-browser.js'))
+
   if (api.dev) {
     api.hooks.onCreatePages.tapPromise(ID, async () => {
       db = await generateDatabase()
     })
 
-    if (adapter === 'local' || typeof adapter === 'function') {
-      api.hooks.onCreateServer.tap(ID, server => {
-        server.get('/_saber/search/:locale.json', (req, res) => {
-          const db = getLocale(req.params.locale)
-          if (db) {
-            res.writeHead(200, {
-              'Content-Type': 'application/json'
-            })
-            return res.end(JSON.stringify(db))
-          }
+    api.hooks.onCreateServer.tap(ID, server => {
+      server.get('/_saber/plugin-search/:locale.json', (req, res) => {
+        const db = getLocale(req.params.locale)
+        if (db) {
+          res.writeHead(200, {
+            'Content-Type': 'application/json'
+          })
+          return res.end(JSON.stringify(db))
+        }
 
-          res.statusCode = 404
-          res.end()
-        })
+        res.statusCode = 404
+        res.end()
       })
-    }
+    })
   } else {
     api.hooks.afterGenerate.tapPromise(ID, async () => {
       const db = await generateDatabase()
-      if (adapter === 'local' || typeof adapter === 'function') {
-        for (const locale of Object.keys(db)) {
-          const items = db[locale]
-          const path = api.resolveOutDir('_saber', 'search', `${locale}.json`)
-          await fs.ensureDir(api.resolveOutDir('_saber', 'search'))
-          await fs.writeJson(path, items)
-        }
-      } else if (adapter === 'algolia') {
-        const client = algoliasearch(options.algoliaId, options.algoliaAdminKey)
-        const index = client.initIndex('pages')
-        index.addObjects(db)
+      for (const locale of Object.keys(db)) {
+        const items = db[locale]
+        const path = api.resolveOutDir(
+          '_saber',
+          'plugin-search',
+          `${locale}.json`
+        )
+        await fs.ensureDir(api.resolveOutDir('_saber', 'plugin-search'))
+        await fs.writeJson(path, items)
       }
     })
   }
-
-  api.hooks.chainWebpack.tap(ID, config => {
-    const safeOptions = options
-    delete safeOptions.algoliaAdminKey
-
-    config.plugin('constants').tap(([constants]) => [
-      Object.assign(constants, {
-        __SABER_SEARCH_OPTIONS__: safeOptions
-      })
-    ])
-  })
 }
