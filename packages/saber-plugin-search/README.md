@@ -63,7 +63,8 @@ const options = {
       name: 'excerpt',
       weight: 0.4
     }
-  ]
+  ],
+  shouldSort: true // sorts the results by score
 }
 const fuse = new Fuse(database, options)
 const matchedResults = fuse.search(keyword)
