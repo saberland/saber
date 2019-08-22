@@ -93,6 +93,9 @@ module.exports = {
           ]
         }
       }
+    },
+    {
+      resolve: '../packages/saber-plugin-search'
     }
   ]
 }

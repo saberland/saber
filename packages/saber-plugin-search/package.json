@@ -1,0 +1,13 @@
+{
+  "name": "saber-plugin-search",
+  "version": "0.0.1",
+  "description": "Add a fast search to your app.",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "peerDependencies": {
+    "saber": ">=0.7.0"
+  }
+}
