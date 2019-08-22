@@ -48,7 +48,7 @@ const matchedResults = database.filter(page => {
 })
 ```
 
-The above example simply uses `Array.prototype.includes` to check if the page matches the keyword, however you can use a more powerful library like [Fuse.js](https://fusejs.io/) if you want more accurate result:
+The above example simply uses `String.prototype.includes` to check if the page matches the keyword, however you can use a more powerful library like [Fuse.js](https://fusejs.io/) if you want more accurate result:
 
 ```js
 import Fuse from 'fuse.js'
