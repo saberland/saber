@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/saberland/saber/compare/saber-log@0.2.0...saber-log@0.2.1) (2019-08-22)
+
+### Bug Fixes
+
+- **pkg:** add missing LICENSE in leaf packages ([9f73603](https://github.com/saberland/saber/commit/9f73603))
+
 # [0.2.0](https://github.com/egoist/saber/compare/saber-log@0.1.1...saber-log@0.2.0) (2019-04-09)
 
 ### Bug Fixes

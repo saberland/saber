@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/saberland/saber/compare/saber-plugin-query-posts@0.4.1...saber-plugin-query-posts@0.4.2) (2019-08-22)
+
+### Bug Fixes
+
+- **pkg:** add missing LICENSE in leaf packages ([9f73603](https://github.com/saberland/saber/commit/9f73603))
+
 ## [0.4.1](https://github.com/saberland/saber/compare/saber-plugin-query-posts@0.4.0...saber-plugin-query-posts@0.4.1) (2019-08-15)
 
 **Note:** Version bump only for package saber-plugin-query-posts

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.8](https://github.com/saberland/saber/compare/create-blog@0.2.7...create-blog@0.2.8) (2019-08-22)
+
+### Bug Fixes
+
+- **pkg:** add missing LICENSE in leaf packages ([9f73603](https://github.com/saberland/saber/commit/9f73603))
+
 ## [0.2.7](https://github.com/saberland/saber/compare/create-blog@0.2.6...create-blog@0.2.7) (2019-06-21)
 
 **Note:** Version bump only for package create-blog

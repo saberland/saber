@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/saberland/saber/compare/saber-plugin-meta-redirect@0.1.0...saber-plugin-meta-redirect@0.1.1) (2019-08-22)
+
+### Bug Fixes
+
+- **pkg:** add missing LICENSE in leaf packages ([9f73603](https://github.com/saberland/saber/commit/9f73603))
+
 # [0.1.0](https://github.com/saberland/saber/compare/saber-plugin-meta-redirect@0.0.5...saber-plugin-meta-redirect@0.1.0) (2019-07-27)
 
 **Note:** Version bump only for package saber-plugin-meta-redirect

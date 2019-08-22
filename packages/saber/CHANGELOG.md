@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/saberland/saber/compare/saber@0.8.0...saber@0.8.1) (2019-08-22)
+
+### Bug Fixes
+
+- **pkg:** add missing LICENSE in leaf packages ([9f73603](https://github.com/saberland/saber/commit/9f73603))
+
 # [0.8.0](https://github.com/saberland/saber/compare/saber@0.7.0...saber@0.8.0) (2019-08-20)
 
 ### Bug Fixes

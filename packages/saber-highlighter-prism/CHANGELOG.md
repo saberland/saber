@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/saberland/saber/compare/saber-highlighter-prism@0.3.1...saber-highlighter-prism@0.3.2) (2019-08-22)
+
+### Bug Fixes
+
+- **pkg:** add missing LICENSE in leaf packages ([9f73603](https://github.com/saberland/saber/commit/9f73603))
+
 ## [0.3.1](https://github.com/saberland/saber/compare/saber-highlighter-prism@0.3.0...saber-highlighter-prism@0.3.1) (2019-05-29)
 
 ### Bug Fixes
