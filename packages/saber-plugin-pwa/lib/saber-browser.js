@@ -12,8 +12,8 @@ export default context => {
         ))
 
         if (notifyUpdates) {
-          const { createSnackbar } = require('@egoist/snackbar')
-          require('@egoist/snackbar/dist/snackbar.css')
+          const { createSnackbar } = require('@snackbar/core')
+          require('@snackbar/core/dist/snackbar.css')
 
           const {
             pwaFirstTimeInstallMessage = 'Ready for offline use',

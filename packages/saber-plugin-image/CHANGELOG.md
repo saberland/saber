@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/saberland/saber/compare/saber-plugin-image@0.1.0...saber-plugin-image@0.2.0) (2019-08-15)
+
+### Bug Fixes
+
+- **deps:** replace sharp with jimp ([#352](https://github.com/saberland/saber/issues/352)) ([e675ce9](https://github.com/saberland/saber/commit/e675ce9))
+
+### Features
+
+- **saber-plugin-image:** replace `vue-lazyload` with `lozad` ([#356](https://github.com/saberland/saber/issues/356)) ([1eacc83](https://github.com/saberland/saber/commit/1eacc83))
+
 # [0.1.0](https://github.com/saberland/saber/compare/saber-plugin-image@0.0.4...saber-plugin-image@0.1.0) (2019-07-27)
 
 ### Bug Fixes

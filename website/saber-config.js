@@ -22,6 +22,7 @@ module.exports = {
           { title: 'Installation', link: '/docs/installation.html' },
           { title: 'Project Structure', link: '/docs/project-structure.html' },
           { title: 'Pages', link: '/docs/pages.html' },
+          { title: 'Routing', link: '/docs/routing.html' },
           { title: 'Permalinks', link: '/docs/permalinks.html' },
           { title: 'Layouts', link: '/docs/layouts.html' },
           { title: 'Themes', link: '/docs/themes.html' },

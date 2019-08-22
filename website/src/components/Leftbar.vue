@@ -5,15 +5,17 @@
 
       <div class="items">
         <div class="item" v-for="(item, i) in items" :key="i">
-          <div class="item-title" @click="toggleOpenLink(item.children[0].link)">{{ item.title }}</div>
-          <div class="item-children" :class="{'is-expanded': isExpanded(item.children)}">
-            <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
-              <saber-link
-                :to="childItem.link"
-                :class="{active: isActive(childItem.link)}"
-              >{{ childItem.title }}</saber-link>
+          <div class="item-title" @click="toggleOpenLink(item.children)">{{ item.title }}</div>
+          <transition name="fade">
+            <div class="item-children" v-if="isExpanded(item.children)">
+              <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
+                <saber-link
+                  :to="childItem.link"
+                  :class="{active: isActive(childItem.link)}"
+                >{{ childItem.title }}</saber-link>
+              </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
     </div>
@@ -22,6 +24,14 @@
 
 <script>
 import SiteNav from './SiteNav.vue'
+
+const addOrRemove = (arr, value) => {
+  const index = arr.indexOf(value)
+  if (index === -1) {
+    return [...arr, value]
+  }
+  return arr.filter((_, i) => i !== index)
+}
 
 export default {
   components: {
@@ -41,7 +51,7 @@ export default {
 
   data() {
     return {
-      openLink: null
+      openLinks: [this.$route.path]
     }
   },
 
@@ -68,18 +78,26 @@ export default {
 
     isExpanded(items) {
       return items.some(item => {
-        if (this.openLink) {
-          return item.link === this.openLink
-        }
-        return item.link === this.$route.path
+        return this.openLinks.indexOf(item.link) > -1
       })
     },
 
-    toggleOpenLink(link) {
-      if (this.openLink === link) {
-        this.openLink = null
-      } else {
-        this.openLink = link
+    toggleOpenLink(children) {
+      let closed = false
+
+      for (const openLink of this.openLinks) {
+        const isChildLinkActive = children.some(
+          child => child.link === openLink
+        )
+        if (isChildLinkActive) {
+          this.openLinks = this.openLinks.filter(link => link !== openLink)
+          closed = true
+          break
+        }
+      }
+
+      if (!closed) {
+        this.openLinks.push(children[0].link)
       }
     }
   }
@@ -88,6 +106,14 @@ export default {
 
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 .leftbar {
   width: var(--leftbar-width);
   background: var(--sidebar-bg);
@@ -135,15 +161,11 @@ export default {
   color: var(--text-dark-color);
   font-weight: 500;
   text-transform: uppercase;
+  user-select: none;
 }
 
 .item-children {
-  display: none;
   margin-top: 10px;
-
-  &.is-expanded {
-    display: block;
-  }
 }
 
 .item-child {

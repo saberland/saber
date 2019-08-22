@@ -121,19 +121,26 @@ export default context => {
         this.transition = name
       },
 
-      getPageLink(relativePath, extraParams) {
-        relativePath = join(dirname(this.$route.meta.__relative), relativePath)
+      getPageLink(link) {
+        const matched = Array.isArray(link)
+          ? link // The link is already parsed
+          : /^([^#?]+)([#?].*)?$/.exec(link)
+        const relativePath = join(
+          dirname(this.$route.meta.__relative),
+          matched[1]
+        )
+        const extra = matched[2] || ''
         for (const route of this.$router.options.routes) {
           if (
             route.meta &&
             route.meta.__relative &&
             relativePath === route.meta.__relative
           ) {
-            return `${route.path}${extraParams || ''}`
+            return `${route.path}${extra}`
           }
         }
-        // Not a page, return the link directly
-        return relativePath
+        // Not a page, return the whole link directly
+        return `${matched[1]}${extra}`
       }
     }
   }

@@ -37,7 +37,10 @@ export default function({ router }) {
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga')
 
     ga('create', __GA_TRACK_ID__, 'auto')
-    ga('send', 'pageview')
+
+    if (__GA_ANONYMIZE_IP) {
+      ga('set', 'anonymizeIp', true)
+    }
 
     router.afterEach(to => {
       ga('set', 'page', to.fullPath)

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/saberland/saber/compare/saber-plugin-pwa@0.4.0...saber-plugin-pwa@0.4.1) (2019-08-20)
+
+**Note:** Version bump only for package saber-plugin-pwa
+
 # [0.4.0](https://github.com/saberland/saber/compare/saber-plugin-pwa@0.3.3...saber-plugin-pwa@0.4.0) (2019-07-27)
 
 **Note:** Version bump only for package saber-plugin-pwa
