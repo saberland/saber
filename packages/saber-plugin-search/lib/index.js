@@ -10,6 +10,10 @@ function getLocale(locale) {
   return db[locale]
 }
 
+function stripHTML(input) {
+  return input.replace(/<(?:.|\n)*?>/gm, '')
+}
+
 exports.apply = (api, options) => {
   const { index } = Object.assign(
     {
@@ -37,10 +41,15 @@ exports.apply = (api, options) => {
         const item = {}
 
         for (const element of index) {
-          if (element === 'content') {
-            item.content = await api.renderer.renderPageContent(page.permalink)
-          } else {
-            item[element] = page[element] || page.attributes[element]
+          const value = page[element]
+          if (value !== undefined) {
+            if (element === 'content') {
+              item.content = stripHTML(
+                await api.renderer.renderPageContent(page.permalink)
+              )
+            } else {
+              item[element] = stripHTML(page[element])
+            }
           }
         }
 
