@@ -10,7 +10,7 @@ Saber functions are used to evaluate code in Node.js environment and return JSON
 Let's say we have a  file `functions/posts.json.js` as follows:
 
 ```js
-export default api => {
+export default ({ api }) => {
   return [...api.pages]
     .filter(page => !page.draft && page.type === 'posts')
     .map(page => ({ title: page.title, permalink: page.permalink }))
@@ -19,7 +19,7 @@ export default api => {
 
 Now you get a function called `/posts.json` (simply without the `.js` extension).
 
-## Run a function
+## Running a function
 
 ```js
 import { runFunction } from 'saber/functions'
@@ -33,7 +33,7 @@ In this way, Saber will replace `runFunction('/posts.json')` with actual functio
 ## Adding function via Saber API
 
 ```js
-api.functions.add('/posts.json', {
+api.functions.set('/posts.json', {
   handler() {
     return [/* An array of posts */]
   },
