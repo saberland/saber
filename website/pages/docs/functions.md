@@ -7,9 +7,7 @@ Besides `pages` folder which is used to create HTML pages, you can also use `fun
 
 ## Using `functions` folder
 
-Like how routing works in `pages` folder, if you populate a `functions/posts.json.js` you can access the rendered page at `/posts.json`.
-
-Let's say we have a `functions/posts.json.js` as follows:
+Let's say we have a  file `functions/posts.json.js` as follows:
 
 ```js
 export default api => {
@@ -18,6 +16,8 @@ export default api => {
     .map(page => ({ title: page.title, permalink: page.permalink }))
 }
 ```
+
+Now you get function called `/posts.json` (simply without the `.js` extension).
 
 ## Run a function
 
