@@ -11,6 +11,6 @@
     "saber-log": "^0.2.1"
   },
   "devDependencies": {
-    "prismjs": "1.16.0"
+    "prismjs": "1.17.1"
   }
 }
