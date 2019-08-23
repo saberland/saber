@@ -25,6 +25,10 @@ module.exports = (api, { type }) => {
   if (isServer) {
     config.output.libraryTarget('commonjs2')
     config.target('node')
+    config.node.merge({
+      __dirname: true,
+      __filename: true
+    })
   }
 
   config.resolve.alias.set('#pages', api.resolveCwd('pages'))
@@ -63,6 +67,17 @@ module.exports = (api, { type }) => {
     .oneOf('normal')
     .use('babel-loader')
     .loader(require.resolve('./babel-loader'))
+
+  config.module
+    .rule('saber-functions')
+    .type('json')
+    .include.add(path.join(__dirname, 'function-placeholder'))
+    .end()
+    .use('function-loader')
+    .loader(require.resolve('./function-loader'))
+    .options({
+      api
+    })
 
   config.plugin('timefix').use(require('time-fix-plugin'))
 

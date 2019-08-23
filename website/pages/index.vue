@@ -38,6 +38,10 @@ export const attributes = {
   layout: 'index'
 }
 
+import { runFunction } from 'saber/functions'
+
+console.log(runFunction('/version'))
+
 export default {}
 </script>
 

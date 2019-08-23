@@ -1,5 +1,5 @@
 const path = require('path')
-const { fs, glob } = require('saber-utils')
+const { glob } = require('saber-utils')
 const webpack = require('webpack')
 
 const ID = 'builtin:source-functions'
@@ -22,10 +22,18 @@ exports.apply = api => {
 
     const webpackConfig = api.getWebpackConfig({ type: 'functions' })
     webpackConfig.entry = files.reduce((res, file) => {
-      res[path.basename(file, path.extname(file))] = path.join(
-        functionsDir,
-        file
-      )
+      const name = path.basename(file, path.extname(file))
+      res[name] = path.join(functionsDir, file)
+      api.functions.set(`/${name}`, (...args) => {
+        const functionPath = path.join(
+          api.resolveCache(`dist-functions`),
+          `${name}.js`
+        )
+
+        delete require.cache[functionPath]
+        const fn = require(functionPath).default || require(functionPath)
+        return fn(...args)
+      })
       return res
     }, {})
     webpackConfig.output.filename = '[name].js'
@@ -39,22 +47,15 @@ exports.apply = api => {
   })
 
   api.hooks.onCreateServer.tap(ID, server => {
+    // Just used to check if a function works
     server.get('/_saber/functions/*', async (req, res) => {
-      const name = req.url.slice('/_saber/functions'.length)
-      const functionPath = path.join(
-        api.resolveCache(`dist-functions`),
-        `${name}.js`
-      )
-
-      if (!(await fs.pathExists(functionPath))) {
+      const name = req.path.slice('/_saber/functions'.length)
+      if (!api.functions.has(name)) {
         res.statusCode = 404
         return res.end('404')
       }
 
-      delete require.cache[functionPath]
-      const requiredFunction =
-        require(functionPath).default || require(functionPath)
-      const result = await requiredFunction({ api })
+      const result = await api.functions.run(name)
       res.end(JSON.stringify(result))
     })
   })
