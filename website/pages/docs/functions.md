@@ -27,4 +27,4 @@ import { runFunction } from 'saber/functions'
 const posts = runFunction('/posts.json')
 ```
 
-In this way, Saber will replace `embedFunction('/posts.json')` with actual function return value at compile time, no HTTP requests will be performed at runtime.
+In this way, Saber will replace `runFunction('/posts.json')` with actual function return value at compile time, no HTTP requests will be performed at runtime.
