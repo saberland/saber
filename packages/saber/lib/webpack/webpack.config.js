@@ -4,13 +4,11 @@ const Config = require('webpack-chain')
 module.exports = (api, { type }) => {
   const config = new Config()
 
+  const isServer = type !== 'client'
+
   config.mode(api.dev ? 'development' : 'production')
   config.devtool(
-    type === 'server'
-      ? 'source-map'
-      : api.dev
-      ? 'cheap-module-source-map'
-      : false
+    isServer ? 'source-map' : api.dev ? 'cheap-module-source-map' : false
   )
 
   const fileNames = require('../utils/getFileNames')(!api.dev)
@@ -24,7 +22,7 @@ module.exports = (api, { type }) => {
   // Disable performance hints
   config.performance.hints(false)
 
-  if (type === 'server') {
+  if (isServer) {
     config.output.libraryTarget('commonjs2')
     config.target('node')
   }
@@ -78,7 +76,7 @@ module.exports = (api, { type }) => {
     {
       'process.browser': type === 'client',
       'process.client': type === 'client',
-      'process.server': type === 'server',
+      'process.server': isServer,
       __DEV__: api.dev,
       __PUBLIC_URL__: JSON.stringify(api.config.build.publicUrl),
       __LAZY__: api.config.build.lazy && api.dev,

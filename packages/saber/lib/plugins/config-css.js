@@ -14,7 +14,7 @@ exports.apply = api => {
       loaderOptions,
       cssSourceMap: sourceMap
     } = api.config.build
-    const isServer = type === 'server'
+    const isServer = type !== 'client'
     // if building for production but not extracting CSS, we need to minimize
     // the embbeded inline CSS as they will not be going through the optimizing
     // plugin.
