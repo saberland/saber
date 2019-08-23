@@ -24,20 +24,31 @@ exports.apply = api => {
     webpackConfig.entry = files.reduce((res, file) => {
       const name = path.basename(file, path.extname(file))
       res[name] = path.join(functionsDir, file)
-      api.functions.set(`/${name}`, (...args) => {
-        const functionPath = path.join(
-          api.resolveCache(`dist-functions`),
-          `${name}.js`
-        )
-
-        delete require.cache[functionPath]
-        const fn = require(functionPath).default || require(functionPath)
-        return fn(...args)
-      })
       return res
     }, {})
     webpackConfig.output.filename = '[name].js'
     const compiler = webpack(webpackConfig)
+    compiler.hooks.done.tap(ID, stats => {
+      const hasErrors = stats.hasErrors()
+      for (const file of files) {
+        const name = path.basename(file, path.extname(file))
+        if (hasErrors) {
+          api.functions.delete(`/${name}`)
+          continue
+        }
+
+        const functionPath = path.join(
+          api.resolveCache(`dist-functions`),
+          `${name}.js`
+        )
+        delete require.cache[functionPath]
+        const fn = require(functionPath)
+        api.functions.set(`/${name}`, {
+          handler: fn.default || fn,
+          emit: fn.emit
+        })
+      }
+    })
     compiler.watch({}, () => {})
   })
 
@@ -47,15 +58,13 @@ exports.apply = api => {
   })
 
   api.hooks.onCreateServer.tap(ID, server => {
-    // Just used to check if a function works
-    server.get('/_saber/functions/*', async (req, res) => {
-      const name = req.path.slice('/_saber/functions'.length)
-      if (!api.functions.has(name)) {
-        res.statusCode = 404
-        return res.end('404')
+    server.use(async (req, res, next) => {
+      const fn = api.functions.get(req.path)
+      if (!fn || !fn.emit) {
+        return next()
       }
 
-      const result = await api.functions.run(name)
+      const result = await api.functions.run(req.path, req.query)
       res.end(JSON.stringify(result))
     })
   })

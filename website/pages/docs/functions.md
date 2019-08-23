@@ -28,3 +28,15 @@ const posts = runFunction('/posts.json')
 ```
 
 In this way, Saber will replace `runFunction('/posts.json')` with actual function return value at compile time, no HTTP requests will be performed at runtime.
+
+
+## Adding function via Saber API
+
+```js
+api.functions.add('/posts.json', {
+  handler() {
+    return [/* An array of posts */]
+  },
+  emit: true
+})
+```

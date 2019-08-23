@@ -10,3 +10,5 @@ export default () => {
   )
   return JSON.stringify(pkg.version)
 }
+
+export const emit = true

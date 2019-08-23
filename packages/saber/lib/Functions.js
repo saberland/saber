@@ -6,6 +6,6 @@ module.exports = class Functions extends Map {
 
   run(name, query) {
     const fn = this.get(name)
-    return fn({ api: this.api, query })
+    return fn.handler({ api: this.api, query })
   }
 }
