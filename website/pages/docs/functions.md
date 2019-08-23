@@ -3,7 +3,7 @@ title: Saber Functions
 layout: docs
 ---
 
-Besides `pages` folder which is used to create HTML pages, you can also use `functions` folder to create pages in other formats.
+Saber functions are used to evaluate code in Node.js environment and return JSON-format data that you can embed in your app code.
 
 ## Using `functions` folder
 
@@ -17,7 +17,7 @@ export default api => {
 }
 ```
 
-Now you get function called `/posts.json` (simply without the `.js` extension).
+Now you get a function called `/posts.json` (simply without the `.js` extension).
 
 ## Run a function
 
