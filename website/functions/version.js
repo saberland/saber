@@ -8,7 +8,7 @@ export default () => {
       'utf8'
     )
   )
-  return JSON.stringify(pkg.version)
+  return pkg.version
 }
 
 export const emit = true
