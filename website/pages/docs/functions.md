@@ -5,7 +5,7 @@ layout: docs
 
 Saber functions are used to evaluate code in Node.js environment and return JSON-format data that you can embed in your app code.
 
-## Create a function
+## Creating a function
 
 Let's say we have a file `functions/getPostCount.js` as follows:
 
@@ -50,7 +50,7 @@ import { getPageCountByType } from 'saber/functions'
 const count = getPageCountByType({ type: 'post' })
 ```
 
-Note that the argument must be able to be evaluated, i.e. we can get its value at runtime, some incorrect examples:
+Note that the argument must be able to be evaluated at compile time, and has a fixed value, some incorrect examples:
 
 ```js
 // ❌ `window.__OPTIONS__` is only available at runtime
@@ -58,4 +58,10 @@ getPageCountByType(window.__OPTIONS__)
 
 // ❌ `this.pageType` is only available at runtime
 getPageCountByType({ type: this.pageType })
+
+// ❌ `Math.random()` is not a fixed value.
+getPageCountByType({ type: Math.random() })
+
+// ❌ `Date.now()` is not a fixed value.
+getPageCountByType({ type: Date.now() })
 ```
