@@ -5,38 +5,57 @@ layout: docs
 
 Saber functions are used to evaluate code in Node.js environment and return JSON-format data that you can embed in your app code.
 
-## Using `functions` folder
+## Create a function
 
-Let's say we have a  file `functions/posts.json.js` as follows:
+Let's say we have a file `functions/getPostCount.js` as follows:
 
 ```js
-export default ({ api }) => {
-  return [...api.pages]
-    .filter(page => !page.draft && page.type === 'posts')
-    .map(page => ({ title: page.title, permalink: page.permalink }))
+export default function() {
+  // `this` is a reference to Saber Node API `api`
+  return [...this.pages].filter(page => !page.draft && page.type === 'posts')
+    .length
 }
 ```
 
-Now you get a function called `/posts.json` (simply without the `.js` extension).
+Now you'll have a function call `getPostCount`.
 
-## Running a function
+## Using a function
 
 ```js
-import { runFunction } from 'saber/functions'
+import { getPostCount } from 'saber/functions'
 
-const posts = runFunction('/posts.json')
+const count = getPostCount()
+//=> Number
 ```
 
-In this way, Saber will replace `runFunction('/posts.json')` with actual function return value at compile time, no HTTP requests will be performed at runtime.
+All functions are used synchonounsly even if it returns a Promise.
 
+## Function arguments
 
-## Adding function via Saber API
+You can pass arguments to the function you're calling, let's say we have a function `functions/getPageCountByType.js`:
 
 ```js
-api.functions.set('/posts.json', {
-  handler() {
-    return [/* An array of posts */]
-  },
-  emit: true
-})
+export default function({ type }) {
+  // `this` is a reference to Saber Node API `api`
+  return [...this.pages].filter(page => !page.draft && page.type === type)
+    .length
+}
+```
+
+Then call it in your app code:
+
+```js
+import { getPageCountByType } from 'saber/functions'
+
+const count = getPageCountByType({ type: 'post' })
+```
+
+Note that the argument must be evaluated, i.e. we can get its value at runtime, some incorrect examples:
+
+```js
+// ❌ `window.__OPTIONS__` is only available at runtime
+getPageCountByType(window.__OPTIONS__)
+
+// ❌ `this.pageType` is only available at runtime
+getPageCountByType({ type: this.pageType })
 ```

@@ -38,9 +38,9 @@ export const attributes = {
   layout: 'index'
 }
 
-import { runFunction } from 'saber/functions'
+import { version } from 'saber/functions'
 
-console.log(runFunction('/version'))
+console.log(version())
 
 export default {}
 </script>

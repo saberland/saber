@@ -4,8 +4,8 @@ module.exports = class Functions extends Map {
     this.api = api
   }
 
-  run(name, query) {
+  run(name, args) {
     const fn = this.get(name)
-    return fn.handler({ api: this.api, query })
+    return fn.handler.call(this, args)
   }
 }

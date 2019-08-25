@@ -10,5 +10,3 @@ export default () => {
   )
   return pkg.version
 }
-
-export const emit = true

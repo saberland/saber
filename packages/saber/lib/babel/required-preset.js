@@ -7,6 +7,8 @@ module.exports = () => {
 }
 
 function handleSaberFunctions({ types: t }) {
+  const placeholder = join(__dirname, '../webpack/function-placeholder')
+
   return {
     visitor: {
       ImportDeclaration(path) {
@@ -19,23 +21,26 @@ function handleSaberFunctions({ types: t }) {
             continue
           }
 
-          if (specifier.imported.name === 'runFunction') {
-            const binding = path.scope.getBinding(specifier.local.name)
-            for (let i = 0; i < binding.referencePaths.length; i++) {
-              const ref = binding.referencePaths[i].parentPath
-              const url = ref.get('arguments.0').evaluate().value
-              const [name, query = ''] = url.split('?')
-              ref.replaceWith(
-                t.callExpression(t.identifier('require'), [
-                  t.stringLiteral(
-                    `${join(
-                      __dirname,
-                      '../webpack/function-placeholder'
-                    )}?functionName=${name}&${query}`
-                  )
-                ])
-              )
-            }
+          const binding = path.scope.getBinding(specifier.local.name)
+          for (let i = 0; i < binding.referencePaths.length; i++) {
+            const ref = binding.referencePaths[i].parentPath
+            const { name } = ref.node.callee
+            const args = ref.node.arguments.map((_, i) => {
+              const res = ref.get(`arguments.${i}`).evaluate()
+              if (!res.confident) {
+                throw new Error(
+                  `Cannot evaluate arguments when calling function "${name}"`
+                )
+              }
+
+              return res.value
+            })
+            const query = { args, name }
+            ref.replaceWith(
+              t.callExpression(t.identifier('require'), [
+                t.stringLiteral(`${placeholder}?${JSON.stringify(query)}`)
+              ])
+            )
           }
         }
 
