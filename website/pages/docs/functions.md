@@ -50,7 +50,7 @@ import { getPageCountByType } from 'saber/functions'
 const count = getPageCountByType({ type: 'post' })
 ```
 
-Note that the argument must be evaluated, i.e. we can get its value at runtime, some incorrect examples:
+Note that the argument must be able to be evaluated, i.e. we can get its value at runtime, some incorrect examples:
 
 ```js
 // ❌ `window.__OPTIONS__` is only available at runtime
