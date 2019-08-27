@@ -24,6 +24,7 @@ exports.apply = api => {
     let watching
 
     const runCompiler = () => {
+      if (files.length === 0) return
       const webpackConfig = api.getWebpackConfig({ type: 'functions' })
       webpackConfig.entry = files.reduce((res, file) => {
         const name = removeExtension(file)
@@ -73,11 +74,11 @@ exports.apply = api => {
         })
         .on('add', file => {
           files.push(file)
-          watching.close(runCompiler)
+          watching && watching.close(runCompiler)
         })
         .on('unlink', file => {
           files.splice(files.indexOf(file), 1)
-          watching.close(runCompiler)
+          watching && watching.close(runCompiler)
         })
     }
   })
