@@ -1,6 +1,6 @@
 .enter-active-class,
 .leave-active-class {
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 
 .enter-class,
