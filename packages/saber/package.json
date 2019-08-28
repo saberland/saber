@@ -75,7 +75,7 @@
     "@types/superstruct": "0.5.0",
     "@types/webpack": "4.4.34",
     "jest": "24.8.0",
-    "markdown-it-footnote": "3.0.1",
+    "markdown-it-footnote": "3.0.2",
     "typescript": "3.5.3"
   },
   "xo": false,
