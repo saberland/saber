@@ -1,16 +1,6 @@
-.enter-active-class,
-.leave-active-class {
-  transition: opacity 0.3s;
-}
-
-.enter-class,
-.leave-to-class {
-  opacity: 0;
-}
-
 .blendIn[data-src],
 .blendIn[data-srcset] {
-  transition: filter 0.5s;
+  transition: filter 0.3s;
   filter: blur(5px);
 }
 
