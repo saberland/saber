@@ -14,6 +14,6 @@
   filter: blur(5px);
 }
 
-.blendIn[data-lazy-loaded] {
+.blendIn[data-loaded="true"] {
   filter: none;
 }
