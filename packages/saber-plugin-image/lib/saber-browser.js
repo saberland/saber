@@ -14,19 +14,22 @@ export default ({ Vue }) => {
       if ($el.dataset.src || $el.dataset.srcset) {
         lozad($el, {
           loaded: el => {
-            el.addEventListener('load', () => {
-              el.setAttribute('data-lazy-loaded', '')
-              this.removeBlendIn = setTimeout(() => {
-                el.classList.remove(styles.blendIn)
-              }, 300)
-            })
+            el.addEventListener(
+              'load',
+              () => {
+                el.setAttribute('data-lazy-loaded', '')
+                el.addEventListener(
+                  'transitionend',
+                  () => {
+                    el.classList.remove(styles.blendIn)
+                  },
+                  { once: true }
+                )
+              },
+              { once: true }
+            )
           }
         }).observe()
-      }
-    },
-    beforeDestroy() {
-      if (this.removeBlendIn) {
-        clearTimeout(this.removeBlendIn)
       }
     },
     render(h) {
