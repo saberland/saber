@@ -393,37 +393,35 @@ class VueRenderer {
       event.emit('done', stats.hasErrors())
     })
 
-    if (this.api.config.server.ssr) {
-      const serverConfig = this.api.getWebpackConfig({ type: 'server' })
-      const serverCompiler = webpack(serverConfig)
-      const mfs = new webpack.MemoryOutputFileSystem()
-      serverCompiler.outputFileSystem = mfs
+    const serverConfig = this.api.getWebpackConfig({ type: 'server' })
+    const serverCompiler = webpack(serverConfig)
+    const mfs = new webpack.MemoryOutputFileSystem()
+    serverCompiler.outputFileSystem = mfs
 
-      let serverBundle
-      let clientManifest
+    let serverBundle
+    let clientManifest
 
-      serverCompiler.hooks.done.tap('init-renderer', stats => {
-        if (!stats.hasErrors()) {
-          serverBundle = readJSON(
-            this.api.resolveCache('bundle-manifest/server.json'),
-            mfs.readFileSync.bind(mfs)
+    serverCompiler.hooks.done.tap('init-renderer', stats => {
+      if (!stats.hasErrors()) {
+        serverBundle = readJSON(
+          this.api.resolveCache('bundle-manifest/server.json'),
+          mfs.readFileSync.bind(mfs)
+        )
+        this.initRenderer({ serverBundle, clientManifest })
+      }
+    })
+    clientCompiler.hooks.done.tap('init-renderer', stats => {
+      if (!stats.hasErrors()) {
+        clientManifest = readJSON(
+          this.api.resolveCache('bundle-manifest/client.json'),
+          clientCompiler.outputFileSystem.readFileSync.bind(
+            clientCompiler.outputFileSystem
           )
-          this.initRenderer({ serverBundle, clientManifest })
-        }
-      })
-      clientCompiler.hooks.done.tap('init-renderer', stats => {
-        if (!stats.hasErrors()) {
-          clientManifest = readJSON(
-            this.api.resolveCache('bundle-manifest/client.json'),
-            clientCompiler.outputFileSystem.readFileSync.bind(
-              clientCompiler.outputFileSystem
-            )
-          )
-          this.initRenderer({ serverBundle, clientManifest })
-        }
-      })
-      serverCompiler.watch({}, () => {})
-    }
+        )
+        this.initRenderer({ serverBundle, clientManifest })
+      }
+    })
+    serverCompiler.watch({}, () => {})
 
     server.get('/_saber/visit-page', async (req, res) => {
       let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
@@ -469,7 +467,7 @@ class VueRenderer {
         return res.end('404')
       }
 
-      if (this.api.config.server.ssr && !this.renderer) {
+      if (!this.renderer) {
         return res.end(`Please wait for compilation and refresh..`)
       }
 
