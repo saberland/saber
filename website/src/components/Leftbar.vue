@@ -135,7 +135,7 @@ export default {
     height: auto;
   }
 
-  @nest .header-unpinned & {
+  @nest .header-unpinned.header-not-top & {
     top: 0;
   }
 

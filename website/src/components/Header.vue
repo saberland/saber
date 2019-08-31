@@ -50,14 +50,22 @@ export default {
 
   mounted() {
     const Headroom = require('headroom.js')
+    const toggleBodyClass = (addClass, removeClass) => {
+      document.body.classList.add(addClass)
+      document.body.classList.remove(removeClass)
+    }
     this.headroom = new Headroom(this.$el, {
       onPin() {
-        document.body.classList.add('header-pinned')
-        document.body.classList.remove('header-unpinned')
+        toggleBodyClass('header-pinned', 'header-unpinned')
       },
       onUnpin() {
-        document.body.classList.add('header-unpinned')
-        document.body.classList.remove('header-pinned')
+        toggleBodyClass('header-unpinned', 'header-pinned')
+      },
+      onTop() {
+        toggleBodyClass('header-top', 'header-not-top')
+      },
+      onNotTop() {
+        toggleBodyClass('header-not-top', 'header-top')
       }
     })
     this.headroom.init()

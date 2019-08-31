@@ -107,7 +107,7 @@ export default {
     transform: translateX(0);;
   }
 
-  @nest .header-unpinned & {
+  @nest .header-unpinned.header-not-top & {
     top: 30px;
   }
 
