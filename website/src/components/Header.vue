@@ -53,8 +53,10 @@ export default {
     this.headroom = new Headroom(this.$el, {
       onPin() {
         document.body.classList.add('header-pinned')
+        document.body.classList.remove('header-unpinned')
       },
       onUnpin() {
+        document.body.classList.add('header-unpinned')
         document.body.classList.remove('header-pinned')
       }
     })
@@ -129,7 +131,7 @@ export default {
     height: 100%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     display: flex;
   }
 }

@@ -4,9 +4,8 @@
   --header-height: 60px;
   --header-shadow: 0 1px 1px rgba(0,0,0,.05);
   --spinner-color: #3880ff;
-  --content-width: 60%;
-  --leftbar-width: 20%;
-  --rightbar-width: 20%;
+  --content-width: 780px;
+  --leftbar-width: 280px;
   --body-bg: white;
   --header-bg: white;
   --sidebar-bg: white;
@@ -33,7 +32,7 @@ body {
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -56,27 +55,26 @@ a {
   justify-content: space-between;
 }
 
-.sticky {
-  position: sticky;
-  top: 20px;
-}
-
-.header-pinned .sticky {
-  top: calc(var(--header-height) + 20px);
-}
-
 .main {
-  padding-top: calc(var(--header-height) + 20px);
+  padding-top: calc(var(--header-height));
   padding-bottom: 20px;
 }
 
+.page {
+  padding-left: var(--leftbar-width);
+  width: 100%;
+
+  @media (max-width: 992px) {
+    padding-left: 0;
+  }
+}
+
 .content {
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 20px 30px;
   width: var(--content-width);
   margin: 0 auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     padding-left: 0 !important;
     padding-right: 0 !important;
     width: 100% !important;

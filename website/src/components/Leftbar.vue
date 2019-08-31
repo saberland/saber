@@ -1,22 +1,20 @@
 <template>
   <div class="leftbar" :class="{'is-hidden': hide}">
-    <div class="sticky">
-      <SiteNav class="show-on-mobile" />
+    <SiteNav class="show-on-mobile" />
 
-      <div class="items">
-        <div class="item" v-for="(item, i) in items" :key="i">
-          <div class="item-title" @click="toggleOpenLink(item.children)">{{ item.title }}</div>
-          <transition name="fade">
-            <div class="item-children" v-if="isExpanded(item.children)">
-              <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
-                <saber-link
-                  :to="childItem.link"
-                  :class="{active: isActive(childItem.link)}"
-                >{{ childItem.title }}</saber-link>
-              </div>
+    <div class="items">
+      <div class="item" v-for="(item, i) in items" :key="i">
+        <div class="item-title" @click="toggleOpenLink(item.children)">{{ item.title }}</div>
+        <transition name="fade">
+          <div class="item-children" v-if="isExpanded(item.children)">
+            <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
+              <saber-link
+                :to="childItem.link"
+                :class="{active: isActive(childItem.link)}"
+              >{{ childItem.title }}</saber-link>
             </div>
-          </transition>
-        </div>
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -106,10 +104,12 @@ export default {
 
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: all 0.3s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }
@@ -117,21 +117,29 @@ export default {
 .leftbar {
   width: var(--leftbar-width);
   background: var(--sidebar-bg);
-  padding-right: 30px;
+  padding: 20px;
   transition: transform 200ms cubic-bezier(0.2, 1, 0.2, 1);
+  border-right: 1px solid var(--border-color);
+  position: fixed;
+  top: var(--header-height);
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  overflow: auto;
 
   &.is-hidden {
     display: none;
   }
 
-  @media (max-width: 768px) {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 80%;
-    top: var(--header-height);
-    padding: 20px;
-    z-index: 999;
+   & /deep/ .nav {
+    height: auto;
+  }
+
+  @nest .header-unpinned & {
+    top: 0;
+  }
+
+  @media (max-width: 992px) {
     border-right: 1px solid var(--border-color);
     transform: translateX(-100%);
 
@@ -142,10 +150,10 @@ export default {
     @nest .show-leftbar & {
       transform: translateX(0);
     }
+  }
 
-    & .sticky {
-      position: initial;
-    }
+  @media (max-width: 768px) {
+    width: 80%;
   }
 }
 

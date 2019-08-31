@@ -1,19 +1,20 @@
 <template>
   <div class="wrap">
-    <Header/>
+    <Header />
+    <Toc
+      v-if="page.markdownHeadings && page.markdownHeadings.length > 0"
+      :headings="page.markdownHeadings"
+    />
     <div class="main">
       <div class="container flex">
-        <Leftbar :items="$themeConfig.sidebarMenu" :hide="!showLeftbar"/>
-        <div class="content" :class="{'no-leftbar': !showLeftbar, 'no-rightbar': !showRightbar}">
-          <slot name="default"/>
-          <div class="edit-info" v-if="showEditInfo">
-            <span class="last-edited">Last Edited on {{ updatedDate }}</span>
-            <a class="edit-link" target="_blank" :href="editLink">Edit This Page on GitHub</a>
-          </div>
-        </div>
-        <div class="rightbar" v-if="showRightbar">
-          <div class="sticky">
-            <Toc :headings="page.markdownHeadings"/>
+        <Leftbar :items="$themeConfig.sidebarMenu" :hide="!showLeftbar" />
+        <div class="page" :class="{'no-leftbar': !showLeftbar, 'no-rightbar': !showRightbar}">
+          <div class="content">
+            <slot name="default" />
+            <div class="edit-info" v-if="showEditInfo">
+              <span class="last-edited">Last Edited on {{ updatedDate }}</span>
+              <a class="edit-link" target="_blank" :href="editLink">Edit This Page on GitHub</a>
+            </div>
           </div>
         </div>
       </div>
@@ -69,22 +70,8 @@ export default {
 </script>
 
 <style scoped>
-.content.no-leftbar {
+.page.no-leftbar {
   padding-left: 0;
-  width: calc(var(--leftbar-width) + var(--content-width));
-}
-
-.content.no-rightbar {
-  padding-right: 0;
-  width: calc(var(--rightbar-width) + var(--content-width));
-}
-
-.content.no-leftbar.no-rightbar {
-  width: var(--content-width);
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 }
 
 .edit-info {
