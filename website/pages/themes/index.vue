@@ -14,12 +14,10 @@
     </template>
 
     <div class="themes-header">
-      <div class="themes-title">
-        Themes
-        <span
-          class="themes-count"
-        >{{ filteredThemes.length }} result{{ filteredThemes.length === 1 ? '' : 's' }}</span>
-      </div>
+      <div class="themes-title">Themes</div>
+      <span
+        class="themes-count"
+      >{{ filteredThemes.length }} result{{ filteredThemes.length === 1 ? '' : 's' }}</span>
     </div>
 
     <div class="columns">
@@ -237,7 +235,9 @@ export default {
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 30px;
   padding-bottom: 5px;
-  overflow: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .themes-title {
@@ -248,7 +248,6 @@ export default {
 .themes-count {
   color: #ccc;
   font-size: 1.6rem;
-  float: right;
 }
 
 .theme-search-input {
@@ -278,7 +277,7 @@ export default {
 
   & .count {
     color: #ccc;
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-style: italic;
   }
 }
