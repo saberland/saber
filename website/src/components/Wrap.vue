@@ -7,9 +7,13 @@
     />
     <div class="main">
       <div class="container flex">
-        <Leftbar :items="$themeConfig.sidebarMenu" :hide="!showLeftbar" />
+        <Leftbar :items="$themeConfig.sidebarMenu" :hide="!showLeftbar">
+          <template #content>
+            <slot name="sidebar" />
+          </template>
+        </Leftbar>
         <div class="page" :class="{'no-leftbar': !showLeftbar, 'no-rightbar': !showRightbar}">
-          <div class="content">
+          <div class="content" :class="{fullwidth: contentFullWidth}">
             <slot name="default" />
             <div class="edit-info" v-if="showEditInfo">
               <span class="last-edited">Last Edited on {{ updatedDate }}</span>
@@ -51,6 +55,10 @@ export default {
     showEditInfo: {
       type: Boolean,
       default: true
+    },
+    contentFullWidth: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -72,6 +80,10 @@ export default {
 <style scoped>
 .page.no-leftbar {
   padding-left: 0;
+}
+
+.content.fullwidth {
+  width: 100%;
 }
 
 .edit-info {

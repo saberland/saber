@@ -1,5 +1,5 @@
 <template>
-  <div class="search" :class="{'is-focused': focused}">
+  <div class="search" :class="{'is-focused': focused, 'fit-header': fitHeader, fullWidth}">
     <div class="search--icon" @click="handleFocus(true)">
       <svg
         width="13"
@@ -19,32 +19,34 @@
       ref="input"
       @focus="handleFocus(true)"
       @blur="handleFocus(false)"
+      @input="e => $emit('change', e.target.value)"
+      :id="inputId"
+      :placeholder="placeholder"
     >
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    inputId: {
+      type: String
+    },
+    fitHeader: {
+      type: Boolean
+    },
+    fullWidth: {
+      type: Boolean
+    },
+    placeholder: {
+      type: String
+    }
+  },
+
   data() {
     return {
       focused: false
     }
-  },
-
-  async mounted() {
-    const docsearch = await import(/* webpackChunkName: "docsearch" */ 'docsearch.js')
-    docsearch.default({
-      apiKey: '226f92e3cf36f89eda7c402258e73cb2',
-      indexName: 'saber',
-      inputSelector: '.search--input',
-      autocompleteOptions: {
-        openOnFocus: true
-      },
-      handleSelected: (input, event, suggestion) => {
-        this.$router.push(suggestion.url.replace(/^https:\/\/saber\.land/, ''))
-      },
-      debug: 'debugSearch' in this.$route.query
-    })
   },
 
   methods: {
@@ -58,17 +60,6 @@ export default {
   }
 }
 </script>
-
-<style src="docsearch.js/dist/cdn/docsearch.min.css"></style>
-
-<style>
-/* Override docsearch */
-.algolia-autocomplete .ds-dropdown-menu {
-  @media (max-width: 768px) {
-    min-width: 300px;
-  }
-}
-</style>
 
 <style scoped>
 .search {
@@ -85,21 +76,27 @@ export default {
   position: relative;
   width: var(--search-width);
 
+  &.fullWidth {
+    --search-width: 100%;
+  }
+
   &.is-focused {
     box-shadow: 0 0 0 1px var(--theme-color);
   }
 
   @media (max-width: 768px) {
-    --search-width: 140px;
-    width: var(--icon-width);
-    margin-right: 0;
+    &.fit-header {
+      --search-width: 140px;
+      width: var(--icon-width);
+      margin-right: 0;
 
-    &.is-focused {
-      width: var(--search-width);
-    }
+      &.is-focused {
+        width: var(--search-width);
+      }
 
-    &.is-focused .search--input {
-      display: block;
+      &.is-focused .search--input {
+        display: block;
+      }
     }
   }
 }
@@ -115,7 +112,9 @@ export default {
   border-radius: 33px;
 
   @media (max-width: 768px) {
-    display: none;
+    @nest .fit-header & {
+      display: none;
+    }
   }
 }
 
