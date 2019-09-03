@@ -5,7 +5,27 @@
     <slot name="content" v-if="$slots.content"></slot>
     <div class="items" v-else>
       <div class="item" v-for="(item, i) in items" :key="i">
-        <div class="item-title" @click="toggleOpenLink(item.children)">{{ item.title }}</div>
+        <div
+          class="item-title"
+          :class="{'is-expanded': isExpanded(item.children)}"
+          @click="toggleOpenLink(item.children)"
+        >
+          <span>{{ item.title }}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-chevron-right"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </div>
         <transition name="fade">
           <div class="item-children" v-if="isExpanded(item.children)">
             <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
@@ -171,6 +191,19 @@ export default {
   font-weight: 500;
   text-transform: uppercase;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & svg {
+    width: 1em;
+    height: 1em;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.is-expanded svg {
+    transform: rotate(90deg);
+  }
 }
 
 .item-children {
