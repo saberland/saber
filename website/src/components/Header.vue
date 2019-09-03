@@ -21,7 +21,7 @@
         </h1>
       </div>
       <div class="header-right">
-        <search />
+        <SiteSearch />
         <SiteNav class="hide-on-mobile" />
       </div>
     </div>
@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import Search from './Search.vue'
+import SiteSearch from './SiteSearch.vue'
 import SiteNav from './SiteNav.vue'
 
 export default {
   components: {
-    Search,
+    SiteSearch,
     SiteNav
   },
 

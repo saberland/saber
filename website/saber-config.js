@@ -96,6 +96,9 @@ module.exports = {
     },
     {
       resolve: '../packages/saber-plugin-search'
+    },
+    {
+      resolve: '../packages/saber-plugin-image'
     }
   ]
 }

@@ -7,6 +7,9 @@
       <saber-link to="/tutorial/tutorial.html">Tutorial</saber-link>
     </li>
     <li class="nav-item">
+      <saber-link to="/themes">Themes</saber-link>
+    </li>
+    <li class="nav-item">
       <saber-link to="/blog/">Blog</saber-link>
     </li>
     <li class="nav-item">

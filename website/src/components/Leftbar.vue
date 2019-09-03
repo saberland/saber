@@ -2,7 +2,8 @@
   <div class="leftbar" :class="{'is-hidden': hide}">
     <SiteNav class="show-on-mobile" />
 
-    <div class="items">
+    <slot name="content" v-if="$slots.content"></slot>
+    <div class="items" v-else>
       <div class="item" v-for="(item, i) in items" :key="i">
         <div class="item-title" @click="toggleOpenLink(item.children)">{{ item.title }}</div>
         <transition name="fade">
@@ -39,7 +40,7 @@ export default {
   props: {
     items: {
       type: Array,
-      required: true
+      default: []
     },
     hide: {
       type: Boolean,
@@ -131,7 +132,7 @@ export default {
     display: none;
   }
 
-   & /deep/ .nav {
+  & /deep/ .nav {
     height: auto;
   }
 
