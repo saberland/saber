@@ -1,5 +1,6 @@
 module.exports = [
   { resolve: require.resolve('./source-pages') },
+  { resolve: require.resolve('./source-functions') },
   { resolve: require.resolve('./extend-browser-api') },
   { resolve: require.resolve('./extend-node-api') },
   { resolve: require.resolve('./transformer-markdown') },

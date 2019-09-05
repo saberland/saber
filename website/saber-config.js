@@ -26,6 +26,7 @@ module.exports = {
           { title: 'Permalinks', link: '/docs/permalinks.html' },
           { title: 'Layouts', link: '/docs/layouts.html' },
           { title: 'Themes', link: '/docs/themes.html' },
+          { title: 'Functions', link: '/docs/functions.html' },
           { title: 'Markdown Features', link: '/docs/markdown-features.html' },
           {
             title: 'Using Vue in Markdown',

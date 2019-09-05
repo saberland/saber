@@ -19,6 +19,8 @@ class VueRenderer {
     }
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
+      const isServer = type !== 'client'
+
       config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
 
       config.output.path(api.resolveCache(`dist-${type}`))
@@ -121,7 +123,7 @@ class VueRenderer {
           api
         })
 
-      if (type === 'server') {
+      if (isServer) {
         config
           .plugin('vue-ssr')
           .use(require('vue-server-renderer/server-plugin'), [

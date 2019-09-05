@@ -7,6 +7,7 @@ const merge = require('lodash.merge')
 const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
 const getPort = require('get-port')
 const Pages = require('./Pages')
+const Functions = require('./Functions')
 const BrowserApi = require('./BrowserApi')
 const Transformers = require('./Transformers')
 const configLoader = require('./utils/configLoader')
@@ -19,6 +20,7 @@ class Saber {
     this.opts.cwd = path.resolve(opts.cwd || '.')
     this.initialConfig = config
     this.pages = new Pages(this)
+    this.functions = new Functions(this)
     this.browserApi = new BrowserApi(this)
     this.log = log
     this.colors = colors
@@ -280,7 +282,7 @@ class Saber {
     const config = this.hooks.getWebpackConfig.call(chain.toConfig(), opts)
 
     if (this.opts.inspectWebpack) {
-      require('./utils/inspectWebpack')(config, opts.type)
+      require('./utils/inspectWebpack')(config, opts.displayName || opts.type)
     }
 
     return config
