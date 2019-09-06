@@ -1,21 +1,8 @@
 <template>
   <div class="toc" :class="{show}">
     <div class="toc-trigger" @click="show = !show">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="feather feather-book"
-      >
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-      </svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="list"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><circle cx="4" cy="7" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="17" r="1"/><rect x="7" y="11" width="14" height="2" rx=".94" ry=".94"/><rect x="7" y="16" width="14" height="2" rx=".94" ry=".94"/><rect x="7" y="6" width="14" height="2" rx=".94" ry=".94"/></g></g></svg>
     </div>
     <div class="toc-title">Contents</div>
     <div class="toc-headings">
@@ -103,8 +90,9 @@ export default {
   z-index: 999;
   background: #fcfcfc;
 
-  &:hover, &.show {
-    transform: translateX(0);;
+  &:hover,
+  &.show {
+    transform: translateX(0);
   }
 
   @nest .header-unpinned.header-not-top & {
@@ -131,6 +119,7 @@ export default {
   & svg {
     width: 1.3rem;
     height: 1.3rem;
+    color: #9e9e9e;
   }
 }
 

@@ -1,6 +1,6 @@
 .page-title {
-  font-size: 2.7rem;
-  font-weight: 500;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: var(--text-dark-color);
   line-height: 1.2;
   margin: 0;
@@ -8,7 +8,7 @@
 
 .page-content {
   line-height: 1.6;
-  margin: 20px 0;
+  margin: 40px 0;
 
   & >*:first-child:not(h2) {
     margin-top: 0;

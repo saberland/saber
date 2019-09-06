@@ -1,25 +1,25 @@
 <template>
-  <div class="wrap">
+  <div
+    class="wrap"
+    :style="{'--main-width': mainWidth || 'inherit'}"
+    :class="{'no-sidebar': !showSidebar}"
+  >
     <Header />
     <Toc
       v-if="page.markdownHeadings && page.markdownHeadings.length > 0"
       :headings="page.markdownHeadings"
     />
-    <div class="main">
-      <div class="container flex">
-        <Leftbar :items="$themeConfig.sidebarMenu" :hide="!showLeftbar">
-          <template #content>
-            <slot name="sidebar" />
-          </template>
-        </Leftbar>
-        <div class="page" :class="{'no-leftbar': !showLeftbar, 'no-rightbar': !showRightbar}">
-          <div class="content" :class="{fullwidth: contentFullWidth}">
-            <slot name="default" />
-            <div class="edit-info" v-if="showEditInfo">
-              <span class="last-edited">Last Edited on {{ updatedDate }}</span>
-              <a class="edit-link" target="_blank" :href="editLink">Edit This Page on GitHub</a>
-            </div>
-          </div>
+    <Sidebar :items="$themeConfig.sidebarMenu" :hide="!showSidebar">
+      <template #content>
+        <slot name="sidebar" />
+      </template>
+    </Sidebar>
+    <div class="page">
+      <div class="main">
+        <slot name="default" />
+        <div class="edit-info" v-if="showEditInfo">
+          <span class="last-edited">Last Edited on {{ updatedDate }}</span>
+          <a class="edit-link" target="_blank" :href="editLink">Edit This Page on GitHub</a>
         </div>
       </div>
     </div>
@@ -29,13 +29,13 @@
 <script>
 import format from 'date-fns/format'
 import Header from './Header.vue'
-import Leftbar from './Leftbar.vue'
+import Sidebar from './Sidebar.vue'
 import Toc from './Toc.vue'
 
 export default {
   components: {
     Header,
-    Leftbar,
+    Sidebar,
     Toc
   },
 
@@ -44,11 +44,7 @@ export default {
       type: Object,
       required: true
     },
-    showLeftbar: {
-      type: Boolean,
-      default: true
-    },
-    showRightbar: {
+    showSidebar: {
       type: Boolean,
       default: true
     },
@@ -56,9 +52,8 @@ export default {
       type: Boolean,
       default: true
     },
-    contentFullWidth: {
-      type: Boolean,
-      default: false
+    mainWidth: {
+      type: String
     }
   },
 
@@ -78,14 +73,6 @@ export default {
 </script>
 
 <style scoped>
-.page.no-leftbar {
-  padding-left: 0;
-}
-
-.content.fullwidth {
-  width: 100%;
-}
-
 .edit-info {
   margin-top: 20px;
   padding-top: 20px;
@@ -94,11 +81,5 @@ export default {
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
-}
-
-.rightbar {
-  @media (max-width: 1024px) {
-    display: none;
-  }
 }
 </style>

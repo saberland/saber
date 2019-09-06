@@ -1,143 +1,141 @@
 <template>
-  <div class="page-index small-container">
-    <div class="slogan">
-      <span class="logo"></span>
-      <div class="slogan-content">
-        A framework
-        <br>for building
-        <br>modern static websites.
+  <div class="page-index">
+    <section class="home-section">
+      <div class="intro">
+        <div class="logo">
+          <Logo size="64" />
+        </div>
+        <div class="slogan">
+          Build static sites in Vue.js,
+          <br />without the hassle.
+        </div>
+        <div class="actions">
+          <saber-link
+            class="button"
+            style="margin-right: 10px"
+            :to="$saber.getPageLink('./docs/index.md')"
+          >Getting Started →</saber-link>
+          <a class="button is-secondary" href="https://github.com/saberland/saber" target="_blank">GitHub</a>
+        </div>
       </div>
-    </div>
-    <div class="features">
+    </section>
+    <section class="home-section features">
       <div class="feature">
-        <span>Static Rendering.</span> With Saber, static rendering with Vue.js is easier now than ever.
+        <div class="feature-title">
+          Zero Setup
+        </div>
+        <div class="feature-content">
+          Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.
+        </div>
       </div>
       <div class="feature">
-        <span>Zero Setup.</span> Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.
+        <div class="feature-title">
+          Bring Your Own Data
+        </div>
+        <div class="feature-content">
+          Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.
+        </div>
       </div>
       <div class="feature">
-        <span>Bring Your Own Data.</span>
-        Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.
+        <div class="feature-title">
+          Fully Extensible
+        </div>
+        <div class="feature-content">
+          With Saber's powerful APIs and plugin system, you can customize almost everything.
+        </div>
       </div>
-      <div class="feature">
-        <span>Fully Extensible.</span> With Saber's powerful APIs and plugin system, you can customize almost everything.
-      </div>
-    </div>
-    <section>
-      <saber-link
-        class="getting-started"
-        :to="$saber.getPageLink('./docs/index.md')"
-      >Getting Started →</saber-link>
+    </section>
+    <section class="home-section footer">
+      &copy; 2019 Developed by <a href="https://egoist.sh" target="_blank">EGOIST</a>.
     </section>
   </div>
 </template>
 
 
 <script>
+import Logo from '@/src/components/Logo.vue'
+
 export const attributes = {
   layout: 'index'
 }
 
-export default {}
+export default {
+  components: {
+    Logo
+  }
+}
 </script>
 
 <style scoped>
 .page-index {
   color: var(--text-dark-color);
-  margin-top: 20px;
-  margin-bottom: 50px;
+}
+
+.home-section {
+  padding: 60px 0;
+
+  &:not(:first-child) {
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+.intro {
+  max-width: 70%;
+  text-align: center;
+  margin: 20px auto;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 }
 
 .logo {
-  background-color: #f5f5f5;
-  background-image: url(../images/logo-square.jpeg);
-  border-radius: 940922px;
-  background-size: cover;
-  height: 140px;
-  width: 140px;
-  display: block;
-  margin-right: 30px;
-
-  &:hover {
-    animation: rotation .3s infinite linear;
-  }
-
-  @media (max-width: 768px) {
-    margin-right: 0;
-    margin-bottom: 40px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .slogan {
   font-size: 2.4rem;
   font-weight: 500;
   line-height: 1.2;
-  display: flex;
-  align-items: center;
 
   @media (max-width: 768px) {
     font-size: 2rem;
-    flex-direction: column;
-    align-items: baseline;
-    text-align: center;
-
-    & .slogan-content {
-      width: 100%;
-    }
   }
 }
 
-section {
-  margin-top: 100px;
-}
-
-.getting-started {
-  border: 2px solid transparent;
-  color: white;
-  background: var(--theme-color);
-  padding: 15px 20px;
-  font-weight: 500;
-  font-size: 1.2rem;
-  transition: background 0.2s ease-in-out;
-  border-radius: 4px;
-
-  @media (max-width: 768px) {
-    font-size: 1rem;
-  }
-}
-
-.getting-started:hover {
-  background: white;
-  color: var(--theme-color);
-  border-color: var(--theme-color);
+.actions {
+  margin-top: 60px;
 }
 
 .features {
   font-size: 1.3rem;
   margin-top: 60px;
+  display: flex;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
 }
 
 .feature {
-  color: #666;
   margin-top: 20px;
-  & span {
-    font-weight: bold;
-    color: #000;
-  }
-  & p {
-    margin: 5px 0 0 0;
-    font-size: 1.1rem;
-  }
+}
+
+.feature-title {
+  font-weight: bold;
+}
+
+.feature-content {
+  color: #666;
+  padding-right: 10px;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+.footer {
+  font-size: .9rem;
+  text-align: center;
+  color: #666;
 }
 </style>

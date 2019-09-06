@@ -1,5 +1,5 @@
 <template>
-  <Wrap :page="page" :showLeftbar="false" :showRightbar="false" :showEditInfo="false">
+  <Wrap :page="page" :showSidebar="false" :showEditInfo="false">
     <PostList :posts="page.posts"/>
   </Wrap>
 </template>

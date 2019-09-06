@@ -4,20 +4,23 @@
       <div class="header-left">
         <div
           class="toggle"
-          @click="toggleLeftbar"
+          @click="toggleSidebar"
           role="button"
-          aria-label="Toggle Leftbar"
+          aria-label="Toggle Sidebar"
           tabindex="0"
         >
           <svg viewBox="0 0 512 512">
             <path
               d="M64 384h384v-42.666H64V384zm0-106.666h384v-42.667H64v42.667zM64 128v42.665h384V128H64z"
               ssrc="6.0."
-            ></path>
+            />
           </svg>
         </div>
         <h1 class="logo">
-          <saber-link to="/">Saber</saber-link>
+          <saber-link to="/">
+            <Logo />
+            <span>Saber</span>
+          </saber-link>
         </h1>
       </div>
       <div class="header-right">
@@ -31,19 +34,21 @@
 <script>
 import SiteSearch from './SiteSearch.vue'
 import SiteNav from './SiteNav.vue'
+import Logo from './Logo.vue'
 
 export default {
   components: {
     SiteSearch,
-    SiteNav
+    SiteNav,
+    Logo
   },
 
   methods: {
-    toggleLeftbar() {
-      if (document.body.classList.contains('show-leftbar')) {
-        document.body.classList.remove('show-leftbar')
+    toggleSidebar() {
+      if (document.body.classList.contains('show-sidebar')) {
+        document.body.classList.remove('show-sidebar')
       } else {
-        document.body.classList.add('show-leftbar')
+        document.body.classList.add('show-sidebar')
       }
     }
   },
@@ -148,6 +153,15 @@ export default {
   font-size: 1.4rem;
   margin: 0;
   font-weight: 700;
+
+  & svg {
+    margin-right: 10px;
+  }
+
+  & a {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .header-right {
