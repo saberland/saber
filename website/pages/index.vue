@@ -14,7 +14,7 @@
             class="button"
             style="margin-right: 10px"
             :to="$saber.getPageLink('./docs/index.md')"
-          >Getting Started →</saber-link>
+          >Getting Started</saber-link>
           <a class="button is-secondary" href="https://github.com/saberland/saber" target="_blank">GitHub</a>
         </div>
       </div>
