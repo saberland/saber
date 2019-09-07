@@ -68,18 +68,23 @@ export default context => {
           })
         }
 
+        const hasInstalledWorker = Boolean(navigator.serviceWorker.controller)
+
         workbox.register().then(reg => {
           if (notifyUpdates) {
             reg.addEventListener('updatefound', () => {
-              snackbar.createSnackbar(pwaUpdateFoundMessage, {
-                position: 'right',
-                timeout: 3000,
-                actions: [
-                  {
-                    text: pwaDismissMessage
-                  }
-                ]
-              })
+              // `updatefound` is fired on first install too
+              if (hasInstalledWorker) {
+                snackbar.createSnackbar(pwaUpdateFoundMessage, {
+                  position: 'right',
+                  timeout: 3000,
+                  actions: [
+                    {
+                      text: pwaDismissMessage
+                    }
+                  ]
+                })
+              }
             })
           }
         })
