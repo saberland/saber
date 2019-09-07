@@ -1,5 +1,5 @@
 <template>
-  <Wrap :page="page" :showLeftbar="false">
+  <Wrap :page="page" :showSidebar="false">
     <h1 class="page-title">{{ page.title }}</h1>
     <PostMeta :page="page"/>
     <div class="page-content">

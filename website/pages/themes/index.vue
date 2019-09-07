@@ -1,5 +1,5 @@
 <template>
-  <Wrap :page="page" :showEditInfo="false" :contentFullWidth="true">
+  <Wrap :page="page" :showEditInfo="false" mainWidth="100%">
     <template #sidebar>
       <Search @change="updateKeywords" :fullWidth="true" placeholder="Search Themes.." />
       <div class="tags">

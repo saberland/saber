@@ -1,5 +1,5 @@
 <template>
-  <div class="leftbar" :class="{'is-hidden': hide}">
+  <div class="sidebar" :class="{'is-hidden': hide}">
     <SiteNav class="show-on-mobile" />
 
     <slot name="content" v-if="$slots.content"></slot>
@@ -135,8 +135,8 @@ export default {
   transform: translateY(30px);
 }
 
-.leftbar {
-  width: var(--leftbar-width);
+.sidebar {
+  width: var(--sidebar-width);
   background: var(--sidebar-bg);
   padding: 20px;
   transition: transform 200ms cubic-bezier(0.2, 1, 0.2, 1);
@@ -168,7 +168,7 @@ export default {
       display: block;
     }
 
-    @nest .show-leftbar & {
+    @nest .show-sidebar & {
       transform: translateX(0);
     }
   }
@@ -187,7 +187,7 @@ export default {
 .item-title {
   cursor: pointer;
   font-size: 14px;
-  color: var(--text-dark-color);
+  color: var(--text-light-color);
   font-weight: 500;
   text-transform: uppercase;
   user-select: none;
@@ -199,10 +199,15 @@ export default {
     width: 1em;
     height: 1em;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: .3;
   }
 
   &.is-expanded svg {
     transform: rotate(90deg);
+  }
+
+  &:hover svg {
+    opacity: 1;
   }
 }
 
@@ -212,12 +217,13 @@ export default {
 
 .item-child {
   font-size: 0.9rem;
-  margin-top: 5px;
+  margin-top: 3px;
 }
 
 .item-child a {
   display: block;
-  color: var(--text-light-color);
+  color: var(--text-dark-color);
+  padding: 2px 0;
 }
 
 .item-child a:hover:not(.active) {
@@ -225,6 +231,9 @@ export default {
 }
 
 .item-child a.active {
-  color: var(--theme-color);
+  background: rgb(230, 255, 250);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin: 0 -8px;
 }
 </style>
