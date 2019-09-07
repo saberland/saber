@@ -20,7 +20,7 @@ A static website generator built on top of Vue.js and webpack.
 
 Saber is an open source project. It's an independent project with its ongoing development made possible thanks to the support by our amazing backers.
 
-Issues on Saber can be funded by anyone and the money will be distributed to contributors and maintainers. If you use Saber [please consider becoming a backer](https://issuehunt.io/r/saberland/saber), if you want contribute to this project, please [read the contributing guide](./CONTRIBUTING.md) first.
+Issues on Saber can be funded by anyone and the money will be distributed to contributors and maintainers. If you use Saber [please consider becoming a backer](https://issuehunt.io/r/saberland/saber), if you want to contribute to this project, please [read the contributing guide](./CONTRIBUTING.md) first.
 
 Saber wouldn't be what it is today without the contributions from these awesome people:
 
