@@ -17,10 +17,11 @@ export default context => {
 
           const {
             pwaFirstTimeInstallMessage = 'Ready for offline use',
+            pwaUpdateFoundMessage = 'Downloading app updates in the background..',
             pwaUpdateReadyMessage = 'A new version of this app is available',
             pwaUpdateButtonMessage = 'UPDATE',
             pwaDismissMessage = 'DISMISS'
-           } = this.$siteConfig
+          } = this.$siteConfig
 
           const showUpdateNotifier = () => {
             createSnackbar(pwaUpdateReadyMessage, {
@@ -66,7 +67,19 @@ export default context => {
           })
         }
 
-        workbox.register()
+        workbox.register().then(reg => {
+          reg.addEventListener('updatefound', () => {
+            createSnackbar(pwaUpdateFoundMessage, {
+              position: 'right',
+              timeout: 3000,
+              actions: [
+                {
+                  text: pwaDismissMessage
+                }
+              ]
+            })
+          })
+        })
       }
     })
   }
