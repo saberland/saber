@@ -4,6 +4,8 @@ export default context => {
   if (process.browser && 'serviceWorker' in navigator) {
     const { notifyUpdates } = __PWA_OPTIONS__
     const { Workbox } = require('workbox-window')
+    const { createSnackbar } = require('@snackbar/core')
+    require('@snackbar/core/dist/snackbar.css')
 
     context.rootOptions.mixins.push({
       mounted() {
@@ -12,9 +14,6 @@ export default context => {
         ))
 
         if (notifyUpdates) {
-          const { createSnackbar } = require('@snackbar/core')
-          require('@snackbar/core/dist/snackbar.css')
-
           const {
             pwaFirstTimeInstallMessage = 'Ready for offline use',
             pwaUpdateFoundMessage = 'Downloading app updates in the background..',
