@@ -14,7 +14,7 @@ export default context => {
         let snackbar
         const {
           pwaFirstTimeInstallMessage = 'Ready for offline use',
-          pwaUpdateFoundMessage = 'Downloading app updates in the background..',
+          pwaUpdateFoundMessage = 'Downloading app updates in the background',
           pwaUpdateReadyMessage = 'A new version of this app is available',
           pwaUpdateButtonMessage = 'UPDATE',
           pwaDismissMessage = 'DISMISS'
