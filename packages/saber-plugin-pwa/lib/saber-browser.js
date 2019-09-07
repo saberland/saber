@@ -11,19 +11,21 @@ export default context => {
           `${__PUBLIC_URL__}service-worker.js`
         ))
 
+        let snackbar
+        const {
+          pwaFirstTimeInstallMessage = 'Ready for offline use',
+          pwaUpdateFoundMessage = 'Downloading app updates in the background',
+          pwaUpdateReadyMessage = 'A new version of this app is available',
+          pwaUpdateButtonMessage = 'UPDATE',
+          pwaDismissMessage = 'DISMISS'
+        } = this.$siteConfig
+
         if (notifyUpdates) {
-          const { createSnackbar } = require('@snackbar/core')
+          snackbar = require('@snackbar/core')
           require('@snackbar/core/dist/snackbar.css')
 
-          const {
-            pwaFirstTimeInstallMessage = 'Ready for offline use',
-            pwaUpdateReadyMessage = 'A new version of this app is available',
-            pwaUpdateButtonMessage = 'UPDATE',
-            pwaDismissMessage = 'DISMISS'
-           } = this.$siteConfig
-
           const showUpdateNotifier = () => {
-            createSnackbar(pwaUpdateReadyMessage, {
+            snackbar.createSnackbar(pwaUpdateReadyMessage, {
               position: 'right',
               timeout: 20000,
               actions: [
@@ -49,7 +51,7 @@ export default context => {
 
           workbox.addEventListener('installed', event => {
             if (!event.isUpdate) {
-              createSnackbar(pwaFirstTimeInstallMessage, {
+              snackbar.createSnackbar(pwaFirstTimeInstallMessage, {
                 position: 'right',
                 timeout: 5000,
                 actions: [
@@ -66,7 +68,26 @@ export default context => {
           })
         }
 
-        workbox.register()
+        const hasInstalledWorker = Boolean(navigator.serviceWorker.controller)
+
+        workbox.register().then(reg => {
+          if (notifyUpdates) {
+            reg.addEventListener('updatefound', () => {
+              // `updatefound` is fired on first install too
+              if (hasInstalledWorker) {
+                snackbar.createSnackbar(pwaUpdateFoundMessage, {
+                  position: 'right',
+                  timeout: 3000,
+                  actions: [
+                    {
+                      text: pwaDismissMessage
+                    }
+                  ]
+                })
+              }
+            })
+          }
+        })
       }
     })
   }

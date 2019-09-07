@@ -59,6 +59,7 @@ Use `siteConfig` in your Saber config file to configure the text:
 siteConfig:
   # Default values:
   pwaFirstTimeInstallMessage: Ready for offline use
+  pwaUpdateFoundMessage: Downloading app updates in the background..
   pwaUpdateReadyMessage: A new version of this app is available
   pwaUpdateButtonMessage: UPDATE
   pwaDismissMessage: DISMISS
