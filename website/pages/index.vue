@@ -3,7 +3,7 @@
     <section class="home-section">
       <div class="intro">
         <div class="logo">
-          <Logo size="64" />
+          <Logo size="124" />
         </div>
         <div class="slogan">
           Build static sites in Vue.js,
