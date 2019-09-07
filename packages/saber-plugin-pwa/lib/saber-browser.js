@@ -4,8 +4,6 @@ export default context => {
   if (process.browser && 'serviceWorker' in navigator) {
     const { notifyUpdates } = __PWA_OPTIONS__
     const { Workbox } = require('workbox-window')
-    const { createSnackbar } = require('@snackbar/core')
-    require('@snackbar/core/dist/snackbar.css')
 
     context.rootOptions.mixins.push({
       mounted() {
@@ -13,17 +11,21 @@ export default context => {
           `${__PUBLIC_URL__}service-worker.js`
         ))
 
+        let snackbar
+        const {
+          pwaFirstTimeInstallMessage = 'Ready for offline use',
+          pwaUpdateFoundMessage = 'Downloading app updates in the background..',
+          pwaUpdateReadyMessage = 'A new version of this app is available',
+          pwaUpdateButtonMessage = 'UPDATE',
+          pwaDismissMessage = 'DISMISS'
+        } = this.$siteConfig
+
         if (notifyUpdates) {
-          const {
-            pwaFirstTimeInstallMessage = 'Ready for offline use',
-            pwaUpdateFoundMessage = 'Downloading app updates in the background..',
-            pwaUpdateReadyMessage = 'A new version of this app is available',
-            pwaUpdateButtonMessage = 'UPDATE',
-            pwaDismissMessage = 'DISMISS'
-          } = this.$siteConfig
+          snackbar = require('@snackbar/core')
+          require('@snackbar/core/dist/snackbar.css')
 
           const showUpdateNotifier = () => {
-            createSnackbar(pwaUpdateReadyMessage, {
+            snackbar.createSnackbar(pwaUpdateReadyMessage, {
               position: 'right',
               timeout: 20000,
               actions: [
@@ -49,7 +51,7 @@ export default context => {
 
           workbox.addEventListener('installed', event => {
             if (!event.isUpdate) {
-              createSnackbar(pwaFirstTimeInstallMessage, {
+              snackbar.createSnackbar(pwaFirstTimeInstallMessage, {
                 position: 'right',
                 timeout: 5000,
                 actions: [
@@ -67,17 +69,19 @@ export default context => {
         }
 
         workbox.register().then(reg => {
-          reg.addEventListener('updatefound', () => {
-            createSnackbar(pwaUpdateFoundMessage, {
-              position: 'right',
-              timeout: 3000,
-              actions: [
-                {
-                  text: pwaDismissMessage
-                }
-              ]
+          if (notifyUpdates) {
+            reg.addEventListener('updatefound', () => {
+              snackbar.createSnackbar(pwaUpdateFoundMessage, {
+                position: 'right',
+                timeout: 3000,
+                actions: [
+                  {
+                    text: pwaDismissMessage
+                  }
+                ]
+              })
             })
-          })
+          }
         })
       }
     })
