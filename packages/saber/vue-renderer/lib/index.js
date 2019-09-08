@@ -432,13 +432,18 @@ class VueRenderer {
       res.end()
 
       if (this.builtRoutes.has(pathname)) {
-        hotMiddleware.publish({ action: 'router:push', route: fullPath })
+        hotMiddleware.publish({
+          action: 'router:push',
+          route: fullPath,
+          id: req.query.id
+        })
       } else {
         event.once('done', error => {
           this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
             route: fullPath,
+            id: req.query.id,
             error
           })
         })
