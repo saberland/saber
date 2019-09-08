@@ -93,5 +93,9 @@ module.exports = (api, { type }) => {
     }
   ])
 
+  if (api.compilers[type]) {
+    api.compilers[type].injectToWebpack(config)
+  }
+
   return config
 }

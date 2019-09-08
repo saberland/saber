@@ -7,10 +7,10 @@ export const init = ({ router }) => {
 
   client.subscribe(obj => {
     if (obj.action === 'router:push' && obj.id === __SABER_DEV_CLIENT_ID__) {
-      if (obj.error) {
+      if (obj.hasError) {
         console.error(`You need to refresh the page when the error is fixed!`)
       }
-      if (module.hot.status() === 'idle') {
+      if (obj.alreadyBuilt) {
         router.push(obj.route)
       } else {
         const handler = status => {
