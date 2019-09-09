@@ -1,15 +1,15 @@
 const { EventEmitter } = require('events')
 
 module.exports = class Compiler extends EventEmitter {
-  constructor(name, api) {
+  constructor(type, api) {
     super()
-    this.name = name
+    this.type = type
     this.api = api
     this.status = 'waiting'
   }
 
   injectToWebpack(config) {
-    const ID = `compiler-${this.name}`
+    const ID = `compiler-${this.type}`
     const context = this
     config.plugin(ID).use(
       class {
