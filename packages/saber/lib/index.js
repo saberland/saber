@@ -12,6 +12,7 @@ const Transformers = require('./Transformers')
 const configLoader = require('./utils/configLoader')
 const resolvePackage = require('./utils/resolvePackage')
 const builtinPlugins = require('./plugins')
+const Compiler = require('./Compiler')
 
 class Saber {
   constructor(opts = {}, config = {}) {
@@ -65,6 +66,10 @@ class Saber {
 
     this.transformers = new Transformers()
     this.runtimePolyfills = new Set()
+    this.compilers = {
+      server: new Compiler('server', this),
+      client: new Compiler('client', this)
+    }
 
     for (const hook of Object.keys(this.hooks)) {
       const ignoreNames = ['theme-node-api', 'user-node-api']

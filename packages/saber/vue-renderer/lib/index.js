@@ -1,5 +1,4 @@
 const path = require('path')
-const { EventEmitter } = require('events')
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
 const { SyncWaterfallHook } = require('tapable')
@@ -195,7 +194,7 @@ class VueRenderer {
               component: function() {
                 ${
                   this.api.lazy && !this.visitedRoutes.has(page.permalink)
-                    ? 'return Promise.resolve({render: function(){}})'
+                    ? `return Promise.resolve({render: function(h){return h('div', {}, ['Please refresh..'])}})`
                     : `
                 return import(${chunkNameComment}${JSON.stringify(
                         componentPath
@@ -385,14 +384,6 @@ class VueRenderer {
       log: false
     })
 
-    const event = new EventEmitter()
-    clientCompiler.hooks.watchRun.tap('saber-serve', () => {
-      event.emit('rebuild')
-    })
-    clientCompiler.hooks.done.tap('saber-serve', stats => {
-      event.emit('done', stats.hasErrors())
-    })
-
     const serverConfig = this.api.getWebpackConfig({ type: 'server' })
     const serverCompiler = webpack(serverConfig)
     const mfs = new webpack.MemoryOutputFileSystem()
@@ -401,8 +392,23 @@ class VueRenderer {
     let serverBundle
     let clientManifest
 
-    serverCompiler.hooks.done.tap('init-renderer', stats => {
-      if (!stats.hasErrors()) {
+    const onceAllCompilersAreReady = handler => {
+      const listener = ({ allCompilers }) => {
+        if (allCompilers.ready) {
+          Object.values(this.api.compilers).forEach(compiler => {
+            compiler.off('status-changed', listener)
+          })
+          handler(allCompilers)
+        }
+      }
+
+      Object.values(this.api.compilers).forEach(compiler => {
+        compiler.on('status-changed', listener)
+      })
+    }
+
+    this.api.compilers.server.on('status-changed', ({ status }) => {
+      if (status === 'success') {
         serverBundle = readJSON(
           this.api.resolveCache('bundle-manifest/server.json'),
           mfs.readFileSync.bind(mfs)
@@ -410,8 +416,9 @@ class VueRenderer {
         this.initRenderer({ serverBundle, clientManifest })
       }
     })
-    clientCompiler.hooks.done.tap('init-renderer', stats => {
-      if (!stats.hasErrors()) {
+
+    this.api.compilers.client.on('status-changed', ({ status }) => {
+      if (status === 'success') {
         clientManifest = readJSON(
           this.api.resolveCache('bundle-manifest/client.json'),
           clientCompiler.outputFileSystem.readFileSync.bind(
@@ -421,30 +428,38 @@ class VueRenderer {
         this.initRenderer({ serverBundle, clientManifest })
       }
     })
-    serverCompiler.watch({}, () => {})
+
+    serverCompiler.watch({}, error => {
+      if (error) {
+        console.error(error)
+      }
+    })
 
     server.get('/_saber/visit-page', async (req, res) => {
       let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
       pathname = removeTrailingSlash(pathname)
       const fullPath = pathname + (hash || '')
 
-      log.info(`Navigating to ${fullPath}`)
       res.end()
 
       if (this.builtRoutes.has(pathname)) {
+        log.info(`Navigating to ${fullPath}`)
         hotMiddleware.publish({
           action: 'router:push',
           route: fullPath,
-          id: req.query.id
+          id: req.query.id,
+          alreadyBuilt: true
         })
       } else {
-        event.once('done', error => {
+        log.info(`Compiling ${fullPath}`)
+        onceAllCompilersAreReady(({ hasError }) => {
+          log.info(`Navigating to ${fullPath}`)
           this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
             route: fullPath,
             id: req.query.id,
-            error
+            hasError
           })
         })
         this.visitedRoutes.add(pathname)
@@ -509,7 +524,7 @@ class VueRenderer {
       if (this.builtRoutes.has(pathname)) {
         render()
       } else {
-        event.once('done', () => {
+        onceAllCompilersAreReady(() => {
           this.builtRoutes.add(pathname)
           render()
         })

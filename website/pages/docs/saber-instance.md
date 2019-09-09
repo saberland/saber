@@ -251,3 +251,31 @@ Called after exporting a page to static HTML file.
 
 Called after generating static HTML files (in production mode).
 
+## compilers
+
+Saber by default runs two compilers, `compilers.client` for client bundle and `compilers.server` for server bundle. Saber exposed some useful events and helpers for you to interactive with underlying webpack compilers.
+
+### Events
+
+#### `status-changed`
+
+When webpack finished compiling, this event will be emitted.
+
+```js
+api.compilers.client.on('status-changed', ({ status, allCompilers }) => {
+  // status: 'waiting' | 'building' | 'success' | 'error'
+  
+  // allCompilers.hasError: boolean
+
+  // Whether the status of every compiler is `success` or `error`
+  // allCompilers.ready: boolean
+})
+```
+
+### Properties
+
+#### `status`
+
+- Type: `'waiting' | 'building' | 'success' | 'error'`
+
+The compiler status.
