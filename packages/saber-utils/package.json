@@ -13,7 +13,7 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@zeit/ncc": "0.20.4",
+    "@zeit/ncc": "0.20.5",
     "fast-glob": "2.2.6",
     "fs-extra": "8.1.0"
   },
