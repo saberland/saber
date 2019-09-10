@@ -1,7 +1,7 @@
 const colors = require('./colors')
 
 const chars = {
-  info: colors.blue('info'),
+  info: colors.cyan('info'),
   success: colors.green('success'),
   warning: colors.yellow('warning'),
   error: colors.red('error')
@@ -40,31 +40,31 @@ class Log {
     if (this.logLevel < 4) return
 
     const messages = args.map(arg => (typeof arg === 'function' ? arg() : arg))
-    this.log(colors.dim('verbose'), ...messages)
+    this.log(colors.dim('[verbose]'), ...messages)
   }
 
   info(...args) {
     if (this.logLevel < 3) return
 
-    this.log(chars.info, ...args)
+    this.log(`[${chars.info}]`, ...args)
   }
 
   warn(...args) {
     if (this.logLevel < 2) return
 
-    this.log(chars.warning, ...args)
+    this.log(`[${chars.warning}]`, ...args)
   }
 
   error(...args) {
     if (this.logLevel < 1) return
 
-    this.log(chars.error, ...args)
+    this.log(`[${chars.error}]`, ...args)
   }
 
   success(...args) {
     if (this.logLevel < 3) return
 
-    this.log(chars.success, ...args)
+    this.log(`[${chars.success}]`, ...args)
   }
 }
 

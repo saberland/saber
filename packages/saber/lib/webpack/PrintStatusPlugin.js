@@ -47,7 +47,9 @@ module.exports = class PrintStatusPlugin {
         progressLogs.set(this.type, msg)
         const messages = [...progressLogs.keys()]
           .filter(type => progressLogs.get(type))
-          .map(type => `${type}: ${progressLogs.get(type)}`)
+          .map(
+            type => `[${colors.whiteBright(type)}] ${progressLogs.get(type)}`
+          )
         logUpdate(messages.join('\n'))
       })
       progressPlugin.apply(compiler)
