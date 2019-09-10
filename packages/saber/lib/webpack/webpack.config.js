@@ -65,6 +65,9 @@ module.exports = (api, { type }) => {
     .oneOf('normal')
     .use('babel-loader')
     .loader(require.resolve('./babel-loader'))
+    .options({
+      cacheDirectory: api.resolveCache('cache/babel-loader')
+    })
 
   config.plugin('timefix').use(require('time-fix-plugin'))
 
