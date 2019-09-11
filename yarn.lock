@@ -3772,10 +3772,10 @@ concat-stream@^2.0.0:
     readable-stream "^3.0.2"
     typedarray "^0.0.6"
 
-conf@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/conf/-/conf-6.0.0.tgz#558faae909dd7fcdc231c1cf24f55e2a96aa06b0"
-  integrity sha512-Y3fH0IrB0mpj3nT+3MR4Y+cvzvmSMOQBDJYJ9E8Fqjqj2/b5pKzEpVD9Fi+iSkcixCdA+/JGV5Y8K8AqP5t9fQ==
+conf@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/conf/-/conf-6.0.1.tgz#3d0f681ac62e2c528c8a854dfb7ff42ee93195db"
+  integrity sha512-duXnchU76Vlln/WuTZ1tISi81FrLywqMuMU8vdAmBZpWLmTteRNAHbmaiAg5QDAvBAn5VS1Ie4p+sHeA+j/gEw==
   dependencies:
     ajv "^6.10.2"
     dot-prop "^5.0.0"
