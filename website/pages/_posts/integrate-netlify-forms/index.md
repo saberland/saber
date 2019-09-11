@@ -15,15 +15,13 @@ Getting started with using Netlify forms in a Saber app is as easy as including 
 For our example, let’s create a contact form. Here’s an abbreviated version of what a Netlify form looks like:
 
 ```vue
-<template>
-  <client-only>
-    <form name="contact" method="post" data-netlify="true">
-      <input type="email" name="email" placeholder="Your email" />
-      <textarea name="message" placeholder="Type something.."></textarea>
-      <button type="submit">Submit</button>
-    </form>
-  </client-only>
-</template>
+<client-only>
+  <form name="contact" method="post" data-netlify="true">
+    <input type="email" name="email" placeholder="Your email" />
+    <textarea name="message" placeholder="Type something.."></textarea>
+    <button type="submit">Submit</button>
+  </form>
+</client-only>
 ```
 
 Note that [`<client-only>`](https://saber.land/docs/components.html#clientonly) is a built-in Vue component in Saber, we need to render this form on client-side only because otherwise Netlify will modify the `<form>` element in initial HTML which will cause [Client Side Hydration](https://ssr.vuejs.org/guide/hydration.html) to fail.
