@@ -38,7 +38,7 @@ export default {
         },
         {
           name: 'twitter:description',
-          content: this.page.subtitle
+          content: this.page.subtitle || this.$siteConfig.description
         }
       ]
     }
