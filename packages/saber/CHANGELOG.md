@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/saberland/saber/compare/saber@0.8.1...saber@0.9.0) (2019-09-11)
+
+### Bug Fixes
+
+- generate unique client id ([#423](https://github.com/saberland/saber/issues/423)) ([cf85e81](https://github.com/saberland/saber/commit/cf85e81))
+- render HTML when all compilers are ready in lazy mode ([#424](https://github.com/saberland/saber/issues/424)) ([12ce2a5](https://github.com/saberland/saber/commit/12ce2a5))
+
+### Features
+
+- Always enable SSR in dev ([#404](https://github.com/saberland/saber/issues/404)) ([442c990](https://github.com/saberland/saber/commit/442c990))
+- **cli:** tweak logger style ([d90025d](https://github.com/saberland/saber/commit/d90025d))
+
+### Performance Improvements
+
+- **webpack:** enable cache for babel-loader ([f588674](https://github.com/saberland/saber/commit/f588674))
+
 ## [0.8.1](https://github.com/saberland/saber/compare/saber@0.8.0...saber@0.8.1) (2019-08-22)
 
 ### Bug Fixes

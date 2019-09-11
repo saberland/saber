@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/saberland/saber/compare/saber-plugin-image@0.2.1...saber-plugin-image@0.2.2) (2019-09-11)
+
+### Bug Fixes
+
+- remove blendIn class when image is loaded ([#390](https://github.com/saberland/saber/issues/390)) ([72ccc7d](https://github.com/saberland/saber/commit/72ccc7d))
+
 ## [0.2.1](https://github.com/saberland/saber/compare/saber-plugin-image@0.2.0...saber-plugin-image@0.2.1) (2019-08-22)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/saberland/saber/compare/saber-log@0.2.1...saber-log@0.3.0) (2019-09-11)
+
+### Features
+
+- **cli:** tweak logger style ([d90025d](https://github.com/saberland/saber/commit/d90025d))
+
 ## [0.2.1](https://github.com/saberland/saber/compare/saber-log@0.2.0...saber-log@0.2.1) (2019-08-22)
 
 ### Bug Fixes

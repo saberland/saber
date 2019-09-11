@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/saberland/saber/compare/saber-plugin-pwa@0.4.2...saber-plugin-pwa@0.4.3) (2019-09-11)
+
+### Bug Fixes
+
+- **saber-plugin-pwa:** show notifier before downloading app updates ([#420](https://github.com/saberland/saber/issues/420)) ([46166e9](https://github.com/saberland/saber/commit/46166e9))
+
 ## [0.4.2](https://github.com/saberland/saber/compare/saber-plugin-pwa@0.4.1...saber-plugin-pwa@0.4.2) (2019-08-22)
 
 ### Bug Fixes

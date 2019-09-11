@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.3](https://github.com/saberland/saber/compare/saber-highlighter-prism@0.3.2...saber-highlighter-prism@0.3.3) (2019-09-11)
+
+**Note:** Version bump only for package saber-highlighter-prism
+
 ## [0.3.2](https://github.com/saberland/saber/compare/saber-highlighter-prism@0.3.1...saber-highlighter-prism@0.3.2) (2019-08-22)
 
 ### Bug Fixes
