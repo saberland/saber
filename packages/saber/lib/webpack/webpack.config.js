@@ -97,11 +97,27 @@ module.exports = (api, { type }) => {
   ])
 
   if (
-    type === 'client' &&
-    api.pkg.data.autoDLL &&
-    api.pkg.data.autoDLL.length > 0
+    type === 'client' && api.config.build.autoDll.exclude !== '*'
   ) {
-    config.plugin('autodll').use(require('autodll-webpack-plugin'), [
+    let dependencies = []
+
+    if (
+      !api.config.build.autoDll.include ||
+      api.config.build.autoDll.include === '*' ||
+      api.config.build.autoDll.include.length === 0
+    ) {
+      dependencies = Object.keys(api.pkg.data.dependencies)
+    } else {
+      dependencies = [...api.config.build.autoDll.include]
+    }
+
+    if (api.config.build.autoDll.exclude) {
+      dependencies = dependencies.filter(
+        name => !api.config.build.autoDll.exclude.includes(name)
+      )
+    }
+
+    config.plugin('autoDll').use(require('autoDll-webpack-plugin'), [
       {
         debug: true,
         filename: '[name]_[hash].js',
@@ -109,7 +125,7 @@ module.exports = (api, { type }) => {
         context: api.configDir,
         path: './dll',
         entry: {
-          dll_client: api.pkg.data.autoDLL
+          dll_client: dependencies
         }
       }
     ])

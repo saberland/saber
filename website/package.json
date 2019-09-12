@@ -16,13 +16,5 @@
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"
-  },
-  "autoDLL": [
-    "docsearch.js",
-    "headroom.js",
-    "nprogress",
-    "date-fns",
-    "prismjs",
-    "markdown-it-footnote"
-  ]
+  }
 }
