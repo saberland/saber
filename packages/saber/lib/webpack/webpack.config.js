@@ -96,7 +96,11 @@ module.exports = (api, { type }) => {
     }
   ])
 
-  if (type === 'client' && api.config.build.autoDll.exclude !== '*') {
+  if (
+    api.dev &&
+    type === 'client' &&
+    api.config.build.autoDll.exclude !== '*'
+  ) {
     let dependencies = []
 
     if (
