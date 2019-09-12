@@ -25,6 +25,7 @@
     "@babel/runtime": "^7.5.4",
     "@egoist/postcss-loader": "^3.0.2",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
+    "autodll-webpack-plugin": "^0.4.2",
     "babel-loader": "^8.0.6",
     "cac": "^6.5.1",
     "chokidar": "^3.0.0",

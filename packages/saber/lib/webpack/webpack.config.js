@@ -96,6 +96,25 @@ module.exports = (api, { type }) => {
     }
   ])
 
+  if (
+    type === 'client' &&
+    api.pkg.data.autoDLL &&
+    api.pkg.data.autoDLL.length > 0
+  ) {
+    config.plugin('autodll').use(require('autodll-webpack-plugin'), [
+      {
+        debug: true,
+        filename: '[name]_[hash].js',
+        inject: true,
+        context: api.configDir,
+        path: './dll',
+        entry: {
+          dll_client: api.pkg.data.autoDLL
+        }
+      }
+    ])
+  }
+
   if (api.compilers[type]) {
     api.compilers[type].injectToWebpack(config)
   }
