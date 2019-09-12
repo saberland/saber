@@ -96,9 +96,7 @@ module.exports = (api, { type }) => {
     }
   ])
 
-  if (
-    type === 'client' && api.config.build.autoDll.exclude !== '*'
-  ) {
+  if (type === 'client' && api.config.build.autoDll.exclude !== '*') {
     let dependencies = []
 
     if (
@@ -117,7 +115,7 @@ module.exports = (api, { type }) => {
       )
     }
 
-    config.plugin('autoDll').use(require('autoDll-webpack-plugin'), [
+    config.plugin('autoDll').use(require('autodll-webpack-plugin'), [
       {
         debug: true,
         filename: '[name]_[hash].js',
