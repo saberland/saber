@@ -28,6 +28,8 @@ module.exports = context => {
     meta
   } = context.metaInfo.inject()
 
+  const { dev } = context
+
   return {
     title: title.text(),
     htmlAttrs: `data-saber-ssr${prefixSpace(htmlAttrs.text())}`,
@@ -36,7 +38,9 @@ module.exports = context => {
     link: link.text(),
     style: `${context.renderStyles()}${style.text()}`,
     headScript: script.text(),
-    bodyScript: `${script.text({ body: true })}${context.renderScripts()}`,
+    bodyScript: `${script.text({ body: true })}${context.renderScripts()}${
+      dev ? '<script src="/_saber/dll/client.js"></script>' : ''
+    }`,
     noscript: noscript.text(),
     meta: meta.text()
   }

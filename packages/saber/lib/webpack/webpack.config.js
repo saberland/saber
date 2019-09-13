@@ -121,9 +121,7 @@ module.exports = (api, { type }) => {
 
     config.plugin('autoDll').use(require('autodll-webpack-plugin'), [
       {
-        debug: true,
-        filename: '[name]_[hash].js',
-        inject: true,
+        filename: 'client.js',
         context: api.configDir,
         path: './dll',
         entry: {
