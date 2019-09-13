@@ -129,6 +129,7 @@ module.exports = (api, { type }) => {
         }
       }
     ])
+    api.autoDll = true
   }
 
   if (api.compilers[type]) {

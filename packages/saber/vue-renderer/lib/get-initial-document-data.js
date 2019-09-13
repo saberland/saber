@@ -28,7 +28,7 @@ module.exports = context => {
     meta
   } = context.metaInfo.inject()
 
-  const { dev } = context
+  const { autoDll } = context
 
   return {
     title: title.text(),
@@ -39,7 +39,7 @@ module.exports = context => {
     style: `${context.renderStyles()}${style.text()}`,
     headScript: script.text(),
     bodyScript: `${script.text({ body: true })}${context.renderScripts()}${
-      dev ? '<script src="/_saber/dll/client.js"></script>' : ''
+      autoDll ? '<script src="/_saber/dll/client.js"></script>' : ''
     }`,
     noscript: noscript.text(),
     meta: meta.text()

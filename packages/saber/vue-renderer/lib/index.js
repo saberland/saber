@@ -302,7 +302,7 @@ class VueRenderer {
         routes.map(async route => {
           const context = {
             url: route.permalink,
-            dev: this.api.dev
+            autoDll: this.api.autoDll
           }
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
@@ -496,7 +496,7 @@ class VueRenderer {
         log.verbose(`Rendering page ${req.url}`)
         const context = {
           url: req.url,
-          dev: this.api.dev
+          autoDll: this.api.autoDll
         }
         const markup = this.renderer
           ? await this.renderer.renderToString(context)
