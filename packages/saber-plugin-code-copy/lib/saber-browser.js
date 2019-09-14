@@ -1,7 +1,7 @@
 /* eslint-env browser */
 /* globals __CODE_COPY_OPTIONS__ */
 
-export default ({ router, Vue }) => {
+export default ({ router }) => {
   if (process.browser) {
     const copy = require('modern-copy').default
 
@@ -43,7 +43,7 @@ export default ({ router, Vue }) => {
     }
 
     router.afterEach(() => {
-      Vue.nextTick(() => {
+      setTimeout(() => {
         forEach(document.querySelectorAll('.saber-highlight'), el => {
           if (el.dataset.hasCopy) return
           el.dataset.hasCopy = true
@@ -64,7 +64,7 @@ export default ({ router, Vue }) => {
           injectStyle()
           el.append(copyButton)
         })
-      })
+      }, 100)
     })
   }
 }
