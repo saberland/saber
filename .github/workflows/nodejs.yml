@@ -3,9 +3,9 @@ name: Node CI
 on: [push, pull_request]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  test: 
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
