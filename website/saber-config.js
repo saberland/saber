@@ -99,6 +99,14 @@ module.exports = {
     },
     {
       resolve: '../packages/saber-plugin-image'
+    },
+    {
+      resolve: '../packages/saber-plugin-code-copy',
+      options: {
+        buttonStyle: {
+          border: 'none'
+        }
+      }
     }
   ]
 }
