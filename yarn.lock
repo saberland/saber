@@ -8734,6 +8734,11 @@ mkdirp@*, mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
+modern-copy@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/modern-copy/-/modern-copy-1.0.3.tgz#1b0a3e8548316cae95e76f9f75cacb561d193b8e"
+  integrity sha512-2JGQcw7PFY74QsVupT1xzR09w7JGWjO9/XxFr42gCVuqPdeSmtRUlfcJnZTTPyRi0dbIXJ5Gotp1Pij4llMNWQ==
+
 modify-values@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
