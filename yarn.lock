@@ -9034,9 +9034,9 @@ normalize-path@^3.0.0:
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
 normalize-repo@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/normalize-repo/-/normalize-repo-1.1.1.tgz#b9672b4d014cb00f772e85899bcba6b2679980c8"
-  integrity sha512-Xxm87VouKZ1EHVEKpHACfOUAevC4rfPilVq4PIt/QPOjH5Iu7ENTczyuZWSdAajCI85bltK42qOg/dIVdmHRLw==
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/normalize-repo/-/normalize-repo-1.1.3.tgz#f046f12128f14e077d4bf664892c317823711e7c"
+  integrity sha512-FpsEjT3M/fXLVtPGiuEdHnl7BK0+pd49PNKL+Yrj5wGHaYVnz/vNGPame9Mgz+5edI6HUc/al4/5XUrnqD0FoQ==
 
 normalize-url@1.9.1:
   version "1.9.1"
