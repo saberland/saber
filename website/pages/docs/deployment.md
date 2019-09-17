@@ -129,13 +129,12 @@ Check out [Now for GitHub](https://zeit.co/docs/v2/integrations/now-for-github) 
 
 To host and deploy your site to Firebase.
 
-### Step 1: Log into Firebase and create a new project or choose from an existing one
+### Step 1: Create a new web app and select "Also setup Firebase Hosting for this app"
 
-### Step 2: Create a new web app from the project dashboard and select "Also setup Firebase Hosting for this app"
-
-### Step 3: Add the required Firebase scripts to the body of your site by editing a file called `saber-browswer.json` at the root of your project to include the following.
+### Step 2: Add the required Firebase scripts to the body of your site
 
 ```js
+// sabe.browser.js
 export default ({
     setHead
 }) => {
@@ -153,7 +152,7 @@ export default ({
 }
 ```
 
-### Step 4: Install the Firebase CLI, login and create a firebase config in the root of your project.
+### Step 3: Install the Firebase CLI, login and create a firebase config in the root of your project.
 
 ```bash
 npm install -g firebase-tools # Install the CLI
@@ -161,7 +160,7 @@ firebase login # This will open a new browser window follow the instructions
 firebase init # Follow the instructions, choose the hosting option
 ```
 
-### Step 5: Add the following `script` in your `package.json`:
+### Step 4: Add the following `script` in your `package.json`:
 
 ```diff
   "scripts": {
@@ -176,7 +175,7 @@ Deploy your site
 npm run deploy
 ```
 
-### Step 6: To configure firebase to strip trailing slash (Optional)
+### Step 5: To configure firebase to strip trailing slash (Optional)
 
 Add `"trailingSlash: false` to your `firebase.json` config.
 
