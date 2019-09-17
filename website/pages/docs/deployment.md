@@ -125,6 +125,87 @@ Then run the command `now` in your project, you will be given a `now.sh` URL as 
 
 Check out [Now for GitHub](https://zeit.co/docs/v2/integrations/now-for-github) and [Now for GitLab](https://zeit.co/docs/v2/integrations/now-for-gitlab/) for continuous intergration.
 
+## [Firebase](https://firebase.google.com/)
+
+To host and deploy your site to Firebase.
+
+## Step 1: 
+
+Log into Firebase and create a new project or choose from an existing one
+
+## Step 2:
+
+Create a new web app from the project dashboard and select "Also setup Firebase Hosting for this app"
+
+## Step 3:
+
+Add the required Firebase scripts to the body of your site by editing a file called `saber-browswer.json` at the root of your project to include the following.
+
+```js
+export default ({
+    setHead
+}) => {
+    setHead({
+        script: [{
+                src: '/__/firebase/6.6.1/firebase-app.js',
+                body: true
+            },
+            {
+                src: '/__/firebase/init.js',
+                body: true
+            }
+        ]
+    })
+}
+```
+
+## Step 4:
+
+Install the Firebase CLI, login and create a firebase config in the root of your project.
+
+```bash
+npm install -g firebase-tools # Install the CLI
+firebase login # This will open a new browser window follow the instructions
+firebase init # Follow the instructions, choose the hosting option
+```
+
+## Step 5:
+
+Add the following `script` in your `package.json`:
+
+```diff
+  "scripts": {
+    "dev": "saber",
+    "build": "saber build",
++   "deploy": "npm run build && firebase deploy"
+```
+
+Deploy your site
+
+```
+npm run deploy
+```
+
+## Step 6: Optional
+
+To configure firebase to strip trailing slash add `"trailingSlash: false` to your `firebase.json` config.
+
+```js
+// firebase.json example
+{
+  "hosting": {
+    "public": "public",
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+```
+
 ## Docker
 
 [TODO]
