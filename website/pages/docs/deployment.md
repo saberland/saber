@@ -134,21 +134,21 @@ To host and deploy your site to Firebase.
 ### Step 2: Add the required Firebase scripts to the body of your site
 
 ```js
-// sabe.browser.js
+// saber.browser.js
 export default ({
-    setHead
+  setHead
 }) => {
-    setHead({
-        script: [{
-                src: '/__/firebase/6.6.1/firebase-app.js',
-                body: true
-            },
-            {
-                src: '/__/firebase/init.js',
-                body: true
-            }
-        ]
-    })
+  setHead({
+      script: [{
+        src: '/__/firebase/6.6.1/firebase-app.js',
+        body: true
+      },
+      {
+        src: '/__/firebase/init.js',
+        body: true
+      }
+    ]
+  })
 }
 ```
 
