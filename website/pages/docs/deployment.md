@@ -153,7 +153,7 @@ export default ({
 }
 ```
 
-## Step 4: Install the Firebase CLI, login and create a firebase config in the root of your project.
+### Step 4: Install the Firebase CLI, login and create a firebase config in the root of your project.
 
 ```bash
 npm install -g firebase-tools # Install the CLI
@@ -161,7 +161,7 @@ firebase login # This will open a new browser window follow the instructions
 firebase init # Follow the instructions, choose the hosting option
 ```
 
-## Step 5: Add the following `script` in your `package.json`:
+### Step 5: Add the following `script` in your `package.json`:
 
 ```diff
   "scripts": {
@@ -176,7 +176,7 @@ Deploy your site
 npm run deploy
 ```
 
-## Step 6: To configure firebase to strip trailing slash (Optional)
+### Step 6: To configure firebase to strip trailing slash (Optional)
 
 Add `"trailingSlash: false` to your `firebase.json` config.
 
