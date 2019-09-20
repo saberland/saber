@@ -32,6 +32,10 @@ Vue.mixin({
 
 export default context => {
   const router = createRouter()
+  const slash = 
+    process.platform === 'win32'
+      ? pathString => pathString.replace(/\\/g, '/')
+      : pathString => pathString
 
   let customHead
   let customRootComponent
@@ -134,7 +138,7 @@ export default context => {
           if (
             route.meta &&
             route.meta.__relative &&
-            relativePath === route.meta.__relative
+            slash(relativePath) === route.meta.__relative
           ) {
             return `${route.path}${extra}`
           }
