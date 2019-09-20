@@ -6,13 +6,21 @@ const colors = require('kleur')
 
 const args = process.argv.slice(2)
 
-if (args.length === 0 || args.includes('--help')) {
+if (
+  args.length === 0 ||
+  ['-h', '--help'].some(helpFlag => args.includes(helpFlag))
+) {
   console.log(
     `create-site v${require('./package').version}
 
 Usage: create-site <dir>
   `.trim()
   )
+  process.exit(1)
+}
+
+if (args.some(arg => arg.startsWith('-'))) {
+  console.log(`Invalid flag ${args.join('')}`)
   process.exit(1)
 }
 
