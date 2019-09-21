@@ -5,7 +5,7 @@ layout: docs
 
 The `page` is the center of Saber's data & routing system.
 
-The built-in page properties are listed below, but you can also use expose custom properties on `page`
+The built-in page properties are listed below, you can also expose custom properties on `page`.
 
 ## Properties
 
