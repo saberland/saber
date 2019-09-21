@@ -5,22 +5,7 @@ layout: docs
 
 The `page` is the center of Saber's data & routing system.
 
-The basic `page` structure is as follows:
-
-```ts
-interface Page {
-  attributes: Attributes
-  internal: Internal
-  /* The raw content of this page */
-  content?: string
-  /**
-   * The type of the content
-   * For pages loaded from file system
-   * `contentType` is the same as the file extension. 
-   */
-  contentType?: string
-}
-```
+The built-in page properties are listed below, but you can also use expose custom properties on `page`
 
 ## Properties
 
