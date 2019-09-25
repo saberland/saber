@@ -1,6 +1,7 @@
 {
   "name": "saber",
   "version": "0.9.1",
+  "description": "A simple yet powerful static site generator",
   "files": [
     "bin",
     "lib",
