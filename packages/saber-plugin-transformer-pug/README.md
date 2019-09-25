@@ -25,7 +25,7 @@ strong hello world
 
 This page will be rendered as `/try.html`.
 
-Like Markdown pages, you can only use frontmatter to define page attributes:
+Like Markdown pages, you can only use frontmatter to define page data:
 
 ```pug
 ---

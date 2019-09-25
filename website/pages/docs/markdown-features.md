@@ -11,7 +11,7 @@ Not all Markdown features are documented here, we only intend to document the no
 
 ### Front Matter
 
-Front matter is used to set page attributes:
+Front matter is used to set page data:
 
 ```markdown
 ---
@@ -25,7 +25,7 @@ You can use [YAML](https://yaml.org/) syntax in the front matter.
 
 ### Excerpt
 
-Excerpt is an optional summary or description of a page, you can set it via page attributes:
+Excerpt is an optional summary or description of a page, you can set it via front matter:
 
 ```markdown {highlightLines:[3]}
 ---
@@ -36,7 +36,7 @@ excerpt: This post is dedicated to the world
 This is a wonderful world..
 ```
 
-Alternatively, if this attribute is not set Saber will automatically use the first paragrah or everthing before `<!-- more -->` comment as the excerpt.
+Alternatively, if it is not set Saber will automatically use the first paragrah or everthing before `<!-- more -->` comment as the excerpt.
 
 ```markdown
 ---

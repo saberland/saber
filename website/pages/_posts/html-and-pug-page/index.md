@@ -102,7 +102,7 @@ Besides adding `.pug` page support, `saber-plugin-transformer-pug` also adds sup
 
 ## Front Matter
 
-Like `.md` pages, you can use front matter to define page attributes in `.html` and `.pug` pages as well. For example you might use a layout for `pages/index.html`:
+Like `.md` pages, you can use front matter to define page data in `.html` and `.pug` pages as well. For example you might use a layout for `pages/index.html`:
 
 ```html
 ---
