@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/saberland/saber/compare/saber@0.9.0...saber@0.9.1) (2019-09-25)
+
+### Bug Fixes
+
+- **markdown:** page.excerpt should not be overridden ([0321e9d](https://github.com/saberland/saber/commit/0321e9d))
+
 # [0.9.0](https://github.com/saberland/saber/compare/saber@0.8.1...saber@0.9.0) (2019-09-11)
 
 ### Bug Fixes

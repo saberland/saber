@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-transformer-html",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Write pages in HTML",
   "license": "MIT",
   "main": "lib/index.js",
