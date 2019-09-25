@@ -6,12 +6,12 @@ module.exports = function(source) {
 
   if (!pageId) return source
 
-  const { api } = this.query
-  const page = Object.assign({}, api.pages.get(pageId))
+  const { getPageById, getTransformerByContentType, resolveCache } = this.query
+  const page = Object.assign({}, getPageById(pageId))
 
-  this.addDependency(api.resolveCache(`pages/${pageId}.saberpage`))
+  this.addDependency(resolveCache(`pages/${pageId}.saberpage`))
 
-  const transformer = api.transformers.get(page.contentType)
+  const transformer = getTransformerByContentType(page.contentType)
 
   return `
   ${transformer.getPageComponent(page)}

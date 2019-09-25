@@ -4,8 +4,8 @@ const { requireAssets } = require('../../lib/utils/assetsAttribute')
 
 module.exports = function(source, map) {
   const pageId = source.trim()
-  const { api } = this.query
-  const page = requireAssets(devalue(api.pages.getPagePublicFields(pageId)))
+  const { getPagePublicFields } = this.query
+  const page = requireAssets(devalue(getPagePublicFields(pageId)))
   let result = `
   export default function(Component) {
     var page = ${page}

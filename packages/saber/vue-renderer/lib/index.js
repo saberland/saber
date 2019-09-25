@@ -50,6 +50,16 @@ class VueRenderer {
         transformAssetUrls: {}
       })
 
+      const pageLoaderOptions = {
+        getPageById: pageId => api.pages.get(pageId),
+        getTransformerByContentType: contentType =>
+          api.transformers.get(contentType),
+        resolveCache: api.resolveCache.bind(api)
+      }
+      const pagePropLoaderOptions = {
+        getPagePublicFields: api.pages.getPagePublicFields.bind(api.pages)
+      }
+
       // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
       config.module
@@ -65,9 +75,7 @@ class VueRenderer {
             .end()
           .use('saber-page-loader')
             .loader(require.resolve('./saber-page-loader'))
-            .options({
-              api
-            })
+            .options(pageLoaderOptions)
 
       // Handle .vue components and .vue pages
       // prettier-ignore
@@ -81,9 +89,7 @@ class VueRenderer {
         // if the resource query doesn't contain `saberPage`
         .use('saber-page-loader')
           .loader(require.resolve('./saber-page-loader'))
-          .options({
-            api
-          })
+          .options(pageLoaderOptions)
 
       // Get the available extensions for pages
       // Excluding .vue and .js pages because we handled them in their own rules
@@ -105,9 +111,7 @@ class VueRenderer {
         .end()
         .use('saber-page-loader')
         .loader(require.resolve('./saber-page-loader'))
-        .options({
-          api
-        })
+        .options(pageLoaderOptions)
 
       // Handle `<page-prop>` block in .vue file
       config.module
@@ -116,9 +120,7 @@ class VueRenderer {
         .resourceQuery(/blockType=page-prop/)
         .use('page-prop-loader')
         .loader(require.resolve('./page-prop-loader'))
-        .options({
-          api
-        })
+        .options(pagePropLoaderOptions)
 
       if (type === 'server') {
         config
