@@ -10,7 +10,12 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
       return token.type === 'html_block' && hasExcerptMark(token.content)
     })
 
-    if (autoExcerpt && !__excerpted && page.excerpt !== false) {
+    if (
+      autoExcerpt &&
+      !__excerpted &&
+      page.excerpt !== false &&
+      typeof page.excerpt !== 'string'
+    ) {
       env.__excerpted = true
       let startIndex = 0
       if (paragraphOnly) {

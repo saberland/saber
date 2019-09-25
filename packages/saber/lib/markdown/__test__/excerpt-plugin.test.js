@@ -2,7 +2,7 @@ const Markdown = require('saber-markdown')
 const excerptPlugin = require('../excerpt-plugin')
 const createEnv = require('./create-env')
 
-test('simple', () => {
+test('use first paragraph as excerpt', () => {
   const md = new Markdown()
   const { env, page } = createEnv()
   md.use(excerptPlugin)
@@ -13,6 +13,20 @@ hello
     env
   )
   expect(page.excerpt).toBe('<p>hello</p>\n')
+})
+
+test('do not override page excerpt', () => {
+  const md = new Markdown()
+  const { env, page } = createEnv({ excerpt: 'existing' })
+  md.use(excerptPlugin)
+  md.render(
+    `
+hello
+  `,
+    env
+  )
+  md.use(excerptPlugin)
+  expect(page.excerpt).toBe('existing')
 })
 
 test('disable excerpt', () => {
