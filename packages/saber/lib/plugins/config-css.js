@@ -41,6 +41,12 @@ exports.apply = api => {
           rule
             .use('extract-css-loader')
             .loader(require('mini-css-extract-plugin').loader)
+            .options({
+              // only enable hot in development
+              hmr: process.env.NODE_ENV === 'development',
+              // if hmr does not work, this is a forceful method.
+              reloadAll: true
+            })
         } else {
           rule
             .use('vue-style-loader')

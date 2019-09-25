@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "extract-css",
+  "description": "Extract CSS from your Saber app",
+  "scripts": {
+    "dev": "saber",
+    "build": "saber build"
+  },
+  "dependencies": {
+    "saber": "^0.9.1"
+  }
+}
