@@ -45,6 +45,7 @@
       "*.min.js",
       "**/vue-renderer/app/**",
       "**/example/**",
+      "**/examples/**",
       "website/**"
     ],
     "envs": [

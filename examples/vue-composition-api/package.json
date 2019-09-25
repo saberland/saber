@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "vue-composition-api",
+  "description": "How to use the module @vue/composition-api with Saber",
+  "scripts": {
+    "start": "saber --port 8080",
+    "dev": "npm start",
+    "build": "saber build"
+  },
+  "dependencies": {
+    "saber": "^0.9.1",
+    "@vue/composition-api": "^0.3.2"
+  }
+}
