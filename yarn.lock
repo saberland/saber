@@ -11576,10 +11576,10 @@ slide@^1.1.6:
   resolved "https://registry.npmjs.org/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
   integrity sha1-VusCfWW00tzmyy4tMsTUr8nh1wc=
 
-slugo@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.npmjs.org/slugo/-/slugo-0.2.3.tgz#2c602fe1e76d5fa3c6f75223537fbd80ae33929c"
-  integrity sha512-4nav6mk321IWKaWxgvygjp2JB0d5sNGgkPUJ+EGQZmmcvuXS+4DwdhhPa9L8WBg6fVQDID3PO+t6wYM1NqVbkA==
+slugo@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/slugo/-/slugo-0.3.1.tgz#e4ca4ab57612892c4e3f798a75895030dc3eb800"
+  integrity sha512-JYwX8/4pSFbYwTtrWco0GWbmsVAAk/ahi5MjnHG6oj8sBdF1M2Qu1JmG8vaPE1AGxpuAfyIH5yzxdkH7aAFc2w==
 
 smart-buffer@^4.0.1:
   version "4.0.1"

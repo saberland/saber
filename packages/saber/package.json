@@ -51,7 +51,7 @@
     "saber-markdown": "^0.1.3",
     "saber-utils": "^0.2.2",
     "serve-static": "^1.13.2",
-    "slugo": "^0.2.3",
+    "slugo": "^0.3.1",
     "superstruct": "^0.6.0",
     "tapable": "^1.1.1",
     "time-fix-plugin": "^2.0.5",
