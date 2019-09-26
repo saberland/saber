@@ -10,11 +10,11 @@
           <br />without the hassle.
         </div>
         <div class="actions">
-          <saber-link
+          <a
             class="button"
             style="margin-right: 10px"
-            :to="$saber.getPageLink('./docs/index.md')"
-          >Getting Started</saber-link>
+            href="./docs/index.md"
+          >Getting Started</a>
           <a class="button is-secondary" href="https://github.com/saberland/saber" target="_blank">GitHub</a>
         </div>
       </div>

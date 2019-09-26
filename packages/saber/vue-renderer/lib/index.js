@@ -60,6 +60,15 @@ class VueRenderer {
         getPagePublicFields: api.pages.getPagePublicFields.bind(api.pages)
       }
 
+      config.module
+        .rule('transform-template')
+        .resourceQuery(/\?vue&type=template/)
+        .use('transform-template-loader')
+        .loader(require.resolve('./transform-template-loader'))
+        .options({
+          plugins: []
+        })
+
       // Add `saber-page` rule under `js` rule to handle .js pages
       // prettier-ignore
       config.module

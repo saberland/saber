@@ -125,6 +125,11 @@ export default context => {
         const matched = Array.isArray(link)
           ? link // The link is already parsed
           : /^([^#?]+)([#?].*)?$/.exec(link)
+
+        if (!matched) {
+          return link
+        }
+
         const relativePath = join(
           dirname(this.$route.meta.__relative),
           matched[1]

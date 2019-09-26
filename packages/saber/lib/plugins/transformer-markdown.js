@@ -83,10 +83,6 @@ function transformMarkdown(api, page) {
       }
     },
     {
-      name: 'link',
-      resolve: require.resolve('../markdown/link-plugin')
-    },
-    {
       name: 'task-list',
       resolve: require.resolve('../markdown/task-list-plugin')
     },
