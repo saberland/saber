@@ -1,6 +1,5 @@
 import './polyfills'
 import '#cache/runtime-polyfills'
-import { join, dirname } from 'path'
 import Vue from 'vue'
 import Meta from 'vue-meta'
 import layouts from '#cache/layouts'
@@ -8,6 +7,7 @@ import createRouter from './router'
 import Layout from './components/LayoutManager.vue'
 import ClientOnly from './components/ClientOnly'
 import extendBrowserApi from '#cache/extend-browser-api'
+import { join, dirname } from './helpers/path'
 import injectConfig from './helpers/inject-config'
 import setTransition from './helpers/set-transition'
 import scrollHandler from './helpers/scroll-handler'
@@ -125,6 +125,11 @@ export default context => {
         const matched = Array.isArray(link)
           ? link // The link is already parsed
           : /^([^#?]+)([#?].*)?$/.exec(link)
+
+        if (!matched) {
+          return link
+        }
+
         const relativePath = join(
           dirname(this.$route.meta.__relative),
           matched[1]

@@ -146,9 +146,17 @@ Called after creating a page.
 
 - Hook Type: `SyncHook`
 - Params:
-  - `config`: `MarkdownItChain`
+  - `config`: `ConfigChain`
 
 Called when creating a page to get the plugins and options for `markdown-it`.
+
+### `chainTemplate`
+
+- Hook Type: `SyncHook`
+- Params:
+  - `config`: `ConfigChain`
+
+Called to get the options and plugins for transforming Vue template.
 
 ### `onCreatePages`
 
