@@ -177,6 +177,23 @@ Called after emitting the routes file.
 
 Called with the `webpack-chain` instance before creating webpack compiler.
 
+### `transformTemplate`
+
+- Hook Type: `SyncWaterfallHook`
+- Params:
+  - `tree`: `Node[]`
+  - `context`: `{ filename: string }`
+
+Transform the Vue template, note that Markdown is also compiled to HTML and used as Vue template.
+
+Node Interface:
+
+|name|type|description|
+|---|---|---|
+|`tag`|`string`|HTML tag name|
+|`attrs`|`object` `undefined`|HTML attributes|
+|`content`|`Node[]` `undefined`|Node content|
+
 ### `getWebpackConfig`
 
 - Hook Type: `SyncWaterfallHook`
