@@ -66,9 +66,7 @@ class VueRenderer {
         .use('transform-template-loader')
         .loader(require.resolve('./transform-template-loader'))
         .options({
-          plugins: [],
-          transformTemplate: (tree, context) =>
-            api.hooks.transformTemplate.call(tree, context)
+          plugins: require('./template-plugins')(api)
         })
 
       // Add `saber-page` rule under `js` rule to handle .js pages

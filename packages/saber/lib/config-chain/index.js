@@ -3,6 +3,7 @@
  */
 
 const ChainedMap = require('webpack-chain/src/ChainedMap')
+const resolvePackage = require('../utils/resolvePackage')
 const Plugin = require('./Plugin')
 const Options = require('./Options')
 
@@ -28,5 +29,28 @@ module.exports = class MarkdownItChain extends ChainedMap {
     }
 
     return this.plugins.get(name)
+  }
+
+  loadPlugins(rawPluginList, cwd) {
+    const pluginList = rawPluginList.map(plugin => {
+      if (typeof plugin === 'string') {
+        plugin = { resolve: plugin }
+      }
+
+      if (!plugin.name) {
+        plugin.name = plugin.resolve
+      }
+
+      plugin.resolve = resolvePackage(plugin.resolve, { cwd })
+      plugin.handler = require(plugin.resolve)
+      return plugin
+    })
+
+    for (const plugin of pluginList) {
+      this.plugin(plugin.name).use(
+        plugin.handler,
+        Array.isArray(plugin.options) ? plugin.options : [plugin.options]
+      )
+    }
   }
 }

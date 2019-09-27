@@ -1,4 +1,4 @@
-const MarkdownChain = require('../markdown-chain')
+const ConfigChain = require('../config-chain')
 const resolvePackage = require('../utils/resolvePackage')
 
 exports.name = 'builtin:transformer-markdown'
@@ -39,7 +39,7 @@ function transformMarkdown(api, page) {
     page
   }
 
-  const chain = new MarkdownChain()
+  const chain = new ConfigChain()
 
   chain.options.merge(
     Object.assign(
@@ -52,7 +52,7 @@ function transformMarkdown(api, page) {
     )
   )
 
-  const pluginList = [
+  const builtInPlugins = [
     {
       name: 'hoist-tags',
       resolve: require.resolve('../markdown/hoist-tags-plugin')
@@ -85,32 +85,18 @@ function transformMarkdown(api, page) {
     {
       name: 'task-list',
       resolve: require.resolve('../markdown/task-list-plugin')
-    },
-    ...(markdown.plugins
-      ? markdown.plugins.map(p => {
-          if (typeof p === 'string') {
-            p = { resolve: p }
-          }
-
-          p.name = p.name || p.resolve
-          p.resolve = resolvePackage(p.resolve, { cwd: configDir })
-          return p
-        })
-      : [])
+    }
   ]
 
-  for (const plugin of pluginList) {
-    chain
-      .plugin(plugin.name)
-      .use(
-        typeof plugin.resolve === 'string'
-          ? require(plugin.resolve)
-          : plugin.resolve,
-        Array.isArray(plugin.options) ? plugin.options : [plugin.options]
-      )
-  }
+  // Load built-in plugins
+  chain.loadPlugins(builtInPlugins, configDir)
 
   api.hooks.chainMarkdown.call(chain)
+
+  // Load plugins from config file
+  if (markdown.plugins) {
+    chain.loadPlugins(markdown.plugins, configDir)
+  }
 
   const { options, plugins } = chain.toConfig()
 

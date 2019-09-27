@@ -38,7 +38,7 @@ class Saber {
       getWebpackConfig: new SyncWaterfallHook(['config', 'opts']),
       // Extend markdown-it config
       chainMarkdown: new SyncHook(['config']),
-      transformTemplate: new SyncWaterfallHook(['tree', 'context']),
+      chainTemplate: new SyncWaterfallHook(['config']),
       emitRoutes: new AsyncSeriesHook(),
       // Called after running webpack
       afterBuild: new AsyncSeriesHook(),

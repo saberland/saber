@@ -1,6 +1,6 @@
 const isExernal = input => /^[^:]+:/i.test(input)
 
-module.exports = () => tree => {
+module.exports = ({ openLinkInNewTab = true } = {}) => tree => {
   tree.walk(node => {
     if (!node.attrs) return node
 
@@ -15,7 +15,7 @@ module.exports = () => tree => {
         if (/^https?:\/\//.test(node.attrs.href)) {
           node.attrs = Object.assign(
             {
-              target: '_blank',
+              target: openLinkInNewTab ? '_blank' : undefined,
               rel: 'noopener noreferrer'
             },
             node.attrs

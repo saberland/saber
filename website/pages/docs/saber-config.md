@@ -188,3 +188,18 @@ interface Permalinks {
 ```
 
 Note that the permalink for the homepage is always `/`.
+
+## template
+
+### openLinkInNewTab
+
+- Type: `boolean`
+- Default: `true`
+
+Whether to open external links in new tab.
+
+### plugins
+
+- Type: `TemplatePlugin[]`
+
+A set of plugins that are used to transform Vue template.
