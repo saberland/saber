@@ -37,12 +37,10 @@ module.exports = class MarkdownItChain extends ChainedMap {
         plugin = { resolve: plugin }
       }
 
-      if (!plugin.name) {
-        plugin.name = plugin.resolve
-      }
-
       plugin.resolve = resolvePackage(plugin.resolve, { cwd })
+      plugin.name = plugin.name || plugin.resolve
       plugin.handler = require(plugin.resolve)
+
       return plugin
     })
 
