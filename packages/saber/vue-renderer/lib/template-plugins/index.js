@@ -30,7 +30,7 @@ module.exports = api => {
   const { plugins } = chain.toConfig()
 
   return plugins.map(plugin => (tree, context) => {
-    const transform = plugin.plugin(plugin.options)
+    const transform = plugin.plugin(...plugin.args)
     return transform(tree, context)
   })
 }
