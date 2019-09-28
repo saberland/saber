@@ -13,6 +13,7 @@ const configLoader = require('./utils/configLoader')
 const resolvePackage = require('./utils/resolvePackage')
 const builtinPlugins = require('./plugins')
 const Compiler = require('./Compiler')
+const WebpackUtils = require('./WebpackUtils')
 
 class Saber {
   constructor(opts = {}, config = {}) {
@@ -21,6 +22,7 @@ class Saber {
     this.initialConfig = config
     this.pages = new Pages(this)
     this.browserApi = new BrowserApi(this)
+    this.webpackUtils = new WebpackUtils(this)
     this.log = log
     this.colors = colors
     this.utils = require('saber-utils')

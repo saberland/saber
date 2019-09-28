@@ -43,12 +43,21 @@ class VueRenderer {
       // Transform js files in ../app folder
       config.module.rule('js').include.add(path.join(__dirname, '../app'))
 
-      const vueLoaderOptions = this.hooks.getVueLoaderOptions.call({
-        compilerOptions: {
-          modules: []
-        },
-        transformAssetUrls: {}
-      })
+      const vueLoaderOptions = this.hooks.getVueLoaderOptions.call(
+        Object.assign(
+          {
+            compilerOptions: {
+              modules: []
+            },
+            transformAssetUrls: {}
+          },
+          api.webpackUtils.getCacheOptions('vue-loader', {
+            'vue-loader': require('vue-loader/package.json').version,
+            'vue-template-compiler': require('vue-template-compiler/package.json')
+              .version
+          })
+        )
+      )
 
       const pageLoaderOptions = {
         getPageById: pageId => api.pages.get(pageId),
