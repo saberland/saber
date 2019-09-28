@@ -1,34 +1,44 @@
+const path = require('path')
 const babelLoader = require('babel-loader')
 const { log } = require('saber-log')
 const logUpdate = require('log-update')
 
+// increment '0' to invalidate cache
+const CACHE_KEY = `babel-cache-0`
+
 module.exports = babelLoader.custom(babel => {
   const configs = new Set()
-  const requiredPreset = babel.createConfigItem(
-    require('../babel/required-preset'),
-    {
-      type: 'preset'
-    }
-  )
-  const optionalPreset = babel.createConfigItem(
-    require('../babel/optional-preset'),
-    {
-      type: 'preset'
-    }
-  )
 
   return {
     customOptions(opts) {
       const custom = opts.customLoaderOptions
-      delete opts.customLoaderOptions
+      const filename = path.join(custom.cwd, 'noop.js')
+      const loader = Object.assign(
+        {
+          cacheCompression: false,
+          cacheDirectory: path.join(
+            custom.distDir,
+            'cache',
+            'saber-babel-loader'
+          ),
+          cacheIdentifier: JSON.stringify({
+            key: CACHE_KEY,
+            type: custom.type,
+            config: babel.loadPartialConfig({
+              filename,
+              cwd: custom.cwd,
+              sourceFileName: filename
+            }).options
+          })
+        },
+        opts
+      )
+      delete loader.customLoaderOptions
 
-      return { loader: opts, custom }
+      return { loader, custom }
     },
-    config(cfg) {
+    config(cfg, { customOptions }) {
       const options = Object.assign({}, cfg.options)
-
-      options.presets.push(requiredPreset)
-
       if (cfg.hasFilesystemConfig()) {
         for (const file of [cfg.babelrc, cfg.config]) {
           if (file && !configs.has(file)) {
@@ -39,10 +49,21 @@ module.exports = babelLoader.custom(babel => {
             }
           }
         }
-      } else {
-        // Add our optional preset if the no "babelrc" found.
-        options.presets.push(optionalPreset)
       }
+
+      options.presets.unshift(
+        babel.createConfigItem(
+          [
+            require('../babel/preset'),
+            {
+              isServer: customOptions.type === 'server'
+            }
+          ],
+          {
+            type: 'preset'
+          }
+        )
+      )
 
       return options
     }

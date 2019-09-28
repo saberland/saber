@@ -1,1 +1,1 @@
-module.exports = require('./lib/babel/optional-preset')
+module.exports = require('./lib/babel/preset')

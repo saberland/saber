@@ -5,17 +5,17 @@ module.exports = class WebpackUtils {
     this.api = api
   }
 
-  getCacheOptions(dir, obj) {
+  getCacheOptions(loader, obj) {
     return {
-      cacheDirectory: this.api.resolveCache(path.join('cache', dir)),
+      cacheDirectory: this.api.resolveCache(path.join('cache', loader)),
       cacheIdentifier: obj && JSON.stringify(obj)
     }
   }
 
-  addCacheSupport(rule, dir, obj) {
+  addCacheSupport(rule, loader, obj) {
     rule
       .use('cache-loader')
       .loader(require.resolve('cache-loader'))
-      .options(this.getCacheOptions(dir, obj))
+      .options(this.getCacheOptions(loader, obj))
   }
 }

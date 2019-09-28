@@ -3,11 +3,11 @@ const path = require('path')
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 const isEnvTest = env === 'test'
 
-module.exports = () => {
+module.exports = (_, { isServer } = {}) => {
   const presets = [
     [
       require('@babel/preset-env'),
-      isEnvTest
+      isEnvTest || isServer
         ? {
             targets: {
               node: 'current'
