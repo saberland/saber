@@ -49,7 +49,8 @@ class VueRenderer {
             compilerOptions: {
               modules: []
             },
-            transformAssetUrls: {}
+            transformAssetUrls: {},
+            prettify: false
           },
           api.webpackUtils.getCacheOptions('vue-loader', {
             'vue-loader': require('vue-loader/package.json').version,

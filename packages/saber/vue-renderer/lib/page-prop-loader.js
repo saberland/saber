@@ -1,12 +1,11 @@
 const devalue = require('devalue')
-const prettier = require('prettier')
 const { requireAssets } = require('../../lib/utils/assetsAttribute')
 
 module.exports = function(source, map) {
   const pageId = source.trim()
   const { getPagePublicFields } = this.query
   const page = requireAssets(devalue(getPagePublicFields(pageId)))
-  let result = `
+  const result = `
   export default function(Component) {
     var page = ${page}
     var beforeCreate = Component.options.beforeCreate || []
@@ -38,10 +37,6 @@ module.exports = function(source, map) {
     }
   }
   `
-
-  if (process.env.NODE_ENV !== 'production') {
-    result = prettier.format(result, { parser: 'babel' })
-  }
 
   this.callback(null, result, map)
 }
