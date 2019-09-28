@@ -1,13 +1,15 @@
 // @ts-check
 
 const { join } = require('path')
-const { slash } = require('saber-utils')
+const { slash, isAbsoluteUrl } = require('saber-utils')
 
 /**
- * Check if it's external resource
+ * It's considered external resource
+ * When it's an absolute url or starting with `/`
+ * `/path` is used to reference files in static folder
  * @param {string} str
  */
-const isExternal = str => /^https?:\/\//.test(str) || /^\//.test(str)
+const isExternal = str => isAbsoluteUrl(str) || /^\//.test(str)
 
 const MARK = '@@!!SABER_ASSET_MARK_e5968b9a!!@@'
 

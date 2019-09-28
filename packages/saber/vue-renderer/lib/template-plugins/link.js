@@ -1,4 +1,4 @@
-const isExernal = input => /^[^:]+:/i.test(input)
+const { isAbsoluteUrl } = require('saber-utils')
 
 module.exports = ({ openLinkInNewTab = true } = {}) => tree => {
   tree.walk(node => {
@@ -10,7 +10,7 @@ module.exports = ({ openLinkInNewTab = true } = {}) => tree => {
     }
 
     if (node.tag === 'a' && node.attrs.href) {
-      if (isExernal(node.attrs.href)) {
+      if (isAbsoluteUrl(node.attrs.href)) {
         // Add attributes for external link
         if (/^https?:\/\//.test(node.attrs.href)) {
           node.attrs = Object.assign(

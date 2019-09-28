@@ -2,9 +2,9 @@ declare module 'saber-utils' {
   import fs from 'fs-extra'
   import glob from 'fast-glob'
 
-  type Slash = (input: string) => string
+  const slash: (input: string) => string
 
-  const slash: Slash
+  const isAbsoluteUrl: (input: string) => boolean
 
-  export { fs, glob, slash }
+  export { fs, glob, slash, isAbsoluteUrl }
 }
