@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = class WebpackUtils {
   constructor(api) {
     this.api = api
@@ -5,7 +7,7 @@ module.exports = class WebpackUtils {
 
   getCacheOptions(dir, obj) {
     return {
-      cacheDirectory: this.api.resolveCache(dir),
+      cacheDirectory: this.api.resolveCache(path.join('cache', dir)),
       cacheIdentifier: obj && JSON.stringify(obj)
     }
   }
