@@ -1,6 +1,6 @@
 const path = require('path')
 
-const ID = 'copy-code'
+const ID = 'code-copy'
 
 exports.name = ID
 

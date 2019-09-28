@@ -1,5 +1,5 @@
 {
-  "name": "saber-plugin-copy-code",
+  "name": "saber-plugin-code-copy",
   "version": "0.2.0",
   "description": "Allow to copy code into clipboard",
   "license": "MIT",
