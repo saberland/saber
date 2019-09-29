@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://github.com/saberland/saber/compare/saber@0.10.0...saber@0.10.1) (2019-09-29)
+
+### Bug Fixes
+
+- handle dynamic to property for links ([21ac524](https://github.com/saberland/saber/commit/21ac524))
+
+### Features
+
+- add an option to disable cache ([6afe8fa](https://github.com/saberland/saber/commit/6afe8fa))
+
 # [0.10.0](https://github.com/saberland/saber/compare/saber@0.9.1...saber@0.10.0) (2019-09-29)
 
 ### Bug Fixes
