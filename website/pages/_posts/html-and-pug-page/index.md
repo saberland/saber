@@ -81,7 +81,7 @@ Populate a `pages/about.pug`:
 ```pug
 div
   h2 This is my Pug page!
-  saber-link(to="/") ← Back Home
+  a(href="/") ← Back Home
 ```
 
 Then navigate to `http://localhost:3000/about.html`:

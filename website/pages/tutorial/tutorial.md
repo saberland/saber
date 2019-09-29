@@ -68,8 +68,8 @@ Let's create a simple `./components/Navbar.vue` component first:
   <nav>
     <h1>My Blog</h1>
     <ul>
-      <li><saber-link to="/">Home</saber-link></li>
-      <li><saber-link to="/about.html">About me</saber-link></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About me</a></li>
     </ul>
   </nav>
 </template>
@@ -273,9 +273,9 @@ Awesome, now let's update the `./layouts/page.vue` to show recent posts:
         <li v-for="post in page.posts" :key="post.permalink">
           <h2>
             {{ formatDate(post.createdAt) }} -
-            <saber-link :to="post.permalink">{{
+            <a :href="post.permalink">{{
               post.title
-            }}</saber-link>
+            }}</a>
           </h2>
         </li>
       </ul>

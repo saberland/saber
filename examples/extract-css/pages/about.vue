@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>About</h1>
-    <saber-link to="/">Home</saber-link>
+    <a href="/">Home</a>
   </div>
 </template>
 
