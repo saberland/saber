@@ -10,10 +10,11 @@ module.exports = function(cli) {
     .option('--port <port>', 'Server port', { default: 3000 })
     .option('--host <host>', 'Server host', { default: '0.0.0.0' })
     .option('--inspect-webpack', 'Inspect webpack config in your editor')
+    .option('--no-cache', 'Disable cache')
     .action((cwd = '.', options) => {
       setNodeEnv('development')
 
-      const { host, port, lazy } = options
+      const { host, port, lazy, cache } = options
       delete options.host
       delete options.port
       delete options.lazy
@@ -23,7 +24,8 @@ module.exports = function(cli) {
           port
         },
         build: {
-          lazy
+          lazy,
+          cache
         }
       })
         .serve()

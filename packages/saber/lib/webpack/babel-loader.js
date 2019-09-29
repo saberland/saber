@@ -14,23 +14,25 @@ module.exports = babelLoader.custom(babel => {
       const custom = opts.customLoaderOptions
       const filename = path.join(custom.cwd, 'noop.js')
       const loader = Object.assign(
-        {
-          cacheCompression: false,
-          cacheDirectory: path.join(
-            custom.distDir,
-            'cache',
-            'saber-babel-loader'
-          ),
-          cacheIdentifier: JSON.stringify({
-            key: CACHE_KEY,
-            type: custom.type,
-            config: babel.loadPartialConfig({
-              filename,
-              cwd: custom.cwd,
-              sourceFileName: filename
-            }).options
-          })
-        },
+        custom.shouldCache
+          ? {
+              cacheCompression: false,
+              cacheDirectory: path.join(
+                custom.distDir,
+                'cache',
+                'saber-babel-loader'
+              ),
+              cacheIdentifier: JSON.stringify({
+                key: CACHE_KEY,
+                type: custom.type,
+                config: babel.loadPartialConfig({
+                  filename,
+                  cwd: custom.cwd,
+                  sourceFileName: filename
+                }).options
+              })
+            }
+          : {},
         opts
       )
       delete loader.customLoaderOptions

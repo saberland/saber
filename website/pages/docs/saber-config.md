@@ -98,6 +98,14 @@ interface LoaderOptions {
 }
 ```
 
+### cache
+
+- Type: `boolean`
+- Default: `true`
+- CLI flag: `--no-cache`
+
+Set to `false` to disable webpack cache.
+
 ## plugins
 
 - Type: `Array<Plugin>`

@@ -4,11 +4,15 @@ module.exports = function(cli) {
   cli
     .command(
       'build [app-path]',
-      'Compile the application and generate static HTML files'
+      'Compile the application and generate static HTML files',
+      {
+        ignoreOptionDefaultValue: true
+      }
     )
     .alias('generate')
     .option('--skip-compilation', 'Skip the webpack compilation process')
     .option('--inspect-webpack', 'Inspect webpack config in your editor')
+    .option('--no-cache', 'Disable cache')
     .action((cwd = '.', options) => {
       setNodeEnv('production')
 
@@ -18,9 +22,15 @@ module.exports = function(cli) {
         )
       }
 
-      const { skipCompilation } = options
+      const { skipCompilation, cache } = options
       delete options.skipCompilation
-      return require('..')(Object.assign({ cwd, dev: false }, options))
+      delete options.cache
+
+      return require('..')(Object.assign({ cwd, dev: false }, options), {
+        build: {
+          cache
+        }
+      })
         .build({ skipCompilation })
         .catch(handleError)
     })

@@ -69,6 +69,7 @@ module.exports = (api, { type }) => {
       customLoaderOptions: {
         distDir: api.resolveCache(),
         cwd: api.resolveCwd(),
+        shouldCache: api.webpackUtils.shouldCache,
         type
       }
     })
