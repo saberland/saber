@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.2](https://github.com/saberland/saber/compare/saber@0.10.1...saber@0.10.2) (2019-09-29)
+
+### Bug Fixes
+
+- fix link prop in 404 page ([018d367](https://github.com/saberland/saber/commit/018d367))
+
 ## [0.10.1](https://github.com/saberland/saber/compare/saber@0.10.0...saber@0.10.1) (2019-09-29)
 
 ### Bug Fixes
