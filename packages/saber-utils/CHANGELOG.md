@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/saberland/saber/compare/saber-utils@0.2.2...saber-utils@0.2.3) (2019-09-29)
+
+### Bug Fixes
+
+- better absolute url handling ([7f5d3ac](https://github.com/saberland/saber/commit/7f5d3ac))
+
 ## [0.2.2](https://github.com/saberland/saber/compare/saber-utils@0.2.1...saber-utils@0.2.2) (2019-09-11)
 
 **Note:** Version bump only for package saber-utils

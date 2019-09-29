@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/saberland/saber/compare/saber@0.9.1...saber@0.10.0) (2019-09-29)
+
+### Bug Fixes
+
+- **pkg:** add description field ([9a7245a](https://github.com/saberland/saber/commit/9a7245a))
+- better absolute url handling ([7f5d3ac](https://github.com/saberland/saber/commit/7f5d3ac))
+- change cacheDirectory ([83f8481](https://github.com/saberland/saber/commit/83f8481))
+- remove /index suffix in permalink ([c57c058](https://github.com/saberland/saber/commit/c57c058))
+- update cache identifier for loaders ([c48d303](https://github.com/saberland/saber/commit/c48d303))
+
+### Features
+
+- **core:** add a utility for adding cache-loader to webpack rule ([489d6b5](https://github.com/saberland/saber/commit/489d6b5))
+- expose the default babel preset ([7793a68](https://github.com/saberland/saber/commit/7793a68))
+- transform vue template with posthtml ([#479](https://github.com/saberland/saber/issues/479)) ([b56296a](https://github.com/saberland/saber/commit/b56296a))
+- update mini-css-extract-plugin to support hmr ([fb28324](https://github.com/saberland/saber/commit/fb28324))
+
+### Performance Improvements
+
+- remove prettier ([d67e1a9](https://github.com/saberland/saber/commit/d67e1a9))
+
 ## [0.9.1](https://github.com/saberland/saber/compare/saber@0.9.0...saber@0.9.1) (2019-09-25)
 
 ### Bug Fixes
