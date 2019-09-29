@@ -2,7 +2,7 @@
   <div class="posts">
     <div class="post" v-for="post in posts" :key="post.permalink">
       <h2 class="post-title">
-        <saber-link :to="post.permalink">{{ post.title }}</saber-link>
+        <a :href="post.permalink">{{ post.title }}</a>
       </h2>
       <PostMeta :page="post" />
       <div class="post-excerpt" v-html="post.excerpt"></div>

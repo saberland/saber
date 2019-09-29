@@ -5,14 +5,14 @@
       <slot name="default"/>
     </div>
     <div class="prev-next-page">
-      <saber-link class="prev-page" v-if="prevNextPage.prev" :to="prevNextPage.prev.link">
+      <a class="prev-page" v-if="prevNextPage.prev" :href="prevNextPage.prev.link">
         <span class="arrow">←</span>
         {{ prevNextPage.prev.title }}
-      </saber-link>
-      <saber-link class="next-page" v-if="prevNextPage.next" :to="prevNextPage.next.link">
+      </a>
+      <a class="next-page" v-if="prevNextPage.next" :href="prevNextPage.next.link">
         {{ prevNextPage.next.title }}
         <span class="arrow">→</span>
-      </saber-link>
+      </a>
     </div>
   </Wrap>
 </template>

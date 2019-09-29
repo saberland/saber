@@ -6,7 +6,6 @@ import routes from '#cache/routes'
 Vue.use(Router)
 // Make `<RouterLink>` prefetch-able
 Vue.use(RoutePrefetch, {
-  componentName: 'SaberLink',
   // Only enable prefetching in production mode
   prefetch: process.env.NODE_ENV === 'production'
 })

@@ -1,4 +1,19 @@
-const { isAbsoluteUrl } = require('saber-utils')
+const getAttribute = (node, name) => {
+  if (node.attrs[name] !== undefined) {
+    return { value: node.attrs[name], isStatic: true }
+  }
+
+  return {
+    value: node.attrs[`:${name}`] || node.attrs[`v-bind:${name}`],
+    isStatic: false
+  }
+}
+
+const removeAttribute = (node, name) => {
+  delete node.attrs[name]
+  delete node.attrs[`:${name}`]
+  delete node.attrs[`v-bind:${name}`]
+}
 
 module.exports = ({ openLinkInNewTab = true } = {}) => tree => {
   tree.walk(node => {
@@ -9,31 +24,24 @@ module.exports = ({ openLinkInNewTab = true } = {}) => tree => {
       return node
     }
 
-    if (node.tag === 'a' && node.attrs.href) {
-      if (isAbsoluteUrl(node.attrs.href)) {
-        // Add attributes for external link
-        if (/^https?:\/\//.test(node.attrs.href)) {
-          node.attrs = Object.assign(
-            {
-              target: openLinkInNewTab ? '_blank' : undefined,
-              rel: 'noopener noreferrer'
-            },
-            node.attrs
-          )
-        }
-      } else {
-        // Convert internal `<a>` to `<saber-link>`
-        node.tag = 'saber-link'
-        // Resolve link using `getPageLink`
-        node.attrs[':to'] = `$saber.getPageLink('${node.attrs.href}')`
-        delete node.attrs.href
-      }
-    }
+    const href = getAttribute(node, 'href')
 
-    // Resolve link using `getPageLink`
-    if (node.tag === 'saber-link' && node.attrs.to) {
-      node.attrs[':to'] = `$saber.getPageLink('${node.attrs.to}')`
-      delete node.attrs.to
+    if (node.tag === 'a' && href.value) {
+      node.tag = 'saber-link'
+      if (href.isStatic) {
+        node.attrs.to = href.value
+      } else {
+        node.attrs[':to'] = href.value
+      }
+
+      removeAttribute(node, 'href')
+
+      if (
+        openLinkInNewTab === false &&
+        getAttribute(node, 'openLinkInNewTab').value === undefined
+      ) {
+        node.attrs[':openLinkInNewTab'] = JSON.stringify(openLinkInNewTab)
+      }
     }
 
     return node

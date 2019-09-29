@@ -17,10 +17,10 @@ test('basic', async () => {
   <saber-link :to="foo">foo</saber-link>
   `)
   expect(html).toBe(`
-  <saber-link :to="$saber.getPageLink('foo')">foo</saber-link>
-  <a target="_blank" rel="noopener noreferrer" href="https://example.com">foo</a>
-  <a href="mailto:i@example.com">foo</a>
-  <saber-link :to="$saber.getPageLink('/foo')">foo</saber-link>
+  <saber-link to="foo">foo</saber-link>
+  <saber-link to="https://example.com">foo</saber-link>
+  <saber-link to="mailto:i@example.com">foo</saber-link>
+  <saber-link to="/foo">foo</saber-link>
   <saber-link :to="foo">foo</saber-link>
   `)
 })

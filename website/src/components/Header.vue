@@ -17,10 +17,10 @@
           </svg>
         </div>
         <h1 class="logo">
-          <saber-link to="/">
+          <a href="/">
             <Logo />
             <span>Saber</span>
-          </saber-link>
+          </a>
         </h1>
       </div>
       <div class="header-right">

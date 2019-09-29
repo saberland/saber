@@ -6,6 +6,7 @@ import layouts from '#cache/layouts'
 import createRouter from './router'
 import Layout from './components/LayoutManager.vue'
 import ClientOnly from './components/ClientOnly'
+import SaberLink from './components/SaberLink'
 import extendBrowserApi from '#cache/extend-browser-api'
 import { join, dirname } from './helpers/path'
 import injectConfig from './helpers/inject-config'
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 
 Vue.component(ClientOnly.name, ClientOnly)
 Vue.component(Layout.name, Layout)
+Vue.component(SaberLink.name, SaberLink)
 
 Vue.use(Meta, {
   keyName: 'head',
@@ -122,9 +124,16 @@ export default context => {
       },
 
       getPageLink(link) {
-        const matched = Array.isArray(link)
-          ? link // The link is already parsed
-          : /^([^#?]+)([#?].*)?$/.exec(link)
+        if (typeof link !== 'string' && process.env.NODE_ENV !== 'production') {
+          throw new TypeError(`Expect link to be a string`)
+        }
+
+        // Already a route path, directly return
+        if (/^\//.test(link)) {
+          return link
+        }
+
+        const matched = /^([^#?]+)([#?].*)?$/.exec(link)
 
         if (!matched) {
           return link

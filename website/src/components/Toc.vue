@@ -6,13 +6,13 @@
     </div>
     <div class="toc-title">Contents</div>
     <div class="toc-headings">
-      <saber-link
+      <a
         :data-level="heading.level"
         :class="{'toc-heading': true, 'active-hash': `#${heading.slug}` === currentHash}"
         v-for="heading in filteredHeadings"
         :key="heading.slug"
-        :to="{hash: heading.slug}"
-      >{{ heading.text }}</saber-link>
+        :href="{hash: heading.slug}"
+      >{{ heading.text }}</a>
     </div>
   </div>
 </template>

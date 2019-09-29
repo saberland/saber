@@ -1,16 +1,16 @@
 <template>
   <ul class="nav">
     <li class="nav-item">
-      <saber-link to="/docs">Guide</saber-link>
+      <a href="/docs">Guide</a>
     </li>
     <li class="nav-item">
-      <saber-link to="/tutorial/tutorial.html">Tutorial</saber-link>
+      <a href="/tutorial/tutorial.html">Tutorial</a>
     </li>
     <li class="nav-item">
-      <saber-link to="/themes">Themes</saber-link>
+      <a href="/themes">Themes</a>
     </li>
     <li class="nav-item">
-      <saber-link to="/blog/">Blog</saber-link>
+      <a href="/blog/">Blog</a>
     </li>
     <li class="nav-item">
       <a href="https://chat.saber.land" target="_blank" class="discord-link">

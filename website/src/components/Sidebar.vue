@@ -29,10 +29,10 @@
         <transition name="fade">
           <div class="item-children" v-if="isExpanded(item.children)">
             <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
-              <saber-link
-                :to="childItem.link"
+              <a
+                :href="childItem.link"
                 :class="{active: isActive(childItem.link)}"
-              >{{ childItem.title }}</saber-link>
+              >{{ childItem.title }}</a>
             </div>
           </div>
         </transition>
