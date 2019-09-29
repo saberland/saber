@@ -7,7 +7,7 @@ const NotFound = {
     return h('div', { style: { margin: '2rem' } }, [
       h('h1', { style: { margin: '0 0 20px 0' } }, ['Not Found']),
       h('saber-link', {
-        props: {
+        attrs: {
           to: '/'
         },
         style: {
