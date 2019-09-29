@@ -100,6 +100,42 @@ module.exports = (api, { type }) => {
     }
   ])
 
+  if (
+    api.dev &&
+    type === 'client' &&
+    api.config.build.autoDll.exclude !== '*'
+  ) {
+    let dependencies = []
+
+    if (
+      !api.config.build.autoDll.include ||
+      api.config.build.autoDll.include === '*' ||
+      api.config.build.autoDll.include.length === 0
+    ) {
+      dependencies = Object.keys(api.pkg.data.dependencies)
+    } else {
+      dependencies = [...api.config.build.autoDll.include]
+    }
+
+    if (api.config.build.autoDll.exclude) {
+      dependencies = dependencies.filter(
+        name => !api.config.build.autoDll.exclude.includes(name)
+      )
+    }
+
+    config.plugin('autoDll').use(require('autodll-webpack-plugin'), [
+      {
+        filename: 'client.js',
+        context: api.configDir,
+        path: './dll',
+        entry: {
+          dll_client: dependencies
+        }
+      }
+    ])
+    api.autoDll = true
+  }
+
   if (api.compilers[type]) {
     api.compilers[type].injectToWebpack(config)
   }

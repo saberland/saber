@@ -67,7 +67,8 @@ module.exports = (config, { dev }) => {
       loaderOptions: 'object?',
       cssSourceMap: 'boolean?',
       lazy: 'boolean?',
-      outDir: 'string?'
+      outDir: 'string?',
+      autoDll: 'object?'
     },
     {
       publicUrl: '/',
@@ -75,7 +76,8 @@ module.exports = (config, { dev }) => {
       loaderOptions: {},
       cssSourceMap: false,
       lazy: false,
-      outDir: 'public'
+      outDir: 'public',
+      autoDll: { include: '*' }
     }
   )
 

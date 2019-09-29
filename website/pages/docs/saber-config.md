@@ -76,6 +76,13 @@ Extract CSS.
 
 Source maps supports for CSS files.
 
+### autoDll
+
+- Type: `object`
+- Default: `{ include: '*' }`
+
+Reduce the build time by including a list of js dependencies and excluding the rest using the `exclude` key.
+
 ### loaderOptions
 
 - Type: `LoaderOptions`

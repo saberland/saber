@@ -11,7 +11,12 @@ module.exports = {
     },
     plugins: [{ resolve: 'markdown-it-footnote' }]
   },
-  build: { lazy: true },
+  build: {
+    lazy: true,
+    autoDll: {
+      exclude: ['grid.css']
+    }
+  },
   permalinks: { post: '/blog/:slug.html' },
   themeConfig: {
     sidebarMenu: [
