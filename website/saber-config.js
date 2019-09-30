@@ -14,6 +14,7 @@ module.exports = {
   build: { lazy: true },
   permalinks: { post: '/blog/:slug.html' },
   themeConfig: {
+  	amp: 'hybrid',
     sidebarMenu: [
       {
         title: 'Basics',
@@ -74,6 +75,7 @@ module.exports = {
       options: { trackId: 'UA-54857209-16' }
     },
     { resolve: '../packages/saber-plugin-query-posts' },
+    { resolve: '../packages/saber-plugin-amp' },
     { resolve: '../packages/saber-plugin-netlify-redirect' },
     { resolve: '../packages/saber-plugin-git-modification-time' },
     { resolve: '../packages/saber-plugin-prismjs' },

@@ -20,7 +20,7 @@ module.exports = ({
     <html${prefixSpace(htmlAttrs)}>
       <head${prefixSpace(headAttrs)}>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         ${meta} ${title} ${link}
         ${style} ${headScript} ${noscript}

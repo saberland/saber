@@ -331,19 +331,17 @@ class VueRenderer {
           try {
             const markup = await renderer.renderToString(context)
             let documentData = require('./get-initial-document-data')(context)
-            documentData = this.api.hooks.getDocumentData.call(
-              documentData,
-              context
-            )
+            documentData = this.api.hooks.getDocumentData.call(documentData)
             let document = require('./get-initial-document')(documentData)
-            document = this.api.hooks.getDocument.call(document, context)
+            document = this.api.hooks.getDocument.call(document)
             const html = `<!DOCTYPE html>${document}`
               .replace(/^\s+/gm, '')
               .replace(/\n+</g, '<')
               .replace('<div id="_saber"></div>', markup)
             const exportedPage = {
               content: html,
-              path: route.outputFilePath
+              path: route.outputFilePath,
+              markup
             }
             await this.api.hooks.beforeExportPage.promise(context, exportedPage)
             await fs.outputFile(route.outputFilePath, html, 'utf8')
@@ -562,6 +560,8 @@ class VueRenderer {
 }
 
 VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
+VueRenderer.getDocumentData = require('./get-initial-document-data')
+VueRenderer.getDocument = require('./get-initial-document')
 
 module.exports = VueRenderer
 

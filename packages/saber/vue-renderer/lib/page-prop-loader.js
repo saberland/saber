@@ -15,7 +15,7 @@ module.exports = function(source, map) {
 
     // These options can be defined as Vue component option or page attribute
     // They are also available in layout component except for the 'layout' option
-    var pageComponentOptions = ['layout', 'transition']
+    var pageComponentOptions = ['layout', 'transition', 'amp']
 
     pageComponentOptions.forEach(function(name) {
       var PageComponent = Component.options.PageComponent
