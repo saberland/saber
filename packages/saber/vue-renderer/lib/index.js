@@ -3,6 +3,7 @@ const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
 const { SyncWaterfallHook } = require('tapable')
 const { readJSON } = require('./utils')
+const renderHTML = require('./render-html')
 
 const ID = 'vue-renderer'
 
@@ -324,23 +325,13 @@ class VueRenderer {
     const writeFiles = routes =>
       Promise.all(
         routes.map(async route => {
-          const context = {
-            url: route.permalink
-          }
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
-            const markup = await renderer.renderToString(context)
-            let documentData = require('./get-initial-document-data')(context)
-            documentData = this.api.hooks.getDocumentData.call(
-              documentData,
-              context
-            )
-            let document = require('./get-initial-document')(documentData)
-            document = this.api.hooks.getDocument.call(document, context)
-            const html = `<!DOCTYPE html>${document}`
-              .replace(/^\s+/gm, '')
-              .replace(/\n+</g, '<')
-              .replace('<div id="_saber"></div>', markup)
+            const { context, html } = renderHTML(renderer, {
+              url: route.permalink,
+              isProd: true,
+              hooks: this.api.hooks
+            })
             const exportedPage = {
               content: html,
               path: route.outputFilePath
@@ -349,7 +340,7 @@ class VueRenderer {
             await fs.outputFile(route.outputFilePath, html, 'utf8')
             await this.api.hooks.afterExportPage.promise(context, exportedPage)
           } catch (error) {
-            log.error(`Failed to render ${context.url}`)
+            log.error(`Failed to render ${route.permalink}`)
             throw error
           }
         })
@@ -517,24 +508,13 @@ class VueRenderer {
 
       const render = async () => {
         log.verbose(`Rendering page ${req.url}`)
-        const context = {
-          url: req.url
-        }
-        const markup = this.renderer
-          ? await this.renderer.renderToString(context)
-          : '$&'
-        const initialDocumentData = require('./get-initial-document-data')(
-          context
-        )
-        context.documentData = this.api.hooks.getDocumentData.call(
-          initialDocumentData
-        )
-        const initialDocument = require('./get-initial-document')(
-          context.documentData
-        )
-        const html = `<!DOCTYPE html>${this.api.hooks.getDocument.call(
-          initialDocument
-        )}`.replace('<div id="_saber"></div>', markup)
+
+        const { html } = await renderHTML(this.renderer, {
+          url: req.url,
+          isProd: false,
+          hooks: this.api.hooks
+        })
+
         res.setHeader('content-type', 'text/html')
         res.end(html)
       }

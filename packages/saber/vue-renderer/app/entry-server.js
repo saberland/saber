@@ -13,6 +13,7 @@ export default async context => {
   }
 
   context.metaInfo = app.$meta()
+  context.app = app
 
   return app
 }
