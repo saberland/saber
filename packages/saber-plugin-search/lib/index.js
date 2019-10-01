@@ -79,18 +79,19 @@ exports.apply = (api, options) => {
   api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
   if (api.dev) {
-    api.hooks.onCreatePages.tapPromise(ID, async () => {
-      db = await generateDatabase()
-    })
+    // api.hooks.onCreateRenderer.tapPromise(ID, async () => {
+    //   db = await generateDatabase()
+    // })
 
     api.hooks.onCreateServer.tap(ID, server => {
-      server.get('/_saber/plugin-search/:locale.json', (req, res) => {
-        const db = getLocale(req.params.locale)
-        if (db) {
+      server.get('/_saber/plugin-search/:locale.json', async (req, res) => {
+        db = await generateDatabase()
+        const dbByLocale = getLocale(req.params.locale)
+        if (dbByLocale) {
           res.writeHead(200, {
             'Content-Type': 'application/json'
           })
-          return res.end(JSON.stringify(db))
+          return res.end(JSON.stringify(dbByLocale))
         }
 
         res.statusCode = 404
