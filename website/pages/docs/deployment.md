@@ -22,15 +22,13 @@ This is great for previewing the production build locally.
 You don't need the built-in static server in order to serve a Saber application, it works just fine with most static servers, for example you can use [`sirv-cli`](https://github.com/lukeed/sirv/tree/master/packages/sirv-cli):
 
 ```bash
-npm i -g sirv-cli
-sirv public
+npx sirv-cli public
 ```
 
 Or [`serve`](https://github.com/zeit/serve):
 
 ```bash
-npm i -g serve
-serve public
+npx serve public
 ```
 
 ## Building for Relative Paths
