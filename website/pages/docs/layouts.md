@@ -9,7 +9,7 @@ You can use the `layout` attribute to use a layout component for specific page.
 
 Saber loads `*.{vue,js}` files from `./layouts` in your project root and [theme](./themes.md) directory as layout components, when the desired layout component does not exist, it will fallback to the `default` layout component in your layouts directory.
 
-Layout components have a prop named `page` which implements [Page Interface](./page-interface.md) and allows you to access page data.
+Layout components have a prop named `page` which implements the [Page Interface](./page-interface.md) and allows you to access page data.
 
 The page contents will be available as the default slot in your layout component, for example:
 
@@ -41,7 +41,7 @@ export default {
 </script>
 ```
 
-This page will be rendered to following HTML:
+This page will be rendered to the following HTML:
 
 ```html
 <div>

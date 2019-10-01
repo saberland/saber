@@ -3,7 +3,7 @@ title: Manipulating <head>
 layout: docs
 ---
 
-We use [vue-meta](https://github.com/nuxt/vue-meta) to manipulate `<head>` element and the attributes for `<html>`, `<head>`, `<body>`.
+We use [vue-meta](https://github.com/nuxt/vue-meta) to manipulate the `<head>` element and the attributes for `<html>`, `<head>`, `<body>`.
 
 ## Customize `<head>` per component
 
