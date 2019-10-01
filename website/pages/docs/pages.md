@@ -38,7 +38,7 @@ This is a page.
 
 Then this page will use the `page` layout from your `layouts` directory or pre-configured theme directory. The page data will be available in the layout component as `page` prop, e.g. in the layout component you can access the `title` via `page.title`. The page content will be available as the default slot, you can use it like this: `<slot name="default"></slot>`. Check out [Layouts](./layouts.md) for more details.
 
-In a `.vue` or `.js` page, you can't use front matter to set page data, instead you can use ES `export` keyword:
+In a `.vue` or `.js` page, you can't use front matter to set page data, instead you can use the ES `export` keyword:
 
 ```vue
 <template>

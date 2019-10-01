@@ -7,7 +7,7 @@ The command `saber build` creates a `public` directory with a production build o
 
 ## Built-in Static Server
 
-You can use the built-in static server via the `saber serve` command, it automatically serves `public` directory:
+You can use the built-in static server via the `saber serve` command, it automatically serves the `public` directory:
 
 ```bash
 cd my-site

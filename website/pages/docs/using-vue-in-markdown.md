@@ -5,7 +5,7 @@ layout: docs
 
 ## Interpolation
 
-Markdown code is compiled to HTML first and then compiled to Vue render function, for example:
+Markdown code is compiled to HTML first and then compiled to Vue render functions, for example:
 
 ```markdown
 Hello **Saber**!
@@ -62,7 +62,7 @@ And `{{ bar }}` is safe too! <span v-pre>{{ yeah }}</span>
 
 ## `<script>` block
 
-`<script>` tag in Markdown page is not normal HTML `<script>` element, it's treated as [Vue SFC `<script>` block](https://vue-loader.vuejs.org/spec.html#script) instead.
+`<script>` tag in a Markdown page is not the normal HTML `<script>` element, it's treated as [Vue SFC `<script>` block](https://vue-loader.vuejs.org/spec.html#script) instead.
 
 ```markdown
 **This is an example:**

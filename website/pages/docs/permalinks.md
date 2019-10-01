@@ -3,9 +3,9 @@ title: Permalinks
 layout: docs
 ---
 
-Permalinks are the output path for your pages and posts. They allow you to structure the directories of your source code different from the directories in your output.
+Permalinks are the output path for your pages and posts. They allow you to structure the directories of your source code differently from the directories in your output.
 
-By default we infer permalink from filename.
+By default we infer the permalink from the filename.
 
 ## Front Matter
 

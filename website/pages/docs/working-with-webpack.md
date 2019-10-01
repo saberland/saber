@@ -5,7 +5,7 @@ layout: docs
 
 ## Simple Configuration
 
-The easiest way to tweak webpack configuration is using the [`getWebpackConfig`](saber-instance.md#getwebpackconfig) hook in your [`saber-node.js`](node-apis.md) like this:
+The easiest way to tweak the webpack configuration is using the [`getWebpackConfig`](saber-instance.md#getwebpackconfig) hook in your [`saber-node.js`](node-apis.md) like this:
 
 ```js
 exports.getWebpackConfig = function(config, { type }) {

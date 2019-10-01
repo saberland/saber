@@ -31,13 +31,13 @@ Internally, `<a>` elements are converted to a built-in component [`<saber-link>`
 
 ## Reference local pages
 
-You can use `<a>` element to reference local pages by filename:
+You can use the `<a>` element to reference local pages by filename:
 
 ```vue
 <a href="./about.md">About</a>
 ```
 
-..is converted to:
+...is converted to:
 
 ```html
 <saber-link to="/about.html">About</saber-link>
@@ -53,4 +53,4 @@ If you dont' want to use `<a>` for client-side transitions, you can use the `sab
 <a saber-ignore href="/">Home</a>
 ```
 
-Then this will be rendered as `<a>` instead of `<router-link>`, it will make the browser fully reload the page.
+Then this will be rendered as `<a>` instead of `<router-link>` and make the browser fully reload the page.
