@@ -48,7 +48,7 @@ exports.apply = api => {
             return page.internal.id === id
           })
         } else if (action) {
-          api.pages.createPage(page, { normalize: false })
+          await api.pages.createPage(page, { normalize: false })
           await api.hooks.onCreatePage.promise(page)
         }
       }
@@ -90,8 +90,8 @@ exports.apply = api => {
 
     await Promise.all(
       files.map(async file => {
-        const page = api.pages.normalizePage({}, file)
-        api.pages.createPage(page, { normalize: false })
+        const page = await api.pages.normalizePage({}, file)
+        await api.pages.createPage(page, { normalize: false })
         await api.hooks.onCreatePage.promise(page)
       })
     )
@@ -117,7 +117,7 @@ exports.apply = api => {
           file.relative = filename
           file.absolute = filepath
           file.content = await fs.readFile(file.absolute, 'utf8')
-          const page = api.pages.normalizePage({}, file)
+          const page = await api.pages.normalizePage({}, file)
           await api.hooks.manipulatePage.promise({ action: 'create', page })
         }
 

@@ -14,7 +14,7 @@ module.exports = class Pages extends Map {
     this.redirectRoutes = new Map()
   }
 
-  normalizePage(page, file) {
+  async normalizePage(page, file) {
     const { api } = this
 
     page = merge(
@@ -128,9 +128,9 @@ module.exports = class Pages extends Map {
     return page
   }
 
-  createPage(page, { file, normalize } = {}) {
+  async createPage(page, { file, normalize } = {}) {
     if (normalize !== false) {
-      page = this.normalizePage(page, file)
+      page = await this.normalizePage(page, file)
     }
 
     this.set(page.internal.id, page)
