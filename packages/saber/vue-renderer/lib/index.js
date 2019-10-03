@@ -327,7 +327,7 @@ class VueRenderer {
         routes.map(async route => {
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
-            const { context, html } = renderHTML(renderer, {
+            const { context, html } = await renderHTML(renderer, {
               url: route.permalink,
               isProd: true,
               hooks: this.api.hooks
