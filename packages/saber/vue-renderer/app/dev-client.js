@@ -96,27 +96,37 @@ function createContainer (prefix) {
     <div id="${prefix}icon-wrapper">
       <svg viewBox="0 0 300 200">
 			  <defs>
+				  <linearGradient
+			      x1="114.720775%"
+			      y1="181.283245%"
+			      x2="39.5399306%"
+			      y2="100%"
+			      id="${prefix}burn"
+			    >
+			      <stop stop-color="#6e722a" offset="0%" />
+			      <stop stop-color="#ddda60" offset="100%" />
+			    </linearGradient>
 			    <linearGradient
 			      x1="114.720775%"
 			      y1="181.283245%"
 			      x2="39.5399306%"
 			      y2="100%"
-			      id="${prefix}linear-gradient"
+			      id="${prefix}cold"
 			    >
 			      <stop stop-color="#fff" offset="0%" />
 			      <stop stop-color="#000" offset="100%" />
 			    </linearGradient>
 			  </defs>
-			  <circle class="firstSeal" cx="150" cy="100" r="80" fill="url(#${prefix}linear-gradient)" />
+			  <circle class="firstSeal" cx="150" cy="100" r="80" fill="url(#${prefix}cold)" />
 			  <circle cx="150" cy="93" r="75" fill="#fff" />
 			  
-			  <circle class="secondSeal" cx="150" cy="95" r="45" fill="url(#${prefix}linear-gradient)" />
+			  <circle class="secondSeal" cx="150" cy="95" r="45" fill="url(#${prefix}cold)" />
 			  <circle cx="150" cy="100" r="42" fill="#fff" />
 			  
-			  <circle class="lastSeal" cx="150" cy="97" r="36" fill="url(#${prefix}linear-gradient)" />
+			  <circle class="lastSeal" cx="150" cy="97" r="36" fill="url(#${prefix}cold)" />
 			  <circle cx="150" cy="92" r="32.5" fill="#fff" />
 			  
-			  <path class="secondSeal" d="M150,10 Q158,50 150,90 M150,10 Q142,50 150,90"  fill="url(#${prefix}linear-gradient)" />
+			  <path class="secondSeal" d="M150,10 Q158,50 150,90 M150,10 Q142,50 150,90"  fill="url(#${prefix}cold)" />
 			</svg>
     </div>
   `
@@ -176,26 +186,65 @@ function createCss (prefix) {
         opacity: 1;
       }
     }
-    @keyframes ${prefix}useSeal {
+    @keyframes firstSeal {
 		  0% {
 		    opacity: 1;
+		    fill: url("#${prefix}burn");
 		  }
-		  80%{
+		  30% {
 		    opacity: 0;
 		  }
-		  81%,
+		  90% {
+		    opacity: 0;
+		  }
+		  91% {
+		    opacity: 1;
+		  }
+		  100% {
+		    opacity: 1;
+		  }
+		}
+		@keyframes secondSeal {
+		  30% {
+		    opacity: 1;
+		    fill: url("#${prefix}burn");
+		  }
+		  60%{
+		    opacity: 0;
+		  }
+		  90% {
+		    opacity: 0;
+		  }
+		  91% {
+		    opacity: 1;
+		  }
+		  100% {
+		    opacity: 1;
+		  }
+		}
+		@keyframes lastSeal {
+		  60% {
+		    opacity: 1;
+		    fill: url("#${prefix}burn");
+		  }
+		  90%{
+		    opacity: 0;
+		  }
+		  91% {
+		    opacity: 1;
+		  }
 		  100% {
 		    opacity: 1;
 		  }
 		}
 		.firstSeal {
-		  animation: ${prefix}useSeal 1s ease-in-out 0.3s both infinite;
+		  animation: firstSeal 1s ease-in-out both infinite;
 		}
 		.secondSeal {
-		  animation: ${prefix}useSeal 1s ease-in-out 0.5s both infinite;
+		  animation: secondSeal 1s ease-in-out both infinite;
 		}
 		.lastSeal {
-		  animation: ${prefix}useSeal 1s ease-in-out 0.7s both infinite;
+		  animation: lastSeal 1s ease-in-out both infinite;
 		}
   `
 
