@@ -78,13 +78,13 @@ export const init = ({ router }) => {
       isBuilding = true
       updateContainer()
     } else if (obj.action === 'built') {
-    	/*isBuilding = false
+    	isBuilding = false
       // Wait for the fade out transtion to complete
       timeoutId = setTimeout(() => {
         isVisible = false
         updateContainer()
       }, 100)
-      updateContainer()*/
+      updateContainer()
     }
   })
 }
