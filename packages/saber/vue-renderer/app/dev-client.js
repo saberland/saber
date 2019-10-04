@@ -94,23 +94,30 @@ function createContainer (prefix) {
   container.id = `${prefix}container`
   container.innerHTML = `
     <div id="${prefix}icon-wrapper">
-      <svg viewBox="0 0 226 200">
-        <defs>
-          <linearGradient
-            x1="114.720775%"
-            y1="181.283245%"
-            x2="39.5399306%"
-            y2="100%"
-            id="${prefix}linear-gradient"
-          >
-            <stop stop-color="#FFFFFF" offset="0%" />
-            <stop stop-color="#000000" offset="100%" />
-          </linearGradient>
-        </defs>
-        <g id="${prefix}icon-group" fill="none" stroke="url(#${prefix}linear-gradient)" stroke-width="18">
-          <path d="M113,5.08219117 L4.28393801,197.5 L221.716062,197.5 L113,5.08219117" />
-        </g>
-      </svg>
+      <svg viewBox="0 0 300 200">
+			  <defs>
+			    <linearGradient
+			      x1="114.720775%"
+			      y1="181.283245%"
+			      x2="39.5399306%"
+			      y2="100%"
+			      id="${prefix}linear-gradient"
+			    >
+			      <stop stop-color="#fff" offset="0%" />
+			      <stop stop-color="#000" offset="100%" />
+			    </linearGradient>
+			  </defs>
+			  <circle class="firstSeal" cx="150" cy="100" r="80" fill="url(#${prefix}linear-gradient)" />
+			  <circle cx="150" cy="93" r="75" fill="#fff" />
+			  
+			  <circle class="secondSeal" cx="150" cy="95" r="45" fill="url(#${prefix}linear-gradient)" />
+			  <circle cx="150" cy="100" r="42" fill="#fff" />
+			  
+			  <circle class="lastSeal" cx="150" cy="97" r="36" fill="url(#${prefix}linear-gradient)" />
+			  <circle cx="150" cy="92" r="32.5" fill="#fff" />
+			  
+			  <path class="secondSeal" d="M150,10 Q158,50 150,90 M150,10 Q142,50 150,90"  fill="url(#${prefix}linear-gradient)" />
+			</svg>
     </div>
   `
 
@@ -132,11 +139,12 @@ function createCss (prefix) {
       text-shadow: initial;
       text-transform: initial;
       visibility: initial;
-      padding: 8px 10px;
+      padding: 0;
       align-items: center;
       box-shadow: 0 11px 40px 0 rgba(0, 0, 0, 0.25), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
       display: none;
       opacity: 0;
+      border-radius: 50%;
       transition: opacity 0.1s ease, bottom 0.1s ease;
       animation: ${prefix}fade-in 0.1s ease-in-out;
     }
@@ -148,8 +156,8 @@ function createCss (prefix) {
       opacity: 1;
     }
     #${prefix}icon-wrapper {
-      width: 16px;
-      height: 16px;
+      width: 48px;
+      height: 48px;
     }
     #${prefix}icon-wrapper > svg {
       width: 100%;
@@ -168,15 +176,27 @@ function createCss (prefix) {
         opacity: 1;
       }
     }
-    @keyframes ${prefix}strokedash {
-      0% {
-        stroke-dasharray: 0 226;
-      }
-      80%,
-      100% {
-        stroke-dasharray: 659 226;
-      }
-    }
+    @keyframes ${prefix}useSeal {
+		  0% {
+		    opacity: 1;
+		  }
+		  80%{
+		    opacity: 0;
+		  }
+		  81%,
+		  100% {
+		    opacity: 1;
+		  }
+		}
+		.firstSeal {
+		  animation: ${prefix}useSeal 1s ease-in-out 0.3s both infinite;
+		}
+		.secondSeal {
+		  animation: ${prefix}useSeal 1s ease-in-out 0.5s both infinite;
+		}
+		.lastSeal {
+		  animation: ${prefix}useSeal 1s ease-in-out 0.7s both infinite;
+		}
   `
 
   return css
