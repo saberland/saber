@@ -141,6 +141,19 @@ exports.apply = api => {
         .plugin('extract-css')
         .use(require('mini-css-extract-plugin'), [extractOptions])
 
+      const splitChunks = {
+        cacheGroups: {
+          styles: {
+            name: 'style-vendor',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true,
+            reuseExistingChunk: true
+          }
+        }
+      }
+      config.optimization.splitChunks(splitChunks)
+
       const OptimizeCSSPlugin = require('@intervolga/optimize-cssnano-plugin')
       config.plugin('optimize-css').use(OptimizeCSSPlugin, [
         {
