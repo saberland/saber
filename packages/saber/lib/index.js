@@ -59,6 +59,8 @@ class Saber {
       emitPages: new AsyncSeriesHook(),
       // Call this hook to manipulate a page, it's usually used by file watcher
       manipulatePage: new AsyncSeriesHook(['data']),
+      // Call when server renderer is created and updated
+      onCreateRenderer: new AsyncSeriesHook(['renderer', 'isFirstTime']),
       // Called before exporting a page as static HTML file
       beforeExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
       // Called after exporting a page
