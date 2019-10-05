@@ -79,10 +79,6 @@ exports.apply = (api, options) => {
   api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
   if (api.dev) {
-    // api.hooks.onCreateRenderer.tapPromise(ID, async () => {
-    //   db = await generateDatabase()
-    // })
-
     api.hooks.onCreateServer.tap(ID, server => {
       server.get('/_saber/plugin-search/:locale.json', async (req, res) => {
         db = await generateDatabase()
