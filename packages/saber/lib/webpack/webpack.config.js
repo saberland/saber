@@ -102,26 +102,34 @@ module.exports = (api, { type }) => {
   ])
 
   if (type === 'client') {
-    const totalPages = api.dev ? 2 : api.pages.size
     config.optimization.splitChunks({
       cacheGroups: {
         default: false,
         vendors: false,
-        commons: {
-          name: 'commons',
+        // Extract all modules used by Saber and Saber itself
+        framework: {
           chunks: 'all',
-          minChunks: totalPages > 2 ? totalPages * 0.5 : 2
+          test: /[\\/]node_modules[\\/](vue|vue-router|vue-meta|vue-router-prefetch|object-assign|saber)[\\/]/,
+          priority: 40
         },
-        runtime: {
-          name: 'runtime',
+        // Extract third-party libraries
+        lib: {
           chunks: 'all',
-          test: /[\\/]node_modules[\\/](vue|vue-router|vue-meta|vue-router-prefetch|object-assign|saber)[\\/]/
+          test: /[\\/]node_modules[\\/]/,
+          priority: 30,
+          minChunks: 2,
+          reuseExistingChunk: true
+        },
+        // Other shared modules across files
+        shared: {
+          chunks: 'all',
+          priority: 10,
+          minChunks: 2,
+          reuseExistingChunk: true
         }
       }
     })
-    config.optimization.runtimeChunk({
-      name: entrypoint => `manifest-${entrypoint.name}`
-    })
+    config.optimization.runtimeChunk(true)
   }
 
   if (api.compilers[type]) {
