@@ -1,5 +1,6 @@
 const { log, colors } = require('saber-log')
 const logUpdate = require('log-update')
+const merge = require('lodash.merge')
 
 const ID = 'builtin:config-css'
 
@@ -140,6 +141,23 @@ exports.apply = api => {
       config
         .plugin('extract-css')
         .use(require('mini-css-extract-plugin'), [extractOptions])
+
+      const splitChunks = config.optimization.get('splitChunks')
+      config.optimization.splitChunks(
+        merge({}, splitChunks, {
+          cacheGroups: {
+            styles: {
+              name: 'styles',
+              // necessary to ensure async chunks are also extracted
+              test: m => {
+                return /css\/mini-extract/.test(m.type)
+              },
+              chunks: 'all',
+              enforce: true
+            }
+          }
+        })
+      )
 
       const OptimizeCSSPlugin = require('@intervolga/optimize-cssnano-plugin')
       config.plugin('optimize-css').use(OptimizeCSSPlugin, [
