@@ -101,6 +101,29 @@ module.exports = (api, { type }) => {
     }
   ])
 
+  if (type === 'client') {
+    const totalPages = api.dev ? 2 : api.pages.size
+    config.optimization.splitChunks({
+      cacheGroups: {
+        default: false,
+        vendors: false,
+        commons: {
+          name: 'commons',
+          chunks: 'all',
+          minChunks: totalPages > 2 ? totalPages * 0.5 : 2
+        },
+        runtime: {
+          name: 'runtime',
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/](vue|vue-router|vue-meta|vue-router-prefetch|object-assign|saber)[\\/]/
+        }
+      }
+    })
+    config.optimization.runtimeChunk({
+      name: entrypoint => `manifest-${entrypoint.name}`
+    })
+  }
+
   if (api.compilers[type]) {
     api.compilers[type].injectToWebpack(config)
   }
