@@ -11,7 +11,7 @@ module.exports = {
     },
     plugins: [{ resolve: 'markdown-it-footnote' }]
   },
-  build: { lazy: true },
+  build: { lazy: true, extractCSS: true },
   permalinks: { post: '/blog/:slug.html' },
   themeConfig: {
     sidebarMenu: [
