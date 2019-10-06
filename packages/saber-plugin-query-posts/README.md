@@ -59,6 +59,10 @@ export default {
 </script>
 ```
 
+## Draft Posts
+
+Posts with front matter `draft: true` will be excluded in `page.posts`, but they will still be built and accessible via permalink.
+
 ## Tags
 
 This plugin will automatically generate tag pages at `/tags/:tag` when you're using `tags` in page data, e.g. in a Markdown post:
@@ -169,7 +173,7 @@ Category pages will use the `category` layout or fallback to `default` layout.
 
 You can access the category name in the layout component via `this.page.category`.
 
-### Pagination
+## Pagination
 
 By default we show at most 30 posts per page, but you can configure this globally using `perPage` option in `saber-config.yml`:
 

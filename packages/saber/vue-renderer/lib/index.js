@@ -266,8 +266,10 @@ class VueRenderer {
     ])
   }
 
-  initRenderer({ clientManifest, serverBundle } = {}) {
+  async initRenderer({ clientManifest, serverBundle } = {}) {
     const { createBundleRenderer } = require('vue-server-renderer')
+
+    const isFirstTime = !this.renderer
 
     if (serverBundle && clientManifest) {
       log.verbose(`Creating server renderer`)
@@ -278,6 +280,8 @@ class VueRenderer {
         basedir: this.api.resolveCache('dist-server')
       })
     }
+
+    await this.api.hooks.onCreateRenderer.promise(this.renderer, isFirstTime)
 
     return this.renderer
   }
@@ -310,7 +314,7 @@ class VueRenderer {
     const clientManifest = readJSON(
       this.api.resolveCache('bundle-manifest/client.json')
     )
-    const renderer = this.initRenderer({ serverBundle, clientManifest })
+    const renderer = await this.initRenderer({ serverBundle, clientManifest })
 
     const getOutputFilePath = permalink => {
       const filename = permalink.endsWith('.html')
@@ -327,7 +331,7 @@ class VueRenderer {
         routes.map(async route => {
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
-            const { context, html } = renderHTML(renderer, {
+            const { context, html } = await renderHTML(renderer, {
               url: route.permalink,
               isProd: true,
               hooks: this.api.hooks

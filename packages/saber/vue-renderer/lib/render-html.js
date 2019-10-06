@@ -3,7 +3,7 @@ const getInitialDocument = require('./get-initial-document')
 
 module.exports = async (renderer, { url, hooks, isProd }) => {
   const context = { url }
-  const markup = await renderer.renderToString(context)
+  context.markup = await renderer.renderToString(context)
 
   // Get document data that is used to document string
   const documentData = hooks.getDocumentData.call(
@@ -25,7 +25,7 @@ module.exports = async (renderer, { url, hooks, isProd }) => {
   return {
     html: `<!DOCTYPE html>${document}`.replace(
       '<div id="_saber"></div>',
-      markup
+      context.markup
     ),
     context
   }

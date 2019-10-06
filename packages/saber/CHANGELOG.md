@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.3](https://github.com/saberland/saber/compare/saber@0.10.2...saber@0.10.3) (2019-10-05)
+
+### Bug Fixes
+
+- assign markup to ssr context ([002bb91](https://github.com/saberland/saber/commit/002bb91))
+- fix the arguments passed to getDocumentData hook ([e6a142d](https://github.com/saberland/saber/commit/e6a142d))
+- properly call async function ([e87d81f](https://github.com/saberland/saber/commit/e87d81f))
+- **plugin-search:** generate data on demand ([#492](https://github.com/saberland/saber/issues/492)) ([18dd8b7](https://github.com/saberland/saber/commit/18dd8b7))
+
 ## [0.10.2](https://github.com/saberland/saber/compare/saber@0.10.1...saber@0.10.2) (2019-09-29)
 
 ### Bug Fixes
