@@ -67,7 +67,9 @@ The base URL your application will be deployed at. If your website is located at
 - Type: `boolean`
 - Default: `false`
 
-Extract CSS.
+By default we inline critical CSS and dynamically add new CSS when you nagivate to a new page.
+
+You can enable this option to extract all CSS into a single file. __Note that this option is always disable in development mode.__
 
 ### cssSourceMap
 
