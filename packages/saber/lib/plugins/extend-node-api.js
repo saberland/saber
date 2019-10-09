@@ -1,5 +1,7 @@
 const fs = require('fs')
 const path = require('path')
+const notifier = require('node-notifier')
+
 const { log, colors } = require('saber-log')
 
 const ID = 'builtin:extend-node-api'
@@ -86,7 +88,7 @@ exports.apply = api => {
           )
           // Because you might also update webpack config in saber-node.js
           // Which we can't (?) automatically reload
-          log.warn(`You probably need to restart the server.`)
+          notifier.notify('You probably need to restart the server.')
         })
     }
   }
