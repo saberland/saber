@@ -1,11 +1,11 @@
-const RE = /\s*{([^}]+)}/
+const CODE_OPTIONS_RE = /\s*{([^}]+)}/
 
 const parseOptions = str => {
-  if (!RE.test(str)) {
+  if (!CODE_OPTIONS_RE.test(str)) {
     return {}
   }
 
-  const [, options] = RE.exec(str)
+  const [, options] = CODE_OPTIONS_RE.exec(str)
   const fn = new Function(`return {${options}}`) // eslint-disable-line no-new-func
   return fn()
 }
@@ -38,7 +38,7 @@ module.exports = (
     const token = tokens[idx]
 
     const fenceOptions = parseOptions(token.info)
-    const langName = token.info.replace(RE, '').trim()
+    const langName = token.info.replace(CODE_OPTIONS_RE, '').trim()
     const langClass = `language-${langName || 'text'}`
     token.info = langName
 
