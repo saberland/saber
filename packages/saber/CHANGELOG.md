@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.4](https://github.com/saberland/saber/compare/saber@0.10.3...saber@0.10.4) (2019-10-06)
+
+### Bug Fixes
+
+- disable css extraction in dev mode ([1cc0757](https://github.com/saberland/saber/commit/1cc0757))
+- Ensure all CSS being extracted into a single file ([#181](https://github.com/saberland/saber/issues/181)) ([c1201de](https://github.com/saberland/saber/commit/c1201de))
+- use `<a>` if the page doesn't exist ([8e3daa9](https://github.com/saberland/saber/commit/8e3daa9)), closes [#506](https://github.com/saberland/saber/issues/506)
+
 ## [0.10.3](https://github.com/saberland/saber/compare/saber@0.10.2...saber@0.10.3) (2019-10-05)
 
 ### Bug Fixes

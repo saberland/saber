@@ -128,11 +128,6 @@ export default context => {
           throw new TypeError(`Expect link to be a string`)
         }
 
-        // Already a route path, directly return
-        if (/^\//.test(link)) {
-          return link
-        }
-
         const matched = /^([^#?]+)([#?].*)?$/.exec(link)
 
         if (!matched) {
@@ -145,6 +140,9 @@ export default context => {
         )
         const extra = matched[2] || ''
         for (const route of this.$router.options.routes) {
+          if (route.path === matched[1]) {
+            return link
+          }
           if (
             route.meta &&
             route.meta.__relative &&
@@ -153,8 +151,9 @@ export default context => {
             return `${route.path}${extra}`
           }
         }
-        // Not a page, return the whole link directly
-        return `${matched[1]}${extra}`
+
+        // Not a page
+        return undefined
       }
     }
   }

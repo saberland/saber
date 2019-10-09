@@ -163,7 +163,7 @@ class Saber {
 
     // Load built-in plugins
     for (const plugin of builtinPlugins) {
-      this.applyPlugin(require(plugin.resolve), plugin.options)
+      await this.applyPlugin(require(plugin.resolve), plugin.options)
     }
 
     // Load user plugins
@@ -179,7 +179,7 @@ class Saber {
     }
 
     for (const plugin of userPlugins) {
-      this.applyPlugin(plugin, plugin.options, plugin.location)
+      await this.applyPlugin(plugin, plugin.options, plugin.location)
     }
 
     await this.hooks.afterPlugins.promise()
@@ -211,8 +211,9 @@ class Saber {
     }
   }
 
-  applyPlugin(plugin, options, pluginLocation) {
-    plugin.apply(this, options)
+  async applyPlugin(plugin, options, pluginLocation) {
+    await plugin.apply(this, options)
+
     if (!plugin.name.startsWith('builtin:')) {
       log.verbose(
         () =>
