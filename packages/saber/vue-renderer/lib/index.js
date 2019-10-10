@@ -286,12 +286,7 @@ class VueRenderer {
     return this.renderer
   }
 
-  async renderPageContent(url, options) {
-    options = {
-      scoped: false,
-      ...options
-    }
-
+  async renderPageContent(url, { scoped = false } = {}) {
     const random = 'asdhkBJKAbjkf@3^1_a=--+'
     const startingMark = `__mark_page_content_start__${random}`
     const endingMark = `__mark_page_content_stop__${random}`
@@ -305,7 +300,7 @@ class VueRenderer {
       html.indexOf(endingMark)
     )
 
-    return options.scoped
+    return scoped
       ? content
       : content.replace(/((?: data-v-[a-z0-9]{8})+)>/gm, '>')
   }
