@@ -61,6 +61,7 @@ exports.apply = (api, options = {}) => {
         }
 
         const content = await api.renderer.renderPageContent(page.permalink)
+
         posts.push({
           title: page.title,
           id: resolveURL(siteConfig.url, page.permalink),
