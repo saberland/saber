@@ -56,7 +56,7 @@ exports.apply = api => {
         await api.setConfig(data, configPath)
         checkIfConfigChanged(api.config, prevConfig)
         await api.hooks.onUpdateConfigFile.promise()
-        await api.hooks.getSaberConfig.promise(api.config)
+        await api.hooks.modifySaberConfig.promise(api.config)
         await emit(api.config)
       })
     }
