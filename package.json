@@ -15,7 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "commitizen": "4.0.3",
-    "conf": "6.0.1",
+    "conf": "6.1.0",
     "cz-conventional-changelog": "3.0.2",
     "enquirer": "^2.3.1",
     "eslint-config-prettier": "6.3.0",
