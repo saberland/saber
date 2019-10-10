@@ -12930,9 +12930,9 @@ vue-loader@^15.5.1:
     vue-style-loader "^4.1.0"
 
 vue-meta@^2.0.4:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/vue-meta/-/vue-meta-2.2.2.tgz#ec6be76d75b7d6e4abb6d995d92245487081428b"
-  integrity sha512-aSzjfc5xV3szxPZMsSk6JeoHUqwrVHNPzpMciTCek56LDd2xKWCv+Ch4IGWL5EIxVyfxA+krsD7T11PTyLY4TQ==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/vue-meta/-/vue-meta-2.3.1.tgz#32a1c2634f49433f30e7e7a028aa5e5743f84f6a"
+  integrity sha512-hnZvDNvLh+PefJLfYkZhG6cSBNKikgQyiEK8lI/P2qscM1DC/qHHOfdACPQ/VDnlaWU9VlcobCTNyVtssTR4XQ==
   dependencies:
     deepmerge "^4.0.0"
 
