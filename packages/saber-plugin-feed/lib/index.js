@@ -60,11 +60,7 @@ exports.apply = (api, options = {}) => {
           return
         }
 
-        const rendered = await api.renderer.renderPageContent(page.permalink)
-        const content = rendered.replace(
-          /<[^!<>]*( data-v-[a-z0-9]{8})>/gm,
-          (match, group) => match.replace(new RegExp(group, 'g'), '') // some tags have the same data attribute twice
-        )
+        const content = await api.renderer.renderPageContent(page.permalink)
 
         posts.push({
           title: page.title,
