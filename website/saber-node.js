@@ -5,8 +5,10 @@ const { MEASURE_SPEED, NODE_ENV, BUNDLE_ANALYZER_TOKEN } = process.env
 
 exports.getWebpackConfig = (config, { type }) => {
   if (type === 'client' && NODE_ENV === 'production' && BUNDLE_ANALYZER_TOKEN) {
+    const BundleAnalyzer = require('@bundle-analyzer/webpack-plugin')
+
     config.plugins.push(
-      require('@bundle-analyzer/webpack-plugin')({
+      new BundleAnalyzer({
         token: BUNDLE_ANALYZER_TOKEN
       })
     )
