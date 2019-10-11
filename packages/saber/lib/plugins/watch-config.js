@@ -1,4 +1,5 @@
 const path = require('path')
+const notifier = require('node-notifier')
 const { fs } = require('saber-utils')
 const { log } = require('saber-log')
 const deepEqual = require('fast-deep-equal')
@@ -31,9 +32,13 @@ exports.apply = api => {
           locales: undefined
         })
       if (!deepEqual(dropUnnecessary(newConfig), dropUnnecessary(prevConfig))) {
-        log.warn(
-          `Found a change in your Saber config file, restart server to see the effect.`
-        )
+        log.warn(`saber-config.js was changed, you need to restart the server.`)
+        notifier.notify({
+          title: 'Saber',
+          icon: path.join('../assets', 'icon-saber.png'),
+          message:
+            'saber-config.js was changed, you need to restart the server.'
+        })
       }
     }
 
