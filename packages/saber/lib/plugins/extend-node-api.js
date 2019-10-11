@@ -88,7 +88,7 @@ exports.apply = api => {
           )
           // Because you might also update webpack config in saber-node.js
           // Which we can't (?) automatically reload
-          log.warn(`You probably need to restart the server.`)
+          log.warn(`saber-node.js was changed, you need to restart the server`)
           notifier.notify({
             title: 'Saber',
             icon: path.join('../assets', 'icon-saber.png'),
