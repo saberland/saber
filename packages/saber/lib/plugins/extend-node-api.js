@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const { spawn, execSync } = require('child_process')
 const notifier = require('node-notifier')
 
 const { log, colors } = require('saber-log')
@@ -90,25 +89,11 @@ exports.apply = api => {
           // Because you might also update webpack config in saber-node.js
           // Which we can't (?) automatically reload
           log.warn(`saber-node.js was changed, you need to restart the server.`)
-
           notifier.notify({
             title: 'Saber',
             icon: path.join('../assets', 'icon-saber.png'),
             message:
-              'saber-node.js was changed, you need to restart the server.',
-            wait: true,
-            closeLabel: 'close',
-            actions: 'restart'
-          })
-
-          notifier.on('click', () => {
-            execSync(
-              `pkill -f ${path.join(process.cwd(), 'node_modules/.bin/saber')}`
-            )
-            const command = spawn(process.env.npm_execpath, ['run', 'dev'])
-            command.stdout.on('data', data => {
-              console.log(`${data}`)
-            })
+              'saber-node.js was changed, you need to restart the server.'
           })
         })
     }

@@ -1,5 +1,4 @@
 const path = require('path')
-const { spawn, execSync } = require('child_process')
 const notifier = require('node-notifier')
 const { fs } = require('saber-utils')
 const { log } = require('saber-log')
@@ -38,20 +37,7 @@ exports.apply = api => {
           title: 'Saber',
           icon: path.join('../assets', 'icon-saber.png'),
           message:
-            'saber-config.js was changed, you need to restart the server.',
-          wait: true,
-          closeLabel: 'close',
-          actions: 'restart'
-        })
-
-        notifier.on('click', () => {
-          execSync(
-            `pkill -f ${path.join(process.cwd(), 'node_modules/.bin/saber')}`
-          )
-          const command = spawn(process.env.npm_execpath, ['run', 'dev'])
-          command.stdout.on('data', data => {
-            console.log(`${data}`)
-          })
+            'saber-config.js was changed, you need to restart the server.'
         })
       }
     }
