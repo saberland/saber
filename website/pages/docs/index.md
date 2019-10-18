@@ -7,7 +7,7 @@ Saber is a static website generator, it is like Hexo but, you can use Vue, React
 
 ## Disclaimer
 
-A word of caution: Saber is currently in beta stage. We encourage brave early adopters, it works but expect bugs large and small. We do maintain a [changelog](https://github.com/egoist/saber/releases) for breaking changes, new features and bug fixes though.
+A word of caution: Saber is currently in beta stage. We encourage brave early adopters, it works but expect bugs large and small. We do maintain a [changelog](https://github.com/saberland/saber/releases) for breaking changes, new features and bug fixes though.
 
 ## Comparisons
 

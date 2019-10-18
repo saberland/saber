@@ -55,7 +55,7 @@ With this setup Netlify will build and deploy when you push to git or open a pul
 2. Pick your Git hosting service and select your repository
 3. Click `Build your site`
 
-Since Netlify automatically rewrites routes like `/foo` to `/foo.html` when `/foo` doesn't exist, you may need [saber-plugin-netlify-redirect](https://github.com/egoist/saber/tree/master/packages/saber-plugin-netlify-redirect) to fix this.
+Since Netlify automatically rewrites routes like `/foo` to `/foo.html` when `/foo` doesn't exist, you may need [saber-plugin-netlify-redirect](https://github.com/saberland/saber/tree/master/packages/saber-plugin-netlify-redirect) to fix this.
 
 ## [GitHub Pages](https://pages.github.com/)
 

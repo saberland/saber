@@ -24,7 +24,7 @@ Issues on Saber can be funded by anyone and the money will be distributed to con
 
 Saber wouldn't be what it is today without the contributions from these awesome people:
 
-[![contributors](https://opencollective.com/saber/contributors.svg?button=false&width=890)](https://github.com/egoist/saber/graphs/contributors)
+[![contributors](https://opencollective.com/saber/contributors.svg?button=false&width=890)](https://github.com/saberland/saber/graphs/contributors)
 
 ---
 
