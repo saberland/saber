@@ -10,10 +10,6 @@ function getLocale(locale) {
   return db[locale]
 }
 
-function stripHTML(input) {
-  return input.replace(/<(?:.|\n)*?>/gm, '')
-}
-
 exports.apply = (api, options) => {
   const { index } = Object.assign(
     {
@@ -48,7 +44,7 @@ exports.apply = (api, options) => {
                 page.permalink
               )
             } else {
-              item[element] = stripHTML(page[element])
+              item[element] = page[element]
             }
           }
         }
