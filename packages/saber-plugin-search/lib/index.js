@@ -44,8 +44,8 @@ exports.apply = (api, options) => {
           const value = page[element]
           if (value !== undefined) {
             if (element === 'content') {
-              item.content = stripHTML(
-                await api.renderer.renderPageContent(page.permalink)
+              item.content = await api.renderer.renderPageContent(
+                page.permalink
               )
             } else {
               item[element] = stripHTML(page[element])
