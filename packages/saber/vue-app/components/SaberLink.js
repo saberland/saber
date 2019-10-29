@@ -26,23 +26,22 @@ export default {
           setAttribute(attrs, 'target', '_blank')
         }
       }
+
       attrs.href = attrs.to
       delete attrs.to
-    } else {
-      if (typeof attrs.to === 'string') {
-        const link = parent.$saber.getPageLink(attrs.to)
-        if (link) {
-          tag = 'router-link'
-          attrs.to = link
-        } else {
-          attrs.href = attrs.to
-          delete attrs.to
-        }
-      } else {
+    } else if (typeof attrs.to === 'string') {
+      const link = parent.$saber.getPageLink(attrs.to)
+      if (link) {
         tag = 'router-link'
-        const { route } = parent.$router.resolve(attrs.to)
-        attrs.to = parent.$saber.getPageLink(route.fullPath)
+        attrs.to = link
+      } else {
+        attrs.href = attrs.to
+        delete attrs.to
       }
+    } else {
+      tag = 'router-link'
+      const { route } = parent.$router.resolve(attrs.to)
+      attrs.to = parent.$saber.getPageLink(route.fullPath)
     }
 
     delete attrs.openLinkInNewTab

@@ -18,16 +18,17 @@ module.exports = function(cli) {
       delete options.host
       delete options.port
       delete options.lazy
-      return require('..')(Object.assign({ cwd, dev: true }, options), {
-        server: {
-          host,
-          port
-        },
-        build: {
-          lazy,
-          cache
-        }
-      })
+      return require('..')
+        .createSaber(Object.assign({ cwd, dev: true }, options), {
+          server: {
+            host,
+            port
+          },
+          build: {
+            lazy,
+            cache
+          }
+        })
         .serve()
         .catch(handleError)
     })

@@ -43,7 +43,7 @@
       "**/dist/**",
       "**/vendor/**",
       "*.min.js",
-      "**/vue-renderer/app/**",
+      "**/vue-app/**",
       "**/example/**",
       "**/examples/**",
       "website/**"

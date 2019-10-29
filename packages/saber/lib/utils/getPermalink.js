@@ -12,7 +12,7 @@
  * @param {string} page.slug - The page slug
  * @param {string} page.type - The page type
  * @param {Date}  page.createdAt - The creation time
- * @param {import('saber').Permalinks} permalinks - The `permalinks` config option
+ * @param {import('saber').IPermalinks} permalinks - The `permalinks` config option
  */
 module.exports = (localeNames, page, permalinks) => {
   if (page.slug === 'index') return '/'

@@ -3,9 +3,9 @@
 
 function normalizeArray(parts, allowAboveRoot) {
   // if the path tries to go above the root, `up` ends up > 0
-  var up = 0
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i]
+  let up = 0
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const last = parts[i]
     if (last === '.') {
       parts.splice(i, 1)
     } else if (last === '..') {
@@ -29,32 +29,33 @@ function normalizeArray(parts, allowAboveRoot) {
 
 // Split a filename into [root, dir, basename, ext], unix version
 // 'root' is just a slash, or nothing.
-var splitPathRe = /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/
-var splitPath = function(filename) {
+const splitPathRe = /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/
+const splitPath = function(filename) {
   return splitPathRe.exec(filename).slice(1)
 }
 
 // path.normalize(path)
 // posix version
 function normalize(path) {
-  var isPathAbsolute = isAbsolute(path),
-    trailingSlash = path.substr(-1) === '/'
+  const isPathAbsolute = isAbsolute(path)
+  const trailingSlash = path.substr(-1) === '/'
 
   // Normalize the path
-  path = normalizeArray(
-    path.split('/').filter(Boolean),
-    !isPathAbsolute
-  ).join('/')
+  path = normalizeArray(path.split('/').filter(Boolean), !isPathAbsolute).join(
+    '/'
+  )
 
   if (!path && !isPathAbsolute) {
     path = '.'
   }
+
   if (path && trailingSlash) {
     path += '/'
   }
 
   return (isPathAbsolute ? '/' : '') + path
 }
+
 // posix version
 function isAbsolute(path) {
   return path.charAt(0) === '/'
@@ -66,9 +67,9 @@ function join(...paths) {
 }
 
 function dirname(path) {
-  var result = splitPath(path),
-    root = result[0],
-    dir = result[1]
+  const result = splitPath(path)
+  const root = result[0]
+  let dir = result[1]
 
   if (!root && !dir) {
     // No dirname whatsoever

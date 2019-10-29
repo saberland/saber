@@ -5,6 +5,10 @@ const { SyncWaterfallHook } = require('tapable')
 const { readJSON } = require('./utils')
 const renderHTML = require('./render-html')
 
+function resolveVueApp(...args) {
+  return path.join(__dirname, '../../vue-app', ...args)
+}
+
 const ID = 'vue-renderer'
 
 class VueRenderer {
@@ -19,7 +23,7 @@ class VueRenderer {
     }
 
     this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
-      config.entry(type).add(path.join(__dirname, `../app/entry-${type}.js`))
+      config.entry(type).add(resolveVueApp(`entry-${type}.js`))
 
       config.output.path(api.resolveCache(`dist-${type}`))
 
@@ -41,8 +45,8 @@ class VueRenderer {
 
       config.plugin('vue').use(require('vue-loader/lib/plugin'))
 
-      // Transform js files in ../app folder
-      config.module.rule('js').include.add(path.join(__dirname, '../app'))
+      // Transform js files in vue-app folder
+      config.module.rule('js').include.add(resolveVueApp())
 
       const vueLoaderOptions = this.hooks.getVueLoaderOptions.call(
         Object.assign(
@@ -237,7 +241,7 @@ class VueRenderer {
         name: 404,
         component: function () {
           return import(/* webpackChunkName: "404-page" */ ${JSON.stringify(
-            slash(path.join(__dirname, '../app/404.vue'))
+            slash(resolveVueApp('404.vue'))
           )})
         }
       }
@@ -548,7 +552,7 @@ class VueRenderer {
   }
 }
 
-VueRenderer.defaultTheme = path.join(__dirname, '../app/theme')
+VueRenderer.defaultTheme = resolveVueApp('theme')
 
 module.exports = VueRenderer
 

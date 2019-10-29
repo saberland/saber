@@ -6,6 +6,7 @@ export default ({ router }) => {
       } else if (typeof transition === 'string') {
         transition = { name: transition }
       }
+
       return transition
     }
 
@@ -17,12 +18,14 @@ export default ({ router }) => {
       ) {
         return
       }
+
       // The default router component
       let RouteComponent = route.matched[0].components.default
       // Resolve async component
       if (typeof RouteComponent === 'function') {
         RouteComponent = await RouteComponent()
       }
+
       // ES compat
       RouteComponent = RouteComponent.default || RouteComponent
 

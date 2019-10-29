@@ -137,7 +137,7 @@ class Saber {
           cwd: this.configDir,
           prefix: 'saber-renderer-'
         })
-      : require('../vue-renderer/lib')
+      : require('./vue-renderer')
     this.renderer = new this.RendererClass(this)
 
     // Load theme
@@ -395,4 +395,5 @@ class Saber {
   }
 }
 
-module.exports = (opts, config) => new Saber(opts, config)
+exports.createSaber = (opts, config) => new Saber(opts, config)
+exports.Saber = Saber

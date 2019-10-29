@@ -1,4 +1,3 @@
-// @ts-check
 const { struct } = require('superstruct')
 
 /**

@@ -3,16 +3,13 @@
   "version": "0.10.4",
   "description": "A simple yet powerful static site generator",
   "files": [
-    "bin",
-    "lib",
-    "!**/*.test.js",
-    "!**/__*__/**",
+    "/babel.js",
     "/types",
-    "/vue-renderer",
-    "/babel.js"
+    "/lib",
+    "/vue-app"
   ],
   "scripts": {
-    "test": "jest --env node"
+    "test": "tsc && jest --env node"
   },
   "main": "lib/index.js",
   "bin": "lib/cli.js",
@@ -79,7 +76,7 @@
     "@types/webpack": "4.39.1",
     "jest": "24.9.0",
     "markdown-it-footnote": "3.0.2",
-    "typescript": "3.6.3"
+    "typescript": "^3.8.0-dev.20191029"
   },
   "xo": false,
   "engines": {

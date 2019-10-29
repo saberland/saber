@@ -10,6 +10,7 @@ export const init = ({ router }) => {
       if (obj.hasError) {
         console.error(`You need to refresh the page when the error is fixed!`)
       }
+
       if (obj.alreadyBuilt) {
         router.push(obj.route)
       } else {
@@ -19,6 +20,7 @@ export const init = ({ router }) => {
             router.push(obj.route)
           }
         }
+
         module.hot.addStatusHandler(handler)
       }
     }

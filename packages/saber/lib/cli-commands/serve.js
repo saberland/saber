@@ -11,12 +11,13 @@ module.exports = function(cli) {
       const { host, port } = options
       delete options.host
       delete options.port
-      return require('..')(Object.assign({ cwd, dev: true }, options), {
-        server: {
-          host,
-          port
-        }
-      })
+      return require('..')
+        .createSaber(Object.assign({ cwd, dev: true }, options), {
+          server: {
+            host,
+            port
+          }
+        })
         .serveOutDir()
         .catch(handleError)
     })

@@ -1,5 +1,5 @@
 const devalue = require('devalue')
-const { requireAssets } = require('../../lib/utils/assetsAttribute')
+const { requireAssets } = require('../utils/assetsAttribute')
 
 module.exports = function(source, map) {
   const pageId = source.trim()

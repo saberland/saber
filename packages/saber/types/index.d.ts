@@ -1,5 +1,11 @@
 declare module 'saber' {
-  interface Config {
+  interface ISaberOptions {
+    cwd?: string
+    dev?: boolean
+    verbose?: boolean
+  }
+
+  interface ISaberConfig {
     siteConfig?: {
       [k: string]: any
     }
@@ -8,7 +14,7 @@ declare module 'saber' {
       [k: string]: any
     }
 
-    permalinks?: Permalinks | ((page: Page) => Permalinks)
+    permalinks?: IPermalinks | ((page: IPage) => IPermalinks)
 
     build?: {
       /**
@@ -48,11 +54,11 @@ declare module 'saber' {
     }
   }
 
-  interface Permalinks {
+  export interface IPermalinks {
     [pageType: string]: string
   }
 
-  interface Page {
+  export interface IPage {
     type: string
     layout?: string
     createdAt: Date
@@ -71,7 +77,7 @@ declare module 'saber' {
     [k: string]: any
   }
 
-  type Plugin =
+  type SaberPlugin =
     | string
     | {
         /** The path to your plugin or an npm package name */
@@ -87,5 +93,10 @@ declare module 'saber' {
     options?: any
   }
 
-  export { Config, Permalinks }
+  export interface ISaber {}
+
+  export const createSaber: (
+    options: ISaberOptions,
+    config: ISaberConfig
+  ) => ISaber
 }

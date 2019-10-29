@@ -15,11 +15,15 @@ export default ({ Vue }) => {
         let localePath = '/'
         for (const path of allLocalePaths) {
           if (path !== '/') {
-            if (this.$route.path === path || this.$route.path.indexOf(`${path}/`) === 0){
+            if (
+              this.$route.path === path ||
+              this.$route.path.indexOf(`${path}/`) === 0
+            ) {
               localePath = path
             }
           }
         }
+
         return localePath
       },
       $locales() {

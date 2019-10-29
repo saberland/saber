@@ -104,6 +104,7 @@ export default context => {
         })
         beforeEnter && beforeEnter(el)
       }
+
       const children = [
         h(
           'transition',
@@ -143,6 +144,7 @@ export default context => {
           if (route.path === matched[1]) {
             return link
           }
+
           if (
             route.meta &&
             route.meta.__relative &&

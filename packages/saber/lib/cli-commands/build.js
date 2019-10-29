@@ -26,11 +26,12 @@ module.exports = function(cli) {
       delete options.skipCompilation
       delete options.cache
 
-      return require('..')(Object.assign({ cwd, dev: false }, options), {
-        build: {
-          cache
-        }
-      })
+      return require('..')
+        .createSaber(Object.assign({ cwd, dev: false }, options), {
+          build: {
+            cache
+          }
+        })
         .build({ skipCompilation })
         .catch(handleError)
     })

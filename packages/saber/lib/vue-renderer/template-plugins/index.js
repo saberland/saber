@@ -1,4 +1,4 @@
-const ConfigChain = require('../../../lib/config-chain')
+const ConfigChain = require('../../config-chain')
 
 module.exports = api => {
   const chain = new ConfigChain()

@@ -32,7 +32,7 @@ export default function(router, to, from) {
         .then(shouldScroll => {
           scrollToPosition(shouldScroll)
         })
-        .catch(err => {
+        .catch(error => {
           if (process.env.NODE_ENV !== 'production') {
             console.error(err)
           }

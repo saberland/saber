@@ -2,8 +2,8 @@
   "compilerOptions": {
     "strict": true,
     "allowJs": true,
-    "noEmit": true,
     "lib": ["es2017"],
+    "noEmit": true,
     "module": "commonjs",
     "target": "es2015",
     "esModuleInterop": true,
