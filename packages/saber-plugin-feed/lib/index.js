@@ -1,6 +1,6 @@
 const path = require('path')
 const { Feed } = require('feed')
-const { getFeedPath, resolveURL } = require('./utils')
+const { getFeedPath, resolveURL, removeXMLInvalidChars } = require('./utils')
 
 const ID = 'generate-feed'
 
@@ -69,7 +69,7 @@ exports.apply = (api, options = {}) => {
           // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
           description:
             page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
-          content,
+          content: removeXMLInvalidChars(content),
           date: page.updatedAt,
           published: page.createdAt
         })
