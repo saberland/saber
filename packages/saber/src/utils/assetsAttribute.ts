@@ -1,15 +1,12 @@
-// @ts-check
-
-const { join } = require('path')
-const { slash, isAbsoluteUrl } = require('saber-utils')
+import { join } from 'path'
+import { slash, isAbsoluteUrl } from 'saber-utils'
 
 /**
  * It's considered external resource
  * When it's an absolute url or starting with `/`
  * `/path` is used to reference files in static folder
- * @param {string} str
  */
-const isExternal = str => isAbsoluteUrl(str) || /^\//.test(str)
+const isExternal = (str: string) => isAbsoluteUrl(str) || /^\//.test(str)
 
 const MARK = '@@!!SABER_ASSET_MARK_e5968b9a!!@@'
 
@@ -17,12 +14,9 @@ const MARK_GLOBAL_RE = new RegExp(`"${MARK}([^"]+)"`, 'g')
 
 /**
  * Prefix MARK to asset path
- * @param {{[key: string]: string}} assets
- * @param {string} cwd
  */
-const prefixAssets = (assets, cwd) => {
-  /** @type {{[key: string]: string}} */
-  const result = {}
+const prefixAssets = (assets: { [key: string]: string }, cwd: string) => {
+  const result: { [key: string]: string } = {}
   for (const key of Object.keys(assets)) {
     const value = assets[key]
     if (!isExternal(value) && !value.startsWith(MARK)) {
@@ -42,14 +36,13 @@ const prefixAssets = (assets, cwd) => {
 
 /**
  * Replace strings starting with the MARK to `require` call
- * @param {string} str
  */
-const requireAssets = str =>
+const requireAssets = (str: string) =>
   str.replace(MARK_GLOBAL_RE, (_, p1) => {
     return `require("${p1}")`
   })
 
-module.exports = {
+export {
   prefixAssets,
   requireAssets
 }
