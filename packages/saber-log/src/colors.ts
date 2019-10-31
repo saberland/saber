@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable */
 let enabled =
   process.env.FORCE_COLOR ||
@@ -25,7 +26,7 @@ const init = (open, close) => {
   )
 }
 
-module.exports = {
+export const colors = {
   options: Object.defineProperty({}, 'enabled', {
     get: () => enabled,
     set: value => (enabled = value)

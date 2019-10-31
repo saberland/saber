@@ -1,5 +1,4 @@
-// @ts-check
-const colors = require('./colors')
+import { colors } from './colors'
 
 const chars = {
   info: colors.cyan('info'),
@@ -8,28 +7,24 @@ const chars = {
   error: colors.red('error')
 }
 
-/**
- * @typedef {Object} ILogConstructorOptions
- * @property {number=} logLevel
- */
+interface ILogConstructorOptions {
+  logLevel?: number
+}
+
 
 /**
  * Check if a value is `undefined`
- * @param {any} n
- * @returns {boolean}
  */
-const defined = n => typeof n !== 'undefined'
+const defined = (n: any) => typeof n !== 'undefined'
 
 class Log {
+  options: ILogConstructorOptions
+
   constructor() {
-    /** @type {ILogConstructorOptions} */
     this.options = {}
   }
 
-  /**
-   * @param {ILogConstructorOptions} options
-   */
-  setOptions(options) {
+  setOptions(options: ILogConstructorOptions) {
     this.options = Object.assign({}, this.options, options)
   }
 
@@ -49,17 +44,15 @@ class Log {
 
   /**
    * Log anything using `console.log`
-   * @param  {...any} args
    */
-  log(...args) {
+  log(...args: any[]) {
     console.log(...args)
   }
 
   /**
    * Verbose logs
-   * @param  {...any} args
    */
-  verbose(...args) {
+  verbose(...args: any[]) {
     if (this.logLevel < 4) return
 
     const messages = args.map(arg => (typeof arg === 'function' ? arg() : arg))
@@ -68,9 +61,8 @@ class Log {
 
   /**
    * Info logs
-   * @param  {...any} args
    */
-  info(...args) {
+  info(...args: any[]) {
     if (this.logLevel < 3) return
 
     this.log(`[${chars.info}]`, ...args)
@@ -78,9 +70,8 @@ class Log {
 
   /**
    * Warning logs
-   * @param  {...any} args
    */
-  warn(...args) {
+  warn(...args: any[]) {
     if (this.logLevel < 2) return
 
     this.log(`[${chars.warning}]`, ...args)
@@ -88,9 +79,8 @@ class Log {
 
   /**
    * Error logs
-   * @param  {...any} args
    */
-  error(...args) {
+  error(...args: any[]) {
     if (this.logLevel < 1) return
 
     this.log(`[${chars.error}]`, ...args)
@@ -98,17 +88,18 @@ class Log {
 
   /**
    * Success logs
-   * @param  {...any} args
    */
-  success(...args) {
+  success(...args: any[]) {
     if (this.logLevel < 3) return
 
     this.log(`[${chars.success}]`, ...args)
   }
 }
 
-module.exports = {
-  log: new Log(),
+const log = new Log()
+
+export {
+  log,
   colors,
   chars
 }
