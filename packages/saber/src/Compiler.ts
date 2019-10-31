@@ -1,19 +1,25 @@
-const { EventEmitter } = require('events')
+import { EventEmitter } from 'events'
+import WebpackChain from 'webpack-chain'
+import { Compiler as WebpackCompiler } from 'webpack'
 
-module.exports = class Compiler extends EventEmitter {
-  constructor(type, api) {
+export class Compiler extends EventEmitter {
+  type: string
+  api: TODO
+  status: 'waiting' | 'success' | 'building' | 'error'
+
+  constructor(type: string, api: TODO) {
     super()
     this.type = type
     this.api = api
     this.status = 'waiting'
   }
 
-  injectToWebpack(config) {
+  injectToWebpack(config: WebpackChain) {
     const ID = `compiler-${this.type}`
     const context = this
     config.plugin(ID).use(
       class {
-        apply(compiler) {
+        apply(compiler: WebpackCompiler) {
           compiler.hooks.watchRun.tap(ID, () => {
             context.status = 'building'
             context.emit('status-changed', {
@@ -32,7 +38,7 @@ module.exports = class Compiler extends EventEmitter {
             }
 
             const allCompilers = { ready: true, hasError: false }
-            Object.values(context.api.compilers).forEach(({ status }) => {
+            Object.values(context.api.compilers).forEach(({ status }: TODO) => {
               if (status !== 'success' && status !== 'error') {
                 allCompilers.ready = false
               }
