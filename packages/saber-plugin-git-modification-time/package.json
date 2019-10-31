@@ -7,7 +7,6 @@
   "files": [
     "lib"
   ],
-  "xo": false,
   "dependencies": {
     "execa": "^2.0.3"
   },

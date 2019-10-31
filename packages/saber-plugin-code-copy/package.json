@@ -7,7 +7,6 @@
   "files": [
     "lib"
   ],
-  "xo": false,
   "peerDependencies": {
     "saber": ">=0.7.0"
   },

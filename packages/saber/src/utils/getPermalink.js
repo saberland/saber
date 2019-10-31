@@ -11,8 +11,8 @@
  * @param {object} page - Page object
  * @param {string} page.slug - The page slug
  * @param {string} page.type - The page type
- * @param {Date}  page.createdAt - The creation time
- * @param {import('saber').IPermalinks} permalinks - The `permalinks` config option
+ * @param {Date=}  page.createdAt - The creation time
+ * @param {any} permalinks - The `permalinks` config option
  */
 module.exports = (localeNames, page, permalinks) => {
   if (page.slug === 'index') return '/'
@@ -26,7 +26,7 @@ module.exports = (localeNames, page, permalinks) => {
   )
 
   const permalinkTemplate = permalinks[page.type] || permalinks.page
-  const date = new Date(page.createdAt)
+  const date = page.createdAt && new Date(page.createdAt)
 
   let prefix = ''
   let { slug } = page
@@ -38,13 +38,19 @@ module.exports = (localeNames, page, permalinks) => {
     }
   }
 
-  return `${prefix}${permalinkTemplate}`
+  let result = `${prefix}${permalinkTemplate}`
+
+  if (date) {
+    result = result
+      .replace(/:year/, () => `${date.getFullYear()}`)
+      .replace(/:month/, () => `${padZero(date.getMonth() + 1)}`)
+      .replace(/:i_month/, () => `${date.getMonth() + 1}`)
+      .replace(/:day/, () => `${padZero(date.getDate())}`)
+      .replace(/:i_day/, () => `${date.getDate()}`)
+  }
+
+  return result
     .replace(/:slug/, slug)
-    .replace(/:year/, () => `${date.getFullYear()}`)
-    .replace(/:month/, () => `${padZero(date.getMonth() + 1)}`)
-    .replace(/:i_month/, () => `${date.getMonth() + 1}`)
-    .replace(/:day/, () => `${padZero(date.getDate())}`)
-    .replace(/:i_day/, () => `${date.getDate()}`)
     .replace(/^\/index(\.html)?$/, '/')
     .replace(/\/index(\.html)?$/, '')
 }

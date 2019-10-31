@@ -11,7 +11,8 @@
   "scripts": {
     "test": "tsc && jest --env node",
     "prepublishOnly": "yarn build",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint src --ext js,ts"
   },
   "main": "dist/index.js",
   "bin": "dist/cli.js",
@@ -73,13 +74,14 @@
   },
   "devDependencies": {
     "@types/fs-extra": "8.0.0",
+    "@types/hash-sum": "^1.0.0",
+    "@types/lodash.merge": "^4.6.6",
     "@types/resolve-from": "5.0.1",
     "@types/superstruct": "0.5.0",
     "@types/webpack": "4.39.1",
     "jest": "24.9.0",
     "markdown-it-footnote": "3.0.2"
   },
-  "xo": false,
   "engines": {
     "node": ">=8"
   }

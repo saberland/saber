@@ -1,9 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["types/*.d.ts", "src"],
-  "exclude": ["node_modules", "**/__test__/**"],
+  "include": ["src"],
   "compilerOptions": {
+    "allowJs": true,
     "outDir": "dist",
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    "declaration": true,
+    "declarationDir": "types"
   }
 }

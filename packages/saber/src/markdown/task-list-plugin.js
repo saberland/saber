@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 module.exports = function(md, options) {
   options = Object.assign(
     {

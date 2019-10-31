@@ -10,7 +10,6 @@
   "files": [
     "lib"
   ],
-  "xo": false,
   "dependencies": {
     "feed": "^4.0.0"
   },

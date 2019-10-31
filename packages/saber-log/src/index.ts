@@ -17,7 +17,7 @@ interface ILogConstructorOptions {
  */
 const defined = (n: any) => typeof n !== 'undefined'
 
-class Log {
+export class Log {
   options: ILogConstructorOptions
 
   constructor() {

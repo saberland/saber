@@ -3,7 +3,7 @@
   "name": "saber",
   "scripts": {
     "test": "npm run lint && lerna run test",
-    "lint": "xo",
+    "lint": "lerna run lint",
     "commit": "git-cz",
     "prepare": "lerna run prepublishOnly"
   },
@@ -18,40 +18,12 @@
     "conf": "6.0.1",
     "cz-conventional-changelog": "3.0.2",
     "enquirer": "^2.3.1",
-    "eslint-config-prettier": "6.3.0",
-    "eslint-config-rem": "4.0.0",
-    "eslint-plugin-prettier": "3.1.1",
+    "eslint": "^6.6.0",
     "husky": "3.0.5",
     "lerna": "3.16.4",
     "lint-staged": "8.1.6",
     "prettier": "1.18.2",
-    "typescript": "^3.8.0-dev.20191031",
-    "xo": "0.24.0"
-  },
-  "xo": {
-    "extends": [
-      "rem",
-      "plugin:prettier/recommended"
-    ],
-    "rules": {
-      "import/no-unassigned-import": "off",
-      "unicorn/filename-case": "off",
-      "no-await-in-loop": "off",
-      "unicorn/no-abusive-eslint-disable": "off",
-      "camelcase": "off"
-    },
-    "ignore": [
-      "**/dist/**",
-      "**/vendor/**",
-      "*.min.js",
-      "**/vue-app/**",
-      "**/example/**",
-      "**/examples/**",
-      "website/**"
-    ],
-    "envs": [
-      "jest"
-    ]
+    "typescript": "^3.8.0-dev.20191031"
   },
   "husky": {
     "hooks": {
@@ -60,10 +32,6 @@
   },
   "lint-staged": {
     "linters": {
-      "*.js": [
-        "xo --fix",
-        "git add"
-      ],
       "*.{json,md}": [
         "prettier --write",
         "git add"
