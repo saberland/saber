@@ -1,10 +1,20 @@
-const path = require('path')
-const { fs, slash } = require('saber-utils')
+import path from 'path'
+import { fs, slash } from 'saber-utils'
 
-module.exports = class BrowserApi extends Set {
-  constructor(api) {
+export class BrowserApi extends Set<string> {
+  api: TODO
+
+  constructor(api: TODO) {
     super()
     this.api = api
+  }
+
+  /**
+   * Register a file that implements Saber's browser API
+   */
+  add(filepath: string) {
+    super.add(filepath)
+    return this
   }
 
   async reload() {
