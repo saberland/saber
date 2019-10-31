@@ -1,3 +1,4 @@
+// @ts-check
 const path = require('path')
 const resolveFrom = require('resolve-from')
 
@@ -6,6 +7,11 @@ const parser = require(resolveFrom(babelDir, '@babel/parser'))
 const traverse = require(resolveFrom(babelDir, '@babel/traverse'))
 const generator = require(resolveFrom(babelDir, '@babel/generator'))
 
+/**
+ * Extract the `export const data` part from a page
+ * @param {string} content The content of a page
+ * @param {string} filepath The absolute path to the path
+ */
 module.exports = (content, filepath) => {
   const ast = parser.parse(content, {
     sourceFilename: filepath,
@@ -16,6 +22,9 @@ module.exports = (content, filepath) => {
   let data = {}
 
   traverse.default(ast, {
+    /**
+     * @param {any} path
+     */
     ObjectExpression(path) {
       const name =
         path.parent &&
