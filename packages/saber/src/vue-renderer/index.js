@@ -461,6 +461,16 @@ class VueRenderer {
       }
     })
 
+    server.get('/_saber/pages', (req, res) => {
+      res.setHeader('content-type', 'text/html')
+      res.end(`
+      <script>
+      window.pages = ${require('devalue')([...this.api.pages.values()])}
+      console.log(pages)
+      </script>
+      `)
+    })
+
     server.get('/_saber/visit-page', async (req, res) => {
       let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
       pathname = removeTrailingSlash(pathname)

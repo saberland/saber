@@ -257,17 +257,19 @@ export class Pages extends Map<string, IPage> {
   }
 
   getPagePublicFields(page: string | IPage) {
-    let result: any = typeof page === 'string' ? this.get(page) : page
+    let result: TODO = typeof page === 'string' ? this.get(page) : page
+
     if (!result) {
       throw new Error(`The page doesn't exist`)
     }
 
-    result = Object.assign({}, page, {
+    result = Object.assign({}, result, {
       content: undefined,
       internal: undefined
     })
     // TODO: remove in 1.0
     result.attributes = result
+
     return result as Omit<IPage, 'content' | 'internal'>
   }
 

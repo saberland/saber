@@ -30,7 +30,10 @@ module.exports = function(source, map) {
       }
     })
 
-    Component.options.name = 'page-wrapper-' + page.slug.replace(/[^0-9a-z\\-]/i, '-')
+    // page.slug is optional
+    if (page.slug) {
+      Component.options.name = 'page-wrapper-' + page.slug.replace(/[^0-9a-z\\-]/i, '-')
+    }
     if (module.hot) {
       var Vue = require('vue').default
       Component.options._Ctor = Vue.extend(Component)
