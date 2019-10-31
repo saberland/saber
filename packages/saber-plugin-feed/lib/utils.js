@@ -29,6 +29,7 @@ exports.resolveURL = (base, pathname) => {
 
 /**
  * Removes XML-invalid characters from a string.
+ * reference: https://www.ryadel.com/en/javascript-remove-xml-invalid-chars-characters-string-utf8-unicode-regex/
  * @param {string} string - a string potentially containing XML-invalid characters, such as non-UTF8 characters, STX, EOX and so on.
  * @param {boolean} removeDiscouragedChars - a string potentially containing XML-invalid characters, such as non-UTF8 characters, STX, EOX and so on.
  * @return : a sanitized string without all the XML-invalid characters.
