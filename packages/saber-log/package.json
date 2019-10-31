@@ -1,9 +1,14 @@
 {
   "name": "saber-log",
   "version": "0.3.0",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "files": [
-    "index.js",
-    "colors.js"
+    "lib",
+    "types/index.d.ts"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "types": "tsc --declarationDir types -d"
+  }
 }

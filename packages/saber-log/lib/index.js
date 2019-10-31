@@ -1,3 +1,4 @@
+// @ts-check
 const colors = require('./colors')
 
 const chars = {
@@ -7,13 +8,27 @@ const chars = {
   error: colors.red('error')
 }
 
+/**
+ * Check if a value is `undefined`
+ * @param {any} n
+ * @returns {boolean}
+ */
 const defined = n => typeof n !== 'undefined'
+
+/**
+ * @typedef {Object} ILogConstructorOptions
+ * @property {number=} logLevel
+ */
 
 class Log {
   constructor() {
-    this.setOptions()
+    /** @type {ILogConstructorOptions} */
+    this.options = {}
   }
 
+  /**
+   * @param {ILogConstructorOptions} options
+   */
   setOptions(options) {
     this.options = Object.assign({}, this.options, options)
   }
@@ -32,10 +47,18 @@ class Log {
     return Number(logLevel)
   }
 
+  /**
+   * Log anything using `console.log`
+   * @param  {...any} args
+   */
   log(...args) {
     console.log(...args)
   }
 
+  /**
+   * Verbose logs
+   * @param  {...any} args
+   */
   verbose(...args) {
     if (this.logLevel < 4) return
 
@@ -43,24 +66,40 @@ class Log {
     this.log(colors.dim('[verbose]'), ...messages)
   }
 
+  /**
+   * Info logs
+   * @param  {...any} args
+   */
   info(...args) {
     if (this.logLevel < 3) return
 
     this.log(`[${chars.info}]`, ...args)
   }
 
+  /**
+   * Warning logs
+   * @param  {...any} args
+   */
   warn(...args) {
     if (this.logLevel < 2) return
 
     this.log(`[${chars.warning}]`, ...args)
   }
 
+  /**
+   * Error logs
+   * @param  {...any} args
+   */
   error(...args) {
     if (this.logLevel < 1) return
 
     this.log(`[${chars.error}]`, ...args)
   }
 
+  /**
+   * Success logs
+   * @param  {...any} args
+   */
   success(...args) {
     if (this.logLevel < 3) return
 
