@@ -12533,10 +12533,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.8.0-dev.20191029:
-  version "3.8.0-dev.20191029"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.0-dev.20191029.tgz#040e1f1a5486b014c865279b48b43b76c705bc90"
-  integrity sha512-1UykrsbCDggb3mmqUaUkXO7iYvQun6cd57kCGAOG/aFv/4yn0h3VpLZCVTb4Ycn5wentgiPIwKSQ7wERImDoIw==
+typescript@^3.8.0-dev.20191031:
+  version "3.8.0-dev.20191031"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.0-dev.20191031.tgz#d19f77c9a6314f35d9e11381c93fffb3cff9bb1c"
+  integrity sha512-hnIkoA1tdqCoO71ocviQg+ojLPwuZw6IxUtW12hhI+0XCpqNinQOcvUJlak0pVRUKL6vMRjvmhMbE0+uDJp/sA==
 
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.5"

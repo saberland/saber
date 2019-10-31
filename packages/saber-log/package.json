@@ -9,6 +9,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "prepublishOnly": "yarn types",
     "types": "tsc --declarationDir types -d"
   }
 }

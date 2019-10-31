@@ -9,16 +9,16 @@ const chars = {
 }
 
 /**
+ * @typedef {Object} ILogConstructorOptions
+ * @property {number=} logLevel
+ */
+
+/**
  * Check if a value is `undefined`
  * @param {any} n
  * @returns {boolean}
  */
 const defined = n => typeof n !== 'undefined'
-
-/**
- * @typedef {Object} ILogConstructorOptions
- * @property {number=} logLevel
- */
 
 class Log {
   constructor() {

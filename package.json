@@ -25,6 +25,7 @@
     "lerna": "3.16.4",
     "lint-staged": "8.1.6",
     "prettier": "1.18.2",
+    "typescript": "^3.8.0-dev.20191031",
     "xo": "0.24.0"
   },
   "xo": {
