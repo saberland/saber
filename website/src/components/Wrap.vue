@@ -64,7 +64,7 @@ export default {
 
     editLink() {
       const { slug, type } = this.page
-      return `https://github.com/egoist/saber/blob/master/website/pages/${
+      return `https://github.com/saberland/saber/blob/master/website/pages/${
         type === 'post' ? '_posts/' : ''
       }${slug}.md`
     }

@@ -9,7 +9,7 @@ It's been two months already since the first release of Saber, but this is the f
 
 <img src="@/images/simple-index-md-page.png" alt="preview">
 
-Saber is a tool for building static websites with modern web techs like webpack, Babel and Vue. Getting started developing an application of any size is as easy as executing `saber`. 
+Saber is a tool for building static websites with modern web techs like webpack, Babel and Vue. Getting started developing an application of any size is as easy as executing `saber`.
 
 To start using it, run inside a new directory with a `package.json`:
 
@@ -79,13 +79,13 @@ No configuration unless it's needed. Automatic hot-code reloading, error reporti
 
 ## Blogging, Layouts & Theming
 
-Just like Hexo, Saber uses `pages/_posts` folder for blog posts. If you populate a page at `pages/_posts/hello-world.md`, it will automatically map to `/posts/hello-world.html`. 
+Just like Hexo, Saber uses `pages/_posts` folder for blog posts. If you populate a page at `pages/_posts/hello-world.md`, it will automatically map to `/posts/hello-world.html`.
 
-Saber has all the plugins that're required for building a blog: 
+Saber has all the plugins that're required for building a blog:
 
-- If you want to display post list on your homepage, you can use [saber-plugin-query-post](https://github.com/egoist/saber/tree/master/packages/saber-plugin-query-posts) which also automatically generates _tag_ and _category_ pages. 
-- If you want to generate RSS feed, use [saber-plugin-feed](https://github.com/egoist/saber/tree/master/packages/saber-plugin-feed).
-- Find more at [awesome-saber](https://github.com/egoist/awesome-saber) or build your own!
+- If you want to display post list on your homepage, you can use [saber-plugin-query-post](https://github.com/saberland/saber/tree/master/packages/saber-plugin-query-posts) which also automatically generates _tag_ and _category_ pages.
+- If you want to generate RSS feed, use [saber-plugin-feed](https://github.com/saberland/saber/tree/master/packages/saber-plugin-feed).
+- Find more at [awesome-saber](https://github.com/saberland/awesome-saber) or build your own!
 
 Check out the tutorial [Intro the Saber](../../tutorial/tutorial.md) to learn how to build a simple blog, use layouts, and share your layouts as a theme.
 
@@ -103,4 +103,4 @@ For local development performance, Saber offers the Lazy Page Compilation mode w
 
 ---
 
-In closing, this is my solution to building static websites with modern techs, if you like my work, please consider contributing to the project on [GitHub](https://github.com/egoist/saber), or supporting me on [Patreon](https://patreon.com/egoist)!
+In closing, this is my solution to building static websites with modern techs, if you like my work, please consider contributing to the project on [GitHub](https://github.com/saberland/saber), or supporting me on [Patreon](https://patreon.com/egoist)!
