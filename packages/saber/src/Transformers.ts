@@ -1,4 +1,14 @@
-module.exports = class Transformers {
+import { ICreatePageInput, IPage } from './Pages'
+
+export interface ITransformer {
+  extensions: string[]
+  parse?: (page: ICreatePageInput) => void
+  getPageComponent: (page: IPage) => string
+}
+
+export class Transformers {
+  transformers: Map<string, ITransformer>
+
   constructor() {
     this.transformers = new Map()
   }
@@ -7,16 +17,16 @@ module.exports = class Transformers {
     return require('./utils/parseFrontmatter')
   }
 
-  add(contentType, transformer) {
+  add(contentType: string, transformer: ITransformer) {
     this.transformers.set(contentType, transformer)
   }
 
-  get(contentType) {
+  get(contentType: string) {
     return this.transformers.get(contentType)
   }
 
   get supportedExtensions() {
-    let extensions = []
+    let extensions: string[] = []
     for (const transformer of this.transformers.values()) {
       extensions = [...extensions, ...(transformer.extensions || [])]
     }
@@ -24,7 +34,7 @@ module.exports = class Transformers {
     return extensions
   }
 
-  getContentTypeByExtension(extension) {
+  getContentTypeByExtension(extension: string) {
     for (const [contentType, transformer] of this.transformers.entries()) {
       if (
         transformer.extensions &&
