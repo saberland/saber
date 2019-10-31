@@ -1,24 +1,166 @@
-const path = require('path')
-const http = require('http')
-const { fs } = require('saber-utils')
-const { log, colors } = require('saber-log')
-const resolveFrom = require('resolve-from')
-const merge = require('lodash.merge')
-const { SyncHook, AsyncSeriesHook, SyncWaterfallHook } = require('tapable')
-const getPort = require('get-port')
-const { Pages } = require('./Pages')
-const { BrowserApi } = require('./BrowserApi')
-const { Transformers } = require('./Transformers')
-const configLoader = require('./utils/configLoader')
-const resolvePackage = require('./utils/resolvePackage')
-const builtinPlugins = require('./plugins')
-const { Compiler } = require('./Compiler')
-const { WebpackUtils } = require('./WebpackUtils')
+import path from 'path'
+import http from 'http'
+import { fs } from 'saber-utils'
+import { log, colors, Log } from 'saber-log'
+import resolveFrom from 'resolve-from'
+import merge from 'lodash.merge'
+import { SyncHook, AsyncSeriesHook, SyncWaterfallHook } from 'tapable'
+import getPort from 'get-port'
+import { Pages } from './Pages'
+import { BrowserApi } from './BrowserApi'
+import { Transformers } from './Transformers'
+import configLoader from './utils/configLoader'
+import resolvePackage from './utils/resolvePackage'
+import builtinPlugins from './plugins'
+import { Compiler } from './Compiler'
+import { WebpackUtils } from './WebpackUtils'
 
-class Saber {
-  constructor(opts = {}, config = {}) {
-    this.opts = opts
-    this.opts.cwd = path.resolve(opts.cwd || '.')
+export interface SaberConstructorOptions {
+  cwd?: string
+  verbose?: boolean
+  dev?: boolean
+  inspectWebpack?: boolean
+}
+
+export interface SaberOptions {
+  cwd: string
+  verbose?: boolean
+  dev?: boolean
+  inspectWebpack?: boolean
+}
+
+export interface SiteConfig {
+  /** Apply to <html> tag */
+  lang: string
+  [k: string]: any
+}
+
+export interface ThemeConfig {
+  [k: string]: any
+}
+
+export interface SaberPlugin {
+  name: string
+  apply: (api: Saber, options: any) => void | Promise<void>
+  filterPlugins?: (plugins: ResolvedSaberPlugin[], options?: any) => ResolvedSaberPlugin[]
+}
+
+export interface SaberConfigPlugin {
+  resolve: string
+  options?: { [k: string]: any }
+}
+
+export interface ResolvedSaberPlugin extends SaberPlugin {
+  location: string
+  options?: any
+}
+
+export interface WebpackContext {
+  type: 'client' | 'server'
+  [k: string]: any
+}
+
+export interface SaberConfig {
+  /** The path or name of your theme */
+  theme?: string
+  siteConfig?: SiteConfig
+  themeConfig?: object
+  locales?: {
+    [localePath: string]: {
+      siteConfig?: SiteConfig
+      themeConfig?: ThemeConfig
+    }
+  }
+  renderer?: string
+  /** Build configurations */
+  build?: {
+    /**
+     * The path to output generated files
+     * Defaul to `./public`
+     */
+    outDir?: string
+    /**
+     * The root path where your website is localed
+     * Default to `/`
+     */
+    publicUrl?: string
+    /**
+     * Extract CSS into standalone files
+     * Default to `false`
+     */
+    extractCSS?: boolean
+    /**
+     * Toggle sourcemap for CSS
+     * Default to `false`
+     */
+    cssSourceMap?: boolean
+    /**
+     * Options for CSS loaders
+     */
+    loaderOptions?: {
+      /** sass-loader */
+      sass?: any
+      /** less-loader */
+      less?: any
+      /** stylus-loader */
+      stylus?: any
+      /** css-loader */
+      css?: any
+      /** postcss-loader */
+      postcss?: any
+    }
+    /**
+     * Toggle cache for webpack
+     * Default to `true`
+     */
+    cache?: boolean
+    /**
+     * Compile pages on demand
+     * @beta
+     */
+    lazy?: boolean
+  }
+  server?: {
+    host?: string
+    port?: number
+  }
+  plugins?: Array<string | SaberConfigPlugin>
+}
+
+export class Saber {
+  opts: SaberOptions
+  initialConfig: SaberConfig
+  // @ts-ignore
+  config: Required<SaberConfig>
+  pages: Pages
+  browserApi: BrowserApi
+  webpackUtils: WebpackUtils
+  log: Log
+  colors: typeof colors
+  utils: typeof import('saber-utils')
+  hooks: TODO
+  transformers: Transformers
+  runtimePolyfills: Set<string>
+  compilers: {
+    [k: string]: Compiler
+  }
+  Renderer?: TODO
+  renderer?: TODO
+  pkg: {
+    path?: string
+    data: {
+      [k: string]: any
+    }
+  }
+  configDir?: string
+  configPath?: string
+  theme?: string
+
+  constructor(opts: SaberConstructorOptions = {}, config: SaberConfig = {}) {
+    this.opts = {
+      ...opts,
+      cwd: path.resolve(opts.cwd || '.')
+    }
     this.initialConfig = config
     this.pages = new Pages(this)
     this.browserApi = new BrowserApi(this)
@@ -79,9 +221,9 @@ class Saber {
     for (const hook of Object.keys(this.hooks)) {
       const ignoreNames = ['theme-node-api', 'user-node-api']
       this.hooks[hook].intercept({
-        register(tapInfo) {
+        register(tapInfo: TODO) {
           const { fn, name } = tapInfo
-          tapInfo.fn = (...args) => {
+          tapInfo.fn = (...args: any[]) => {
             if (!ignoreNames.includes(name)) {
               const msg = `${hook} ${colors.dim(`(${name})`)}`
               log.verbose(msg)
@@ -96,8 +238,24 @@ class Saber {
     }
 
     if (opts.verbose) {
-      process.env.SABER_LOG_LEVEL = 4
+      process.env.SABER_LOG_LEVEL = '4'
     }
+
+    // Load package.json data
+    const loadedPkg = configLoader.load({
+      files: ['package.json'],
+      cwd: this.opts.cwd
+    })
+    this.pkg = {
+      ...loadedPkg,
+      data: loadedPkg.data || {}
+    }
+
+    // To make TypeScript happy
+    // We actually initialize them in `prepare()`
+    // TODO: find a better way
+    this.configDir = ''
+    this.configPath = ''
   }
 
   get dev() {
@@ -109,13 +267,6 @@ class Saber {
   }
 
   async prepare() {
-    // Load package.json data
-    this.pkg = configLoader.load({
-      files: ['package.json'],
-      cwd: this.opts.cwd
-    })
-    this.pkg.data = this.pkg.data || {}
-
     // Load Saber config
     const { data: config, path: configPath } = configLoader.load({
       files: configLoader.CONFIG_FILES,
@@ -127,23 +278,23 @@ class Saber {
     if (this.configPath) {
       log.info(
         `Using config file: ${colors.dim(
-          path.relative(process.cwd(), configPath)
+          path.relative(process.cwd(), this.configPath)
         )}`
       )
     }
 
-    this.RendererClass = this.config.renderer
+    this.Renderer = this.config.renderer
       ? resolvePackage(this.config.renderer, {
-          cwd: this.configDir,
+          cwd: this.configDir || this.opts.cwd,
           prefix: 'saber-renderer-'
         })
       : require('./vue-renderer')
-    this.renderer = new this.RendererClass(this)
+    this.renderer = new this.Renderer(this)
 
     // Load theme
     if (this.config.theme) {
       this.theme = resolvePackage(this.config.theme, {
-        cwd: this.configDir,
+        cwd: this.configDir || this.opts.cwd,
         prefix: 'saber-theme-'
       })
       // When a theme is loaded from `node_modules` and `$theme/dist` directory exists
@@ -158,12 +309,12 @@ class Saber {
       log.info(`Using theme: ${colors.dim(this.config.theme)}`)
       log.verbose(() => `Theme directory: ${colors.dim(this.theme)}`)
     } else {
-      this.theme = this.RendererClass.defaultTheme
+      this.theme = this.Renderer.defaultTheme
     }
 
     // Load built-in plugins
     for (const plugin of builtinPlugins) {
-      await this.applyPlugin(require(plugin.resolve), plugin.options)
+      await this.applyPlugin(require(plugin.resolve))
     }
 
     // Load user plugins
@@ -185,15 +336,16 @@ class Saber {
     await this.hooks.afterPlugins.promise()
   }
 
-  async setConfig(config, configPath = this.configPath) {
+  async setConfig(config: SaberConfig, configPath = this.configPath) {
     this.configPath = configPath
     if (configPath) {
       this.configDir = path.dirname(configPath)
     } else {
-      this.configDir = null
+      this.configDir = undefined
     }
 
     const initialRun = !this.config
+    // @ts-ignore
     this.config = merge({}, config, this.initialConfig)
     // Validate config, apply default values, normalize some values
     this.config = require('./utils/validateConfig')(this.config, {
@@ -202,8 +354,9 @@ class Saber {
 
     // Make sure the port is available
     const { port } = this.config.server
+    // @ts-ignore
     this.config.server._originalPort = port
-    if (initialRun) {
+    if (initialRun && port) {
       this.config.server.port = await getPort({
         port: getPort.makeRange(port, port + 1000),
         host: this.config.server.host
@@ -211,7 +364,11 @@ class Saber {
     }
   }
 
-  async applyPlugin(plugin, options, pluginLocation) {
+  async applyPlugin(
+    plugin: SaberPlugin,
+    options?: any,
+    pluginLocation?: string
+  ) {
     await plugin.apply(this, options)
 
     if (!plugin.name.startsWith('builtin:')) {
@@ -226,25 +383,32 @@ class Saber {
 
   getUserPlugins() {
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
-    const plugins =
+    const plugins: ResolvedSaberPlugin[] =
       this.configDir && this.config.plugins
         ? this.config.plugins.map(p => {
             if (typeof p === 'string') {
               p = { resolve: p }
             }
 
+            // Help!!!
+            // @ts-ignore
             const location = resolveFrom(this.configDir, p.resolve)
 
-            const plugin = require(location)
-            plugin.location = location
-            plugin.options = p.options
+            const resolvedPlugin = {
+              ...require(location),
+              location,
+              options: p.options
+            }
 
-            return plugin
+            return resolvedPlugin
           })
         : []
 
-    const applyFilterPlugins = plugins => {
-      const handlers = new Set()
+    const applyFilterPlugins = (
+      plugins: ResolvedSaberPlugin[]
+    ): ResolvedSaberPlugin[] => {
+      type Handler = (plugins: ResolvedSaberPlugin[]) => ResolvedSaberPlugin[]
+      const handlers = new Set<Handler>()
 
       for (const plugin of plugins) {
         const { filterPlugins, options } = plugin
@@ -268,23 +432,24 @@ class Saber {
     return applyFilterPlugins(this.hooks.filterPlugins.call(plugins))
   }
 
-  resolveCache(...args) {
+  resolveCache(...args: string[]) {
     return this.resolveCwd('.saber', ...args)
   }
 
-  resolveCwd(...args) {
+  resolveCwd(...args: string[]) {
     return path.resolve(this.opts.cwd, ...args)
   }
 
-  resolveOwnDir(...args) {
+  resolveOwnDir(...args: string[]) {
     return path.join(__dirname, '../', ...args)
   }
 
-  resolveOutDir(...args) {
+  resolveOutDir(...args: string[]) {
+    // @ts-ignore
     return this.resolveCwd(this.config.build.outDir, ...args)
   }
 
-  getWebpackConfig(opts) {
+  getWebpackConfig(opts: WebpackContext) {
     opts = Object.assign({ type: 'client' }, opts)
     const chain = require('./webpack/webpack.config')(this, opts)
     this.hooks.chainWebpack.call(chain, opts)
@@ -297,8 +462,8 @@ class Saber {
     return config
   }
 
-  getDocument(context) {
-    const initialHTML = this.RendererClass.getDocument(context)
+  getDocument(context: TODO) {
+    const initialHTML = this.Renderer.getDocument(context)
     return this.hooks.getDocument.call(initialHTML, context)
   }
 
@@ -344,7 +509,8 @@ class Saber {
   }
 
   // Build app in production mode
-  async build({ skipCompilation }) {
+  async build(options: { skipCompilation?: boolean } = {}) {
+    const { skipCompilation } = options
     await this.prepare()
     await this.run()
     if (!skipCompilation) {
@@ -374,7 +540,7 @@ class Saber {
     })
   }
 
-  hasDependency(name) {
+  hasDependency(name: string) {
     return this.getDependencies().includes(name)
   }
 
@@ -385,15 +551,17 @@ class Saber {
     ]
   }
 
-  localResolve(name) {
+  localResolve(name: string): string {
     return require('resolve-from').silent(this.opts.cwd, name)
   }
 
-  localRequire(name) {
+  localRequire(name: string): any {
     const resolved = this.localResolve(name)
     return resolved && require(resolved)
   }
 }
 
-exports.createSaber = (opts, config) => new Saber(opts, config)
-exports.Saber = Saber
+export const createSaber = (
+  opts: SaberConstructorOptions,
+  config: SaberConfig
+) => new Saber(opts, config)
