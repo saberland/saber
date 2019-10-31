@@ -1,7 +1,10 @@
-const path = require('path')
+import path from 'path'
+import { Rule } from 'webpack-chain'
 
-module.exports = class WebpackUtils {
-  constructor(api) {
+export class WebpackUtils {
+  api: TODO
+
+  constructor(api: TODO) {
     this.api = api
   }
 
@@ -9,7 +12,7 @@ module.exports = class WebpackUtils {
     return this.api.config.build.cache !== false
   }
 
-  getCacheOptions(loader, obj) {
+  getCacheOptions(loader: string, obj: object) {
     return this.shouldCache
       ? {
           cacheDirectory: this.api.resolveCache(path.join('cache', loader)),
@@ -19,7 +22,7 @@ module.exports = class WebpackUtils {
       : {}
   }
 
-  addCacheSupport(rule, loader, obj) {
+  addCacheSupport(rule: Rule, loader: string, obj: object) {
     if (this.shouldCache) {
       rule
         .use('cache-loader')
