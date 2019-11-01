@@ -1,9 +1,10 @@
 {
   "private": true,
+  "version": "0.0.0",
   "name": "saber-website",
   "scripts": {
-    "dev": "node ../packages/saber/dist/cli.js",
-    "generate": "node ../packages/saber/dist/cli.js generate && yarn workspace saber build:typedoc"
+    "dev": "saber",
+    "generate": "saber generate && yarn workspace saber build:typedoc"
   },
   "dependencies": {
     "date-fns": "1.30.1",
