@@ -11,8 +11,8 @@ function resolveVueApp(...args) {
 
 const ID = 'vue-renderer'
 
-class VueRenderer {
-  constructor(api) {
+export class VueRenderer {
+  init(api) {
     this.api = api
     // In dev mode pages will be built when visited
     this.visitedRoutes = new Set()
@@ -182,6 +182,10 @@ class VueRenderer {
     })
 
     api.hooks.emitRoutes.tapPromise('vue-renderer', () => this.writeRoutes())
+  }
+
+  get defaultTheme() {
+    return resolveVueApp('theme')
   }
 
   async writeRoutes() {
@@ -561,10 +565,6 @@ class VueRenderer {
     return server.handler
   }
 }
-
-VueRenderer.defaultTheme = resolveVueApp('theme')
-
-module.exports = VueRenderer
 
 function runCompiler(compiler) {
   return new Promise((resolve, reject) => {

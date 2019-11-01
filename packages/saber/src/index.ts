@@ -15,6 +15,7 @@ import builtinPlugins from './plugins'
 import { Compiler } from './Compiler'
 import { WebpackUtils } from './WebpackUtils'
 import { hooks } from './hooks'
+import { VueRenderer } from './vue-renderer'
 
 export interface SaberConstructorOptions {
   cwd?: string
@@ -94,7 +95,6 @@ export interface SaberConfig {
    * Customize permalink format based on page types (page or post)
    */
   permalinks?: Permalinks | ((page: ICreatePageInput) => Permalinks)
-  renderer?: string
   /** Build configurations */
   build?: {
     /**
@@ -226,8 +226,7 @@ export class Saber {
   compilers: {
     [k: string]: Compiler
   }
-  Renderer?: TODO
-  renderer?: TODO
+  renderer: VueRenderer
   pkg: {
     path?: string
     data: {
@@ -298,6 +297,8 @@ export class Saber {
     // TODO: find a better way
     this.configDir = ''
     this.configPath = ''
+
+    this.renderer = new VueRenderer()
   }
 
   get dev() {
@@ -325,13 +326,7 @@ export class Saber {
       )
     }
 
-    this.Renderer = this.config.renderer
-      ? resolvePackage(this.config.renderer, {
-          cwd: this.configDir || this.opts.cwd,
-          prefix: 'saber-renderer-'
-        })
-      : require('./vue-renderer')
-    this.renderer = new this.Renderer(this)
+    this.renderer.init(this)
 
     // Load theme
     if (this.config.theme) {
@@ -351,7 +346,7 @@ export class Saber {
       log.info(`Using theme: ${colors.dim(this.config.theme)}`)
       log.verbose(() => `Theme directory: ${colors.dim(this.theme)}`)
     } else {
-      this.theme = this.Renderer.defaultTheme
+      this.theme = this.renderer.defaultTheme
     }
 
     // Load built-in plugins
@@ -504,11 +499,6 @@ export class Saber {
     return config
   }
 
-  getDocument(context: TODO) {
-    const initialHTML = this.Renderer.getDocument(context)
-    return this.hooks.getDocument.call(initialHTML, context)
-  }
-
   async run() {
     // Throw an error if both `public` and `.saber/public` exist
     // Because they are replaced by `static` and `public`
@@ -555,6 +545,7 @@ export class Saber {
     const { skipCompilation } = options
     await this.prepare()
     await this.run()
+
     if (!skipCompilation) {
       await this.renderer.build()
       await this.hooks.afterBuild.promise()

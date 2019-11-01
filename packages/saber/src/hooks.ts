@@ -2,7 +2,7 @@ import { SyncHook, AsyncSeriesHook, SyncWaterfallHook } from 'tapable'
 
 export const hooks = {
   // Before all user plugins have been applied
-  beforePlugins: new AsyncSeriesHook<string>(),
+  beforePlugins: new AsyncSeriesHook(),
   filterPlugins: new SyncWaterfallHook(['plugins']),
   // After all user plugins have been applied
   afterPlugins: new AsyncSeriesHook(),
