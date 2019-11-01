@@ -6,16 +6,14 @@ exports.name = 'builtin:transformer-markdown'
 exports.apply = api => {
   api.transformers.add('markdown', {
     extensions: ['md'],
-    parse(page) {
+    transform(page) {
       const { frontmatter, body } = require('../utils/parseFrontmatter')(
         page.content,
         page.internal.absolute
       )
       Object.assign(page, frontmatter)
       page.content = body
-    },
-    transform(page) {
-      transformMarkdown(api, page)
+      page.content = renderMarkdown(api, page)
     },
     getPageComponent(page) {
       return `
@@ -29,7 +27,7 @@ exports.apply = api => {
   })
 }
 
-function transformMarkdown(api, page) {
+function renderMarkdown(api, page) {
   const { configDir } = api
   const { markdown = {} } = api.config
   const env = {
@@ -113,5 +111,5 @@ function transformMarkdown(api, page) {
     md.use(plugin.plugin, ...plugin.args)
   }
 
-  page.content = md.render(page.content, env)
+  return md.render(page.content, env)
 }

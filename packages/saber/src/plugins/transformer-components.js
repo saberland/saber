@@ -24,7 +24,7 @@ const getPageComponent = page => {
 exports.apply = api => {
   api.transformers.add('vue', {
     extensions: ['vue'],
-    parse(page) {
+    transform(page) {
       const sfc = require('vue-template-compiler').parseComponent(page.content)
       if (sfc.script) {
         const { data } = require('../utils/parseAttributes')(
