@@ -6,6 +6,7 @@ import merge from 'lodash.merge'
 import getPermalink from './utils/getPermalink'
 import getPageType from './utils/getPageType'
 import { prefixAssets } from './utils/assetsAttribute'
+import { Saber } from './'
 
 // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
 const FILE_NAME_REGEXP = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
@@ -104,10 +105,10 @@ export interface IPage {
 }
 
 export class Pages extends Map<string, IPage> {
-  api: TODO
+  api: Saber
   redirectRoutes: Map<string, IRedirecrtRouteConfig>
 
-  constructor(api: TODO) {
+  constructor(api: Saber) {
     super()
     this.api = api
     this.redirectRoutes = new Map()

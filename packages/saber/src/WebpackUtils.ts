@@ -1,10 +1,11 @@
 import path from 'path'
 import { Rule } from 'webpack-chain'
+import { Saber } from './'
 
 export class WebpackUtils {
-  api: TODO
+  api: Saber
 
-  constructor(api: TODO) {
+  constructor(api: Saber) {
     this.api = api
   }
 

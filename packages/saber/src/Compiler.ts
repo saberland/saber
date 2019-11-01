@@ -1,13 +1,14 @@
 import { EventEmitter } from 'events'
 import WebpackChain from 'webpack-chain'
 import { Compiler as WebpackCompiler } from 'webpack'
+import { Saber } from './'
 
 export class Compiler extends EventEmitter {
   type: string
-  api: TODO
+  api: Saber
   status: 'waiting' | 'success' | 'building' | 'error'
 
-  constructor(type: string, api: TODO) {
+  constructor(type: string, api: Saber) {
     super()
     this.type = type
     this.api = api
@@ -38,7 +39,7 @@ export class Compiler extends EventEmitter {
             }
 
             const allCompilers = { ready: true, hasError: false }
-            Object.values(context.api.compilers).forEach(({ status }: TODO) => {
+            Object.values(context.api.compilers).forEach(({ status }) => {
               if (status !== 'success' && status !== 'error') {
                 allCompilers.ready = false
               }
