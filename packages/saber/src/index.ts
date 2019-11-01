@@ -1,3 +1,4 @@
+/// <reference path="../declarations.d.ts" />
 import path from 'path'
 import http from 'http'
 import { fs } from 'saber-utils'

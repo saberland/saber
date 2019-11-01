@@ -23,7 +23,11 @@
     "lerna": "3.16.4",
     "lint-staged": "8.1.6",
     "prettier": "1.18.2",
+    "typedoc": "^0.15.0",
     "typescript": "^3.8.0-dev.20191031"
+  },
+  "resolutions": {
+    "typedoc/typescript": "^3.8.0-dev.20191031"
   },
   "husky": {
     "hooks": {
