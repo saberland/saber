@@ -5,9 +5,8 @@ import { fs } from 'saber-utils'
 import { log, colors, Log } from 'saber-log'
 import resolveFrom from 'resolve-from'
 import merge from 'lodash.merge'
-import { SyncHook, AsyncSeriesHook, SyncWaterfallHook } from 'tapable'
 import getPort from 'get-port'
-import { Pages } from './Pages'
+import { Pages, IPage, ICreatePageInput } from './Pages'
 import { BrowserApi } from './BrowserApi'
 import { Transformers } from './Transformers'
 import configLoader from './utils/configLoader'
@@ -15,6 +14,7 @@ import resolvePackage from './utils/resolvePackage'
 import builtinPlugins from './plugins'
 import { Compiler } from './Compiler'
 import { WebpackUtils } from './WebpackUtils'
+import { hooks } from './hooks'
 
 export interface SaberConstructorOptions {
   cwd?: string
@@ -66,6 +66,19 @@ export interface WebpackContext {
 
 export type PageType = 'page' | 'post'
 
+export interface Permalinks {
+  /**
+   * Permalink format for normal pages
+   * @default `/:slug.html`
+   */
+  page?: string
+  /**
+   * Permalink format for posts
+   * @default `/posts/:slug.html`
+   */
+  post?: string
+}
+
 export interface SaberConfig {
   /** The path or name of your theme */
   theme?: string
@@ -80,18 +93,7 @@ export interface SaberConfig {
   /**
    * Customize permalink format based on page types (page or post)
    */
-  permalinks?: {
-    /**
-     * Permalink format for normal pages
-     * @default `/:slug.html`
-     */
-    page?: string
-    /**
-     * Permalink format for posts
-     * @default `/posts/:slug.html`
-     */
-    post?: string
-  }
+  permalinks?: Permalinks | ((page: ICreatePageInput) => Permalinks)
   renderer?: string
   /** Build configurations */
   build?: {
@@ -218,7 +220,7 @@ export class Saber {
   log: Log
   colors: typeof colors
   utils: typeof import('saber-utils')
-  hooks: TODO
+  hooks: typeof hooks
   transformers: Transformers
   runtimePolyfills: Set<string>
   compilers: {
@@ -248,48 +250,7 @@ export class Saber {
     this.log = log
     this.colors = colors
     this.utils = require('saber-utils')
-    this.hooks = {
-      // Before all user plugins have been applied
-      beforePlugins: new AsyncSeriesHook(),
-      filterPlugins: new SyncWaterfallHook(['plugins']),
-      // After all user plugins have been applied
-      afterPlugins: new AsyncSeriesHook(),
-      // Before running the build process
-      beforeRun: new AsyncSeriesHook(),
-      onUpdateConfigFile: new AsyncSeriesHook(),
-      // Extend webpack config
-      chainWebpack: new SyncHook(['webpackChain', 'opts']),
-      getWebpackConfig: new SyncWaterfallHook(['config', 'opts']),
-      // Extend markdown-it config
-      chainMarkdown: new SyncHook(['config']),
-      chainTemplate: new SyncHook(['config']),
-      emitRoutes: new AsyncSeriesHook(),
-      // Called after running webpack
-      afterBuild: new AsyncSeriesHook(),
-      // Called after generate static HTML files
-      afterGenerate: new AsyncSeriesHook(),
-      getDocumentData: new SyncWaterfallHook(['documentData', 'ssrContext']),
-      getDocument: new SyncWaterfallHook(['document', 'ssrContext']),
-      defineVariables: new SyncWaterfallHook(['variables']),
-      // Called before creating pages for the first time
-      initPages: new AsyncSeriesHook(),
-      // Called when a new page is added
-      onCreatePage: new AsyncSeriesHook(['page']),
-      // Called when all pages are added to our `source`
-      onCreatePages: new AsyncSeriesHook(),
-      // Emit pages as .saberpage files when necessary
-      emitPages: new AsyncSeriesHook(),
-      // Call this hook to manipulate a page, it's usually used by file watcher
-      manipulatePage: new AsyncSeriesHook(['data']),
-      // Call when server renderer is created and updated
-      onCreateRenderer: new AsyncSeriesHook(['renderer', 'isFirstTime']),
-      // Called before exporting a page as static HTML file
-      beforeExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
-      // Called after exporting a page
-      afterExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
-      // Called after creating the server
-      onCreateServer: new SyncHook(['server'])
-    }
+    this.hooks = hooks
 
     this.transformers = new Transformers()
     this.runtimePolyfills = new Set()
@@ -300,6 +261,7 @@ export class Saber {
 
     for (const hook of Object.keys(this.hooks)) {
       const ignoreNames = ['theme-node-api', 'user-node-api']
+      // @ts-ignore
       this.hooks[hook].intercept({
         register(tapInfo: TODO) {
           const { fn, name } = tapInfo

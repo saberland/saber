@@ -7,6 +7,7 @@ import getPermalink from './utils/getPermalink'
 import getPageType from './utils/getPageType'
 import { prefixAssets } from './utils/assetsAttribute'
 import { Saber } from './'
+import { ITransformer } from './Transformers'
 
 // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
 const FILE_NAME_REGEXP = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
@@ -156,16 +157,11 @@ export class Pages extends Map<string, IPage> {
 
     if (!transformer) {
       log.warn(`No transformer was found for content type: ${page.contentType}`)
-      transformer = api.transformers.get('default')
+      transformer = api.transformers.get('default') as ITransformer
     }
 
-    // Get page attributes from the page content
-    if (transformer.parse) {
-      transformer.parse(page)
-    }
-
-    // Transform page content
-    if (page.content && transformer.transform) {
+    // Transform page
+    if (transformer.transform) {
       transformer.transform(page)
     }
 

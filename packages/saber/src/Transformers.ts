@@ -2,7 +2,7 @@ import { ICreatePageInput, IPage } from './Pages'
 
 export interface ITransformer {
   extensions: string[]
-  parse?: (page: ICreatePageInput) => void
+  transform?: (page: ICreatePageInput) => void
   getPageComponent: (page: IPage) => string
 }
 
