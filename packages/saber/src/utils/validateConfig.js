@@ -82,6 +82,14 @@ module.exports = (config, { dev }) => {
 
   const locales = struct('object?')
 
+  const template = struct({
+    openLinkInNewTab: 'boolean',
+    plugins: ['any']
+  }, {
+    openLinkInNewTab: true,
+    plugins: []
+  })
+
   const schema = struct({
     build,
     siteConfig,
@@ -91,7 +99,8 @@ module.exports = (config, { dev }) => {
     plugins,
     markdown,
     permalinks,
-    server
+    server,
+    template
   })
 
   const [err, result] = schema.validate(config)
