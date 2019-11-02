@@ -11,13 +11,12 @@ cd saber
 # Install dependencies
 yarn
 
-# Link the `saber` binary
+# Link the `saber` binary if you want to run it globally
 cd packages/saber
 yarn link
 
 # If you wanna run the website locally
 cd website
-yarn
 yarn dev # which uses the global `saber` command
 ```
 

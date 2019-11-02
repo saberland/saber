@@ -1,0 +1,16 @@
+{
+  "name": "eslint-config-saber",
+  "version": "0.0.0",
+  "description": "ESLint config for core Saber repos",
+  "man": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "eslint-config-prettier": "6.3.0",
+    "eslint-plugin-prettier": "3.1.1"
+  }
+}

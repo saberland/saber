@@ -1,0 +1,10 @@
+{
+  "eslint.validate": ["javascript", "javascriptreact", "typescript"],
+  "eslint.enable": true,
+  "eslint.workingDirectories": [
+    {
+      "directory": "packages/saber",
+      "changeProcessCWD": true
+    }
+  ]
+}

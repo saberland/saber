@@ -1,4 +1,7 @@
-module.exports = {
+// @ts-check
+
+/** @type {import('saber').SaberConfig} */
+const config = {
   siteConfig: {
     title: 'Saber',
     description: 'A framework for building modern static websites.',
@@ -108,5 +111,10 @@ module.exports = {
         }
       }
     }
-  ]
+  ],
+  template: {
+    openLinkInNewTab: true
+  }
 }
+
+module.exports = config

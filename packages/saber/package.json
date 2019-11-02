@@ -3,19 +3,21 @@
   "version": "0.10.4",
   "description": "A simple yet powerful static site generator",
   "files": [
-    "bin",
-    "lib",
-    "!**/*.test.js",
-    "!**/__*__/**",
+    "/babel.js",
     "/types",
-    "/vue-renderer",
-    "/babel.js"
+    "/dist",
+    "/vue-app",
+    "/declarations.d.ts"
   ],
   "scripts": {
-    "test": "jest --env node"
+    "test": "tsc && jest",
+    "prepublishOnly": "yarn build",
+    "build": "tsc",
+    "lint": "eslint src --ext js,ts",
+    "build:typedoc": "typedoc types/index.d.ts --out ../../website/public/typedoc --readme none --exclude \"**/src/**\" --theme minimal --mode file --includeDeclarations --excludeExternals --excludePrivate --excludeProtected --entryPoint Saber"
   },
-  "main": "lib/index.js",
-  "bin": "lib/cli.js",
+  "main": "dist/index.js",
+  "bin": "dist/cli.js",
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
@@ -55,7 +57,7 @@
     "saber-utils": "^0.2.3",
     "serve-static": "^1.13.2",
     "slugo": "^0.3.1",
-    "superstruct": "^0.6.0",
+    "superstruct": "^0.8.2",
     "tapable": "^1.1.1",
     "time-fix-plugin": "^2.0.5",
     "url-loader": "^2.0.1",
@@ -74,14 +76,12 @@
   },
   "devDependencies": {
     "@types/fs-extra": "8.0.0",
+    "@types/hash-sum": "^1.0.0",
+    "@types/lodash.merge": "^4.6.6",
     "@types/resolve-from": "5.0.1",
-    "@types/superstruct": "0.5.0",
     "@types/webpack": "4.39.1",
-    "jest": "24.9.0",
-    "markdown-it-footnote": "3.0.2",
-    "typescript": "3.6.3"
+    "markdown-it-footnote": "3.0.2"
   },
-  "xo": false,
   "engines": {
     "node": ">=8"
   }
