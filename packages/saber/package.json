@@ -14,7 +14,7 @@
     "prepublishOnly": "yarn build",
     "build": "tsc",
     "lint": "eslint src --ext js,ts",
-    "build:typedoc": "typedoc types/index.d.ts --out ../../website/public/typedoc --readme none --exclude \"**/src/**\" --theme minimal --mode file --includeDeclarations --excludeExternals --excludePrivate --excludeProtected --entryPoint Saber"
+    "build:typedoc": "typedoc types/index.d.ts --out ../../website/public/typedoc --readme none --exclude \"**/src/**\" --theme minimal --mode file --includeDeclarations --excludeExternals --excludePrivate --excludeProtected"
   },
   "main": "dist/index.js",
   "bin": "dist/cli.js",
