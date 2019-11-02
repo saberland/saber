@@ -235,7 +235,7 @@ export class Saber {
   }
   configDir?: string
   configPath?: string
-  theme?: string
+  theme: string
   actualServerPort?: number
 
   constructor(opts: SaberConstructorOptions = {}, config: SaberConfig = {}) {
@@ -299,8 +299,6 @@ export class Saber {
     this.configDir = ''
     this.configPath = ''
 
-    this.renderer = new VueRenderer()
-
     // Load Saber config
     const loadedConfig = this.loadConfig()
     this.config = loadedConfig.config
@@ -312,6 +310,30 @@ export class Saber {
           path.relative(process.cwd(), this.configPath)
         )}`
       )
+    }
+
+    this.renderer = new VueRenderer()
+    this.renderer.init(this)
+
+    // Load theme
+    if (this.config.theme) {
+      this.theme = resolvePackage(this.config.theme, {
+        cwd: this.configDir || this.opts.cwd,
+        prefix: 'saber-theme-'
+      })
+      // When a theme is loaded from `node_modules` and `$theme/dist` directory exists
+      // We use the `dist` directory instead
+      if (this.theme.includes('node_modules')) {
+        const distDir = path.join(this.theme, 'dist')
+        if (fs.existsSync(distDir)) {
+          this.theme = distDir
+        }
+      }
+
+      log.info(`Using theme: ${colors.dim(this.config.theme)}`)
+      log.verbose(() => `Theme directory: ${colors.dim(this.theme)}`)
+    } else {
+      this.theme = this.renderer.defaultTheme
     }
   }
 
@@ -343,29 +365,6 @@ export class Saber {
   }
 
   async prepare() {
-    this.renderer.init(this)
-
-    // Load theme
-    if (this.config.theme) {
-      this.theme = resolvePackage(this.config.theme, {
-        cwd: this.configDir || this.opts.cwd,
-        prefix: 'saber-theme-'
-      })
-      // When a theme is loaded from `node_modules` and `$theme/dist` directory exists
-      // We use the `dist` directory instead
-      if (this.theme.includes('node_modules')) {
-        const distDir = path.join(this.theme, 'dist')
-        if (fs.existsSync(distDir)) {
-          this.theme = distDir
-        }
-      }
-
-      log.info(`Using theme: ${colors.dim(this.config.theme)}`)
-      log.verbose(() => `Theme directory: ${colors.dim(this.theme)}`)
-    } else {
-      this.theme = this.renderer.defaultTheme
-    }
-
     // Load built-in plugins
     for (const plugin of builtinPlugins) {
       const resolvedPlugin = require(plugin.resolve)
