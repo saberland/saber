@@ -504,6 +504,12 @@ class VueRenderer {
     server.use(hotMiddleware)
 
     server.get('*', async (req, res) => {
+      // forcing trailing slash
+      if (req.url[req.url.length - 1] !== '/') {
+        res.writeHead(301, { Location: req.url + '/' })
+        return res.end()
+      }
+
       if (!req.headers.accept || !req.headers.accept.includes('text/html')) {
         res.statusCode = 404
         return res.end('404')
