@@ -26,11 +26,21 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Cache node modules
+    - name: Cache node modules (mac/linux)
+      if: !startsWith(matrix.os, 'windows')
       uses: actions/cache@preview
       with:
         path: ~/.cache/yarn
         key: ${{ runner.os }}-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Cache node modules (windows)
+      if: startsWith(matrix.os, 'windows')
+      uses: actions/cache@preview
+      with:
+        path: ~/.cache/yarn
+        key: ${{ runner.os }}-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '\\yarn.lock')) }}
         restore-keys: |
           ${{ runner.os }}-yarn-
 
