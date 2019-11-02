@@ -2,18 +2,7 @@ const { prefixSpace } = require('./utils')
 
 module.exports = context => {
   if (!context.metaInfo) {
-    return {
-      title: '',
-      htmlAttrs: '',
-      headAttrs: '',
-      bodyAttrs: '',
-      link: '',
-      style: '',
-      headScript: '',
-      bodyScript: `<script src="/_saber/js/client.js" defer></script>`,
-      noscript: '',
-      meta: ''
-    }
+    throw new Error(`getInitialData is only avaialble in SSR mode`)
   }
 
   const {
