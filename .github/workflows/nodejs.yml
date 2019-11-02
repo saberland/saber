@@ -1,6 +1,12 @@
 name: Node CI
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
 
 jobs:
   test:
