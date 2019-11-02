@@ -11,7 +11,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.6.0",
+    "@babel/core": "7.6.4",
     "builtin-modules": "3.1.0",
     "markdown-it": "10.0.0",
     "rollup": "1.22.0",
