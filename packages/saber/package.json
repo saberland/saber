@@ -38,6 +38,7 @@
     "fast-deep-equal": "^2.0.1",
     "file-loader": "^4.0.0",
     "get-port": "^5.0.0",
+    "hard-source-webpack-plugin": "^0.13.1",
     "hash-sum": "^2.0.0",
     "joycon": "^2.2.4",
     "lodash.merge": "^4.6.1",

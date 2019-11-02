@@ -94,6 +94,12 @@ module.exports = (api, { type }) => {
     }
   ])
 
+  if (api.webpackUtils.shouldCache) {
+    config
+      .plugin('hard-source-webpack-plugin')
+      .use(require('hard-source-webpack-plugin'))
+  }
+
   config.plugin('print-status').use(require('./PrintStatusPlugin'), [
     {
       api,
