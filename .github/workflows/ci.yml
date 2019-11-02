@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Cache node modules (mac/linux)
-      if: !startsWith(matrix.os, 'windows')
+      if: startsWith(matrix.os, 'windows') == false
       uses: actions/cache@preview
       with:
         path: ~/.cache/yarn
