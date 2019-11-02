@@ -1,7 +1,7 @@
 {
   "private": true,
   "version": "0.0.0",
-  "name": "saber-website",
+  "name": "website",
   "scripts": {
     "dev": "saber",
     "generate": "saber generate && yarn workspace saber build:typedoc"

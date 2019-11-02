@@ -16,6 +16,7 @@ import { Compiler } from './Compiler'
 import { WebpackUtils } from './WebpackUtils'
 import { hooks } from './hooks'
 import { VueRenderer } from './vue-renderer'
+import validateConfig from './utils/validateConfig'
 
 export interface SaberConstructorOptions {
   cwd?: string
@@ -212,7 +213,6 @@ export interface MarkdownPlugin {
 export class Saber {
   opts: SaberOptions
   initialConfig: SaberConfig
-  // @ts-ignore
   config: Required<SaberConfig>
   pages: Pages
   browserApi: BrowserApi
@@ -236,6 +236,7 @@ export class Saber {
   configDir?: string
   configPath?: string
   theme?: string
+  actualServerPort?: number
 
   constructor(opts: SaberConstructorOptions = {}, config: SaberConfig = {}) {
     this.opts = {
@@ -299,6 +300,38 @@ export class Saber {
     this.configPath = ''
 
     this.renderer = new VueRenderer()
+
+    // Load Saber config
+    const loadedConfig = this.loadConfig()
+    this.config = loadedConfig.config
+    this.configPath = loadedConfig.configPath
+    this.configDir = this.configPath && path.dirname(this.configPath)
+    if (this.configPath) {
+      log.info(
+        `Using config file: ${colors.dim(
+          path.relative(process.cwd(), this.configPath)
+        )}`
+      )
+    }
+  }
+
+  loadConfig(configFiles = configLoader.CONFIG_FILES) {
+    const { data, path: configPath } = configLoader.load({
+      files: configFiles,
+      cwd: this.opts.cwd
+    })
+    return {
+      config: validateConfig(merge({}, data, this.initialConfig), {
+        dev: this.dev
+      }),
+      configPath
+    }
+  }
+
+  setConfig(config: Required<SaberConfig>, configPath?: string) {
+    this.config = config
+    this.configPath = configPath
+    this.configDir = configPath && path.dirname(configPath)
   }
 
   get dev() {
@@ -310,22 +343,6 @@ export class Saber {
   }
 
   async prepare() {
-    // Load Saber config
-    const { data: config, path: configPath } = configLoader.load({
-      files: configLoader.CONFIG_FILES,
-      cwd: this.opts.cwd
-    })
-
-    await this.setConfig(config, configPath)
-
-    if (this.configPath) {
-      log.info(
-        `Using config file: ${colors.dim(
-          path.relative(process.cwd(), this.configPath)
-        )}`
-      )
-    }
-
     this.renderer.init(this)
 
     // Load theme
@@ -336,7 +353,7 @@ export class Saber {
       })
       // When a theme is loaded from `node_modules` and `$theme/dist` directory exists
       // We use the `dist` directory instead
-      if (/node_modules/.test(this.theme)) {
+      if (this.theme.includes('node_modules')) {
         const distDir = path.join(this.theme, 'dist')
         if (fs.existsSync(distDir)) {
           this.theme = distDir
@@ -351,7 +368,8 @@ export class Saber {
 
     // Load built-in plugins
     for (const plugin of builtinPlugins) {
-      await this.applyPlugin(require(plugin.resolve))
+      const resolvedPlugin = require(plugin.resolve)
+      await this.applyPlugin(resolvedPlugin.default || resolvedPlugin)
     }
 
     // Load user plugins
@@ -371,34 +389,6 @@ export class Saber {
     }
 
     await this.hooks.afterPlugins.promise()
-  }
-
-  async setConfig(config: SaberConfig, configPath = this.configPath) {
-    this.configPath = configPath
-    if (configPath) {
-      this.configDir = path.dirname(configPath)
-    } else {
-      this.configDir = undefined
-    }
-
-    const initialRun = !this.config
-    // @ts-ignore
-    this.config = merge({}, config, this.initialConfig)
-    // Validate config, apply default values, normalize some values
-    this.config = require('./utils/validateConfig')(this.config, {
-      dev: this.dev
-    })
-
-    // Make sure the port is available
-    const { port } = this.config.server
-    // @ts-ignore
-    this.config.server._originalPort = port
-    if (initialRun && port) {
-      this.config.server.port = await getPort({
-        port: getPort.makeRange(port, port + 1000),
-        host: this.config.server.host
-      })
-    }
   }
 
   async applyPlugin(
@@ -561,7 +551,14 @@ export class Saber {
 
     const server = http.createServer(this.renderer.getRequestHandler())
 
-    server.listen(this.config.server.port, this.config.server.host)
+    // Make sure the port is available
+    const { host, port = 3000 } = this.config.server
+    this.actualServerPort = await getPort({
+      port: getPort.makeRange(port, port + 1000),
+      host
+    })
+
+    server.listen(this.actualServerPort, host)
   }
 
   async serveOutDir() {
