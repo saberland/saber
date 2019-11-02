@@ -53,17 +53,18 @@
 
 
 <script>
+import Vue from 'vue'
 import Logo from '@/src/components/Logo.vue'
 
 export const attributes = {
   layout: 'index'
 }
 
-export default {
+export default Vue.extend({
   components: {
     Logo
   }
-}
+})
 </script>
 
 <style scoped>
