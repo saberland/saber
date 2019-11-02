@@ -33,6 +33,8 @@
       "plugin:prettier/recommended"
     ],
     "rules": {
+      "unicorn/no-hex-escape": "off",
+      "no-control-regex": "off",
       "import/no-unassigned-import": "off",
       "unicorn/filename-case": "off",
       "no-await-in-loop": "off",
