@@ -1,3 +1,6 @@
 module.exports = {
-  extends: 'saber'
+  extends: 'saber',
+  rules: {
+    '@typescript-eslint/triple-slash-reference': 'off'
+  }
 }

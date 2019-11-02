@@ -6,7 +6,7 @@ import { log, colors, Log } from 'saber-log'
 import resolveFrom from 'resolve-from'
 import merge from 'lodash.merge'
 import getPort from 'get-port'
-import { Pages, IPage, ICreatePageInput } from './Pages'
+import { Pages, ICreatePageInput } from './Pages'
 import { BrowserApi } from './BrowserApi'
 import { Transformers } from './Transformers'
 import configLoader from './utils/configLoader'
@@ -417,9 +417,7 @@ export class Saber {
               p = { resolve: p }
             }
 
-            // Help!!!
-            // @ts-ignore
-            const location = resolveFrom(this.configDir, p.resolve)
+            const location = resolveFrom(this.configDir as string, p.resolve)
 
             const resolvedPlugin = {
               ...require(location),
@@ -472,7 +470,6 @@ export class Saber {
   }
 
   resolveOutDir(...args: string[]) {
-    // @ts-ignore
     return this.resolveCwd(this.config.build.outDir, ...args)
   }
 
