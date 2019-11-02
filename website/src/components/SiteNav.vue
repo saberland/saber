@@ -10,7 +10,7 @@
       <a href="/themes">Themes</a>
     </li>
     <li class="nav-item">
-      <a href="/blog/">Blog</a>
+      <a href="/blog">Blog</a>
     </li>
     <li class="nav-item">
       <a href="https://chat.saber.land" target="_blank" class="discord-link">
