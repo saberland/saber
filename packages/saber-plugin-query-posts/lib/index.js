@@ -11,12 +11,12 @@ const ID = 'query-posts'
 exports.name = ID
 
 exports.apply = (api, options = {}) => {
-  api.hooks.onCreatePages.tap(ID, () => {
+  api.hooks.onCreatePages.tapPromise(ID, async () => {
     const allLocalePaths = new Set(
       ['/'].concat(Object.keys(api.config.locales || {}))
     )
     for (const currentLocalePath of allLocalePaths) {
-      injectPosts({
+      await injectPosts({
         currentLocalePath,
         tagsMap: options.tagsMap,
         categoriesMap: options.categoriesMap,
@@ -35,7 +35,7 @@ exports.apply = (api, options = {}) => {
     }
   })
 
-  function injectPosts({
+  async function injectPosts({
     currentLocalePath,
     tagsMap,
     paginationOptions,
@@ -120,12 +120,12 @@ exports.apply = (api, options = {}) => {
 
     // Add all posts to those pages
     if (injectPostsToPages.size > 0) {
-      injectToPages(injectPostsToPages, allPosts)
+      await injectToPages(injectPostsToPages, allPosts)
     }
 
     // Add tag pages
     for (const [tag, tagPosts] of allTagPosts.entries()) {
-      injectToPages(
+      await injectToPages(
         new Set([
           {
             isTagPage: true,
@@ -151,7 +151,7 @@ exports.apply = (api, options = {}) => {
 
     // Add category pages
     for (const [category, categoryPosts] of allCategoryPosts.entries()) {
-      injectToPages(
+      await injectToPages(
         new Set([
           {
             isCategoryPage: true,
@@ -178,7 +178,7 @@ exports.apply = (api, options = {}) => {
       )
     }
 
-    function injectToPages(pages, posts, pageProp) {
+    async function injectToPages(pages, posts, pageProp) {
       if (pages.size > 0) {
         const date = new Date()
         const sortedPosts = [...posts].sort((a, b) => {
@@ -223,7 +223,7 @@ exports.apply = (api, options = {}) => {
               }
             })
             Object.assign(newPage, pageProp)
-            api.pages.createPage(newPage)
+            await api.pages.createPage(newPage)
           }
         }
       }

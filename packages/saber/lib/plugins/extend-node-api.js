@@ -70,7 +70,7 @@ exports.apply = api => {
           await Promise.all(
             [...api.pages.values()].map(async page => {
               // Recreate the page
-              api.pages.createPage(page)
+              await api.pages.createPage(page)
               // A page has been created
               await api.hooks.onCreatePage.promise(page)
             })
