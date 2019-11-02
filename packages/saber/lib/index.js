@@ -30,6 +30,8 @@ class Saber {
       // Before all user plugins have been applied
       beforePlugins: new AsyncSeriesHook(),
       filterPlugins: new SyncWaterfallHook(['plugins']),
+      // Extend saber config
+      modifySaberConfig: new AsyncSeriesHook(['config']),
       // After all user plugins have been applied
       afterPlugins: new AsyncSeriesHook(),
       // Before running the build process
@@ -182,6 +184,7 @@ class Saber {
       await this.applyPlugin(plugin, plugin.options, plugin.location)
     }
 
+    await this.hooks.modifySaberConfig.promise(this.config)
     await this.hooks.afterPlugins.promise()
   }
 
