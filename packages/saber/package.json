@@ -57,7 +57,7 @@
     "saber-utils": "^0.2.3",
     "serve-static": "^1.13.2",
     "slugo": "^0.3.1",
-    "superstruct": "^0.6.0",
+    "superstruct": "^0.8.2",
     "tapable": "^1.1.1",
     "time-fix-plugin": "^2.0.5",
     "url-loader": "^2.0.1",
@@ -79,7 +79,6 @@
     "@types/hash-sum": "^1.0.0",
     "@types/lodash.merge": "^4.6.6",
     "@types/resolve-from": "5.0.1",
-    "@types/superstruct": "0.5.0",
     "@types/webpack": "4.39.1",
     "jest": "24.9.0",
     "markdown-it-footnote": "3.0.2"

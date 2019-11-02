@@ -7,12 +7,12 @@ import getPermalink from './utils/getPermalink'
 import getPageType from './utils/getPageType'
 import { prefixAssets } from './utils/assetsAttribute'
 import { Saber } from './'
-import { ITransformer } from './Transformers'
+import { Transformer } from './Transformers'
 
 // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
 const FILE_NAME_REGEXP = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
 
-export interface IRedirecrtRouteConfig {
+export interface RedirecrtRouteConfig {
   fromPath: string
   toPath: string
   /** Make it a permanent redirect; defaults to temporary */
@@ -25,7 +25,7 @@ export interface IRedirecrtRouteConfig {
   isPermanent?: boolean
 }
 
-export interface IFileInfo {
+export interface FileInfo {
   relative: string
   absolute: string
   birthtime: Date
@@ -33,17 +33,17 @@ export interface IFileInfo {
   content: string
 }
 
-export interface IAssets {
+export interface Assets {
   [k: string]: string
 }
 
-export interface ICreatePageOptions {
+export interface CreatePageOptions {
   /** Default to `true` when not specified */
   normalize?: boolean
-  file?: IFileInfo
+  file?: FileInfo
 }
 
-export interface ICreatePageInput {
+export interface CreatePageInput {
   type: 'page' | 'post'
   content: string
   /**
@@ -61,7 +61,7 @@ export interface ICreatePageInput {
    */
   permalink?: string
   slug?: string
-  assets?: IAssets
+  assets?: Assets
   /** Internal info is automatically removed from your app runtime for security reasons */
   internal: {
     /** A unique ID for this page */
@@ -84,7 +84,7 @@ export interface ICreatePageInput {
   [k: string]: any
 }
 
-export interface IPage {
+export interface Page {
   type: 'page' | 'post'
   content: string
   contentType: string
@@ -100,14 +100,14 @@ export interface IPage {
     /** @private */
     saved?: boolean
   }
-  attributes: IPage
-  assets: IAssets
+  attributes: Page
+  assets: Assets
   [k: string]: any
 }
 
-export class Pages extends Map<string, IPage> {
+export class Pages extends Map<string, Page> {
   api: Saber
-  redirectRoutes: Map<string, IRedirecrtRouteConfig>
+  redirectRoutes: Map<string, RedirecrtRouteConfig>
 
   constructor(api: Saber) {
     super()
@@ -115,7 +115,7 @@ export class Pages extends Map<string, IPage> {
     this.redirectRoutes = new Map()
   }
 
-  normalizePage(_page: ICreatePageInput, file?: IFileInfo): IPage {
+  normalizePage(_page: CreatePageInput, file?: FileInfo): Page {
     const { api } = this
 
     let page = merge(
@@ -157,7 +157,7 @@ export class Pages extends Map<string, IPage> {
 
     if (!transformer) {
       log.warn(`No transformer was found for content type: ${page.contentType}`)
-      transformer = api.transformers.get('default') as ITransformer
+      transformer = api.transformers.get('default') as Transformer
     }
 
     // Transform page
@@ -226,16 +226,16 @@ export class Pages extends Map<string, IPage> {
     // TODO: remove in 1.0
     page.attributes = page
 
-    return page as IPage
+    return page as Page
   }
 
-  createPage(page: ICreatePageInput, options: ICreatePageOptions = {}) {
+  createPage(page: CreatePageInput, options: CreatePageOptions = {}) {
     const { file, normalize } = options
     if (normalize !== false) {
       page = this.normalizePage(page, file)
     }
 
-    this.set(page.internal.id, page as IPage)
+    this.set(page.internal.id, page as Page)
   }
 
   removePage(id: string) {
@@ -244,7 +244,7 @@ export class Pages extends Map<string, IPage> {
     })
   }
 
-  removeWhere(getCondition: (page: IPage) => boolean) {
+  removeWhere(getCondition: (page: Page) => boolean) {
     for (const page of this.values()) {
       const condition = getCondition(page)
       if (condition) {
@@ -253,7 +253,7 @@ export class Pages extends Map<string, IPage> {
     }
   }
 
-  getPagePublicFields(page: string | IPage) {
+  getPagePublicFields(page: string | Page) {
     let result = typeof page === 'string' ? this.get(page) : page
 
     if (!result) {
@@ -267,10 +267,10 @@ export class Pages extends Map<string, IPage> {
     // TODO: remove in 1.0
     result.attributes = result
 
-    return result as Omit<IPage, 'content' | 'internal'>
+    return result as Omit<Page, 'content' | 'internal'>
   }
 
-  createRedirect(_configs: IRedirecrtRouteConfig | IRedirecrtRouteConfig[]) {
+  createRedirect(_configs: RedirecrtRouteConfig | RedirecrtRouteConfig[]) {
     if (_configs) {
       const configs = Array.isArray(_configs) ? _configs : [_configs]
 

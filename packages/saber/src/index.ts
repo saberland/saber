@@ -6,7 +6,7 @@ import { log, colors, Log } from 'saber-log'
 import resolveFrom from 'resolve-from'
 import merge from 'lodash.merge'
 import getPort from 'get-port'
-import { Pages, ICreatePageInput } from './Pages'
+import { Pages, CreatePageInput } from './Pages'
 import { BrowserApi } from './BrowserApi'
 import { Transformers } from './Transformers'
 import configLoader from './utils/configLoader'
@@ -16,7 +16,7 @@ import { Compiler } from './Compiler'
 import { WebpackUtils } from './WebpackUtils'
 import { hooks } from './hooks'
 import { VueRenderer } from './vue-renderer'
-import validateConfig from './utils/validateConfig'
+import { validateConfig, ValidatedSaberConfig } from './utils/validateConfig'
 
 export interface SaberConstructorOptions {
   cwd?: string
@@ -95,7 +95,7 @@ export interface SaberConfig {
   /**
    * Customize permalink format based on page types (page or post)
    */
-  permalinks?: Permalinks | ((page: ICreatePageInput) => Permalinks)
+  permalinks?: Permalinks | ((page: CreatePageInput) => Permalinks)
   /** Build configurations */
   build?: {
     /**
@@ -213,7 +213,7 @@ export interface MarkdownPlugin {
 export class Saber {
   opts: SaberOptions
   initialConfig: SaberConfig
-  config: Required<SaberConfig>
+  config: ValidatedSaberConfig
   pages: Pages
   browserApi: BrowserApi
   webpackUtils: WebpackUtils
@@ -328,7 +328,7 @@ export class Saber {
     }
   }
 
-  setConfig(config: Required<SaberConfig>, configPath?: string) {
+  setConfig(config: ValidatedSaberConfig, configPath?: string) {
     this.config = config
     this.configPath = configPath
     this.configDir = configPath && path.dirname(configPath)

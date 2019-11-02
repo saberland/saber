@@ -1,13 +1,13 @@
-import { ICreatePageInput, IPage } from './Pages'
+import { CreatePageInput, Page } from './Pages'
 
-export interface ITransformer {
+export interface Transformer {
   extensions: string[]
-  transform?: (page: ICreatePageInput) => void
-  getPageComponent: (page: IPage) => string
+  transform?: (page: CreatePageInput) => void
+  getPageComponent: (page: Page) => string
 }
 
 export class Transformers {
-  transformers: Map<string, ITransformer>
+  transformers: Map<string, Transformer>
 
   constructor() {
     this.transformers = new Map()
@@ -17,7 +17,7 @@ export class Transformers {
     return require('./utils/parseFrontmatter')
   }
 
-  add(contentType: string, transformer: ITransformer) {
+  add(contentType: string, transformer: Transformer) {
     this.transformers.set(contentType, transformer)
   }
 

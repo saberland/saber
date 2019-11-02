@@ -1,12 +1,40 @@
-const { struct } = require('superstruct')
+import { struct } from 'superstruct'
+import { SaberConfig, SaberConfigPlugin, MarkdownPlugin } from '../'
+
+export interface ValidatedSaberConfig {
+  siteConfig: SaberConfig['siteConfig'] & {
+    title: string
+    description: string
+  }
+
+  plugins: Array<SaberConfigPlugin | string>
+
+  markdown: SaberConfig['markdown'] & {
+    plugins: MarkdownPlugin[]
+  }
+
+  themeConfig: NonUndefined<SaberConfig['themeConfig']>
+
+  permalinks: NonUndefined<SaberConfig['permalinks']>
+
+  server: Required<NonUndefined<SaberConfig['server']>>
+
+  build: Required<NonUndefined<SaberConfig['build']>>
+
+  locales: NonNullable<SaberConfig['locales']>
+
+  theme: SaberConfig['theme']
+
+  template: Required<NonUndefined<SaberConfig['template']>>
+}
 
 /**
  * Validate saber config
- * @param {any} config
- * @param {object} options
- * @param {boolean} options.dev
  */
-module.exports = (config, { dev }) => {
+export function validateConfig(
+  config: SaberConfig,
+  { dev }: { dev: boolean }
+): ValidatedSaberConfig {
   const siteConfig = struct.interface(
     {
       title: 'string?',
@@ -80,22 +108,27 @@ module.exports = (config, { dev }) => {
     }
   )
 
-  const locales = struct('object?')
+  const locales = struct('object', {})
 
-  const template = struct({
-    openLinkInNewTab: 'boolean',
-    plugins: ['any']
-  }, {
-    openLinkInNewTab: true,
-    plugins: []
-  })
+  const theme = struct('string?')
+
+  const template = struct(
+    {
+      openLinkInNewTab: 'boolean',
+      plugins: ['any']
+    },
+    {
+      openLinkInNewTab: true,
+      plugins: []
+    }
+  )
 
   const schema = struct({
     build,
     siteConfig,
     themeConfig,
     locales,
-    theme: 'string?',
+    theme,
     plugins,
     markdown,
     permalinks,
