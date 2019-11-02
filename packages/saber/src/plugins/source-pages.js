@@ -29,6 +29,7 @@ exports.apply = api => {
           .map(async file => {
             file.relative = file.path
             file.absolute = path.join(pagesDir, file.relative)
+            // eslint-disable-next-line require-atomic-updates
             file.content = await fs.readFile(file.absolute, 'utf8')
             log.verbose(`Found page`, colors.dim(file.absolute))
             return file
@@ -81,6 +82,7 @@ exports.apply = api => {
 
           log.verbose(`Emitting page ${outPath}`)
           await fs.outputFile(outPath, newContentHash, 'utf8')
+          // eslint-disable-next-line require-atomic-updates
           page.internal.saved = true
         })
       )
@@ -126,9 +128,15 @@ exports.apply = api => {
         await api.hooks.emitRoutes.promise()
       }
 
-      watcher.on('add', handler('add'))
-      watcher.on('unlink', handler('remove'))
-      watcher.on('change', handler('change'))
+      watcher.on('add', () => {
+        handler('add')
+      })
+      watcher.on('unlink', () => {
+        handler('remove')
+      })
+      watcher.on('change', () => {
+        handler('change')
+      })
     }
   })
 }

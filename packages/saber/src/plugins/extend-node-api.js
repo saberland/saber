@@ -4,6 +4,10 @@ const { log, colors } = require('saber-log')
 
 const ID = 'builtin:extend-node-api'
 
+function __noopHandler__(arg) {
+  return arg
+}
+
 exports.name = ID
 
 exports.apply = api => {
@@ -58,43 +62,42 @@ exports.apply = api => {
       }
     })
 
-    if (api.dev && !/node_modules/.test(nodeApiFile)) {
+    if (api.dev && !nodeApiFile.includes('node_modules')) {
+      const onChange = async action => {
+        updateNodeApi()
+        // Remove all child pages
+        api.pages.removeWhere(page => page.internal.parent)
+        await Promise.all(
+          [...api.pages.values()].map(async page => {
+            // Recreate the page
+            api.pages.createPage(page)
+            // A page has been created
+            await api.hooks.onCreatePage.promise(page)
+          })
+        )
+        // All pages are created
+        await api.hooks.onCreatePages.promise()
+        // Emit pages
+        await api.hooks.emitPages.promise()
+        // Emit route file
+        await api.hooks.emitRoutes.promise()
+        log.warn(
+          `${action[0].toUpperCase()}${action.substring(1)} ${nodeApiFile}`
+        )
+        // Because you might also update webpack config in saber-node.js
+        // Which we can't (?) automatically reload
+        log.warn(`You probably need to restart the server.`)
+      }
       require('chokidar')
         .watch(nodeApiFile, {
           ignoreInitial: true
         })
-        .on('all', async action => {
-          await updateNodeApi()
-          // Remove all child pages
-          api.pages.removeWhere(page => page.internal.parent)
-          await Promise.all(
-            [...api.pages.values()].map(async page => {
-              // Recreate the page
-              api.pages.createPage(page)
-              // A page has been created
-              await api.hooks.onCreatePage.promise(page)
-            })
-          )
-          // All pages are created
-          await api.hooks.onCreatePages.promise()
-          // Emit pages
-          await api.hooks.emitPages.promise()
-          // Emit route file
-          await api.hooks.emitRoutes.promise()
-          log.warn(
-            `${action[0].toUpperCase()}${action.substring(1)} ${nodeApiFile}`
-          )
-          // Because you might also update webpack config in saber-node.js
-          // Which we can't (?) automatically reload
-          log.warn(`You probably need to restart the server.`)
+        .on('all', action => {
+          onChange(action)
         })
     }
   }
 
   handleNodeApiFile(path.join(api.theme, 'saber-node.js'), 'theme-node-api')
   handleNodeApiFile(api.resolveCwd('saber-node.js'), 'user-node-api')
-}
-
-function __noopHandler__(arg) {
-  return arg
 }

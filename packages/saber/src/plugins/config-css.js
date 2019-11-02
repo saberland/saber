@@ -150,7 +150,7 @@ exports.apply = api => {
               name: 'styles',
               // necessary to ensure async chunks are also extracted
               test: m => {
-                return /css\/mini-extract/.test(m.type)
+                return m.type && m.type.includes('css/mini-extract')
               },
               chunks: 'all',
               enforce: true

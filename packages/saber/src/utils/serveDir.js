@@ -7,7 +7,7 @@ const serveStatic = require('serve-static')
 module.exports = function({ dir, host, port } = {}) {
   const server = polka()
   server.use(serveStatic(dir))
-  server.use(async (req, res, next) => {
+  server.use((req, res, next) => {
     if (req.method !== 'GET') return next()
     createReadStream(path.join(dir, '404.html')).pipe(res)
   })

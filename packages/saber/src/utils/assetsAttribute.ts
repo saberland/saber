@@ -6,7 +6,7 @@ import { slash, isAbsoluteUrl } from 'saber-utils'
  * When it's an absolute url or starting with `/`
  * `/path` is used to reference files in static folder
  */
-const isExternal = (str: string) => isAbsoluteUrl(str) || /^\//.test(str)
+const isExternal = (str: string) => isAbsoluteUrl(str) || str.startsWith('/')
 
 const MARK = '@@!!SABER_ASSET_MARK_e5968b9a!!@@'
 
@@ -42,7 +42,4 @@ const requireAssets = (str: string) =>
     return `require("${p1}")`
   })
 
-export {
-  prefixAssets,
-  requireAssets
-}
+export { prefixAssets, requireAssets }

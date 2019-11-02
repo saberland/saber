@@ -1,32 +1,6 @@
 const ConfigChain = require('../config-chain')
 const resolvePackage = require('../utils/resolvePackage')
 
-exports.name = 'builtin:transformer-markdown'
-
-exports.apply = api => {
-  api.transformers.add('markdown', {
-    extensions: ['md'],
-    transform(page) {
-      const { frontmatter, body } = require('../utils/parseFrontmatter')(
-        page.content,
-        page.internal.absolute
-      )
-      Object.assign(page, frontmatter)
-      page.content = body
-      page.content = renderMarkdown(api, page)
-    },
-    getPageComponent(page) {
-      return `
-        <template>
-        <layout-manager>
-          ${page.content || ''}
-        </layout-manager>
-        </template>
-      `
-    }
-  })
-}
-
 function renderMarkdown(api, page) {
   const { configDir } = api
   const { markdown = {} } = api.config
@@ -112,4 +86,30 @@ function renderMarkdown(api, page) {
   }
 
   return md.render(page.content, env)
+}
+
+exports.name = 'builtin:transformer-markdown'
+
+exports.apply = api => {
+  api.transformers.add('markdown', {
+    extensions: ['md'],
+    transform(page) {
+      const { frontmatter, body } = require('../utils/parseFrontmatter')(
+        page.content,
+        page.internal.absolute
+      )
+      Object.assign(page, frontmatter)
+      page.content = body
+      page.content = renderMarkdown(api, page)
+    },
+    getPageComponent(page) {
+      return `
+        <template>
+        <layout-manager>
+          ${page.content || ''}
+        </layout-manager>
+        </template>
+      `
+    }
+  })
 }

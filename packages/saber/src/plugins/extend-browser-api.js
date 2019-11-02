@@ -24,14 +24,20 @@ exports.apply = api => {
         cwd: api.resolveCwd(),
         ignoreInitial: true
       })
+      const onAdd = async filename => {
+        api.browserApi.add(api.resolveCwd(filename))
+        await api.browserApi.reload()
+      }
+      const onRemove = async filename => {
+        api.browserApi.delete(api.resolveCwd(filename))
+        await api.browserApi.reload()
+      }
       watcher
-        .on('add', async filename => {
-          api.browserApi.add(api.resolveCwd(filename))
-          await api.browserApi.reload()
+        .on('add', filename => {
+          onAdd(filename)
         })
-        .on('unlink', async filename => {
-          api.browserApi.delete(api.resolveCwd(filename))
-          await api.browserApi.reload()
+        .on('unlink', filename => {
+          onRemove(filename)
         })
     }
   })

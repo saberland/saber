@@ -1,5 +1,13 @@
 // @ts-check
 
+/**
+ * Left-pad '0' to number that is smaller than 10
+ * @param {number} input
+ */
+function padZero(input) {
+  return input < 10 ? `0${input}` : input
+}
+
 // Default:
 // about.md => /about.html
 // about/index.md => /about
@@ -53,12 +61,4 @@ module.exports = (localeNames, page, permalinks) => {
     .replace(/:slug/, slug)
     .replace(/^\/index(\.html)?$/, '/')
     .replace(/\/index(\.html)?$/, '')
-}
-
-/**
- * Left-pad '0' to number that is smaller than 10
- * @param {number} input
- */
-function padZero(input) {
-  return input < 10 ? `0${input}` : input
 }

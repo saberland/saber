@@ -17,6 +17,7 @@ export class Compiler extends EventEmitter {
 
   injectToWebpack(config: WebpackChain) {
     const ID = `compiler-${this.type}`
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this
     config.plugin(ID).use(
       class {

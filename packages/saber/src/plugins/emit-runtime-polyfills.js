@@ -18,6 +18,7 @@ exports.apply = api => {
           polyfills,
           'utf8'
         )
+        // eslint-disable-next-line require-atomic-updates
         previousPolyfills = polyfills
       }
     })

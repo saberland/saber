@@ -5,8 +5,25 @@ const { SyncWaterfallHook } = require('tapable')
 const { readJSON } = require('./utils')
 const renderHTML = require('./render-html')
 
+function runCompiler(compiler) {
+  return new Promise((resolve, reject) => {
+    compiler.run((err, stats) => {
+      if (err) return reject(err)
+      resolve(stats)
+    })
+  })
+}
+
 function resolveVueApp(...args) {
   return path.join(__dirname, '../../vue-app', ...args)
+}
+
+function removeTrailingSlash(input) {
+  if (input === '/') {
+    return input
+  }
+
+  return input.replace(/\/$/, '')
 }
 
 const ID = 'vue-renderer'
@@ -476,6 +493,7 @@ export class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req, res) => {
+      // eslint-disable-next-line
       let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
       pathname = removeTrailingSlash(pathname)
       const fullPath = pathname + (hash || '')
@@ -564,21 +582,4 @@ export class VueRenderer {
 
     return server.handler
   }
-}
-
-function runCompiler(compiler) {
-  return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
-      if (err) return reject(err)
-      resolve(stats)
-    })
-  })
-}
-
-function removeTrailingSlash(input) {
-  if (input === '/') {
-    return input
-  }
-
-  return input.replace(/\/$/, '')
 }

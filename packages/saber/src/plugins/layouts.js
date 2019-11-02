@@ -58,6 +58,25 @@ exports.apply = api => {
       const watchLayouts = (dir, layouts) => {
         const chokidar = require('chokidar')
 
+        const onRemoveDir = async dir => {
+          if (!dir) {
+            Object.keys(layouts).forEach(name => {
+              delete layouts[name]
+            })
+            await writeLayouts(themeLayouts, userLayouts)
+          }
+        }
+
+        const onAddLayout = async file => {
+          setLayout(layouts, path.join(dir, file))
+          await writeLayouts(themeLayouts, userLayouts)
+        }
+
+        const onRemoveLayout = async file => {
+          setLayout(layouts, path.join(dir, file), true)
+          await writeLayouts(themeLayouts, userLayouts)
+        }
+
         // Clear the layouts object when the layouts directory is removed
         chokidar
           .watch('.', {
@@ -68,30 +87,23 @@ exports.apply = api => {
             },
             ignoreInitial: true
           })
-          .on('unlinkDir', async dir => {
-            if (!dir) {
-              Object.keys(layouts).forEach(name => {
-                delete layouts[name]
-              })
-              await writeLayouts(themeLayouts, userLayouts)
-            }
+          .on('unlinkDir', dir => {
+            onRemoveDir(dir)
           })
 
         // Add/Remove layout components
         chokidar
           .watch('*.{vue,js}', { cwd: dir, ignoreInitial: true })
-          .on('add', async file => {
-            setLayout(layouts, path.join(dir, file))
-            await writeLayouts(themeLayouts, userLayouts)
+          .on('add', file => {
+            onAddLayout(file)
           })
-          .on('unlink', async file => {
-            setLayout(layouts, path.join(dir, file), true)
-            await writeLayouts(themeLayouts, userLayouts)
+          .on('unlink', file => {
+            onRemoveLayout(file)
           })
       }
 
       // No need to watch theme layouts if it's from an npm package
-      if (!/node_modules/.test(themeLayoutsDir)) {
+      if (!themeLayoutsDir.includes('node_modules')) {
         watchLayouts(themeLayoutsDir, themeLayouts)
       }
 

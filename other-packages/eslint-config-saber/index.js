@@ -36,6 +36,7 @@ module.exports = {
           requireLast: false
         }
       }
-    ]
+    ],
+    '@typescript-eslint/prefer-includes': 'off'
   }
 }
