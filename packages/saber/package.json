@@ -79,7 +79,7 @@
     "@types/hash-sum": "^1.0.0",
     "@types/lodash.merge": "^4.6.6",
     "@types/resolve-from": "5.0.1",
-    "@types/webpack": "4.39.1",
+    "@types/webpack": "4.39.8",
     "markdown-it-footnote": "3.0.2"
   },
   "engines": {
