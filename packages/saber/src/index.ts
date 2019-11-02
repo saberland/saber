@@ -258,11 +258,11 @@ export class Saber {
       client: new Compiler('client', this)
     }
 
-    for (const hook of Object.keys(this.hooks)) {
+    const hookNames = Object.keys(this.hooks) as Array<keyof typeof hooks>
+    for (const hook of hookNames) {
       const ignoreNames = ['theme-node-api', 'user-node-api']
-      // @ts-ignore
       this.hooks[hook].intercept({
-        register(tapInfo: TODO) {
+        register(tapInfo) {
           const { fn, name } = tapInfo
           tapInfo.fn = (...args: any[]) => {
             if (!ignoreNames.includes(name)) {

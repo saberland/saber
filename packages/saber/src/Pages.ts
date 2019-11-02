@@ -254,7 +254,7 @@ export class Pages extends Map<string, IPage> {
   }
 
   getPagePublicFields(page: string | IPage) {
-    let result: TODO = typeof page === 'string' ? this.get(page) : page
+    let result = typeof page === 'string' ? this.get(page) : page
 
     if (!result) {
       throw new Error(`The page doesn't exist`)
