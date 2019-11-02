@@ -31,7 +31,7 @@ const layoutsPlugin: SaberPlugin = {
       })
       const layouts = {}
       files.forEach(file => {
-        setLayout(layouts, path.join(dir, file as string))
+        setLayout(layouts, path.join(dir, file))
       })
       return layouts
     }

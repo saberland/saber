@@ -44,8 +44,8 @@ export interface CreatePageOptions {
 }
 
 export interface CreatePageInput {
-  type: 'page' | 'post'
-  content: string
+  type?: 'page' | 'post'
+  content?: string
   /**
    * We apply different transformers based on the `contentType`
    * Built-in types are `default`, `markdown`, `vue`
@@ -66,6 +66,8 @@ export interface CreatePageInput {
   internal: {
     /** A unique ID for this page */
     id: string
+    /** ID of parent page */
+    parent?: string
     /**
      * Is this page a local file?
      * If it is you also need to set `absolute` and `relative`
@@ -94,6 +96,7 @@ export interface Page {
   slug?: string
   internal: {
     id: string
+    parent?: string
     isFile?: boolean
     absolute?: string
     relative?: string
@@ -115,43 +118,17 @@ export class Pages extends Map<string, Page> {
     this.redirectRoutes = new Map()
   }
 
-  normalizePage(_page: CreatePageInput, file?: FileInfo): Page {
+  normalizePage(_page: CreatePageInput): Page {
     const { api } = this
 
-    let page = merge(
+    const page = merge(
       {
+        type: 'page',
         internal: {},
         contentType: 'default'
       },
       _page
     )
-
-    let parsedFileName: RegExpExecArray | null = null
-    if (file) {
-      const relativePath = slash(file.relative)
-      const absolutePath = slash(file.absolute)
-      parsedFileName = FILE_NAME_REGEXP.exec(
-        relativePath
-          // Remove leading _posts/
-          .replace(/^_posts\//, '')
-          // Remove extension
-          .replace(/\.[a-z]+$/i, '')
-      ) as RegExpExecArray // It could never be `null`
-      const slug = parsedFileName[16]
-      page = merge({}, page, {
-        slug,
-        internal: {
-          id: hash(file.absolute),
-          absolute: absolutePath,
-          relative: relativePath,
-          isFile: true
-        },
-        contentType: api.transformers.getContentTypeByExtension(
-          path.extname(relativePath).slice(1)
-        ),
-        content: file.content
-      })
-    }
 
     let transformer = api.transformers.get(page.contentType)
 
@@ -169,21 +146,11 @@ export class Pages extends Map<string, Page> {
     // And transformers can update the `page`
     // So we set them after applying the transformer
 
-    if (file && parsedFileName) {
-      // Read createdAt from page attribute
-      // Or fallback to `page.date` (Hexo compatibility)
-      // Or fallback to the date in fileName
-      // Or fallback to the `file.birthtime`
-      page.createdAt =
-        page.createdAt || page.date || parsedFileName[2] || file.birthtime
+    // Fallback to `page.date` (Hexo compatibility)
+    page.createdAt = page.createdAt || page.date
 
-      // Read updatedAt from page attribute
-      // Or fallback to `page.updated` (Hexo compatibility)
-      // Or fallback to `file.mtime`
-      page.updatedAt = page.updatedAt || page.updated || file.mtime
-
-      page.type = page.type || getPageType(slash(file.relative))
-    }
+    // Fallback to `page.updated` (Hexo compatibility)
+    page.updatedAt = page.updatedAt || page.updated
 
     // Ensure date format
     if (typeof page.createdAt === 'string') {
@@ -229,13 +196,39 @@ export class Pages extends Map<string, Page> {
     return page as Page
   }
 
-  createPage(page: CreatePageInput, options: CreatePageOptions = {}) {
-    const { file, normalize } = options
-    if (normalize !== false) {
-      page = this.normalizePage(page, file)
+  fileToPage(file: FileInfo): Page {
+    const relativePath = slash(file.relative)
+    const absolutePath = slash(file.absolute)
+    const parsedFileName = FILE_NAME_REGEXP.exec(
+      relativePath
+        // Remove leading _posts/
+        .replace(/^_posts\//, '')
+        // Remove extension
+        .replace(/\.[a-z]+$/i, '')
+    ) as RegExpExecArray // It could never be `null`
+    const slug = parsedFileName[16]
+    const pageInput: CreatePageInput = {
+      slug,
+      type: getPageType(slash(file.relative)),
+      internal: {
+        id: hash(file.absolute),
+        absolute: absolutePath,
+        relative: relativePath,
+        isFile: true
+      },
+      contentType: this.api.transformers.getContentTypeByExtension(
+        path.extname(relativePath).slice(1)
+      ),
+      content: file.content,
+      createdAt: parsedFileName[2] || file.birthtime,
+      updatedAt: file.mtime
     }
+    return this.normalizePage(pageInput)
+  }
 
-    this.set(page.internal.id, page as Page)
+  createPage(pageInput: CreatePageInput) {
+    const page = this.normalizePage(pageInput)
+    this.set(page.internal.id, page)
   }
 
   removePage(id: string) {

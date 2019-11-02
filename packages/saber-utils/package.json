@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@zeit/ncc": "0.20.5",
-    "fast-glob": "2.2.6",
+    "fast-glob": "3.1.0",
     "fs-extra": "8.1.0",
     "is-absolute-url": "^3.0.2"
   },
