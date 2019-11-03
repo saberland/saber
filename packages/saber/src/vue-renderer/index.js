@@ -211,50 +211,53 @@ export class VueRenderer {
     }
 
     this._writingRoutes = true
+
     const pages = [...this.api.pages.values()]
+
+    const routesFromPages = pages
+      .map(page => {
+        const relativePath = slash(page.internal.relative)
+        const absolutePath = slash(page.internal.absolute)
+        const chunkNameComment = `/* webpackChunkName: "page--${
+          page.internal.isFile
+            ? path
+                .relative(this.api.resolveCwd('pages'), absolutePath)
+                .replace(/[^a-z0-9_-]/gi, '-')
+            : page.internal.id
+        }" */ `
+        // Always give the path a resource query
+        const componentPath = page.internal.isFile
+          ? `${absolutePath}?saberPage=${page.internal.id}`
+          : `#cache/pages/${page.internal.id}.saberpage?saberPage=${page.internal.id}`
+        return `{
+          path: ${JSON.stringify(page.permalink)},
+          meta: {
+            __relative: '${relativePath}',
+            __pageId: '${page.internal.id}'
+          },
+          component: function() {
+            ${
+              this.api.lazy && !this.visitedRoutes.has(page.permalink)
+                ? `return Promise.resolve({render: function(h){return h('div', {}, ['Please refresh..'])}})`
+                : `
+            return import(${chunkNameComment}${JSON.stringify(componentPath)})
+            `
+            }
+          }
+        }`
+      })
+      .join(',\n')
+
     const redirectRoutesInBrowser = [...this.api.pages.redirectRoutes.values()]
       .filter(route => route.redirectInBrowser)
       .map(
         route => `{ path: '${route.fromPath}', redirect: '${route.toPath}' }`
       )
       .join(',\n')
+
     const routes = `
     export default [
-      ${pages
-        .map(page => {
-          const relativePath = slash(page.internal.relative)
-          const absolutePath = slash(page.internal.absolute)
-          const chunkNameComment = `/* webpackChunkName: "page--${
-            page.internal.isFile
-              ? path
-                  .relative(this.api.resolveCwd('pages'), absolutePath)
-                  .replace(/[^a-z0-9_-]/gi, '-')
-              : page.internal.id
-          }" */ `
-          // Always give the path a resource query
-          const componentPath = page.internal.isFile
-            ? `${absolutePath}?saberPage=${page.internal.id}`
-            : `#cache/pages/${page.internal.id}.saberpage?saberPage=${page.internal.id}`
-          return `{
-              path: ${JSON.stringify(page.permalink)},
-              meta: {
-                __relative: '${relativePath}',
-                __pageId: '${page.internal.id}'
-              },
-              component: function() {
-                ${
-                  this.api.lazy && !this.visitedRoutes.has(page.permalink)
-                    ? `return Promise.resolve({render: function(h){return h('div', {}, ['Please refresh..'])}})`
-                    : `
-                return import(${chunkNameComment}${JSON.stringify(
-                        componentPath
-                      )})
-                `
-                }
-              }
-            }`
-        })
-        .join(',\n')},
+      ${routesFromPages ? `${routesFromPages},` : ''}
       ${redirectRoutesInBrowser ? `${redirectRoutesInBrowser},` : ''}
       // An addtional route to catch all other requests, i.e. 404 page
       {
