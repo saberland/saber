@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/saberland/saber/compare/saber-plugin-prismjs@0.2.3...saber-plugin-prismjs@0.2.4) (2019-11-03)
+
+**Note:** Version bump only for package saber-plugin-prismjs
+
 ## [0.2.3](https://github.com/saberland/saber/compare/saber-plugin-prismjs@0.2.2...saber-plugin-prismjs@0.2.3) (2019-09-11)
 
 **Note:** Version bump only for package saber-plugin-prismjs

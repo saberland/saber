@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/saberland/saber/compare/saber-plugin-code-copy@0.3.0...saber-plugin-code-copy@0.3.1) (2019-11-03)
+
+**Note:** Version bump only for package saber-plugin-code-copy
+
 # 0.3.0 (2019-09-29)
 
 ### Bug Fixes

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/saberland/saber/compare/saber@0.10.4...saber@0.11.0) (2019-11-03)
+
+### Bug Fixes
+
+- remove comma when there're no pages ([#544](https://github.com/saberland/saber/issues/544)) ([fb036db](https://github.com/saberland/saber/commit/fb036db))
+- remove scoped style data attributes in feed ([#520](https://github.com/saberland/saber/issues/520)) ([17e29dc](https://github.com/saberland/saber/commit/17e29dc))
+
+### Features
+
+- allow to apply plugin asynchronously ([0c0beb4](https://github.com/saberland/saber/commit/0c0beb4))
+
 ## [0.10.4](https://github.com/saberland/saber/compare/saber@0.10.3...saber@0.10.4) (2019-10-06)
 
 ### Bug Fixes

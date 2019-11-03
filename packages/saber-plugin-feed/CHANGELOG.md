@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/saberland/saber/compare/saber-plugin-feed@0.4.2...saber-plugin-feed@0.4.3) (2019-11-03)
+
+### Bug Fixes
+
+- remove scoped style data attributes in feed ([#520](https://github.com/saberland/saber/issues/520)) ([17e29dc](https://github.com/saberland/saber/commit/17e29dc))
+
 ## [0.4.2](https://github.com/saberland/saber/compare/saber-plugin-feed@0.4.1...saber-plugin-feed@0.4.2) (2019-08-22)
 
 ### Bug Fixes
