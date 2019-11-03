@@ -196,7 +196,7 @@ export class Pages extends Map<string, Page> {
     return page as Page
   }
 
-  fileToPage(file: FileInfo): Page {
+  fileToPage(file: FileInfo): CreatePageInput {
     const relativePath = slash(file.relative)
     const absolutePath = slash(file.absolute)
     const parsedFileName = FILE_NAME_REGEXP.exec(
@@ -223,7 +223,7 @@ export class Pages extends Map<string, Page> {
       createdAt: parsedFileName[2] || file.birthtime,
       updatedAt: file.mtime
     }
-    return this.normalizePage(pageInput)
+    return pageInput
   }
 
   createPage(pageInput: CreatePageInput) {
