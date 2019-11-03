@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/saberland/saber/compare/saber@0.11.0...saber@0.11.1) (2019-11-03)
+
+### Bug Fixes
+
+- prevent content from being transformed twice ([ae1918c](https://github.com/saberland/saber/commit/ae1918c))
+
 # [0.11.0](https://github.com/saberland/saber/compare/saber@0.10.4...saber@0.11.0) (2019-11-03)
 
 ### Bug Fixes
