@@ -146,11 +146,13 @@ export class Pages extends Map<string, Page> {
     // And transformers can update the `page`
     // So we set them after applying the transformer
 
-    // Fallback to `page.date` (Hexo compatibility)
-    page.createdAt = page.createdAt || page.date
-
-    // Fallback to `page.updated` (Hexo compatibility)
-    page.updatedAt = page.updatedAt || page.updated
+    // Hexo compatibility
+    if (page.date) {
+      page.createdAt = page.date
+    }
+    if (page.updated) {
+      page.updatedAt = page.updated
+    }
 
     // Ensure date format
     if (typeof page.createdAt === 'string') {
