@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/saberland/saber/compare/saber@0.11.1...saber@0.11.2) (2019-11-05)
+
+### Bug Fixes
+
+- page.date and page.updated should take higher priority ([80a2a90](https://github.com/saberland/saber/commit/80a2a90))
+
 ## [0.11.1](https://github.com/saberland/saber/compare/saber@0.11.0...saber@0.11.1) (2019-11-03)
 
 ### Bug Fixes
