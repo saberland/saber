@@ -18,6 +18,7 @@ export default ({ router }) => {
       style.id = 'saber-plugin-code-copy-style'
       style.append(
         document.createTextNode(`
+      .saber-highlight {position: relative;}
       .saber-highlight:hover:before {display: none !important;}
       .saber-highlight:hover .saber-plugin-code-copy-button {
         opacity: 1;
