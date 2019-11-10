@@ -1,6 +1,6 @@
 {
   "name": "saber-plugin-code-copy",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Allow to copy code into clipboard",
   "license": "MIT",
   "main": "lib/index.js",

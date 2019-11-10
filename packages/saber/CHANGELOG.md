@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.3](https://github.com/saberland/saber/compare/saber@0.11.2...saber@0.11.3) (2019-11-10)
+
+### Bug Fixes
+
+- display config validation error ([a06de4d](https://github.com/saberland/saber/commit/a06de4d))
+
 ## [0.11.2](https://github.com/saberland/saber/compare/saber@0.11.1...saber@0.11.2) (2019-11-05)
 
 ### Bug Fixes
