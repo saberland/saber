@@ -30,94 +30,87 @@ module.exports = function(cli) {
     .option('--path <path>', 'Ejected theme destination', {
       default: './theme'
     })
-    .action(async (cwd = '.', options) => {
-      cwd = path.resolve(cwd)
-      const { git } = options
-      const mergeDependencies = options['merge-dependencies']
+    .action(
+      handleError(async (cwd = '.', options) => {
+        cwd = path.resolve(cwd)
+        const { git } = options
+        const mergeDependencies = options['merge-dependencies']
 
-      const config =
-        configLoader.load({ cwd, files: configLoader.CONFIG_FILES }).data || {}
-      if (!config.theme) {
-        handleError('No theme specified in config.')
-      }
+        const config =
+          configLoader.load({ cwd, files: configLoader.CONFIG_FILES }).data ||
+          {}
+        if (!config.theme) {
+          throw new Error('No theme specified in config.')
+        }
 
-      const destPath = path.join(cwd, options.path)
-      const relativeDest = path.relative(cwd, destPath)
-      if (await fs.pathExists(destPath)) {
-        handleError(
-          `The path ${options.path} already exists. Please specify a different one using "--path".`
-        )
-      }
+        const destPath = path.join(cwd, options.path)
+        const relativeDest = path.relative(cwd, destPath)
+        if (await fs.pathExists(destPath)) {
+          throw new Error(
+            `The path ${options.path} already exists. Please specify a different one using "--path".`
+          )
+        }
 
-      const themePath = resolvePackage(config.theme, {
-        prefix: 'saber-theme-',
-        cwd
-      })
-      if (!themePath) {
-        handleError(
-          `Theme "${config.theme}" could not be found in your node_modules.`
-        )
-      }
+        const themePath = resolvePackage(config.theme, {
+          prefix: 'saber-theme-',
+          cwd
+        })
+        if (!themePath) {
+          throw new Error(
+            `Theme "${config.theme}" could not be found in your node_modules.`
+          )
+        }
 
-      const themePackage = configLoader.load({
-        cwd: themePath,
-        files: ['package.json']
-      }).data
+        const themePackage = configLoader.load({
+          cwd: themePath,
+          files: ['package.json']
+        }).data
 
-      if (git) {
-        const repo = themePackage.repository
+        if (git) {
+          const repo = themePackage.repository
 
-        if (repo && (!repo.type || repo.type === 'git')) {
-          const tmp = path.join(cwd, '.saber', 'theme-tmp')
+          if (repo && (!repo.type || repo.type === 'git')) {
+            const tmp = path.join(cwd, '.saber', 'theme-tmp')
 
-          const { shortcut, url } = normalizeRepo(themePackage.repository)
-          const downloadError = await downloadRepo(shortcut || url, tmp, {
-            clone: Boolean(shortcut)
-          })
+            const { shortcut, url } = normalizeRepo(themePackage.repository)
+            const downloadError = await downloadRepo(shortcut || url, tmp, {
+              clone: Boolean(shortcut)
+            })
 
-          if (downloadError) {
-            handleError(downloadError)
-          }
+            if (downloadError) {
+              throw downloadError
+            }
 
-          try {
             await fs.move(
               repo.directory ? path.join(tmp, repo.directory) : tmp,
               destPath
             )
 
             await fs.remove(tmp)
-          } catch (error) {
-            handleError(error)
-          }
 
-          log.success('Downloaded theme source via Git.')
+            log.success('Downloaded theme source via Git.')
+          } else {
+            throw new Error(
+              'The theme has no git repository specified within its package.json.'
+            )
+          }
         } else {
-          handleError(
-            'The theme has no git repository specified within its package.json.'
-          )
-        }
-      } else {
-        try {
           await fs.copy(themePath, destPath, {
             filter: src => !src.endsWith('/node_modules')
           })
 
           log.info('Copied theme from node_modules.')
-        } catch (error) {
-          handleError(error)
         }
-      }
 
-      if (mergeDependencies) {
-        const dependencies = themePackage.dependencies || {}
-        const devDependencies = themePackage.devDependencies || {}
+        if (mergeDependencies) {
+          const dependencies = themePackage.dependencies || {}
+          const devDependencies = themePackage.devDependencies || {}
 
-        const projectPackage = configLoader.load({
-          cwd,
-          files: ['package.json']
-        }).data
+          const projectPackage = configLoader.load({
+            cwd,
+            files: ['package.json']
+          }).data
 
-        try {
           await fs.writeJson(
             path.join(cwd, 'package.json'),
             {
@@ -147,13 +140,11 @@ module.exports = function(cli) {
           }
 
           log.success('Merged theme dependencies.')
-        } catch (error) {
-          handleError(error)
         }
-      }
 
-      log.info(
-        `Please change "theme" in your Saber config to "./${relativeDest}".`
-      )
-    })
+        log.info(
+          `Please change "theme" in your Saber config to "./${relativeDest}".`
+        )
+      })
+    )
 }

@@ -6,10 +6,16 @@ module.exports = {
       process.env.NODE_ENV = env
     }
   },
-  handleError(err) {
-    if (typeof err === 'string') err = new Error(err)
-    require('saber-log').log.error(err.stack)
-    process.exit(1) // eslint-disable-line
+  handleError(fn) {
+    return async (...args) => {
+      try {
+        await fn(...args)
+      } catch (error) {
+        const message = typeof error === 'string' ? error : error.stack
+        require('saber-log').log.error(message)
+        process.exit(1) // eslint-disable-line
+      }
+    }
   },
   spawn(...args) {
     return new Promise((resolve, reject) => {

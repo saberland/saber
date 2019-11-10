@@ -139,7 +139,7 @@ export function validateConfig(
   const [err, result] = schema.validate(config)
 
   if (err) {
-    throw err
+    throw new Error(`Invalid Saber config: ${err.message}`)
   }
 
   if (dev) {
