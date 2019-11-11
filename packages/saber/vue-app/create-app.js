@@ -55,18 +55,21 @@ export default context => {
         delete htmlAttrs.lang
       }
       
-      const title = this.$siteConfig.title || 'Saber'
+      const { title, description } = this.$siteConfig
 
       const defaultMeta = [
         {
           name: 'generator',
           content: `Saber v${__SABER_VERSION__}`
-        },
-        {
-          name: 'description',
-          content: `${this.$siteConfig.description || 'A framework for building modern static websites'}`
         }
       ]
+
+      if (description) {
+        defaultMeta.push({
+          name: 'description',
+          content: description
+        })
+      }
 
       return {
         ...head,
