@@ -84,7 +84,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .header {
   height: var(--header-height);
