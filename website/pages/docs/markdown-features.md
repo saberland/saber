@@ -36,7 +36,7 @@ excerpt: This post is dedicated to the world
 This is a wonderful world..
 ```
 
-Alternatively, if it is not set Saber will automatically use the first paragrah or everthing before `<!-- more -->` comment as the excerpt.
+Alternatively, if it is not set Saber will automatically use the first paragraph or everything before `<!-- more -->` comment as the excerpt.
 
 ```markdown
 ---
