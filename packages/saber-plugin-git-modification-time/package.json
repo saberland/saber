@@ -8,7 +8,7 @@
     "lib"
   ],
   "dependencies": {
-    "execa": "^2.0.3"
+    "execa": "^3.2.0"
   },
   "peerDependencies": {
     "saber": ">=0.7.0"
