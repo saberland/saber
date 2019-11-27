@@ -85,15 +85,17 @@ Add the following `scripts` in your `package.json`:
 
 Adding a file `.nojekyll` (with empty content) to the `static/` folder to [turn off Jekyll integration of GitHub Pages](https://help.github.com/en/articles/files-that-start-with-an-underscore-are-missing).
 
-### Step 3: Optionally, configure the domain
+### Step 3: Optionally, configure the domain or repository path
 
-You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `static/` folder.
+If you are using a custom domain, you can configure it with GitHub Pages by adding a `CNAME` file to the `static/` folder.
 
 Your `CNAME` file should look like this:
 
 ```
 mywebsite.com
 ```
+
+If you are using a repository-level gh-pages deployment (`[username].github.io/[repository name]`), set the `publicUrl` property in the Saber configuration file.  This is not required for account-level gh-pages deployments (`[username].github.io`).
 
 ### Step 4: Deploy the site by running `npm run deploy`
 
