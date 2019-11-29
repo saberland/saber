@@ -32,7 +32,7 @@ module.exports = function(source, map) {
 
     // page.slug is optional
     if (page.slug) {
-      Component.options.name = 'page-wrapper-' + page.slug.replace(/[^0-9a-z\\-]/i, '-')
+      Component.options.name = 'page-wrapper-' + page.slug.replace(/[^0-9a-z\\-]/ig, '-')
     }
     if (module.hot) {
       var Vue = require('vue').default
