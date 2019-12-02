@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.4](https://github.com/saberland/saber/compare/saber@0.11.3...saber@0.11.4) (2019-12-02)
+
+### Bug Fixes
+
+- remove all invalid characters in component name ([de1d17c](https://github.com/saberland/saber/commit/de1d17c))
+
+### Features
+
+- add default document title and meta description ([#556](https://github.com/saberland/saber/issues/556)) ([54b5e9a](https://github.com/saberland/saber/commit/54b5e9a))
+
 ## [0.11.3](https://github.com/saberland/saber/compare/saber@0.11.2...saber@0.11.3) (2019-11-10)
 
 ### Bug Fixes
