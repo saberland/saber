@@ -57,7 +57,7 @@
     "saber-utils": "^0.2.4",
     "serve-static": "^1.13.2",
     "slugo": "^0.3.1",
-    "superstruct": "^0.8.2",
+    "superstruct": "^0.8.3",
     "tapable": "^1.1.1",
     "time-fix-plugin": "^2.0.5",
     "url-loader": "^2.0.1",
