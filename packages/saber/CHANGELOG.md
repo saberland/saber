@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.5](https://github.com/saberland/saber/compare/saber@0.11.4...saber@0.11.5) (2020-01-07)
+
+### Bug Fixes
+
+- **deps:** Fix Saber dev not building on Node 13+ ([#580](https://github.com/saberland/saber/issues/580)) ([c66a83b](https://github.com/saberland/saber/commit/c66a83b))
+
 ## [0.11.4](https://github.com/saberland/saber/compare/saber@0.11.3...saber@0.11.4) (2019-12-02)
 
 ### Bug Fixes
