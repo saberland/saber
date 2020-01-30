@@ -153,7 +153,7 @@ Options for the internal markdown-it plugin for generating markdown headings and
 | `markdownHeadings` | `boolean` | `true`       | Inject markdown headings as `page.markdownHeadings` |
 | `permalink`              | `boolean` | `false`      | Generating permalinks.                              |
 | `permalinkComponent`     | `string`  | `saber-link` |                                                     |
-| `permalinkBefore`        | `bolean`  | `true`       | Inject permalink before heading text.               |
+| `permalinkBefore`        | `boolean`  | `true`       | Inject permalink before heading text.               |
 | `permalinkSymbol`        | `string`  | `#`          | The permalink symbol.                               |
 
 ### options
