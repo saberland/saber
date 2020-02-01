@@ -12719,9 +12719,9 @@ typedoc@^0.15.0:
     typescript "3.5.x"
 
 typescript@3.5.x, typescript@^3.8.0-dev.20191031:
-  version "3.8.0-dev.20191031"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.0-dev.20191031.tgz#d19f77c9a6314f35d9e11381c93fffb3cff9bb1c"
-  integrity sha512-hnIkoA1tdqCoO71ocviQg+ojLPwuZw6IxUtW12hhI+0XCpqNinQOcvUJlak0pVRUKL6vMRjvmhMbE0+uDJp/sA==
+  version "3.8.0-dev.20200131"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.0-dev.20200131.tgz#4cdfeb85da6c0e242538c648086722774bfa68e3"
+  integrity sha512-E2g2SGl5WHFBOTCwJTzjzB6aARzXXnnf46jS63Nk1XX3RDFO7e4Kz0qcxGKFNljhp/Zl/XajzMdvcJvQ8hQOfg==
 
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.5"
