@@ -2,6 +2,8 @@
 
 A static website generator built on top of Vue.js and webpack.
 
+__❤️ Please [sponsor me](https://github.com/sponsors/egoist) to support this project or prioritize a feature you want. I will work on this project for full-time once I have 150+ sponsors.__
+
 | Linux & Mac                                                                                                                                            | Windows     |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
 | <a href="https://circleci.com/gh/saberland/saber/tree/master"><img src="https://badgen.net/circleci/github/saberland/saber/master" alt="CircleCI"></a> | Should work |
@@ -19,8 +21,6 @@ A static website generator built on top of Vue.js and webpack.
 ---
 
 Saber is an open source project. It's an independent project with its ongoing development made possible thanks to the support by our amazing backers.
-
-Issues on Saber can be funded by anyone and the money will be distributed to contributors and maintainers. If you use Saber [please consider becoming a backer](https://issuehunt.io/r/saberland/saber), if you want to contribute to this project, please [read the contributing guide](./CONTRIBUTING.md) first.
 
 Saber wouldn't be what it is today without the contributions from these awesome people:
 
