@@ -35,9 +35,37 @@ export default {
 
 By using `injectProps` here Saber will call the function at build time and store the result as JSON file.
 
+### Pagination
+
+We can create pagination based on injected props:
+
+```vue
+<script>
+export const config = {
+  pagination: {
+    byProp: 'drafts',
+    perPage: 30
+  },
+
+  injectProps: {
+    drafts: {
+      function: 'posts',
+      options: {
+        type: 'draft'
+      }
+    }
+  }
+}
+
+export default {
+  props: ['drafts']
+}
+</script>
+```
+
 ### Exporting function
 
-A function can exported just like a Vue page, only thing you need to do is setting `config.page` option:
+A function can be exported as a page just like a normal pages, only thing you need to do is setting `config.page` option:
 
 ```js
 // functions/atom.xml.js
@@ -47,7 +75,7 @@ import posts from '../posts'
 export default () => {
   const posts = await posts({ type: 'public' })
   const xml = generateXMLFeed(posts)
-  res.end(xml)
+  return xml
 }
 
 export const config = {
