@@ -65,7 +65,7 @@ export default {
 
 ### Exporting function
 
-A function can be exported as a page just like a normal pages, only thing you need to do is setting `config.page` option:
+A function can be exported as a page just like a normal pages, only thing you need to do is setting `config.permalink` option:
 
 ```js
 // functions/atom.xml.js
@@ -83,5 +83,10 @@ export const config = {
 }
 ```
 
-When setting `permalink` to `true, Saber automatically infers the actual link from its filename, in this case it would be `/atom.xml`. You can also set it to a `string` to use whatever permalink you want, e.g. `/subscribe/rss.xml`
+When setting `permalink` to `true`, Saber automatically infers the actual link from its filename, in this case it would be `/atom.xml`. You can also set it to a `string` to use whatever permalink you want, e.g. `/subscribe/rss.xml`
 
+### Adding a function from plugins
+
+```js
+saber.functions.add(TheFunction, FunctionConfig)
+```
