@@ -35,7 +35,7 @@ export default {
 
 By using `injectProps` here Saber will call the function at build time and store the result as JSON file.
 
-### Pagination
+## Pagination
 
 We can create pagination based on injected props:
 
@@ -63,29 +63,46 @@ export default {
 </script>
 ```
 
-### Exporting function
+## Exporting function
 
-A function can be exported as a page just like a normal pages, only thing you need to do is setting `config.permalink` option:
+A function can be exported as a page just like a normal page, only thing you need to do is setting `config.export` option to `true`:
 
 ```js
 // functions/atom.xml.js
 
 import posts from '../posts'
 
-export default () => {
+export default async () => {
   const posts = await posts({ type: 'public' })
   const xml = generateXMLFeed(posts)
   return xml
 }
 
 export const config = {
-  permalink: true
+  export: true
 }
 ```
 
-When setting `permalink` to `true`, Saber automatically infers the actual link from its filename, in this case it would be `/atom.xml`. You can also set it to a `string` to use whatever permalink you want, e.g. `/subscribe/rss.xml`
+When `export` is `true`, Saber automatically infers the actual link from its filename, in this case it would be `/atom.xml`. You can also set it to a `string` to use whatever permalink you want, e.g. `/subscribe/rss.xml`.
 
-### Adding a function from plugins
+When `export` is `true`, the function can't be injected to pages via `injectProps` option.
+
+When `export` is `true`, the function's argument would be `undefined` unless you use dynamic parameter in its filename, for example `functions/pages/[slug].json.js`:
+
+```js
+export default ({ slug }) => {
+  return getPageBySlug(slug)
+}
+
+export const config = {
+  export: true
+}
+```
+
+When you visit `/pages/hello-world.json`, `slug` in your function will be `'hello-world'`.
+
+
+## Adding a function from plugins
 
 ```js
 saber.functions.add(TheFunction, FunctionConfig)
