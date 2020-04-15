@@ -33,7 +33,7 @@ export default {
 </script>
 ```
 
-By using `injectProps` here Saber will call the function at build time and store the result as JSON file.
+By using `injectProps` here Saber will call the function at build time and inline result in your JavaScript bundle.
 
 ## Pagination
 
@@ -84,8 +84,6 @@ export const config = {
 ```
 
 When `export` is `true`, Saber automatically infers the actual link from its filename, in this case it would be `/atom.xml`. You can also set it to a `string` to use whatever permalink you want, e.g. `/subscribe/rss.xml`.
-
-When `export` is `true`, the function can't be injected to pages via `injectProps` option.
 
 When `export` is `true`, the function's argument would be `undefined` unless you use dynamic parameter in its filename, for example `functions/pages/[slug].json.js`:
 
