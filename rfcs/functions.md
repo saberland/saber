@@ -97,9 +97,18 @@ export default ({ slug }) => {
 export const config = {
   export: true
 }
+
+export const getStaticPaths = () => {
+  return [
+    { slug: 'hello-world' },
+    { slug: 'another-page' }
+  ]
+}
 ```
 
-When you visit `/pages/hello-world.json`, `slug` in your function will be `'hello-world'`.
+Because the path is dynamic you also need `getStaticPaths` to define a list of paths that need to be rendered at build time.
+
+Now when you visit `/pages/hello-world.json`, `slug` in your function will be `'hello-world'`.
 
 
 ## Adding a function from plugins
