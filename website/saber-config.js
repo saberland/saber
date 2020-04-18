@@ -34,11 +34,21 @@ const config = {
             title: 'Using Vue in Markdown',
             link: '/docs/using-vue-in-markdown.html'
           },
-          { title: 'Manipulating <head>', link: '/docs/manipulating-head.html' },
+          {
+            title: 'Manipulating <head>',
+            link: '/docs/manipulating-head.html'
+          },
           { title: 'Page Transition', link: '/docs/page-transition.html' },
           { title: 'Internationalization', link: '/docs/i18n.html' },
-          { title: 'Working with Webpack', link: '/docs/working-with-webpack.html' },
-          { title: 'Deployment', link: '/docs/deployment.html' }
+          {
+            title: 'Working with Webpack',
+            link: '/docs/working-with-webpack.html'
+          },
+          { title: 'Deployment', link: '/docs/deployment.html' },
+          {
+            title: 'Troubleshooting',
+            link: '/docs/troubleshooting.html'
+          }
         ]
       },
       {

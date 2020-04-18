@@ -23,7 +23,7 @@ Vue.use(Meta, {
   keyName: 'head',
   attribute: 'data-saber-head',
   ssrAttribute: 'data-saber-ssr',
-  tagIDKeyName: 'vmid'
+  tagIDKeyName: 'hid'
 })
 
 Vue.mixin({
@@ -54,7 +54,7 @@ export default context => {
       if (!htmlAttrs.lang) {
         delete htmlAttrs.lang
       }
-      
+
       const { title, description } = this.$siteConfig
 
       const defaultMeta = [
@@ -67,7 +67,8 @@ export default context => {
       if (description) {
         defaultMeta.push({
           name: 'description',
-          content: description
+          content: description,
+          hid: 'description'
         })
       }
 

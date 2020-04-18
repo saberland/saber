@@ -33,6 +33,7 @@ export default ({ router, setHead }) => {
     meta: [
       {
         name: 'description',
+        hid: 'description',
         content: vm.$siteConfig.description
       }
     ],
