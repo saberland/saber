@@ -1,6 +1,8 @@
-const hasExcerptMark = value => /<!--\s*more\s*-->/.test(value.trim())
+import Markdown from 'saber-markdown'
 
-module.exports = (md, { paragraphOnly = true } = {}) => {
+const hasExcerptMark = (value: string) => /<!--\s*more\s*-->/.test(value.trim())
+
+export default (md: Markdown, { paragraphOnly = true } = {}) => {
   md.renderer.rules.paragraph_close = (...args) => {
     const [tokens, idx, options, env, self] = args
 
@@ -54,6 +56,6 @@ module.exports = (md, { paragraphOnly = true } = {}) => {
       env.__excerpted = true
     }
 
-    return htmlRule(...args)
+    return htmlRule ? htmlRule(...args) : ''
   }
 }
