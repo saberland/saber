@@ -28,8 +28,8 @@ To set a global permalink, you use the permalink variable in `saber-config.yml`.
 ```yaml
 # Default values:
 permalinks:
-  post: /:year/:month/:day/:slug.html
-  page: /:slug.html
+  post: /:year/:month/:day/:slug
+  page: /:slug
 ```
 
 Note that placeholders like `:year` and `:month` are parsed from the page attribute `createdAt` which can be any valid date value like: `2015-02-31`, it defaults to the creation time of your page.

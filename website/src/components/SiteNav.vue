@@ -4,7 +4,7 @@
       <a href="/docs">Guide</a>
     </li>
     <li class="nav-item">
-      <a href="/tutorial/tutorial.html">Tutorial</a>
+      <a href="/tutorial/tutorial">Tutorial</a>
     </li>
     <li class="nav-item">
       <a href="/themes">Themes</a>

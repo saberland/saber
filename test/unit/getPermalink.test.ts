@@ -4,7 +4,7 @@ test('use default permalink', () => {
   const samples = [
     { slug: 'index', permalink: '/' },
     { slug: 'foo/index', permalink: '/foo' },
-    { slug: 'foo/bar', permalink: '/foo/bar.html' }
+    { slug: 'foo/bar', permalink: '/foo/bar' }
   ]
   for (const sample of samples) {
     const receivedPermalink = getPermalink(

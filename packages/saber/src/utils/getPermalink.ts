@@ -25,8 +25,8 @@ export default (
 
   permalinks = Object.assign(
     {
-      page: '/:slug.html',
-      post: '/posts/:slug.html'
+      page: '/:slug',
+      post: '/posts/:slug'
     },
     permalinks
   )

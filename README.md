@@ -2,7 +2,7 @@
 
 A static website generator built on top of Vue.js and webpack.
 
-__❤️ Please [sponsor me](https://github.com/sponsors/egoist) to support this project or prioritize a feature you want. I will work on this project for full-time once I have 150+ sponsors.__
+**❤️ Please [sponsor me](https://github.com/sponsors/egoist) to support this project or prioritize a feature you want. I will work on this project for full-time once I have 150+ sponsors.**
 
 | Linux & Mac                                                                                                                                            | Windows     |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
@@ -12,7 +12,7 @@ __❤️ Please [sponsor me](https://github.com/sponsors/egoist) to support this
 
 📚 [Documentation](https://saber.land/docs)
 
-👩‍🏫 [Tutorial](https://saber.land/tutorial/tutorial.html)
+👩‍🏫 [Tutorial](https://saber.land/tutorial/tutorial)
 
 💬 [Discord Chat](https://chat.saber.land)
 
