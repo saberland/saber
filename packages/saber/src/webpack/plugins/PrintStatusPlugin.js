@@ -2,7 +2,7 @@ const os = require('os')
 const { log, colors } = require('saber-log')
 const prettyTime = require('pretty-ms')
 const logUpdate = require('log-update')
-const prettyBytes = require('../utils/prettyBytes')
+const prettyBytes = require('../../utils/prettyBytes')
 
 const progressLogs = new Map()
 

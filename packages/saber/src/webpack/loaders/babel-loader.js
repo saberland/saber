@@ -56,7 +56,7 @@ module.exports = babelLoader.custom(babel => {
       options.presets.unshift(
         babel.createConfigItem(
           [
-            require('../babel/preset'),
+            require('../../babel/preset'),
             {
               isServer: customOptions.type === 'server'
             }

@@ -21,7 +21,7 @@ const plugin: SaberPlugin = {
         })
         .test(/\.toml$/)
         .use('toml-loader')
-        .loader(require.resolve('../webpack/toml-loader'))
+        .loader(require.resolve('../webpack/loaders/toml-loader'))
 
       config.module
         .rule('yaml')
@@ -30,7 +30,7 @@ const plugin: SaberPlugin = {
           type: 'json'
         })
         .use('yaml-loader')
-        .loader(require.resolve('../webpack/yaml-loader'))
+        .loader(require.resolve('../webpack/loaders/yaml-loader'))
     })
   }
 }
