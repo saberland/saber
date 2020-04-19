@@ -1,9 +1,12 @@
-const ConfigChain = require('../config-chain')
-const resolvePackage = require('../utils/resolvePackage')
+import ConfigChain from '../config-chain'
+import resolvePackage from '../utils/resolvePackage'
+import { SaberPlugin } from '../types'
+import { Saber } from '..'
+import { CreatePageInput } from '../Pages'
 
-function renderMarkdown(api, page) {
+function renderMarkdown(api: Saber, page: CreatePageInput) {
   const { configDir } = api
-  const { markdown = {} } = api.config
+  const markdown = api.config.markdown || {}
   const env = {
     Token: require('saber-markdown').Token,
     filePath: page.internal.absolute,
@@ -44,7 +47,9 @@ function renderMarkdown(api, page) {
         ...(markdown.headings || {}),
         slugify:
           markdown.slugify &&
-          require(resolvePackage(markdown.slugify, { cwd: configDir }))
+          require(resolvePackage(markdown.slugify, {
+            cwd: configDir || api.resolveCwd()
+          }))
       }
     },
     {
@@ -74,7 +79,7 @@ function renderMarkdown(api, page) {
 
   if (typeof options.highlight === 'string') {
     options.highlight = require(resolvePackage(options.highlight, {
-      cwd: configDir,
+      cwd: configDir || api.resolveCwd(),
       prefix: 'saber-highlighter-'
     }))
   }
@@ -88,28 +93,34 @@ function renderMarkdown(api, page) {
   return md.render(page.content, env)
 }
 
-exports.name = 'builtin:transformer-markdown'
+const ID = 'builtin:transformer-markdown'
 
-exports.apply = api => {
-  api.transformers.add('markdown', {
-    extensions: ['md'],
-    transform(page) {
-      const { frontmatter, body } = require('../utils/parseFrontmatter')(
-        page.content,
-        page.internal.absolute
-      )
-      Object.assign(page, frontmatter)
-      page.content = body
-      page.content = renderMarkdown(api, page)
-    },
-    getPageComponent(page) {
-      return `
-        <template>
-        <layout-manager>
-          ${page.content || ''}
-        </layout-manager>
-        </template>
-      `
-    }
-  })
+const plugin: SaberPlugin = {
+  name: ID,
+
+  apply(api) {
+    api.transformers.add('markdown', {
+      extensions: ['md'],
+      transform(page) {
+        const { frontmatter, body } = require('../utils/parseFrontmatter')(
+          page.content,
+          page.internal.absolute
+        )
+        Object.assign(page, frontmatter)
+        page.content = body
+        page.content = renderMarkdown(api, page)
+      },
+      getPageComponent(page) {
+        return `
+          <template>
+          <layout-manager>
+            ${page.content || ''}
+          </layout-manager>
+          </template>
+        `
+      }
+    })
+  }
 }
+
+export default plugin

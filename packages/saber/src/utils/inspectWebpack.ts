@@ -1,16 +1,14 @@
-// @ts-check
-const path = require('path')
-const os = require('os')
-const { fs } = require('saber-utils')
+import path from 'path'
+import os from 'os'
+import { fs } from 'saber-utils'
+import WebpackChain from 'webpack-chain'
 
 const ID = Math.round(Math.random() * 1000)
 
 /**
  * Inspect webpack config in your default editor
- * @param {import('webpack-chain')} config Webpack-chain instance
- * @param {string} type
  */
-module.exports = async (config, type) => {
+export default async (config: WebpackChain, type: 'client' | 'server') => {
   const tempFile = path.join(
     os.tmpdir(),
     `saber-webpack-config-${type}-${ID}.js`

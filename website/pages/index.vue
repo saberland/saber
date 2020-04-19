@@ -56,7 +56,7 @@
 import Logo from '@/src/components/Logo.vue'
 import Vercel from '@/src/components/Vercel.vue'
 
-export const attributes = {
+export const data = {
   layout: 'index'
 }
 

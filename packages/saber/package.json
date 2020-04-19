@@ -6,8 +6,7 @@
     "/babel.js",
     "/types",
     "/dist",
-    "/vue-app",
-    "/declarations.d.ts"
+    "/vue-app"
   ],
   "scripts": {
     "test": "tsc && jest",

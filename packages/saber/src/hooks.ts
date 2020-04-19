@@ -1,4 +1,9 @@
 import { SyncHook, AsyncSeriesHook, SyncWaterfallHook } from 'tapable'
+import WebpackChain from 'webpack-chain'
+
+type ChainWebpackOpts = {
+  type: 'client' | 'server'
+}
 
 export const hooks = {
   // Before all user plugins have been applied
@@ -10,7 +15,10 @@ export const hooks = {
   beforeRun: new AsyncSeriesHook(),
   onUpdateConfigFile: new AsyncSeriesHook(),
   // Extend webpack config
-  chainWebpack: new SyncHook(['webpackChain', 'opts']),
+  chainWebpack: new SyncHook<WebpackChain, ChainWebpackOpts>([
+    'webpackChain',
+    'opts'
+  ]),
   getWebpackConfig: new SyncWaterfallHook(['config', 'opts']),
   // Extend markdown-it config
   chainMarkdown: new SyncHook(['config']),
