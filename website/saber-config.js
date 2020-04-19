@@ -44,11 +44,7 @@ const config = {
             title: 'Working with Webpack',
             link: '/docs/working-with-webpack.html'
           },
-          { title: 'Deployment', link: '/docs/deployment.html' },
-          {
-            title: 'Troubleshooting',
-            link: '/docs/troubleshooting.html'
-          }
+          { title: 'Deployment', link: '/docs/deployment.html' }
         ]
       },
       {
