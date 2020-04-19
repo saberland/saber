@@ -1,6 +1,6 @@
-const Markdown = require('saber-markdown')
-const headingsPlugin = require('../headings-plugin')
-const createEnv = require('./create-env')
+import Markdown from 'saber-markdown'
+const headingsPlugin = require('saber/src/markdown/headings-plugin')
+import { createMarkdownEnv } from './helpers/create-markdown-env'
 
 const input = `
 # Heading
@@ -15,7 +15,7 @@ const input = `
 
 test('inject markdown headings enabled by default', () => {
   const md = new Markdown()
-  const { env, page } = createEnv()
+  const { env, page } = createMarkdownEnv()
   md.use(headingsPlugin)
   md.render(input, env)
   expect(page.markdownHeadings).toEqual([
@@ -49,7 +49,7 @@ test('inject markdown headings enabled by default', () => {
 
 test('inject markdown headings disabled', () => {
   const md = new Markdown()
-  const { env, page } = createEnv()
+  const { env, page } = createMarkdownEnv()
   page.markdownHeadings = false
   md.use(headingsPlugin)
   md.render(input, env)

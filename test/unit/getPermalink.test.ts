@@ -1,4 +1,4 @@
-const getPermalink = require('../getPermalink')
+import getPermalink from 'saber/src/utils/getPermalink'
 
 test('use default permalink', () => {
   const samples = [

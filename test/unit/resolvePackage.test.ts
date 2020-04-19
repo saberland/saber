@@ -1,4 +1,4 @@
-const resolvePackage = require('../resolvePackage')
+const resolvePackage = require('saber/src/utils/resolvePackage')
 
 test('resolvePackage', () => {
   expect(resolvePackage('foo', { cwd: false })).toBe('foo')
