@@ -24,6 +24,7 @@ import {
   ResolvedSaberPlugin,
   WebpackContext
 } from './types'
+import { DataStore } from './DataStore'
 
 export { SaberConfig, SaberConstructorOptions, SaberPlugin }
 
@@ -40,6 +41,7 @@ export class Saber {
   hooks: typeof hooks
   transformers: Transformers
   runtimePolyfills: Set<string>
+  dataStore: DataStore
   compilers: {
     [k: string]: Compiler
   }
@@ -64,6 +66,7 @@ export class Saber {
     this.pages = new Pages(this)
     this.browserApi = new BrowserApi(this)
     this.webpackUtils = new WebpackUtils(this)
+    this.dataStore = new DataStore()
     this.log = log
     this.colors = colors
     this.utils = require('saber-utils')

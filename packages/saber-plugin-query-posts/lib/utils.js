@@ -1,21 +1,5 @@
 const slugify = require('slugo')
 
-function paginate(arr, options) {
-  options = Object.assign({ perPage: 30 }, options)
-
-  if (options.firstPageOnly) {
-    return [arr.slice(0, options.perPage)]
-  }
-
-  const totalPages = Math.ceil(arr.length / options.perPage)
-  const result = []
-  for (let i = 0; i < totalPages; i++) {
-    result[i] = arr.slice(i * options.perPage, (i + 1) * options.perPage)
-  }
-
-  return result
-}
-
 function getIdFromMap(map, name) {
   let id
   if (map[name]) {
@@ -52,7 +36,6 @@ function renderPermalink(permalink, data) {
 }
 
 module.exports = {
-  paginate,
   getIdFromMap,
   getNameFromMap,
   renderPermalink
