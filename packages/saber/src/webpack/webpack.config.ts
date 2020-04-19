@@ -1,7 +1,9 @@
-const path = require('path')
-const Config = require('webpack-chain')
+import path from 'path'
+import Config from 'webpack-chain'
+import getFileNames from '../utils/getFileNames'
+import { Saber } from '..'
 
-module.exports = (api, { type }) => {
+export default (api: Saber, { type }: { type: 'server' | 'client' }) => {
   const config = new Config()
 
   config.mode(api.dev ? 'development' : 'production')
@@ -13,7 +15,7 @@ module.exports = (api, { type }) => {
       : false
   )
 
-  const fileNames = require('../utils/getFileNames')(!api.dev)
+  const fileNames = getFileNames(!api.dev)
 
   config.output
     .publicPath(`${api.config.build.publicUrl}_saber/`)

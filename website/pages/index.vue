@@ -55,7 +55,7 @@
 <script>
 import Logo from '@/src/components/Logo.vue'
 
-export const attributes = {
+export const data = {
   layout: 'index'
 }
 

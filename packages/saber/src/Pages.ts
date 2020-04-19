@@ -103,7 +103,6 @@ export interface Page {
     /** @private */
     saved?: boolean
   }
-  attributes: Page
   assets: Assets
   [k: string]: any
 }
@@ -191,10 +190,6 @@ export class Pages extends Map<string, Page> {
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
 
-    // Backward compatible
-    // TODO: remove in 1.0
-    page.attributes = page
-
     return page as Page
   }
 
@@ -259,8 +254,6 @@ export class Pages extends Map<string, Page> {
       content: undefined,
       internal: undefined
     })
-    // TODO: remove in 1.0
-    result.attributes = result
 
     return result as Omit<Page, 'content' | 'internal'>
   }

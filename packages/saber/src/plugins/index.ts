@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   { resolve: require.resolve('./source-pages') },
   { resolve: require.resolve('./extend-browser-api') },
   { resolve: require.resolve('./extend-node-api') },

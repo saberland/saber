@@ -11,7 +11,7 @@ export default {
   }
 }
 
-export const attributes = {
+export const data = {
   title: 'Flat oppai',
   layout: 'foo'
 }
