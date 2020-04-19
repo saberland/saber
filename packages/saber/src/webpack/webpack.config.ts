@@ -2,6 +2,7 @@ import path from 'path'
 import Config from 'webpack-chain'
 import getFileNames from '../utils/getFileNames'
 import { Saber } from '..'
+import PrintStatusPlugin from './plugins/PrintStatusPlugin'
 
 export default (api: Saber, { type }: { type: 'server' | 'client' }) => {
   const config = new Config()
@@ -66,7 +67,7 @@ export default (api: Saber, { type }: { type: 'server' | 'client' }) => {
     .end()
     .oneOf('normal')
     .use('babel-loader')
-    .loader(require.resolve('./babel-loader'))
+    .loader(require.resolve('./loaders/babel-loader'))
     .options({
       customLoaderOptions: {
         distDir: api.resolveCache(),
@@ -96,7 +97,7 @@ export default (api: Saber, { type }: { type: 'server' | 'client' }) => {
     }
   ])
 
-  config.plugin('print-status').use(require('./PrintStatusPlugin'), [
+  config.plugin('print-status').use(PrintStatusPlugin, [
     {
       api,
       type
