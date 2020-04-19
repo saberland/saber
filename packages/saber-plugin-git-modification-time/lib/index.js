@@ -9,13 +9,13 @@ exports.apply = api => {
     if (page.internal.absolute) {
       const { stdout } = await execa('git', [
         'log',
-        '-1',
-        '--pretty=format:%aI',
+        '--max-count=1',
+        '--format="%ad"',
         '--',
         page.internal.absolute
       ])
       if (stdout) {
-        page.updatedAt = new Date(stdout)
+        page.updatedAt = new Date(stdout).toISOString()
       }
     }
   })
