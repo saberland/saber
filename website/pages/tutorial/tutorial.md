@@ -69,7 +69,7 @@ Let's create a simple `./components/Navbar.vue` component first:
     <h1>My Blog</h1>
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/about.html">About me</a></li>
+      <li><a href="/about">About me</a></li>
     </ul>
   </nav>
 </template>
@@ -218,7 +218,7 @@ layout: page
 This is my hello world post.
 ```
 
-And then go to http://localhost:3000/posts/hello-world.html:
+And then go to http://localhost:3000/posts/hello-world:
 
 <img src="./images/hello-world.png" class="browser-image" alt="hello world">
 
@@ -450,7 +450,7 @@ export default ({ router }) => {
 }
 ```
 
-For details on Saber's browser APIs, check out [the reference](/docs/browser-apis.html).
+For details on Saber's browser APIs, check out [the reference](/docs/browser-apis).
 
 ## Creating A Theme
 

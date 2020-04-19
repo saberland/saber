@@ -61,7 +61,7 @@ Sometimes convention over configuration is a good practice, for example, Saber u
 Hello __world__!
 ```
 
-and then `pages/about.vue` which maps to `/about.html` with:
+and then `pages/about.vue` which maps to `/about` with:
 
 ```vue
 <template>
@@ -79,7 +79,7 @@ No configuration unless it's needed. Automatic hot-code reloading, error reporti
 
 ## Blogging, Layouts & Theming
 
-Just like Hexo, Saber uses `pages/_posts` folder for blog posts. If you populate a page at `pages/_posts/hello-world.md`, it will automatically map to `/posts/hello-world.html`.
+Just like Hexo, Saber uses `pages/_posts` folder for blog posts. If you populate a page at `pages/_posts/hello-world.md`, it will automatically map to `/posts/hello-world`.
 
 Saber has all the plugins that're required for building a blog:
 

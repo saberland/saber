@@ -84,11 +84,11 @@ div
   a(href="/") ← Back Home
 ```
 
-Then navigate to `http://localhost:3000/about.html`:
+Then navigate to `http://localhost:3000/about`:
 
 <img src="./2.webp" class="browser-image" alt="pug page preview">
 
-`pages/about.pug` is mapped to `/about.html`, and when you click the `← Back Home` you will be redirected to the `index.html` we created in the last step.
+`pages/about.pug` is mapped to `/about`, and when you click the `← Back Home` you will be redirected to the `index.html` we created in the last step.
 
 Besides adding `.pug` page support, `saber-plugin-transformer-pug` also adds support for writing Pug in any `.vue` component:
 

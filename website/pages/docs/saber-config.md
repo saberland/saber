@@ -187,7 +187,7 @@ Show line numbers in code blocks.
 ## permalinks
 
 - Type: `Permalinks` `(page: Page) => Permalinks`
-- Default: `/:posts/:slug.html` for posts, `/:slug.html` for other pages
+- Default: `/:posts/:slug` for posts, `/:slug` for other pages
 
 The template that is used to generate permalink for each page.
 

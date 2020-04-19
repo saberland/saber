@@ -58,12 +58,12 @@ export type PageType = 'page' | 'post'
 export interface Permalinks {
   /**
    * Permalink format for normal pages
-   * @default `/:slug.html`
+   * @default `/:slug`
    */
   page?: string
   /**
    * Permalink format for posts
-   * @default `/posts/:slug.html`
+   * @default `/posts/:slug`
    */
   post?: string
 }

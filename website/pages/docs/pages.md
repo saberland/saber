@@ -17,11 +17,11 @@ And run `saber` in your project:
 
 
 - `./pages/index.md` maps to `/`
-- `./pages/about.md` maps to `/about.html`
+- `./pages/about.md` maps to `/about`
 - `./pages/docs/index.md` maps to `/docs`
 - and so on..
 
-<small><i>Note: If you don't like the `.html` suffix, feel free to customize the [permalinks](./permalinks.md).</i></small>
+<small><i>Note: You can customize the generated [permalinks](./permalinks.md).</i></small>
 
 A page is represented as a `page` object in Saber.
 
