@@ -11,8 +11,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "slugo": "^0.3.1",
-    "url-join": "^4.0.0"
+    "slugo": "^0.3.1"
   },
   "peerDependencies": {
     "saber": ">=0.7.0"

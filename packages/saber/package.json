@@ -59,6 +59,7 @@
     "superstruct": "^0.8.3",
     "tapable": "^1.1.1",
     "time-fix-plugin": "^2.0.5",
+    "url-join": "4.0.1",
     "url-loader": "^2.0.1",
     "vue": "^2.6.10",
     "vue-loader": "^15.5.1",
@@ -78,10 +79,11 @@
     "@types/hash-sum": "^1.0.0",
     "@types/lodash.merge": "^4.6.6",
     "@types/resolve-from": "5.0.1",
+    "@types/url-join": "^4.0.0",
     "@types/webpack": "4.39.8",
     "markdown-it-footnote": "3.0.2"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   }
 }

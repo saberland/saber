@@ -176,7 +176,7 @@ In your `./pages/index.vue`:
 </template>
 
 <script>
-export const data = {
+export const page = {
   layout: 'page'
 }
 
@@ -196,7 +196,7 @@ layout: page
 I'm a cool guy from the Mars, nice to meet you folks.
 ```
 
-The front matter in Markdown page and the `export const data` part in `.js` and `.vue` pages are used by the page component to communicate with its layout component and the layout system.
+The front matter in Markdown page and the `export const page` part in `.js` and `.vue` pages are used by the page component to communicate with its layout component and the layout system.
 
 Nice, now you achieved the same thing without repeating yourself!
 
@@ -248,7 +248,7 @@ Then tell your homepage `pages/index.vue` that it wants the post list to be inje
 </template>
 
 <script>
-export const data = {
+export const page = {
   layout: 'page',
   injectAllPosts: true
 }

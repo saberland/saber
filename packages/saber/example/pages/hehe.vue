@@ -11,7 +11,7 @@ export default {
   }
 }
 
-export const data = {
+export const page = {
   title: 'Flat oppai',
   layout: 'foo'
 }

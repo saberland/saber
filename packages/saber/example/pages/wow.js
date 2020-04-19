@@ -6,7 +6,7 @@ export default {
   }
 }
 
-export const data = {
+export const page = {
   title: 'wow'
 }
 

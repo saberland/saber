@@ -1,6 +1,4 @@
-const urlJoin = require('url-join')
 const {
-  paginate,
   getIdFromMap,
   getNameFromMap,
   renderPermalink
@@ -20,10 +18,6 @@ exports.apply = (api, options = {}) => {
         currentLocalePath,
         tagsMap: options.tagsMap,
         categoriesMap: options.categoriesMap,
-        paginationOptions: {
-          perPage: options.perPage || 30,
-          firstPageOnly: options.firstPageOnly
-        },
         permalinks: Object.assign(
           {
             category: '/categories/:slug',
@@ -38,7 +32,6 @@ exports.apply = (api, options = {}) => {
   function injectPosts({
     currentLocalePath,
     tagsMap,
-    paginationOptions,
     categoriesMap,
     permalinks
   }) {
@@ -180,65 +173,19 @@ exports.apply = (api, options = {}) => {
 
     function injectToPages(pages, posts, pageProp) {
       if (pages.size > 0) {
-        const date = new Date()
-        const sortedPosts = [...posts].sort((a, b) => {
-          const aDate = new Date(a.createdAt)
-          const bDate = new Date(b.createdAt)
-          return aDate > bDate ? -1 : 1
-        })
-
         for (const page of pages) {
-          const paginatedPosts = paginate(
-            sortedPosts,
-            Object.assign({}, paginationOptions, page.injectAllPosts)
-          )
-          const totalPages = paginatedPosts.length
+          const newPage = Object.assign({}, page, {
+            posts: [...posts],
+            paginate: {
+              orderBy: 'createdAt',
+              dataKey: 'posts',
+              ...page.paginate
+            }
+          })
 
-          for (const [index, posts] of paginatedPosts.entries()) {
-            const permalink =
-              index === 0
-                ? page.permalink
-                : urlJoin(page.permalink, `page/${index + 1}`)
-            const newPage = Object.assign({}, page, {
-              internal: Object.assign({}, page.internal, {
-                id:
-                  index === 0
-                    ? page.internal.id
-                    : `${page.internal.id}__page__${index}`,
-                parent:
-                  page.internal.parent ||
-                  (index === 0 ? undefined : page.internal.id)
-              }),
-              permalink,
-              createdAt: page.createdAt || date,
-              updatedAt: page.updatedAt || date,
-              posts,
-              pagination: {
-                hasPrev: index !== totalPages - 1,
-                hasNext: index !== 0,
-                total: totalPages,
-                current: index + 1,
-                prevLink: getPaginationLink(index + 2, page.permalink),
-                nextLink: getPaginationLink(index, page.permalink)
-              }
-            })
-            Object.assign(newPage, pageProp)
-            api.pages.createPage(newPage)
-          }
+          api.pages.createPage(newPage)
         }
       }
     }
-  }
-
-  function getPaginationLink(pageIndex, permalink) {
-    if (pageIndex === 1) {
-      return permalink
-    }
-
-    if (pageIndex === 0) {
-      return
-    }
-
-    return urlJoin(permalink, `page/${pageIndex}`)
   }
 }

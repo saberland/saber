@@ -11,7 +11,7 @@ const traverse: typeof import('@babel/traverse') = require(resolveFrom(
 const generator = require(resolveFrom(babelDir, '@babel/generator'))
 
 /**
- * Extract the `export const data` part from a page
+ * Extract the `export const page` part from a page
  * @param content The content of a page
  * @param filepath The absolute path to the path
  */
@@ -31,7 +31,7 @@ module.exports = (content: string, filepath: string) => {
         path.parent.type === 'VariableDeclarator' &&
         path.parent.id.name
 
-      if (name !== 'data') {
+      if (name !== 'page') {
         return
       }
 

@@ -100,7 +100,9 @@ module.exports = class PrintStatusPlugin {
               : this.api.config.server.host
           const { port } = this.api.config.server
           if (port !== this.api.actualServerPort) {
-            log.warn(`Port ${port} is in use, switched to a new port`)
+            log.warn(
+              `Port ${port} is used by another app, Saber is using a new port`
+            )
           }
 
           log.info(

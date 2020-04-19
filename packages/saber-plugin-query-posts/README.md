@@ -43,10 +43,10 @@ Then in the layout component `layouts/index.vue`, `page.posts` and `page.paginat
       </li>
     </ul>
 
-    <a :href="page.pagination.prevLink" v-if="page.pagination.hasPrev">
+    <a :href="page.paginator.prevLink" v-if="page.paginator.hasPrev">
       ← Prev Page
     </a>
-    <a :href="page.pagination.nextLink" v-if="page.pagination.hasNext">
+    <a :href="page.paginator.nextLink" v-if="page.paginator.hasNext">
       Next Page →
     </a>
   </div>
@@ -173,41 +173,7 @@ Category pages will use the `category` layout or fallback to `default` layout.
 
 You can access the category name in the layout component via `this.page.category`.
 
-## Pagination
-
-By default we show at most 30 posts per page, but you can configure this globally using `perPage` option in `saber-config.yml`:
-
-```yaml
-plugins:
-  - resolve: saber-plugin-query-posts
-    options:
-      perPage: 6
-```
-
-It's also possible to configure this behavior for each page separately, in a page like `pages/index.md`:
-
-```markdown
----
-injectAllPosts:
-  perPage: 20
----
-```
-
 ## Options
-
-### perPage
-
-- Type: `number`
-- Default: `30`
-
-The limit of posts to show per page.
-
-### firstPageOnly
-
-- Type: `boolean`
-- Default: `false`
-
-Only generate the first page of posts.
 
 ### tagsMap
 
