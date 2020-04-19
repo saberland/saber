@@ -18,10 +18,10 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2.1.0
 
     - name: Use Node.js 12.x
-      uses: actions/setup-node@v1x
+      uses: actions/setup-node@v1.4.1
       with:
         node-version: 12.x
         
