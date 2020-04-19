@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.6](https://github.com/saberland/saber/compare/saber@0.11.5...saber@0.11.6) (2020-04-19)
+
+### Bug Fixes
+
+- assign hid to meta description ([3dbf61a](https://github.com/saberland/saber/commit/3dbf61a))
+
 ## [0.11.5](https://github.com/saberland/saber/compare/saber@0.11.4...saber@0.11.5) (2020-01-07)
 
 ### Bug Fixes
