@@ -47,7 +47,9 @@ export default {
 </script>
 ```
 
-Now you can access `page.data.pagesIn2020` that gives you the pages created in 2020.
+By using `page.injectData` option, we can retrieve data from data source `allPage.js` and inject the returned data as `pagesIn2020`.
+
+Now you can access `page.data.pagesIn2020` which gives you the pages created in 2020.
 
 ## Data Source API
 
