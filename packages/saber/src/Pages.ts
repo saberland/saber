@@ -43,30 +43,35 @@ export interface CreatePageOptions {
   file?: FileInfo
 }
 
-export interface InjectPageData {
+export interface InjectData {
   [injectAs: string]: {
-    use: string
+    source: string
     options?: {
       [k: string]: any
     }
   }
 }
 
-export interface Paginate {
-  dataKey: string
+export interface Pagination {
+  data: string
   perPage?: number
   first?: number
   orderBy: string
   order?: 'DESC' | 'ASC'
 }
 
-export interface Paginator {
+export interface PageDataPagination {
   hasPrev: boolean
   hasNext: boolean
   total: number
   current: number
   prevLink: string | undefined
   nextLink: string | undefined
+}
+
+export interface PageData {
+  pagination?: PageDataPagination
+  [k: string]: any
 }
 
 export interface CreatePageInput {
@@ -88,9 +93,9 @@ export interface CreatePageInput {
   permalink?: string
   slug?: string
   assets?: Assets
-  injectPageData?: InjectPageData
-  paginate?: Paginate
-  paginator?: Paginator
+  injectData?: InjectData
+  data?: PageData
+  pagination?: Pagination
   /** Internal info is automatically removed from your app runtime for security reasons */
   internal: {
     /** A unique ID for this page */
@@ -123,9 +128,9 @@ export interface Page {
   updatedAt?: Date
   permalink: string
   slug?: string
-  injectPageData: InjectPageData
-  paginate?: Paginate
-  paginator?: Paginator
+  injectData: InjectData
+  data: PageData
+  pagination?: Pagination
   internal: {
     id: string
     parent?: string
@@ -156,6 +161,8 @@ export class Pages extends Map<string, Page> {
       {
         type: 'page',
         internal: {},
+        data: {},
+        injectProps: {},
         contentType: 'default'
       },
       _page
@@ -218,23 +225,23 @@ export class Pages extends Map<string, Page> {
         )
       : {}
 
-    page.injectPageData = page.injectPageData || {}
-
     // Ensure this page is not saved
     // So that it will be emitted to disk later in `emitPages` hook
     page.internal.saved = false
 
-    if (page.paginate) {
-      if (!page.paginate.dataKey) {
+    if (page.pagination) {
+      if (!page.pagination.data) {
         throw new Error(
           `Invalid page option for "${page.internal.absolute ||
-            page.internal.id}", "dataKey" is required on the "paginate" option `
+            page.internal
+              .id}", the "data" property is required on the "pagination" option `
         )
       }
-      if (!page.paginate.orderBy) {
+      if (!page.pagination.orderBy) {
         throw new Error(
           `Invalid page option for "${page.internal.absolute ||
-            page.internal.id}", "orderBy" is required on the "paginate" option `
+            page.internal
+              .id}", the "orderBy" property is required on the "pagination" option `
         )
       }
     }

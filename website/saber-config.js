@@ -25,9 +25,9 @@ const config = {
           { title: 'Installation', link: '/docs/installation' },
           { title: 'Project Structure', link: '/docs/project-structure' },
           { title: 'Pages', link: '/docs/pages' },
-          { title: 'Routing', link: '/docs/routing' },
-          { title: 'Permalinks', link: '/docs/permalinks' },
           { title: 'Layouts', link: '/docs/layouts' },
+          { title: 'Permalinks', link: '/docs/permalinks' },
+          { title: 'Routing', link: '/docs/routing' },
           { title: 'Themes', link: '/docs/themes' },
           { title: 'Markdown Features', link: '/docs/markdown-features' },
           {
@@ -45,6 +45,15 @@ const config = {
             link: '/docs/working-with-webpack'
           },
           { title: 'Deployment', link: '/docs/deployment' }
+        ]
+      },
+      {
+        title: 'Using Data',
+        children: [
+          { title: 'Data Source', link: '/docs/data-source' },
+          { title: 'Pagination', link: '/docs/pagination' },
+          { title: 'Collections', link: '/docs/collections' },
+          { title: 'Saber Supplied Data', link: '/docs/saber-supplied-data' },
         ]
       },
       {
@@ -82,7 +91,6 @@ const config = {
       resolve: '../packages/saber-plugin-google-analytics',
       options: { trackId: 'UA-54857209-16' }
     },
-    { resolve: '../packages/saber-plugin-query-posts' },
     { resolve: '../packages/saber-plugin-prismjs' },
     {
       resolve: '../packages/saber-plugin-pwa',

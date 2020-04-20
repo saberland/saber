@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="plugin in page.plugins" :key="plugin.name">
+    <div v-for="plugin in plugins" :key="plugin.name">
       {{ plugin.name }}
     </div>
   </div>
@@ -8,19 +8,19 @@
 
 <script>
 export const page = {
-  injectPageData: {
+  injectData: {
     plugins: {
-      use: 'get-plugins'
+      source: 'get-plugins'
     }
   },
-  paginate: {
+  pagination: {
     perPage: 1,
-    dataKey: 'plugins',
+    data: 'plugins',
     orderBy: 'name'
   }
 }
 
 export default {
-  props: ['page']
+  props: ['plugins']
 }
 </script>

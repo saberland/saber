@@ -2,7 +2,7 @@ import urlJoin from 'url-join'
 import { SaberPlugin } from '../../types'
 import { getPaginationLink, orderBy, paginateArray } from './utils'
 
-const ID = 'builtin:paginate'
+const ID = 'builtin:pagination'
 
 const plugin: SaberPlugin = {
   name: ID,
@@ -13,15 +13,23 @@ const plugin: SaberPlugin = {
     api.hooks.afterPlugins.tap(ID, () => {
       api.hooks.onCreatePages.tap(ID, () => {
         for (const page of api.pages.values()) {
-          if (!page.paginate || page.internal.parent) {
+          if (!page.pagination || page.internal.parent) {
             continue
           }
-          const data = page[page.paginate.dataKey]
+          const data = page.data[page.pagination.data]
+          if (!Array.isArray(data)) {
+            throw new Error(
+              `Saber failed to create pagination for ${page.internal.absolute ||
+                page.internal.id} The page data "${
+                page.pagination.data
+              }" is not an array`
+            )
+          }
           const paginatedData = paginateArray(
-            orderBy(data, page.paginate.orderBy, page.paginate.order),
+            orderBy(data, page.pagination.orderBy, page.pagination.order),
             {
-              perPage: page.paginate.perPage,
-              first: page.paginate.first
+              perPage: page.pagination.perPage,
+              first: page.pagination.first
             }
           )
           const totalPages = paginatedData.length
@@ -44,14 +52,17 @@ const plugin: SaberPlugin = {
               permalink,
               createdAt: page.createdAt || date,
               updatedAt: page.updatedAt || date,
-              [page.paginate.dataKey]: items,
-              paginator: {
-                hasPrev: index !== totalPages - 1,
-                hasNext: index !== 0,
-                total: totalPages,
-                current: index + 1,
-                prevLink: getPaginationLink(index + 2, page.permalink),
-                nextLink: getPaginationLink(index, page.permalink)
+              data: {
+                ...page.data,
+                [page.pagination.data]: items,
+                pagination: {
+                  hasPrev: index !== totalPages - 1,
+                  hasNext: index !== 0,
+                  total: totalPages,
+                  current: index + 1,
+                  prevLink: getPaginationLink(index + 2, page.permalink),
+                  nextLink: getPaginationLink(index, page.permalink)
+                }
               }
             })
             api.pages.createPage(newPage)

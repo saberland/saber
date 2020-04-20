@@ -13,6 +13,6 @@ export default [
   { resolve: require.resolve('./layouts') },
   { resolve: require.resolve('./emit-saber-variables') },
   { resolve: require.resolve('./emit-runtime-polyfills') },
-  { resolve: require.resolve('./inject-page-data') },
-  { resolve: require.resolve('./paginate') }
+  { resolve: require.resolve('./inject-data') },
+  { resolve: require.resolve('./pagination') }
 ]

@@ -1,18 +1,18 @@
 ---
-injectPageData:
+injectData:
   posts:
-    use: posts
+    source: posts.js
     options:
       draft: true
-paginate:
-  dataKey: posts
+pagination:
+  data: posts
   perPage: 1
 ---
 
 hello!
 
-<div v-for="post in $page.posts" :key="post.title">
+<div v-for="post in $page.data.posts" :key="post.title">
   {{post.title}}
 </div>
 
-Paginator: {{ JSON.stringify($page.paginator) }}
+Paginator: {{ JSON.stringify($page.data.pagination) }}

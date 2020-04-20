@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import hash from 'hash-sum'
 import { SaberPlugin } from '../../types'
 
-const ID = 'builtin:inject-page-data'
+const ID = 'builtin:inject-data'
 
 const plugin: SaberPlugin = {
   name: ID,
@@ -11,12 +11,12 @@ const plugin: SaberPlugin = {
     const cache: Map<string, any> = new Map()
     const dataFileDir = api.resolveCwd('data')
 
-    const getDataFactory = (use: string) => {
-      if (api.dataStore.hasData(use)) {
-        const data = api.dataStore.getData(use)!
+    const getDataFactory = (source: string) => {
+      if (api.dataStore.hasData(source)) {
+        const data = api.dataStore.getData(source)!
         return { isFile: false, dataFactory: data.factory }
       }
-      const dataFilePath = resolve(dataFileDir, use)
+      const dataFilePath = resolve(dataFileDir, source)
       return { isFile: true, dataFactory: require(dataFilePath) }
     }
 
@@ -25,25 +25,31 @@ const plugin: SaberPlugin = {
         const activeCacheKeys: Set<string> = new Set()
 
         for (const page of api.pages.values()) {
-          if (!page.injectPageData) {
+          if (!page.injectData) {
             continue
           }
-          for (const injectAs of Object.keys(page.injectPageData)) {
-            const config = page.injectPageData[injectAs]
-            const cacheKey = `${config.use}::${
+          const pageIndentifier = page.internal.absolute || page.id
+          for (const injectAs of Object.keys(page.injectData)) {
+            const config = page.injectData[injectAs]
+            if (!config.source) {
+              throw new Error(
+                `Failed to inject data, use "source" option to specify data source on page: ${pageIndentifier}`
+              )
+            }
+            const cacheKey = `${config.source}::${
               page.internal.id
             }::${injectAs}::${hash(config)}`
             activeCacheKeys.add(cacheKey)
             if (cache.has(cacheKey)) {
-              page[injectAs] = cache.get(cacheKey)
+              page.data[injectAs] = cache.get(cacheKey)
             } else {
-              const { dataFactory } = getDataFactory(config.use)
-              page[injectAs] = await dataFactory(config.options || {})
-              cache.set(cacheKey, page[injectAs])
+              const { dataFactory } = getDataFactory(config.source)
+              page.data[injectAs] = await dataFactory(config.options || {})
+              cache.set(cacheKey, page.data[injectAs])
             }
-            if (!page[injectAs]) {
+            if (!page.data[injectAs]) {
               throw new Error(
-                `Data "${config.use}" is not returning a JSON object, which is not allowed!`
+                `Data source "${config.source}" is not returning a JSON object, which is not allowed!`
               )
             }
           }
@@ -69,9 +75,8 @@ const plugin: SaberPlugin = {
       const updateCache = async (file: string) => {
         const absolutePath = resolve(dataFileDir, file)
         delete require.cache[absolutePath]
-        const dataFileName = file.replace(/\.js$/, '')
         for (const key of cache.keys()) {
-          if (key.startsWith(dataFileName)) {
+          if (key.startsWith(file)) {
             cache.delete(key)
           }
         }

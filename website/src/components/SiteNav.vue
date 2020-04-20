@@ -9,9 +9,9 @@
     <li class="nav-item">
       <a href="/themes">Themes</a>
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a href="/blog">Blog</a>
-    </li>
+    </li> -->
     <li class="nav-item">
       <a href="https://chat.saber.land" target="_blank" class="discord-link">
         <svg
