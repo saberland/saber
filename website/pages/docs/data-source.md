@@ -3,7 +3,7 @@ title: Data Source
 layout: docs
 ---
 
-You can fetch data from anywhere in your pages, this is achieved by a concept call __Data Source__. 
+You can fetch data from anywhere in your pages, this is achieved by a concept called __Data Source__. 
 
 Data Source is literally a source of data that you can inject under [`page.data`](./pages.md#the-page-object) object, you can create a data source by populating a file in `data` folder:
 
