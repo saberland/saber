@@ -10,43 +10,46 @@
           <br />without the hassle.
         </div>
         <div class="actions">
+          <a class="button" style="margin-right: 10px" href="./docs/index.md">Getting Started</a>
           <a
-            class="button"
-            style="margin-right: 10px"
-            href="./docs/index.md"
-          >Getting Started</a>
-          <a class="button is-secondary" href="https://github.com/saberland/saber" target="_blank">GitHub</a>
+            class="button is-secondary"
+            href="https://github.com/saberland/saber"
+            target="_blank"
+          >GitHub</a>
         </div>
       </div>
     </section>
     <section class="home-section features">
       <div class="feature">
-        <div class="feature-title">
-          Zero Setup
-        </div>
-        <div class="feature-content">
-          Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.
-        </div>
+        <div class="feature-title">Zero Setup</div>
+        <div
+          class="feature-content"
+        >Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.</div>
       </div>
       <div class="feature">
-        <div class="feature-title">
-          Bring Your Own Data
-        </div>
-        <div class="feature-content">
-          Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.
-        </div>
+        <div class="feature-title">Bring Your Own Data</div>
+        <div
+          class="feature-content"
+        >Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.</div>
       </div>
       <div class="feature">
-        <div class="feature-title">
-          Fully Extensible
-        </div>
-        <div class="feature-content">
-          With Saber's powerful APIs and plugin system, you can customize almost everything.
-        </div>
+        <div class="feature-title">Fully Extensible</div>
+        <div
+          class="feature-content"
+        >With Saber's powerful APIs and plugin system, you can customize almost everything.</div>
       </div>
     </section>
     <section class="home-section footer">
-      &copy; 2019 Developed by <a href="https://egoist.sh" target="_blank">EGOIST</a>.
+      &copy; 2019 Developed by
+      <a href="https://egoist.sh" target="_blank">EGOIST</a>.
+      <div class="netlify-logo">
+        <a href="https://www.netlify.com">
+        <img
+          src="/img/netlify-logo.svg"
+          alt="Deploys by Netlify"
+        />
+      </a>
+      </div>
     </section>
   </div>
 </template>
@@ -134,8 +137,12 @@ export default {
 }
 
 .footer {
-  font-size: .9rem;
+  font-size: 0.9rem;
   text-align: center;
   color: #666;
+}
+
+.netlify-logo {
+  margin-top: 30px;
 }
 </style>
