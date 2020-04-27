@@ -43,10 +43,10 @@
       &copy; 2019 Developed by
       <a href="https://egoist.sh" target="_blank">EGOIST</a>.
       <div class="netlify-logo">
-        <a href="https://www.netlify.com">
+        <a href="https://vercel.com?utm_source=saber">
         <img
-          src="/img/netlify-logo.svg"
-          alt="Deploys by Netlify"
+          src="/img/vercel-logo.svg"
+          alt="Deploys by Vercel"
         />
       </a>
       </div>
