@@ -42,13 +42,10 @@
     <section class="home-section footer">
       &copy; 2019 Developed by
       <a href="https://egoist.sh" target="_blank">EGOIST</a>.
-      <div class="netlify-logo">
+      <div class="vercel-logo">
         <a href="https://vercel.com?utm_source=saber">
-        <img
-          src="/img/vercel-logo.svg"
-          alt="Deploys by Vercel"
-        />
-      </a>
+          <Vercel />
+        </a>
       </div>
     </section>
   </div>
@@ -57,6 +54,7 @@
 
 <script>
 import Logo from '@/src/components/Logo.vue'
+import Vercel from '@/src/components/Vercel.vue'
 
 export const attributes = {
   layout: 'index'
@@ -64,7 +62,8 @@ export const attributes = {
 
 export default {
   components: {
-    Logo
+    Logo,
+    Vercel
   }
 }
 </script>
@@ -142,7 +141,7 @@ export default {
   color: #666;
 }
 
-.netlify-logo {
+.vercel-logo {
   margin-top: 30px;
 }
 </style>
