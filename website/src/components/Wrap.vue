@@ -18,7 +18,7 @@
       <div class="main">
         <slot name="default" />
         <div class="edit-info" v-if="showEditInfo">
-          <span class="last-edited">Last Edited on {{ updatedDate }}</span>
+          <!-- <span class="last-edited">Last Edited on {{ updatedDate }}</span> -->
           <a class="edit-link" target="_blank" :href="editLink">Edit This Page on GitHub</a>
         </div>
       </div>
