@@ -42,9 +42,9 @@
     <section class="home-section footer">
       &copy; 2019 Developed by
       <a href="https://egoist.sh" target="_blank">EGOIST</a>.
-      <div class="vercel-logo">
+      <div>
         <a href="https://vercel.com?utm_source=saber">
-          <Vercel />
+          <img src="/img/vercel-logo.svg" alt="Deploys by Vercel" />
         </a>
       </div>
     </section>
