@@ -10,8 +10,8 @@ const parseOptions = str => {
   return fn()
 }
 
-const generateLineNumbers = code =>
-  '<span aria-hidden="true" class="saber-highlight-line-numbers">' +
+const generateLineNumbers = (code, lineStart) =>
+  `<span aria-hidden="true" class="saber-highlight-line-numbers" style="counter-reset: linenumber ${lineStart}">` +
   code
     .trim()
     .split('\n')
@@ -91,7 +91,16 @@ module.exports = (
           lineNumbers
         : // If it's set to false, even if the global config says true, ignore
           fenceOptions.lineNumbers
-    const lines = shouldGenerateLineNumbers ? generateLineNumbers(code) : ''
+    const lineStartNumber =
+      // It might be 0 so check for undefined
+      fenceOptions.lineStart === undefined
+        ? // Default line should be 1
+          1
+        : fenceOptions.lineStart
+    const lines = shouldGenerateLineNumbers
+      ? // Need to substract 1 because the counter will be incremented right away
+        generateLineNumbers(code, lineStartNumber - 1)
+      : ''
 
     const preAttrs = renderAttrs([
       ...(token.attrs || []),

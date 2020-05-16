@@ -32,6 +32,21 @@ const cry = Array(3).fill('ora').join(' ')
   expect(html).toMatchSnapshot()
 })
 
+test('code block with {lineNumbers:true,lineStart:5}', () => {
+  const md = new Markdown()
+  const { env } = createEnv()
+  md.use(fenceOptionsPlugin)
+  const html = md.render(
+    `
+\`\`\`js {lineNumbers:true,lineStart:5}
+const cry = Array(3).fill('ora').join(' ')
+\`\`\`
+  `,
+    env
+  )
+  expect(html).toMatchSnapshot()
+})
+
 test('code block markdown.lineNumbers = true', () => {
   const md = new Markdown()
   const { env } = createEnv()

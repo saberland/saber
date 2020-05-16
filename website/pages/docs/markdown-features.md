@@ -324,6 +324,32 @@ Output:
 ]
 ```
 
+### Initial Line Number in Code Blocks
+
+For this to work, `lineNumbers` must be set to `true`.
+
+Input:
+
+````markdown
+```js {lineNumbers:true,lineStart:7}
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+```
+````
+
+Output:
+
+```js {lineNumbers:true,lineStart:7}
+  {
+    text: 'A section',
+    slug: 'a-section',
+    level: 2
+  },
+```
+
 ## Configure markdown-it
 
 Check out [markdown.options](./saber-config.md#options) for setting markdown-it options and [markdown.plugins](./saber-config.md#plugins-2) for adding markdown-it plugins.

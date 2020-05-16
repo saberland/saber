@@ -71,7 +71,6 @@
   text-align: right;
   padding-right: 0.8rem;
   margin-right: .8rem;
-  counter-reset: linenumber;
 }
 
 .saber-highlight-line-numbers > span {
