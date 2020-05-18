@@ -332,22 +332,22 @@ Input:
 
 ````markdown
 ```js {lineNumbers:true,lineStart:7}
-  {
-    text: 'A section',
-    slug: 'a-section',
-    level: 2
-  },
+{
+  text: 'A section',
+  slug: 'a-section',
+  level: 2
+}
 ```
 ````
 
 Output:
 
 ```js {lineNumbers:true,lineStart:7}
-  {
-    text: 'A section',
-    slug: 'a-section',
-    level: 2
-  },
+{
+  text: 'A section',
+  slug: 'a-section',
+  level: 2
+}
 ```
 
 ## Configure markdown-it
