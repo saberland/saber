@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.7](https://github.com/saberland/saber/compare/saber@0.11.6...saber@0.11.7) (2020-05-19)
+
+### Features
+
+- highlight plugin add support for line start ([#627](https://github.com/saberland/saber/issues/627)) ([87232ac](https://github.com/saberland/saber/commit/87232ac))
+
 ## [0.11.6](https://github.com/saberland/saber/compare/saber@0.11.5...saber@0.11.6) (2020-04-19)
 
 ### Bug Fixes

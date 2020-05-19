@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/saberland/saber/compare/saber-highlight-css@0.1.1...saber-highlight-css@0.1.2) (2020-05-19)
+
+### Features
+
+- highlight plugin add support for line start ([#627](https://github.com/saberland/saber/issues/627)) ([87232ac](https://github.com/saberland/saber/commit/87232ac))
+
 ## [0.1.1](https://github.com/saberland/saber/compare/saber-highlight-css@0.1.0...saber-highlight-css@0.1.1) (2019-08-22)
 
 ### Bug Fixes

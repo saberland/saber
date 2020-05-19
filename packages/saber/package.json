@@ -1,6 +1,6 @@
 {
   "name": "saber",
-  "version": "0.11.6",
+  "version": "0.11.7",
   "description": "A simple yet powerful static site generator",
   "files": [
     "/babel.js",
