@@ -72,7 +72,7 @@ exports.apply = (api, options = {}) => {
         // Group posts for tag pages
         const tags = [].concat(page.tags || [])
         if (tags.length > 0) {
-          page.tagsInfo = []
+          page.tagsInfo = pagePublicFields.tagsInfo = []
           for (const tag of tags) {
             const tagSlug = getIdFromMap(tagsMap, tag)
             page.tagsInfo.push({
@@ -94,7 +94,10 @@ exports.apply = (api, options = {}) => {
           .map(v => (Array.isArray(v) ? v : v.split('/')))
 
         if (categories.length > 0) {
-          page.categoriesInfo = []
+          // TODO: exposing a function for getting category/tag info in the future
+          // e.g. getCategoryInfo(categoryName)
+          // returns `{ permalink: string, slug: string }`
+          page.categoriesInfo = pagePublicFields.categoriesInfo = []
           for (const category of categories) {
             for (const index of category.keys()) {
               const categorySlug = category
