@@ -24,7 +24,7 @@
     "husky": "3.0.9",
     "jest": "^25.3.0",
     "lerna": "3.18.3",
-    "lint-staged": "8.1.6",
+    "lint-staged": "10.2.11",
     "prettier": "1.18.2",
     "ts-jest": "^25.4.0",
     "typedoc": "^0.15.0",
@@ -39,19 +39,8 @@
     }
   },
   "lint-staged": {
-    "linters": {
-      "*.{json,md}": [
-        "prettier --write",
-        "git add"
-      ]
-    },
-    "ignore": [
-      "**/dist/**",
-      "**/vendor/**",
-      "*.min.js",
-      "**/vue-renderer/app/**",
-      "**/example/**",
-      "website/**"
+    "*.{json,md}": [
+      "prettier --write"
     ]
   },
   "workspaces": [
