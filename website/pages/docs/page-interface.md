@@ -9,6 +9,13 @@ The built-in page properties are listed below, you can also expose custom proper
 
 ## Properties
 
+### id
+
+- Type: `string`
+- Required: `true`
+
+Unique page ID.
+
 ### type
 
 - Type: `'page' | 'post'`
@@ -59,13 +66,6 @@ The value of `:slug` placeholder in the `permalinks` option, we infer it from th
 - Default: `{}`
 
 Use this attribute to reference local resources and let webpack process them.
-
-### internal.id
-
-- Type: `string`
-- Required: `true`
-
-Unique page ID.
 
 ### internal.relative
 

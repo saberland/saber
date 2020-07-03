@@ -7,6 +7,9 @@
       <a href="/tutorial/tutorial">Tutorial</a>
     </li>
     <li class="nav-item">
+      <a href="/blog">Blog</a>
+    </li>
+    <li class="nav-item">
       <a href="/themes">Themes</a>
     </li>
     <!-- <li class="nav-item">

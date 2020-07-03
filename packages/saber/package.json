@@ -42,12 +42,13 @@
     "hash-sum": "^2.0.0",
     "joycon": "^2.2.4",
     "lodash.merge": "^4.6.1",
+    "lokijs": "^1.5.9",
     "log-update": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "normalize-repo": "^1.0.0",
     "object-assign": "^4.1.1",
     "open": "^6.4.0",
-    "polka": "^0.5.1",
+    "polka": "^0.5.2",
     "posthtml": "^0.11.6",
     "pretty-ms": "^5.0.0",
     "resolve-from": "^5.0.0",
@@ -78,10 +79,14 @@
     "@types/fs-extra": "8.0.0",
     "@types/hash-sum": "^1.0.0",
     "@types/lodash.merge": "^4.6.6",
+    "@types/lokijs": "^1.5.2",
     "@types/resolve-from": "5.0.1",
     "@types/url-join": "^4.0.0",
     "@types/webpack": "4.39.8",
-    "markdown-it-footnote": "3.0.2"
+    "markdown-it-footnote": "3.0.2",
+    "@types/polka": "^0.5.1",
+    "@types/webpack-dev-middleware": "^2.0.1",
+    "@types/webpack-hot-middleware": "^2.16.3"
   },
   "engines": {
     "node": ">=10"

@@ -12,15 +12,15 @@ const plugin: SaberPlugin = {
 
     api.hooks.afterPlugins.tap(ID, () => {
       api.hooks.onCreatePages.tap(ID, () => {
-        for (const page of api.pages.values()) {
-          if (!page.pagination || page.internal.parent) {
+        for (const page of api.pages.store.find()) {
+          if (!page.pagination || page.parent) {
             continue
           }
           const data = page.data[page.pagination.data]
           if (!Array.isArray(data)) {
             throw new Error(
               `Saber failed to create pagination for ${page.internal.absolute ||
-                page.internal.id} The page data "${
+                page.id} The page data "${
                 page.pagination.data
               }" is not an array`
             )
@@ -43,11 +43,11 @@ const plugin: SaberPlugin = {
               internal: Object.assign({}, page.internal, {
                 id:
                   index === 0
-                    ? page.internal.id
-                    : `${page.internal.id}__page__${index}`,
+                    ? page.id
+                    : `${page.id}__page__${index}`,
                 parent:
-                  page.internal.parent ||
-                  (index === 0 ? undefined : page.internal.id)
+                  page.parent ||
+                  (index === 0 ? undefined : page.id)
               }),
               permalink,
               createdAt: page.createdAt || date,

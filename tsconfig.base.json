@@ -7,6 +7,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "skipLibCheck": true
   }
 }

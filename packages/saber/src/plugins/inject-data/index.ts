@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import hash from 'hash-sum'
 import { SaberPlugin } from '../../types'
+import { DataFactory } from '../../DataStore'
 
 const ID = 'builtin:inject-data'
 
@@ -17,14 +18,14 @@ const plugin: SaberPlugin = {
         return { isFile: false, dataFactory: data.factory }
       }
       const dataFilePath = resolve(dataFileDir, source)
-      return { isFile: true, dataFactory: require(dataFilePath) }
+      return { isFile: true, dataFactory: require(dataFilePath) as DataFactory }
     }
 
     api.hooks.afterPlugins.tap(ID, () => {
       api.hooks.onCreatePages.tapPromise(ID, async () => {
         const activeCacheKeys: Set<string> = new Set()
 
-        for (const page of api.pages.values()) {
+        for (const page of api.pages.store.find()) {
           if (!page.injectData) {
             continue
           }
@@ -37,14 +38,14 @@ const plugin: SaberPlugin = {
               )
             }
             const cacheKey = `${config.source}::${
-              page.internal.id
+              page.id
             }::${injectAs}::${hash(config)}`
             activeCacheKeys.add(cacheKey)
             if (cache.has(cacheKey)) {
               page.data[injectAs] = cache.get(cacheKey)
             } else {
               const { dataFactory } = getDataFactory(config.source)
-              page.data[injectAs] = await dataFactory(config.options || {})
+              page.data[injectAs] = await dataFactory(config.options || {}, api)
               cache.set(cacheKey, page.data[injectAs])
             }
             if (!page.data[injectAs]) {

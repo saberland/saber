@@ -37,6 +37,7 @@ const plugin: SaberPlugin = {
       const addHook = (hookName: HookName) => {
         const hook = api.hooks[hookName]
         if (hook) {
+          // @ts-ignore
           const tapType = hook.call ? 'tap' : 'tapPromise'
           hook[tapType](nodeApiId, (...args) => {
             const hookHandler = getHookHandler(hookName)
@@ -74,9 +75,9 @@ const plugin: SaberPlugin = {
         const onChange = async (action: string) => {
           updateNodeApi()
           // Remove all child pages
-          api.pages.removeWhere(page => Boolean(page.internal.parent))
+          api.pages.store.removeWhere(page => Boolean(page.parent))
           await Promise.all(
-            [...api.pages.values()].map(async page => {
+            api.pages.store.find().map(async page => {
               // Recreate the page
               api.pages.createPage(page)
               // A page has been created

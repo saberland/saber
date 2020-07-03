@@ -3,6 +3,7 @@ import hash from 'hash-sum'
 import { slash } from 'saber-utils'
 import { log } from 'saber-log'
 import merge from 'lodash.merge'
+import { Collection } from 'lokijs'
 import getPermalink from './utils/getPermalink'
 import getPageType from './utils/getPageType'
 import { prefixAssets } from './utils/assetsAttribute'
@@ -76,6 +77,10 @@ export interface PageData {
 
 export interface CreatePageInput {
   type?: 'page' | 'post'
+  /** A unique ID for this page */
+  id: string
+  /** ID of parent page */
+  parent?: string
   content?: string
   /**
    * We apply different transformers based on the `contentType`
@@ -98,10 +103,6 @@ export interface CreatePageInput {
   pagination?: Pagination
   /** Internal info is automatically removed from your app runtime for security reasons */
   internal: {
-    /** A unique ID for this page */
-    id: string
-    /** ID of parent page */
-    parent?: string
     /**
      * Is this page a local file?
      * If it is you also need to set `absolute` and `relative`
@@ -122,6 +123,8 @@ export interface CreatePageInput {
 
 export interface Page {
   type: 'page' | 'post'
+  id: string
+  parent?: string
   content: string
   contentType: string
   createdAt?: Date
@@ -132,8 +135,6 @@ export interface Page {
   data: PageData
   pagination?: Pagination
   internal: {
-    id: string
-    parent?: string
     isFile?: boolean
     absolute?: string
     relative?: string
@@ -144,12 +145,13 @@ export interface Page {
   [k: string]: any
 }
 
-export class Pages extends Map<string, Page> {
+export class Pages {
   api: Saber
   redirectRoutes: Map<string, RedirecrtRouteConfig>
+  store: Collection<Page>
 
   constructor(api: Saber) {
-    super()
+    this.store = new Collection('pages', { disableMeta: true, unique: ['id'] })
     this.api = api
     this.redirectRoutes = new Map()
   }
@@ -212,8 +214,8 @@ export class Pages extends Map<string, Page> {
       )
     }
 
-    if (!page.internal || !page.internal.id) {
-      throw new Error(`Page must have an internal id.`)
+    if (!page.id) {
+      throw new Error(`Page must have an unique id.`)
     }
 
     page.assets = page.assets
@@ -233,15 +235,13 @@ export class Pages extends Map<string, Page> {
       if (!page.pagination.data) {
         throw new Error(
           `Invalid page option for "${page.internal.absolute ||
-            page.internal
-              .id}", the "data" property is required on the "pagination" option `
+            page.id}", the "data" property is required on the "pagination" option `
         )
       }
       if (!page.pagination.orderBy) {
         throw new Error(
           `Invalid page option for "${page.internal.absolute ||
-            page.internal
-              .id}", the "orderBy" property is required on the "pagination" option `
+            page.id}", the "orderBy" property is required on the "pagination" option `
         )
       }
     }
@@ -261,10 +261,10 @@ export class Pages extends Map<string, Page> {
     ) as RegExpExecArray // It could never be `null`
     const slug = parsedFileName[16]
     const pageInput: CreatePageInput = {
+      id: hash(file.absolute),
       slug,
       type: getPageType(slash(file.relative)),
       internal: {
-        id: hash(file.absolute),
         absolute: absolutePath,
         relative: relativePath,
         isFile: true
@@ -281,26 +281,17 @@ export class Pages extends Map<string, Page> {
 
   createPage(pageInput: CreatePageInput) {
     const page = this.normalizePage(pageInput)
-    this.set(page.internal.id, page)
-  }
-
-  removePage(id: string) {
-    this.removeWhere(page => {
-      return page.internal.id === id
-    })
-  }
-
-  removeWhere(getCondition: (page: Page) => boolean) {
-    for (const page of this.values()) {
-      const condition = getCondition(page)
-      if (condition) {
-        this.delete(page.internal.id)
-      }
+    const existing = this.store.by('id', page.id)
+    if (existing) {
+      page.$loki = existing.$loki
+      this.store.update(page)
+    } else {
+      this.store.insert(page)
     }
   }
 
   getPagePublicFields(page: string | Page) {
-    let result = typeof page === 'string' ? this.get(page) : page
+    let result = typeof page === 'string' ? this.store.by('id', page) : page
 
     if (!result) {
       throw new Error(`The page doesn't exist`)
@@ -308,7 +299,8 @@ export class Pages extends Map<string, Page> {
 
     result = Object.assign({}, result, {
       content: undefined,
-      internal: undefined
+      internal: undefined,
+      $loki: undefined
     })
 
     return result as Omit<Page, 'content' | 'internal'>

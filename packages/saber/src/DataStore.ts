@@ -1,4 +1,6 @@
-type DataFactory = () => any
+import { Saber } from "."
+
+export type DataFactory = (options: any, context: Saber) => any
 
 export class DataStore {
   store: Map<string, { factory: DataFactory }> = new Map()
