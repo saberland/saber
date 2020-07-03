@@ -620,6 +620,6 @@ export class VueRenderer {
       }
     })
 
-    return server.handler
+    return server.handler.bind(server)
   }
 }

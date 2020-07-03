@@ -1,4 +1,3 @@
-import { Page } from '../Pages'
 import { Permalinks } from '../types'
 
 /**
