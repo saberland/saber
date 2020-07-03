@@ -11,7 +11,7 @@ By default we infer the permalink from the filename.
 
 The simplest way to change a permalink is to extend the `page` object.
 
-In a markdown page like `./pages/sub_folder/hello.md`  you can do so to change the permalink to `/about`:
+In a markdown page like `./pages/sub_folder/hello.md` you can do so to change the permalink to `/about`:
 
 ```markdown
 ---

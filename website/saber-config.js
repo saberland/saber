@@ -53,7 +53,7 @@ const config = {
           { title: 'Data Source', link: '/docs/data-source' },
           { title: 'Pagination', link: '/docs/pagination' },
           { title: 'Collections', link: '/docs/collections' },
-          { title: 'Saber Supplied Data', link: '/docs/saber-supplied-data' },
+          { title: 'Saber Supplied Data', link: '/docs/saber-supplied-data' }
         ]
       },
       {

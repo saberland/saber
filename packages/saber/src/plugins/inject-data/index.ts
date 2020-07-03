@@ -37,9 +37,9 @@ const plugin: SaberPlugin = {
                 `Failed to inject data, use "source" option to specify data source on page: ${pageIndentifier}`
               )
             }
-            const cacheKey = `${config.source}::${
-              page.id
-            }::${injectAs}::${hash(config)}`
+            const cacheKey = `${config.source}::${page.id}::${injectAs}::${hash(
+              config
+            )}`
             activeCacheKeys.add(cacheKey)
             if (cache.has(cacheKey)) {
               page.data[injectAs] = cache.get(cacheKey)

@@ -3,18 +3,17 @@ title: Pages
 layout: docs
 ---
 
-Saber uses the file-system as the router API. Files with `.js`, `.vue` or  `.md` extension inside `./pages` folder will automatically become _web pages_, `.js` and `.vue` pages are treated as Vue components, `.md` files will also be converted to Vue components internally.
+Saber uses the file-system as the router API. Files with `.js`, `.vue` or `.md` extension inside `./pages` folder will automatically become _web pages_, `.js` and `.vue` pages are treated as Vue components, `.md` files will also be converted to Vue components internally.
 
 Try this `pages/index.md`:
 
 ```markdown
-Hello __Saber__!
+Hello **Saber**!
 ```
 
 And run `saber` in your project:
 
 ![page preview](@/images/simple-index-md-page.png)
-
 
 - `./pages/index.md` maps to `/`
 - `./pages/about.md` maps to `/about`

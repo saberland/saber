@@ -1,5 +1,8 @@
 <template>
-  <div class="search" :class="{'is-focused': focused, 'fit-header': fitHeader, fullWidth}">
+  <div
+    class="search"
+    :class="{ 'is-focused': focused, 'fit-header': fitHeader, fullWidth }"
+  >
     <div class="search--icon" @click="handleFocus(true)">
       <svg
         width="13"
@@ -22,7 +25,7 @@
       @input="e => $emit('change', e.target.value)"
       :id="inputId"
       :placeholder="placeholder"
-    >
+    />
   </div>
 </template>
 

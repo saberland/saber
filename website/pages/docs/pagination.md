@@ -17,7 +17,7 @@ pagination:
 ---
 ```
 
-We enable pagination and then give it the dataset with the `data` key. We control the number of items in each chunk with `perPage`, we also order the dataset by the `page.createdAt` key. 
+We enable pagination and then give it the dataset with the `data` key. We control the number of items in each chunk with `perPage`, we also order the dataset by the `page.createdAt` key.
 
 Saber will also inject `page.data.pagination` which will be filled with following keys:
 

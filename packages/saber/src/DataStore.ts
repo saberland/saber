@@ -1,4 +1,4 @@
-import { Saber } from "."
+import { Saber } from '.'
 
 export type DataFactory = (options: any, context: Saber) => any
 

@@ -1,6 +1,6 @@
 <template>
   <Wrap :page="page" :showSidebar="false" :showEditInfo="false">
-    <PostList :posts="page.data.posts"/>
+    <PostList :posts="page.data.posts" />
   </Wrap>
 </template>
 

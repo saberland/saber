@@ -2,14 +2,22 @@
   <Wrap :page="page">
     <div class="page-title">{{ page.title }}</div>
     <div class="page-content">
-      <slot name="default"/>
+      <slot name="default" />
     </div>
     <div class="prev-next-page">
-      <a class="prev-page" v-if="prevNextPage.prev" :href="prevNextPage.prev.link">
+      <a
+        class="prev-page"
+        v-if="prevNextPage.prev"
+        :href="prevNextPage.prev.link"
+      >
         <span class="arrow">←</span>
         {{ prevNextPage.prev.title }}
       </a>
-      <a class="next-page" v-if="prevNextPage.next" :href="prevNextPage.next.link">
+      <a
+        class="next-page"
+        v-if="prevNextPage.next"
+        :href="prevNextPage.next.link"
+      >
         {{ prevNextPage.next.title }}
         <span class="arrow">→</span>
       </a>

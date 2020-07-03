@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" :class="{'is-hidden': hide}">
+  <div class="sidebar" :class="{ 'is-hidden': hide }">
     <SiteNav class="show-on-mobile" />
 
     <slot name="content" v-if="$slots.content"></slot>
@@ -7,7 +7,7 @@
       <div class="item" v-for="(item, i) in items" :key="i">
         <div
           class="item-title"
-          :class="{'is-expanded': isExpanded(item.children)}"
+          :class="{ 'is-expanded': isExpanded(item.children) }"
           @click="toggleOpenLink(item.children)"
         >
           <span>{{ item.title }}</span>
@@ -28,11 +28,16 @@
         </div>
         <transition name="fade">
           <div class="item-children" v-if="isExpanded(item.children)">
-            <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
+            <div
+              class="item-child"
+              v-for="(childItem, i) in item.children"
+              :key="i"
+            >
               <a
                 :href="childItem.link"
-                :class="{active: isActive(childItem.link)}"
-              >{{ childItem.title }}</a>
+                :class="{ active: isActive(childItem.link) }"
+                >{{ childItem.title }}</a
+              >
             </div>
           </div>
         </transition>
@@ -199,7 +204,7 @@ export default {
     width: 1em;
     height: 1em;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: .3;
+    opacity: 0.3;
   }
 
   &.is-expanded svg {

@@ -1,7 +1,11 @@
 <template>
   <Wrap :page="page" :showEditInfo="false" mainWidth="100%">
     <template #sidebar>
-      <Search @change="updateKeywords" :fullWidth="true" placeholder="Search Themes.." />
+      <Search
+        @change="updateKeywords"
+        :fullWidth="true"
+        placeholder="Search Themes.."
+      />
       <div class="tags">
         <div class="tag" v-for="tag in tagNames" :key="tag">
           <label>
@@ -15,20 +19,35 @@
 
     <div class="themes-header">
       <div class="themes-title">Themes</div>
-      <span
-        class="themes-count"
-      >{{ filteredThemes.length }} result{{ filteredThemes.length === 1 ? '' : 's' }}</span>
+      <span class="themes-count"
+        >{{ filteredThemes.length }} result{{
+          filteredThemes.length === 1 ? '' : 's'
+        }}</span
+      >
     </div>
 
     <div class="columns">
-      <div class="theme column is-4" v-for="theme in filteredThemes" :key="theme.name+theme.npm">
+      <div
+        class="theme column is-4"
+        v-for="theme in filteredThemes"
+        :key="theme.name + theme.npm"
+      >
         <a :href="theme.repo" target="_blank">
-          <saber-image class="theme-preview" :src="getPreview(theme.npm)" :alt="theme.name" />
+          <saber-image
+            class="theme-preview"
+            :src="getPreview(theme.npm)"
+            :alt="theme.name"
+          />
         </a>
         <div class="theme-name">
           {{ theme.name }}
           <div class="theme-links">
-            <a title="Preview" class="theme-demo" :href="theme.demo" target="_blank">
+            <a
+              title="Preview"
+              class="theme-demo"
+              :href="theme.demo"
+              target="_blank"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -45,7 +64,12 @@
                 <circle cx="12" cy="12" r="3" />
               </svg>
             </a>
-            <a title="Repository" class="theme-repo" :href="theme.repo" target="_blank">
+            <a
+              title="Repository"
+              class="theme-repo"
+              :href="theme.repo"
+              target="_blank"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

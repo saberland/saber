@@ -84,4 +84,3 @@ The absolute path to this page, set when it's loaded from file system.
 - Type: `boolean`
 
 Whether this page is loaded from file system.
-  

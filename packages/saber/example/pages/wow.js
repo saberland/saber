@@ -1,8 +1,6 @@
 export default {
   render(h) {
-    return h('div', {}, [
-      h('h1', {}, ['wow'])
-    ])
+    return h('div', {}, [h('h1', {}, ['wow'])])
   }
 }
 

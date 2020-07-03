@@ -23,8 +23,7 @@ It also works in Markdown since links are transformed to `<a>` elements as well.
 Internally, `<a>` elements are converted to a built-in component [`<saber-link>`](components.md#saberlink), so these are equivalent:
 
 ```vue
-<a href="/about">About</a>
-<saber-link to="/about">About</saber-link>
+<a href="/about">About</a> <saber-link to="/about">About</saber-link>
 ```
 
 `<saber-link>` will be rendered as `<a target="_blank" rel="noopener noreferrer">` element if the link is an absolute URL (like `https://github.com`), otherwise it's rendered as Vue Router's `<router-link>` component.

@@ -2,7 +2,7 @@
   <Wrap :page="page" :showSidebar="false">
     <div class="page-title">{{ page.title }}</div>
     <div class="page-content">
-      <slot name="default"/>
+      <slot name="default" />
     </div>
   </Wrap>
 </template>

@@ -3,7 +3,7 @@ title: Project Structure
 layout: docs
 ---
 
-Inside a Saber project, you may see __some or all__ of the following folders and files:
+Inside a Saber project, you may see **some or all** of the following folders and files:
 
 ```
 .

@@ -35,7 +35,11 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="https://github.com/saberland/saber" target="_blank" class="github-link">
+      <a
+        href="https://github.com/saberland/saber"
+        target="_blank"
+        class="github-link"
+      >
         <svg
           aria-hidden="true"
           focusable="false"

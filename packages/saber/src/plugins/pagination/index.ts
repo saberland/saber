@@ -41,13 +41,8 @@ const plugin: SaberPlugin = {
                 : urlJoin(page.permalink, `page/${index + 1}`)
             const newPage = Object.assign({}, page, {
               internal: Object.assign({}, page.internal, {
-                id:
-                  index === 0
-                    ? page.id
-                    : `${page.id}__page__${index}`,
-                parent:
-                  page.parent ||
-                  (index === 0 ? undefined : page.id)
+                id: index === 0 ? page.id : `${page.id}__page__${index}`,
+                parent: page.parent || (index === 0 ? undefined : page.id)
               }),
               permalink,
               createdAt: page.createdAt || date,

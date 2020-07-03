@@ -33,7 +33,7 @@ Currently we only exclude `internal` and `content` properties.
 
 ### `pages.removeWhere(condition)`
 
-- Params: 
+- Params:
   - `condition`: `(page: PageInterface) => boolean)`
 - Returns: `void`
 
@@ -47,12 +47,12 @@ Remove pages that match the given `condition`.
 
 `RedirectConfig` properties:
 
-|Property|Type|Default|Description|
-|---|---|---|---|
-|`fromPath`|`string`|N/A|Any valid URL. Must start with a forward slash|
-|`toPath`|`string`|N/A|Any valid URL. Must start with a forward slash|
-|`isPermanent`|`boolean`|`false`|This is a permanent redirect; defaults to temporary|
-|`redirectInBrowser`|`boolean`|`false`|Redirects are generally for redirecting legacy URLs to their new configuration. If you can’t update your UI for some reason, set `redirectInBrowser` to `true` and Saber will handle redirecting in the client as well.`
+| Property            | Type      | Default | Description                                                                                                                                                                                                              |
+| ------------------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `fromPath`          | `string`  | N/A     | Any valid URL. Must start with a forward slash                                                                                                                                                                           |
+| `toPath`            | `string`  | N/A     | Any valid URL. Must start with a forward slash                                                                                                                                                                           |
+| `isPermanent`       | `boolean` | `false` | This is a permanent redirect; defaults to temporary                                                                                                                                                                      |
+| `redirectInBrowser` | `boolean` | `false` | Redirects are generally for redirecting legacy URLs to their new configuration. If you can’t update your UI for some reason, set `redirectInBrowser` to `true` and Saber will handle redirecting in the client as well.` |
 
 ### `pages.getMatchedLocalePath(permalink)`
 
@@ -99,7 +99,7 @@ Depending on the hook type, `tapAsync` and `tapPromise` may also be available. H
 
 Called to filter plugins.
 
-This hook is __only__ available `saber-node.js`.
+This hook is **only** available `saber-node.js`.
 
 ```ts
 interface Plugin {
@@ -113,12 +113,11 @@ interface Plugin {
 }
 ```
 
-
 ### `beforePlugins`
 
 - Hook Type: `AsyncSeriesHook`
 
-This hook is __only__ available `saber-node.js`.
+This hook is **only** available `saber-node.js`.
 
 Called before loading user plugins.
 
@@ -272,9 +271,7 @@ When webpack finished compiling, this event will be emitted.
 ```js
 api.compilers.client.on('status-changed', ({ status, allCompilers }) => {
   // status: 'waiting' | 'building' | 'success' | 'error'
-  
   // allCompilers.hasError: boolean
-
   // Whether the status of every compiler is `success` or `error`
   // allCompilers.ready: boolean
 })

@@ -1,9 +1,13 @@
 <template>
-  <Wrap :page="page" :showSidebar="false" :showEditInfo="false" mainWidth="960px">
+  <Wrap
+    :page="page"
+    :showSidebar="false"
+    :showEditInfo="false"
+    mainWidth="960px"
+  >
     <slot />
   </Wrap>
 </template>
-
 
 <script>
 import Wrap from '../components/Wrap.vue'

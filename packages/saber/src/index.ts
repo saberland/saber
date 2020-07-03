@@ -365,7 +365,9 @@ export class Saber {
     await this.prepare()
     await this.run()
 
-    const server = http.createServer(this.renderer.getRequestHandler() as http.RequestListener)
+    const server = http.createServer(
+      this.renderer.getRequestHandler() as http.RequestListener
+    )
 
     // Make sure the port is available
     const { host, port = 3000 } = this.config.server

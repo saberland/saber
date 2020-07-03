@@ -1,5 +1,10 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" viewBox="0 0 402 402">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    :width="size"
+    :height="size"
+    viewBox="0 0 402 402"
+  >
     <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
       <circle cx="200" cy="200" r="200.5" fill="#00838F" stroke="#00838F" />
       <path
@@ -14,7 +19,11 @@
       <circle cx="203" cy="78" r="18" stroke="#FFF" stroke-width="14" />
       <path stroke="#979797" />
       <circle cx="200" cy="200" r="179" stroke="#FFF" stroke-width="14" />
-      <polyline stroke="#FFF" stroke-width="14" points="70 325.805 119.368 260 147.868 260" />
+      <polyline
+        stroke="#FFF"
+        stroke-width="14"
+        points="70 325.805 119.368 260 147.868 260"
+      />
       <polyline
         stroke="#FFF"
         stroke-width="14"
@@ -25,7 +34,11 @@
         stroke-width="14"
         points="177 286.058 196 274.41 205.188 250 250.379 254.615 267.648 277.437"
       />
-      <polyline stroke="#FFF" stroke-width="14" points="242.721 274.41 279.618 274.41 330.993 324" />
+      <polyline
+        stroke="#FFF"
+        stroke-width="14"
+        points="242.721 274.41 279.618 274.41 330.993 324"
+      />
       <polyline
         stroke="#FFF"
         stroke-width="14"

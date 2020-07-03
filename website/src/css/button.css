@@ -20,6 +20,6 @@
   background: #cedfe7;
   color: inherit;
   &:hover {
-    background: rgb(179, 207, 220, .8);
+    background: rgb(179, 207, 220, 0.8);
   }
 }

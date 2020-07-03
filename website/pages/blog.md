@@ -4,7 +4,7 @@ layout: blog
 injectData:
   posts:
     source: $pages
-    options: 
+    options:
       type:
         $eq: post
       $sort:

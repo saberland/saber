@@ -3,7 +3,7 @@ title: Data Source
 layout: docs
 ---
 
-You can fetch data from anywhere in your pages, this is achieved by a concept called __Data Source__. 
+You can fetch data from anywhere in your pages, this is achieved by a concept called **Data Source**.
 
 Data Source is literally a source of data that you can inject under [`page.data`](./pages.md#the-page-object) object, you can create a data source by populating a file in `data` folder:
 
@@ -24,7 +24,7 @@ Then in a page, like `pages/index.vue`, let's use the data:
 <template>
   <ul>
     <li v-for="page in page.data.pagesIn2020" :key="page.permalink">
-    {{ page.title }}
+      {{ page.title }}
     </li>
   </ul>
 </template>
@@ -38,7 +38,7 @@ export const page = {
         after: '2020-01-01'
       }
     }
-  } 
+  }
 }
 
 export default {
@@ -53,7 +53,7 @@ Now you can access `page.data.pagesIn2020` which gives you the pages created in 
 
 ## Data Source API
 
-Data Source files in `data` folder supported all the JavaScript features available in your system's Node.js version, they are processed before webpack so you __can't__ use any of the bundler feature.
+Data Source files in `data` folder supported all the JavaScript features available in your system's Node.js version, they are processed before webpack so you **can't** use any of the bundler feature.
 
 A data source should set a default export using `module.exports` (you can also return a Promise or use `async/await`):
 

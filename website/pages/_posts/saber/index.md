@@ -20,7 +20,7 @@ $ npm install saber -D
 Populate `pages/index.md`:
 
 ```markdown
-Hello __Saber__!
+Hello **Saber**!
 ```
 
 Add a script to the `package.json` like this:
@@ -58,7 +58,7 @@ Our goal is to make Saber smaller than 50 MB.
 Sometimes convention over configuration is a good practice, for example, Saber uses the filesystem as the routing API, you can populate `pages/index.md` which maps to the route `/` with:
 
 ```markdown
-Hello __world__!
+Hello **world**!
 ```
 
 and then `pages/about.vue` which maps to `/about` with:

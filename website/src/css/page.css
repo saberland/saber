@@ -10,7 +10,7 @@
   line-height: 1.6;
   margin: 40px 0;
 
-  & >*:first-child:not(h2) {
+  & > *:first-child:not(h2) {
     margin-top: 0;
   }
 
@@ -34,11 +34,11 @@
 
     & a.header-anchor {
       color: var(--theme-color);
-      font-size: .85em;
+      font-size: 0.85em;
       float: left;
-      margin-left: -.87em;
-      padding-right: .23em;
-      margin-top: .125em;
+      margin-left: -0.87em;
+      padding-right: 0.23em;
+      margin-top: 0.125em;
       opacity: 0;
     }
 
@@ -97,24 +97,23 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   }
 
-
   & blockquote {
-    background-color: rgba(255, 229, 100, .3);
+    background-color: rgba(255, 229, 100, 0.3);
     border-left: 8px solid #ffe564;
     padding: 15px 30px 15px 15px;
     margin: 2rem 0;
     color: #6a737d;
 
-    &>*:first-child {
+    & > *:first-child {
       margin-top: 0;
     }
 
-    &>*:last-child {
+    & > *:last-child {
       margin-bottom: 0;
     }
 
     & code {
-      background: rgba(27, 31, 35, .05);
+      background: rgba(27, 31, 35, 0.05);
     }
   }
 
@@ -122,11 +121,11 @@
     border: 1px solid var(--border-color);
     padding: 1.25rem 1.5rem;
 
-    &>*:first-child {
+    & > *:first-child {
       margin-top: 0;
     }
 
-    &>*:last-child {
+    & > *:last-child {
       margin-bottom: 0;
     }
   }

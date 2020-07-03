@@ -1,17 +1,38 @@
 <template>
-  <div class="toc" :class="{show}">
+  <div class="toc" :class="{ show }">
     <div class="toc-trigger" @click="show = !show">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="list"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><circle cx="4" cy="7" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="17" r="1"/><rect x="7" y="11" width="14" height="2" rx=".94" ry=".94"/><rect x="7" y="16" width="14" height="2" rx=".94" ry=".94"/><rect x="7" y="6" width="14" height="2" rx=".94" ry=".94"/></g></g></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g data-name="Layer 2">
+          <g data-name="list">
+            <rect
+              width="24"
+              height="24"
+              transform="rotate(180 12 12)"
+              opacity="0"
+            />
+            <circle cx="4" cy="7" r="1" />
+            <circle cx="4" cy="12" r="1" />
+            <circle cx="4" cy="17" r="1" />
+            <rect x="7" y="11" width="14" height="2" rx=".94" ry=".94" />
+            <rect x="7" y="16" width="14" height="2" rx=".94" ry=".94" />
+            <rect x="7" y="6" width="14" height="2" rx=".94" ry=".94" />
+          </g>
+        </g>
+      </svg>
     </div>
     <div class="toc-title">Contents</div>
     <div class="toc-headings">
       <a
         :data-level="heading.level"
-        :class="{'toc-heading': true, 'active-hash': `#${heading.slug}` === currentHash}"
+        :class="{
+          'toc-heading': true,
+          'active-hash': `#${heading.slug}` === currentHash
+        }"
         v-for="heading in filteredHeadings"
         :key="heading.slug"
-        :href="{hash: heading.slug}"
-      >{{ heading.text }}</a>
+        :href="{ hash: heading.slug }"
+        >{{ heading.text }}</a
+      >
     </div>
   </div>
 </template>
