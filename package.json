@@ -27,11 +27,8 @@
     "lint-staged": "10.2.11",
     "prettier": "1.18.2",
     "ts-jest": "^25.4.0",
-    "typedoc": "^0.15.0",
-    "typescript": "^3.8.3"
-  },
-  "resolutions": {
-    "typedoc/typescript": "^3.8.3"
+    "typedoc": "^0.17.8",
+    "typescript": "^3.9.6"
   },
   "husky": {
     "hooks": {
