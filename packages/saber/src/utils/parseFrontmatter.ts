@@ -7,13 +7,18 @@ const parsers: {
 } = {
   yaml: str => require('js-yaml').safeLoad(str),
   yml: str => require('js-yaml').safeLoad(str),
-  toml: str => require('toml').parse(str)
+  toml: str => require('toml').parse(str),
+  js: str => {
+    const fn = new Function(`return ${str.trim()}`)
+    return fn()
+  },
+  json: str => JSON.parse(str)
 }
 
 /**
  * Extract front matter from a page
  */
-export const parseFrontmatter = (content: string, filepath?: string) => {
+export const parseFrontmatter = (content?: string, filepath?: string) => {
   const getEmpty = () => ({
     frontmatter: {},
     body: content && content.trim()
