@@ -67,5 +67,5 @@ module.exports = (options, api) => {
 
 The function arguments:
 
-- `options`: The same `options` that you passed to the data source in `injectProps`.
+- `options`: The same `options` that you passed to the data source in `injectData`.
 - `api`: [The Saber instance](./saber-instance.md).
