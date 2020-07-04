@@ -1,5 +1,10 @@
 <template>
-  <Search inputId="site--search" :fitHeader="true" @hook:mounted="onMounted" />
+  <Search
+    inputId="site--search"
+    @hook:mounted="onMounted"
+    class="focus-within:bg-gray-100"
+    inputClass="focus:bg-gray-100"
+  />
 </template>
 
 <script>
@@ -9,7 +14,6 @@ export default {
   components: {
     Search
   },
-
   methods: {
     async onMounted() {
       const docsearch = await import(

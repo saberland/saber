@@ -7,7 +7,7 @@ const config = {
     description: 'A framework for building modern static websites.',
     lang: 'en'
   },
-  theme: './src',
+  theme: '../other-packages/saber-theme-docs/src',
   markdown: {
     headings: {
       permalink: true
@@ -17,6 +17,33 @@ const config = {
   build: { lazy: true, extractCSS: true },
   permalinks: { post: '/blog/:slug' },
   themeConfig: {
+    navLinks: [
+      {
+        title: 'Guide',
+        link: '/docs'
+      },
+      {
+        title: 'Community',
+        children: [
+          {
+            title: 'Discord',
+            link: 'https://chat.saber.land'
+          },
+          {
+            title: 'Twitter',
+            link: 'https://twitter.com/saber_land'
+          },
+          {
+            title: 'GitHub',
+            link: 'https://github.com/saberland/saber'
+          }
+        ]
+      },
+      {
+        title: 'Blog',
+        link: '/blog'
+      }
+    ],
     sidebarMenu: [
       {
         title: 'Basics',
