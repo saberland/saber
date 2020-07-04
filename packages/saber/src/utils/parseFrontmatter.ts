@@ -1,29 +1,19 @@
-// @ts-check
-const { log } = require('saber-log')
+import { log } from 'saber-log'
 
 const RE_STARTING = /^(?:\r?\n)*---([a-z]+)?(?:\r?\n)+/
 
-/**
- * @typedef {(str: string) => Object} Parser
- * @typedef {{[k: string]: Parser}} IParsers
- */
-
-/**
- * @type {IParsers}
- */
-const parsers = {
-  yaml: str => require('./yaml.min').safeLoad(str),
-  yml: str => require('./yaml.min').safeLoad(str),
-  toml: str => require('./toml.min').parse(str)
+const parsers: {
+  [k: string]: (str: string) => object
+} = {
+  yaml: str => require('js-yaml').safeLoad(str),
+  yml: str => require('js-yaml').safeLoad(str),
+  toml: str => require('toml').parse(str)
 }
 
 /**
  * Extract front matter from a page
- * @param {string} content
- * @param {string} filepath
- * @returns {{frontmatter: {[k:string]: any}, body: string}}
  */
-module.exports = (content, filepath) => {
+export const parseFrontmatter = (content: string, filepath?: string) => {
   const getEmpty = () => ({
     frontmatter: {},
     body: content && content.trim()

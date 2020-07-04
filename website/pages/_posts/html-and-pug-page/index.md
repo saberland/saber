@@ -164,9 +164,8 @@ exports.apply = api => {
   // Pages with extension .adoc or .asciidoc will automatically use this content type
   api.transformers.add('asciidoc', {
     extensions: ['adoc', 'asciidoc'],
-    // Parse the page
-    // And transform asciidoc to HTML
-    parse(page) {
+    // Transform the page fro asciidoc to HTML
+    transform(page) {
       // extract front matter
       const { body, frontmatter } = api.transformers.parseFrontmatter(
         page.content

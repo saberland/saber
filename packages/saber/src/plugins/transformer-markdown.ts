@@ -3,6 +3,7 @@ import resolvePackage from '../utils/resolvePackage'
 import { SaberPlugin } from '../types'
 import { Saber } from '..'
 import { CreatePageInput } from '../Pages'
+import { parseFrontmatter } from '../utils/parseFrontmatter'
 
 function renderMarkdown(api: Saber, page: CreatePageInput) {
   const { configDir } = api
@@ -102,8 +103,8 @@ const plugin: SaberPlugin = {
     api.transformers.add('markdown', {
       extensions: ['md'],
       transform(page) {
-        const { frontmatter, body } = require('../utils/parseFrontmatter')(
-          page.content,
+        const { frontmatter, body } = parseFrontmatter(
+          page.content || '',
           page.internal.absolute
         )
         Object.assign(page, frontmatter)

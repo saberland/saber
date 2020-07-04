@@ -114,6 +114,8 @@ export interface CreatePageInput {
      * Used by Saber internally for file watcher
      */
     saved?: boolean
+
+    hoistedTags?: string[]
   }
   /** You can also provide additonal data */
   [k: string]: any
@@ -138,6 +140,7 @@ export interface Page {
     relative?: string
     /** @private */
     saved?: boolean
+    hoistedTags?: string[]
   }
   assets: Assets
   [k: string]: any

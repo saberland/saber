@@ -1,4 +1,4 @@
-const yaml = require('../../utils/yaml.min')
+const yaml = require('js-yaml')
 
 module.exports = function(source) {
   return JSON.stringify(yaml.safeLoad(source))
