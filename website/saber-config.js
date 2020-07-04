@@ -51,8 +51,8 @@ const config = {
         title: 'Using Data',
         children: [
           { title: 'Data Source', link: '/docs/data-source' },
+          { title: 'Built-in Sources', link: '/docs/built-in-sources' },
           { title: 'Pagination', link: '/docs/pagination' },
-          { title: 'Collections', link: '/docs/collections' },
           { title: 'Saber Supplied Data', link: '/docs/saber-supplied-data' }
         ]
       },

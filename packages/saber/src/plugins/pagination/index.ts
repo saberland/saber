@@ -1,6 +1,6 @@
 import urlJoin from 'url-join'
 import { SaberPlugin } from '../../types'
-import { getPaginationLink, orderBy, paginateArray } from './utils'
+import { getPaginationLink, paginateArray } from './utils'
 
 const ID = 'builtin:pagination'
 
@@ -25,13 +25,10 @@ const plugin: SaberPlugin = {
               }" is not an array`
             )
           }
-          const paginatedData = paginateArray(
-            orderBy(data, page.pagination.orderBy, page.pagination.order),
-            {
-              perPage: page.pagination.perPage,
-              first: page.pagination.first
-            }
-          )
+          const paginatedData = paginateArray(data, {
+            size: page.pagination.size,
+            first: page.pagination.first
+          })
           const totalPages = paginatedData.length
 
           for (const [index, items] of paginatedData.entries()) {
@@ -40,10 +37,8 @@ const plugin: SaberPlugin = {
                 ? page.permalink
                 : urlJoin(page.permalink, `page/${index + 1}`)
             const newPage = Object.assign({}, page, {
-              internal: Object.assign({}, page.internal, {
-                id: index === 0 ? page.id : `${page.id}__page__${index}`,
-                parent: page.parent || (index === 0 ? undefined : page.id)
-              }),
+              id: index === 0 ? page.id : `${page.id}__page__${index}`,
+              parent: page.parent || (index === 0 ? undefined : page.id),
               permalink,
               createdAt: page.createdAt || date,
               updatedAt: page.updatedAt || date,

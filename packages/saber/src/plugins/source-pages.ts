@@ -14,27 +14,7 @@ const sourcePagesPlugin: SaberPlugin = {
   apply(api) {
     api.hooks.beforeRun.tapPromise(ID, async () => {
       api.dataStore.addData('$pages', options => {
-        const sort = options.$sort
-        delete options.$sort
-
-        let chain = api.pages.store.chain().find(options)
-
-        if (sort && typeof sort === 'object') {
-          chain = chain.compoundsort(
-            Object.keys(sort).map(key => {
-              let value = sort[key]
-              if (typeof value === 'string') {
-                value = value.toLowerCase()
-              }
-              return [
-                key,
-                value === 'desc' ? true : value === 'asc' ? false : value
-              ]
-            })
-          )
-        }
-
-        return chain.data()
+        return api.dataStore.findAndSort(api.pages.store, options)
       })
 
       const pagesDir = api.resolveCwd('pages')

@@ -10,13 +10,15 @@ Data Source is literally a source of data that you can inject under [`page.data`
 `data/allPages.js`:
 
 ```js
-module.exports = ({ after }, store) => {
+module.exports = ({ after }, api) => {
   after = new Date(after)
-  return store.pages.filter(page => {
+  return api.pages.store.where(page => {
     return page.createdAt > after
   })
 }
 ```
+
+<small>Note that `api.pages.store` is a [Loki.js Collection](https://techfort.github.io/LokiJS/Collection.html) instance.</small>
 
 Then in a page, like `pages/index.vue`, let's use the data:
 
@@ -58,7 +60,7 @@ Data Source files in `data` folder supported all the JavaScript features availab
 A data source should set a default export using `module.exports` (you can also return a Promise or use `async/await`):
 
 ```js
-module.exports = (options, store) => {
+module.exports = (options, api) => {
   return {}
 }
 ```
@@ -66,5 +68,4 @@ module.exports = (options, store) => {
 The function arguments:
 
 - `options`: The same `options` that you passed to the data source in `injectProps`.
-- `store`: Some internal data provided by Saber.
-  - `pages`: All the pages.
+- `api`: [The Saber instance](./saber-instance.md).

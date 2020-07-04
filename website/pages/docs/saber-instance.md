@@ -7,11 +7,9 @@ layout: docs
 
 An instance of the `Pages` class, it's used to store `page` ([PageInterface](./page-interface.md)).
 
-```ts
-interface Pages extends Map<id, PageInterface> {
-  // ...
-}
-```
+### `pages.store`
+
+A [Loki.js Collection](https://techfort.github.io/LokiJS/Collection.html) instance which is used to store all pages.
 
 ### `pages.createPage(page)`
 
@@ -19,7 +17,7 @@ interface Pages extends Map<id, PageInterface> {
   - `page`: `PageInterface`
 - Returns: `void`
 
-Create a new page or overwrite the existing page.
+Create a new page or overwrite the existing page in `pages.store`.
 
 ### `pages.getPagePublicFields(id)`
 
@@ -30,14 +28,6 @@ Create a new page or overwrite the existing page.
 Get a page with its public fields only.
 
 Currently we only exclude `internal` and `content` properties.
-
-### `pages.removeWhere(condition)`
-
-- Params:
-  - `condition`: `(page: PageInterface) => boolean)`
-- Returns: `void`
-
-Remove pages that match the given `condition`.
 
 ### `pages.createRedirect(config)`
 
@@ -76,6 +66,51 @@ pages.getMatchedLocalePath('/about')
 pages.getMatchedLocalePath('/cn/about')
 //=> '/cn'
 ```
+
+## dataSource
+
+### `dataSource.findAndSort`
+
+- Params:
+  - `options`: `Options`
+
+Find and sort data from a collection.
+
+```ts
+interface Options {
+  // Any page property
+  [prop]: {
+    // Supports mongo-like query syntax
+    $gt: new Date('2020-02-02')
+  },
+  // And a special option `$sort` for sorting
+  $sort?: {
+    // Sort by page property in `desc` or `asc` order
+    // `true` means `desc`
+    prop: 'desc' | 'asc' | boolean
+  }
+}
+```
+
+### `dataSource.addData`
+
+- Params:
+  - `name`: `string`
+  - `factory`: `DataFactory`
+
+Add data so you can inject it in your page.
+
+```ts
+// `options` is from the `injectData` option in your page
+type DataFactory = (options: any, api: Saber) => any
+```
+
+### `dataSource.removeData`
+
+- Params:
+  - `name`: `string`
+
+Remove a data by its name.
 
 ## hooks
 

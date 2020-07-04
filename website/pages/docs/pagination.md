@@ -8,16 +8,20 @@ To iterate over a data set and create pages for individual chunks of data, use p
 ```md
 ---
 injectData:
-  allPages:
-    source: allPages.js
+  posts:
+    source: $pages
+    options:
+      type:
+        $eq: post
+      $sort:
+        createdAt: desc
 pagination:
-  data: allPages
-  perPage: 20
-  orderBy: createdAt
+  data: posts
+  size: 20
 ---
 ```
 
-We enable pagination and then give it the dataset with the `data` key. We control the number of items in each chunk with `perPage`, we also order the dataset by the `page.createdAt` key.
+We enable pagination and then give it the dataset with the `data` key. We control the number of items in each chunk with `size`.
 
 Saber will also inject `page.data.pagination` which will be filled with following keys:
 
@@ -32,6 +36,6 @@ Saber will also inject `page.data.pagination` which will be filled with followin
 }
 ```
 
-The original `page.data.allPages` will be modified to include only the specific chunk of data for that page.
+The original `page.data.posts` will be modified to include only the specific chunk of data for that page.
 
 If the above file were named `archive.md`, it would create a few pages when there are enough data to paginate: `archive/index.html`, `archive/page/2/index.html` and `archive/page/3/index.html` and so on.

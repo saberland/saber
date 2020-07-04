@@ -55,10 +55,8 @@ export interface InjectData {
 
 export interface Pagination {
   data: string
-  perPage?: number
+  size?: number
   first?: number
-  orderBy: string
-  order?: 'DESC' | 'ASC'
 }
 
 export interface PageDataPagination {
@@ -236,12 +234,6 @@ export class Pages {
         throw new Error(
           `Invalid page option for "${page.internal.absolute ||
             page.id}", the "data" property is required on the "pagination" option `
-        )
-      }
-      if (!page.pagination.orderBy) {
-        throw new Error(
-          `Invalid page option for "${page.internal.absolute ||
-            page.id}", the "orderBy" property is required on the "pagination" option `
         )
       }
     }
