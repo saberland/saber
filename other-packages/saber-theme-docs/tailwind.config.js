@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ['src/**/*.vue'],
+  purge: [`${__dirname}/src/**/*.vue`],
   theme: {
     extend: {
       colors: {
