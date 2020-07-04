@@ -10,8 +10,8 @@ const plugin: SaberPlugin = {
   apply(api) {
     const date = new Date()
 
-    api.hooks.afterPlugins.tap(ID, () => {
-      api.hooks.onCreatePages.tap(ID, () => {
+    api.hooks.postPlugins.tap(ID, () => {
+      api.hooks.postCreatePages.tap(ID, () => {
         for (const page of api.pages.store.find()) {
           if (!page.pagination || page.parent) {
             continue

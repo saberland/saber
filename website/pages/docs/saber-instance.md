@@ -148,7 +148,7 @@ interface Plugin {
 }
 ```
 
-### `beforePlugins`
+### `prePlugins`
 
 - Hook Type: `AsyncSeriesHook`
 
@@ -156,7 +156,7 @@ This hook is **only** available `saber-node.js`.
 
 Called before loading user plugins.
 
-### `afterPlugins`
+### `postPlugins`
 
 - Hook Type: `AsyncSeriesHook`
 
@@ -168,7 +168,7 @@ Called after the `apply` methods of all user plugins are executed.
 
 Called before starting creating pages for the first time.
 
-### `onCreatePage`
+### `postCreatePage`
 
 - Hook Type: `AsyncSeriesHook`
 - Params:
@@ -192,7 +192,7 @@ Called when creating a page to get the plugins and options for `markdown-it`.
 
 Called to get the options and plugins for transforming Vue template.
 
-### `onCreatePages`
+### `postCreatePages`
 
 - Hook Type: `AsyncSeriesHook`
 
@@ -228,7 +228,7 @@ Called with the `webpack-chain` instance before creating webpack compiler.
 
 Called to get the webpack config before creating webpack compiler. You should return the webpack config object in this hook.
 
-### `onCreateServer`
+### `postCreateServer`
 
 - Hook Type: `SyncHook`
 - Params:
@@ -260,7 +260,7 @@ Called to get the document html.
 
 Called after running webpack (in production mode).
 
-### `beforeExportPage`
+### `preExportPages`
 
 - Hook Type: `AsyncSeriesHook`
 - Params:
@@ -278,7 +278,7 @@ interface ExportedPage {
 }
 ```
 
-### `afterExportPage`
+### `postExportPage`
 
 - Hook Type: `AsyncSeriesHook`
 - Params:

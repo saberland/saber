@@ -54,14 +54,14 @@ const plugin: SaberPlugin = {
         }
       }
 
-      // Hooks that should be added before `afterPlugins` hook
-      const preHooks: HookName[] = ['beforePlugins', 'filterPlugins']
+      // Hooks that should be added before `postPlugins` hook
+      const preHooks: HookName[] = ['prePlugins', 'filterPlugins']
 
       for (const preHook of preHooks) {
         addHook(preHook)
       }
 
-      api.hooks.afterPlugins.tap(nodeApiId, () => {
+      api.hooks.postPlugins.tap(nodeApiId, () => {
         for (const hookName of Object.keys(api.hooks) as HookName[]) {
           if (preHooks.includes(hookName)) {
             continue
@@ -81,11 +81,11 @@ const plugin: SaberPlugin = {
               // Recreate the page
               api.pages.createPage(page)
               // A page has been created
-              await api.hooks.onCreatePage.promise(page)
+              await api.hooks.postCreatePage.promise(page)
             })
           )
           // All pages are created
-          await api.hooks.onCreatePages.promise()
+          await api.hooks.postCreatePages.promise()
           // Emit pages
           await api.hooks.emitPages.promise()
           // Emit route file

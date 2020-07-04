@@ -21,8 +21,8 @@ const plugin: SaberPlugin = {
       return { isFile: true, dataFactory: require(dataFilePath) as DataFactory }
     }
 
-    api.hooks.afterPlugins.tap(ID, () => {
-      api.hooks.onCreatePages.tapPromise(ID, async () => {
+    api.hooks.postPlugins.tap(ID, () => {
+      api.hooks.postCreatePages.tapPromise(ID, async () => {
         const activeCacheKeys: Set<string> = new Set()
 
         for (const page of api.pages.store.find()) {
@@ -83,7 +83,7 @@ const plugin: SaberPlugin = {
         }
         try {
           // Rebuild pages
-          await api.hooks.onCreatePages.promise()
+          await api.hooks.postCreatePages.promise()
           // Emit pages
           await api.hooks.emitPages.promise()
         } catch (err) {

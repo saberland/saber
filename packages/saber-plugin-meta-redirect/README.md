@@ -20,7 +20,7 @@ plugins:
 In your `saber-node.js`:
 
 ```js
-exports.onCreatePages = function() {
+exports.postCreatePages = function() {
   this.pages.createRedirect({
     fromPath: '/about',
     toPath: '/about-us'

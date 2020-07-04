@@ -62,7 +62,7 @@ const sourcePagesPlugin: SaberPlugin = {
             })
           } else if (action) {
             api.pages.createPage(page)
-            await api.hooks.onCreatePage.promise(page)
+            await api.hooks.postCreatePage.promise(page)
           }
         }
       )
@@ -103,11 +103,11 @@ const sourcePagesPlugin: SaberPlugin = {
         files.map(async file => {
           const page = api.pages.fileToPage(file)
           api.pages.createPage(page)
-          await api.hooks.onCreatePage.promise(page)
+          await api.hooks.postCreatePage.promise(page)
         })
       )
 
-      await api.hooks.onCreatePages.promise()
+      await api.hooks.postCreatePages.promise()
       await api.hooks.emitPages.promise()
 
       if (api.dev) {
@@ -138,7 +138,7 @@ const sourcePagesPlugin: SaberPlugin = {
             await api.hooks.manipulatePage.promise({ action: 'create', page })
           }
 
-          await api.hooks.onCreatePages.promise()
+          await api.hooks.postCreatePages.promise()
           await api.hooks.emitPages.promise()
           await api.hooks.emitRoutes.promise()
         }

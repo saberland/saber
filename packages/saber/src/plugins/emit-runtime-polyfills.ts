@@ -9,7 +9,7 @@ const plugin: SaberPlugin = {
   name: ID,
 
   apply(api) {
-    api.hooks.afterPlugins.tap(ID, () => {
+    api.hooks.postPlugins.tap(ID, () => {
       api.hooks.emitRoutes.tapPromise(ID, async () => {
         const polyfills = [...api.runtimePolyfills]
           .map(file => `import '${slash(file)}'`)

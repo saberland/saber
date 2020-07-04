@@ -80,7 +80,7 @@ const plugin = {
     api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
     if (api.dev) {
-      api.hooks.onCreateServer.tap(ID, server => {
+      api.hooks.postCreateServer.tap(ID, server => {
         server.get('/_saber/plugin-search/:locale.json', async (req, res) => {
           db = await generateDatabase()
           const dbByLocale = getLocale(req.params.locale)

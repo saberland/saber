@@ -192,7 +192,7 @@ export class Saber {
     }
 
     // Load user plugins
-    await this.hooks.beforePlugins.promise()
+    await this.hooks.prePlugins.promise()
 
     const userPlugins = this.getUserPlugins()
     if (userPlugins.length > 0) {
@@ -207,7 +207,7 @@ export class Saber {
       await this.applyPlugin(plugin, plugin.options, plugin.location)
     }
 
-    await this.hooks.afterPlugins.promise()
+    await this.hooks.postPlugins.promise()
   }
 
   async applyPlugin(

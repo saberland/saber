@@ -336,7 +336,7 @@ export class VueRenderer {
       })
     }
 
-    await this.api.hooks.onCreateRenderer.promise(this.renderer, isFirstTime)
+    await this.api.hooks.postCreateRenderer.promise(this.renderer, isFirstTime)
 
     return this.renderer
   }
@@ -400,9 +400,9 @@ export class VueRenderer {
               content: html,
               path: route.outputFilePath
             }
-            await this.api.hooks.beforeExportPage.promise(context, exportedPage)
+            await this.api.hooks.preExportPage.promise(context, exportedPage)
             await fs.outputFile(route.outputFilePath, html, 'utf8')
-            await this.api.hooks.afterExportPage.promise(context, exportedPage)
+            await this.api.hooks.postExportPage.promise(context, exportedPage)
           } catch (error) {
             log.error(`Failed to render ${route.permalink}`)
             throw error
@@ -448,7 +448,7 @@ export class VueRenderer {
     const createDevMiddleware: typeof import('webpack-dev-middleware') = require('webpack-dev-middleware')
     const createHotMiddleware: typeof import('webpack-hot-middleware') = require('webpack-hot-middleware')
 
-    this.api.hooks.onCreateServer.call(server)
+    this.api.hooks.postCreateServer.call(server)
 
     const clientConfig = this.api.getWebpackConfig({ type: 'client' })
 
