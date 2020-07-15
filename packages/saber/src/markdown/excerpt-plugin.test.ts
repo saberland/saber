@@ -1,6 +1,8 @@
+import { test } from 'uvu'
+import assert from 'uvu/assert'
 import Markdown from 'saber-markdown'
 import excerptPlugin from 'saber/src/markdown/excerpt-plugin'
-import { createMarkdownEnv } from './helpers/create-markdown-env'
+import { createMarkdownEnv } from './__helpers__/create-markdown-env'
 
 test('use first paragraph as excerpt', () => {
   const md = new Markdown()
@@ -12,7 +14,7 @@ hello
   `,
     env
   )
-  expect(page.excerpt).toBe('<p>hello</p>\n')
+  assert.is(page.excerpt, '<p>hello</p>\n')
 })
 
 test('do not override page excerpt', () => {
@@ -26,7 +28,7 @@ hello
     env
   )
   md.use(excerptPlugin)
-  expect(page.excerpt).toBe('existing')
+  assert.is(page.excerpt, 'existing')
 })
 
 test('disable excerpt', () => {
@@ -40,7 +42,7 @@ hello
   `,
     env
   )
-  expect(page.excerpt).toBe(false)
+  assert.is(page.excerpt, false)
 })
 
 test('<!-- more --> mark', () => {
@@ -61,5 +63,7 @@ wow
   `,
     env
   )
-  expect(page.excerpt).toBe('<p>hello</p>\n<p>world</p>\n')
+  assert.is(page.excerpt, '<p>hello</p>\n<p>world</p>\n')
 })
+
+test.run()

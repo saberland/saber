@@ -78,6 +78,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
+    "@types/babel__traverse": "^7.0.13",
     "@types/fs-extra": "8.0.0",
     "@types/hash-sum": "^1.0.0",
     "@types/js-yaml": "^3.12.5",

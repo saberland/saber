@@ -1,3 +1,5 @@
+import { test } from 'uvu'
+import assert from 'uvu/assert'
 import getPermalink from 'saber/src/utils/getPermalink'
 
 test('use default permalink', () => {
@@ -16,7 +18,7 @@ test('use default permalink', () => {
       },
       {}
     )
-    expect(receivedPermalink).toBe(sample.permalink)
+    assert.is(receivedPermalink, sample.permalink)
   }
 })
 
@@ -38,6 +40,8 @@ test('remove .html extension', () => {
         page: '/:slug'
       }
     )
-    expect(receivedPermalink).toBe(sample.permalink)
+    assert.is(receivedPermalink, sample.permalink)
   }
 })
+
+test.run()

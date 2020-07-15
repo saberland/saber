@@ -1,6 +1,8 @@
+import { test } from 'uvu'
+import assert from 'uvu/assert'
 import Markdown from 'saber-markdown'
 const headingsPlugin = require('saber/src/markdown/headings-plugin')
-import { createMarkdownEnv } from './helpers/create-markdown-env'
+import { createMarkdownEnv } from './__helpers__/create-markdown-env'
 
 const input = `
 # Heading
@@ -18,7 +20,7 @@ test('inject markdown headings enabled by default', () => {
   const { env, page } = createMarkdownEnv()
   md.use(headingsPlugin)
   md.render(input, env)
-  expect(page.markdownHeadings).toEqual([
+  assert.equal(page.markdownHeadings, [
     {
       text: 'Heading',
       slug: 'heading',
@@ -53,5 +55,7 @@ test('inject markdown headings disabled', () => {
   page.markdownHeadings = false
   md.use(headingsPlugin)
   md.render(input, env)
-  expect(page.markdownHeadings).toEqual([])
+  assert.equal(page.markdownHeadings, [])
 })
+
+test.run()

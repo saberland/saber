@@ -3,7 +3,7 @@
   "name": "saber-workspace",
   "scripts": {
     "test": "yarn lint && yarn test:unit",
-    "test:unit": "jest --testPathPattern test/unit/",
+    "test:unit": "uvu -r ts-node/register --ignore \"/(dist|types|integration)/\"",
     "lint": "lerna run lint",
     "commit": "git-cz",
     "prepare": "lerna run prepublishOnly",
@@ -16,17 +16,14 @@
   "author": "egoist<0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^25.2.1",
     "commitizen": "4.0.3",
     "conf": "6.2.4",
     "enquirer": "^2.3.1",
     "eslint": "^6.6.0",
     "husky": "3.0.9",
-    "jest": "^25.3.0",
     "lerna": "3.18.3",
     "lint-staged": "10.2.11",
     "prettier": "1.18.2",
-    "ts-jest": "^25.4.0",
     "typedoc": "^0.17.8",
     "typescript": "^3.9.6"
   },
@@ -50,5 +47,9 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "dependencies": {
+    "ts-node": "^8.10.2",
+    "uvu": "^0.2.2"
+  }
 }
