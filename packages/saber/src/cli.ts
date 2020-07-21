@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-const cac = require('cac')
+import cac from 'cac'
+import registerCommands from './cli-commands'
 
 const cli = cac()
-require('./cli-commands')(cli)
+registerCommands(cli)
 
 cli.option('-V, --verbose', 'Output verbose logs')
 cli.option('--no-progress', 'Disable progress bar')
@@ -22,6 +23,6 @@ process.on('SIGINT', () => {
 
 process.on('unhandledRejection', error => {
   const { log } = require('saber-log')
-  log.error(error.stack)
+  log.error(error)
   process.exitCode = 1
 })
