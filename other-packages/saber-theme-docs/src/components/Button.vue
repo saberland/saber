@@ -25,6 +25,7 @@ export default {
         'bg-theme': !variantColor || variantColor === 'theme',
         'bg-gray-500': variantColor === 'gray',
         'bg-gray-900': variantColor === 'dark',
+        'bg-pink-500': variantColor === 'pink',
         rounded: true,
         'px-5': true,
         'h-12': true,

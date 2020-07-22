@@ -1,8 +1,9 @@
 <template>
   <div>
     <Header />
+    <MobileSidebar />
     <div class="container max-w-2xl mx-auto">
-      <div class="main">
+      <div class="main px-5">
         <h2 class="page-title">Blog</h2>
         <h3 class="text-xl text-gray-500 font-medium mt-4">
           Comprehensive posts written by humans
@@ -31,11 +32,13 @@
 import dayjs from 'dayjs'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
+import MobileSidebar from '../components/MobileSidebar.vue'
 
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    MobileSidebar
   },
 
   props: ['page'],

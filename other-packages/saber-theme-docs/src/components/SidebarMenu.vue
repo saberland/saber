@@ -1,5 +1,5 @@
 <template>
-  <div class="pr-8">
+  <div class="lg:pl-2">
     <div v-for="item in $themeConfig.sidebarMenu" :key="item.title">
       <a v-if="item.link" :href="item.link" class="flex text-sm">{{
         item.title
@@ -12,7 +12,7 @@
           v-for="child in item.children"
           :key="child.title"
           :href="child.link"
-          class="menu-item--link rounded text-base flex text-gray-600 px-2 py-1 -ml-2 hover:text-theme"
+          class="menu-item--link rounded text-base flex text-gray-600 px-2 py-1 -ml-2 hover:text-theme focus:outline-none"
           :class="{ 'is-active': isActiveLink(child.link) }"
         >
           {{ child.title }}

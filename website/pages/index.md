@@ -11,7 +11,7 @@ features:
     details: With Saber's powerful APIs and plugin system, you can customize almost everything.
 ---
 
-<div class="section my-36">
+<div class="section">
   <h2 class="section-title">Who's behind this?</h2>
 
 <a href="https://egoist.sh"><img src="https://github.com/egoist.png" width="100" height="100" class="avatar" /></a>
@@ -32,7 +32,7 @@ features:
 <style scoped>
 .section {
   text-align: center;
-
+  margin-top: 8rem;
 }
   
 .section-title {

@@ -3,12 +3,13 @@
   --sidebar-menu-active-bg: theme('colors.teal.100');
   --code-language-color: inherit;
   --code-span-bg: theme('colors.yellow.50');
+
+  --header-height: theme('height.16');
 }
 
 .main {
-  @apply mt-12;
-  @apply py-12;
-  @apply px-5;
+  margin-top: var(--header-height);
+  @apply py-8;
 }
 
 .saber-highlight {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header />
+    <MobileSidebar />
     <div class="mt-16 py-16">
       <div class="text-center">
         <h1 class="text-5xl font-bold max-w-xl mx-auto leading-none">
@@ -25,7 +26,10 @@
             ></path></svg
           ><span class="ml-2">Getting Started</span></Button
         >
-        <Button variantColor="dark"
+        <Button
+          variantColor="dark"
+          as="saber-link"
+          to="https://github.com/saberland/saber"
           ><svg
             id="i-github"
             xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +45,24 @@
           </svg>
           <span class="ml-2">GitHub</span></Button
         >
+        <Button
+          variantColor="pink"
+          as="saber-link"
+          to="https://github.com/sponsors/egoist"
+          ><svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            width="1em"
+            height="1em"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="ml-2">Sponsor</span></Button
+        >
       </div>
       <HomeFeatures :features="page.features || []" />
       <slot />
@@ -54,13 +76,15 @@ import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 import Button from '../components/Button.vue'
 import HomeFeatures from '../components/HomeFeatures.vue'
+import MobileSidebar from '../components/MobileSidebar.vue'
 
 export default {
   components: {
     Header,
     Footer,
     Button,
-    HomeFeatures
+    HomeFeatures,
+    MobileSidebar
   },
 
   props: ['page'],
