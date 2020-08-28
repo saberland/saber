@@ -25,7 +25,7 @@ You don't need the built-in static server in order to serve a Saber application,
 npx sirv-cli public
 ```
 
-Or [`serve`](https://github.com/zeit/serve):
+Or [`serve`](https://github.com/vercel/serve):
 
 ```bash
 npx serve public
@@ -111,19 +111,19 @@ Finally, make sure GitHub Pages option in your GitHub project settings is set to
 
 ![gh-pages-setting](@/images/gh-pages-setting.png)
 
-## [ZEIT Now](https://zeit.co/now)
+## [Vercel](https://vercel.com/)
 
-[Now](https://zeit.co/docs) offers a simple, single-command deployment. You can use now to deploy your app for free.
+[Vercel](https://vercel.com) is a cloud platform that enables developers to host Jamstack websites and web services that deploy instantly, scale automatically, and requires no supervision, all with zero configuration. They provide a global edge network, SSL encryption, asset compression, cache invalidation, and more.
 
-Now has been optimized for Saber, so the only thing you need to do is to install Now. You can do this by installing [the Now Desktop app](https://zeit.co/download), which also installs Now CLI and keeps it up-to-date, or by installing [Now CLI](https://zeit.co/download#now-cli) directly with npm:
+### Step 1: Deploying your Saber Website to Vercel
 
-```bash
-npm i -g now
-```
+To deploy your Saber app with a [Vercel for Git Integration](https://vercel.com/docs/git-integrations), make sure it has been pushed to a Git repository.
 
-Then run the command `now` in your project, you will be given a `now.sh` URL as a response as your build is deployed, similar to the following: https://my-saber-app-dxcikdrgk.now.sh/. Click or paste the deployment URL into your browser and you will see your deployed app.
+Import the project into Vercel using the [Import Flow](https://vercel.com/import/git). During the import, you will find all relevant options preconfigured for you; however, you can choose to change any of these options, a list of which can be found [here](https://vercel.com/docs/build-step#build-&-development-settings).
 
-Check out [Now for GitHub](https://zeit.co/docs/v2/integrations/now-for-github) and [Now for GitLab](https://zeit.co/docs/v2/integrations/now-for-gitlab/) for continuous intergration.
+After your project has been imported, all subsequent pushes to branches will generate [Preview Deployments](https://vercel.com/docs/platform/deployments#preview), and all changes made to the [Production Branch](https://vercel.com/docs/git-integrations#production-branch) (commonly "main") will result in a [Production Deployment](https://vercel.com/docs/platform/deployments#production).
+
+Once deployed, you will get a URL to see your app live, such as the following: [https://my-saber-app-dxcikdrgk.now.sh/](https://my-saber-app-dxcikdrgk.now.sh/).
 
 ## [Firebase](https://firebase.google.com/)
 
