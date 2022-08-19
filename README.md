@@ -8,15 +8,11 @@ A static website generator built on top of Vue.js and webpack.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
 | <a href="https://circleci.com/gh/saberland/saber/tree/master"><img src="https://badgen.net/circleci/github/saberland/saber/master" alt="CircleCI"></a> | Should work |
 
-🔗 [Website](https://saber.land)
+🔗 [Website](https://saber.egoist.dev/)
 
-📚 [Documentation](https://saber.land/docs)
+📚 [Documentation](https://saber.egoist.dev/docs)
 
-👩‍🏫 [Tutorial](https://saber.land/tutorial/tutorial.html)
-
-💬 [Discord Chat](https://chat.saber.land)
-
-🐉 [Chinese Telegram Group](https://t.me/joinchat/Bc7EQEaeb4Ty0k5wvRNU7Q)
+👩‍🏫 [Tutorial](https://saber.egoist.dev/tutorial/tutorial.html)
 
 ---
 
